@@ -7,13 +7,13 @@ Tablero ciudadano en Astro. Las convenciones generales (idioma, glosario, reglas
 - Astro con TypeScript. `tsconfig.json` extiende de `astro/tsconfigs/strictest`.
 - React solo para las islas interactivas (el explorador de indicadores), en archivos `.tsx`.
 - Observable Plot para los gráficos.
-- pnpm, con la versión declarada en `packageManager` de `package.json`. No uses npm ni yarn para instalar, no generes otro lockfile y no dependas de corepack (ver `docs/decisiones/`).
+- pnpm, con la versión declarada en `packageManager` de `package.json`. No uses npm ni yarn para instalar, no generes otro lockfile y no dependas de corepack (ver `docs/adr/`).
 - Node en la versión de `.node-version`.
 
 ## Acceso a los datos
 
 - **Un solo punto de entrada:** `src/lib/data.ts` es el único archivo que importa desde `../data/outputs`. El resto del sitio usa las funciones que exporta.
-- **Tipos generados:** `src/types/contract.ts` se genera con `mise run contract` desde `data/schema/`. Nunca lo edites a mano. Si un tipo no te sirve, el cambio va en los modelos de Pydantic del pipeline.
+- **Tipos generados:** `src/types/contract.ts` se genera con `pnpm gen:types` (o `mise run contract`, que primero exporta el esquema) desde `data/schema/`, usando `json-schema-to-typescript`. Nunca lo edites a mano. Si un tipo no te sirve, el cambio va en los modelos de Pydantic del pipeline.
 - `astro.config.mjs` incluye `..` en `vite.server.fs.allow` para que el servidor de desarrollo pueda leer `data/outputs/`.
 - El sitio nunca consulta APIs externas, ni en el build ni en el navegador.
 
@@ -52,5 +52,5 @@ Lo único que hace con los datos es darles formato y dibujarlos.
 
 ## Comandos
 
-- `pnpm dev` · `pnpm build` · `pnpm preview`
+- `pnpm dev` · `pnpm build` · `pnpm preview` · `pnpm gen:types`
 - `pnpm astro check`: revisa los tipos, incluidos los archivos `.astro`. Debe pasar antes de cada commit.

@@ -19,12 +19,21 @@ Pipeline en Python que extrae datos de SECOP II y MEData, calcula indicadores es
 |---|---|---|
 | Correr el pipeline desde la copia | `mise run pipeline` | `cd pipeline && uv run veeduria run --from-snapshot` |
 | Actualizar desde las fuentes | `mise run refresh` | `cd pipeline && uv run veeduria run --refresh` |
-| Regenerar el contrato | `mise run contract` | ver `pipeline/CLAUDE.md` |
+| Regenerar el contrato | `mise run contract` | `cd pipeline && uv run veeduria export-schema`, luego `cd web && pnpm gen:types` |
 | Servidor de desarrollo del sitio | `mise run dev` | `cd web && pnpm dev` |
 | Construir y previsualizar el sitio | `mise run build` · `mise run preview` | `cd web && pnpm build` · `pnpm preview` |
-| Todas las verificaciones | `mise run check` | ruff, pytest, `astro check` y build |
+| Todas las verificaciones | `mise run check` | Ver la lista de abajo |
 
-mise es opcional. Todo debe seguir funcionando con los comandos nativos de `instrucciones.txt`, sin mise.
+mise es opcional. Todo debe seguir funcionando con los comandos nativos de `instrucciones.txt`, sin mise. Las tareas de mise solo llaman a `uv run` o `pnpm`; si una tarea necesita lógica, esa lógica va en el pipeline o en un script de `package.json`.
+
+`mise run check` y la integración continua verifican, en este orden:
+
+1. `ruff check` y `ruff format --check` en `pipeline/`.
+2. `pytest` en `pipeline/`, sin las pruebas marcadas `network`.
+3. Que el contrato regenerado no produzca cambios en `git diff` (`docs/adr/0004-contrato-pydantic-json-schema-ts.md`).
+4. Que `pipeline/requirements.txt` coincida con `uv.lock` (`docs/adr/0013-python-con-uv-para-el-pipeline.md`).
+5. Que la versión de pnpm sea la misma en `web/package.json`, `mise.toml` e `instrucciones.txt` (`docs/adr/0003-pnpm-sin-corepack.md`).
+6. `astro check` y `pnpm build` en `web/`.
 
 ## Convención de idioma
 
@@ -62,7 +71,7 @@ Usa siempre estos nombres en el código. Si necesitas un término nuevo, agréga
 
 ## Reglas no negociables
 
-1. **Privacidad.** Ninguna columna entra a `data/snapshot/` ni a `data/outputs/` si no está en `pipeline/sources.toml`. Nunca agregues a la lista blanca datos de personas naturales, funcionarios, supervisores ni cuentas bancarias. Nunca escribas datos personales en logs, fixtures ni mensajes de error.
+1. **Privacidad.** `data/raw/` está en `.gitignore` desde el primer commit, antes de descargar cualquier dato. Ninguna columna entra a `data/snapshot/` ni a `data/outputs/` si no está en `pipeline/sources.toml`. Nunca agregues a la lista blanca datos de personas naturales, funcionarios, supervisores ni cuentas bancarias. Nunca escribas datos personales en logs, fixtures ni mensajes de error.
 2. **El dominio vive en Python.** `web/` no calcula, no filtra por reglas de negocio ni aplica supresión. Si una cifra aparece en el tablero, sale tal cual de `data/outputs/`.
 3. **Determinismo.** Con la misma copia, el pipeline produce exactamente la misma salida. La fecha de corte sale de los datos, nunca del reloj. Ordena siempre antes de escribir.
 4. **Trazabilidad.** Cada regla de negocio cita su identificador (R1–R17) y cada indicador el suyo (I1–I8), según `docs/reglas.md` y `docs/indicadores.md`, en el nombre del archivo, de la prueba o en un comentario.

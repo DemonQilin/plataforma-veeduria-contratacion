@@ -1,56 +1,98 @@
-# web/
+# pipeline/
 
-Tablero ciudadano en Astro. Las convenciones generales (idioma, glosario, reglas no negociables) están en el `CLAUDE.md` de la raíz.
+Pipeline de datos en Python. Las convenciones generales (idioma, glosario, reglas no negociables) están en el `CLAUDE.md` de la raíz.
 
 ## Stack
 
-- Astro con TypeScript. `tsconfig.json` extiende de `astro/tsconfigs/strictest`.
-- React solo para las islas interactivas (el explorador de indicadores), en archivos `.tsx`.
-- Observable Plot para los gráficos.
-- pnpm, con la versión declarada en `packageManager` de `package.json`. No uses npm ni yarn para instalar, no generes otro lockfile y no dependas de corepack (ver `docs/adr/`).
-- Node en la versión de `.node-version`.
+- Python en la versión de `.python-version`, gestionado con `uv`. Dependencias en `pyproject.toml` y `uv.lock`.
+- `duckdb` para transformar: consolidación, cruces y agregaciones.
+- `httpx` y `tenacity` para la extracción, con tiempos de espera y reintentos.
+- `ftfy` para reparar la codificación de MEData. Solo `ftfy.fix_encoding`, nunca `fix_text`: con su configuración por defecto, `fix_text` también cambia comillas tipográficas y otros caracteres, y alteraría los datos.
+- `pydantic` para los modelos del contrato de salida.
+- `typer` para la CLI.
+- `pytest` y `ruff`.
 
-## Acceso a los datos
+No agregues pandas ni Polars: DuckDB es el único motor de transformación (ver `docs/adr/`).
 
-- **Un solo punto de entrada:** `src/lib/data.ts` es el único archivo que importa desde `../data/outputs`. El resto del sitio usa las funciones que exporta.
-- **Tipos generados:** `src/types/contract.ts` se genera con `mise run contract` desde `data/schema/`. Nunca lo edites a mano. Si un tipo no te sirve, el cambio va en los modelos de Pydantic del pipeline.
-- `astro.config.mjs` incluye `..` en `vite.server.fs.allow` para que el servidor de desarrollo pueda leer `data/outputs/`.
-- El sitio nunca consulta APIs externas, ni en el build ni en el navegador.
+## Estructura
 
-## Qué no hace el tablero
+```
+pipeline/
+├── sources.toml          # conjuntos, filtros y lista blanca de columnas: fuente única
+├── reference/            # tablas curadas a mano: calendario electoral, catálogos
+├── src/veeduria/
+│   ├── cli.py            # veeduria run --from-snapshot | --refresh · veeduria export-schema
+│   ├── extract/          # única etapa que usa la red; escribe data/snapshot/
+│   ├── normalize/        # codificación, tipos, catálogos, renombre según el glosario
+│   ├── consolidate/      # un contrato por referencia, un proceso por portafolio
+│   ├── link/             # cruces por las llaves validadas
+│   ├── indicators/       # I1 a I8
+│   └── publish/          # modelos del contrato, supresión y escritura de data/outputs/
+└── tests/
+```
 
-- No calcula ni recalcula indicadores, proporciones ni totales.
-- No filtra por reglas de negocio ni aplica la supresión de celdas pequeñas: eso ya viene resuelto en `data/outputs/`. Las celdas suprimidas llegan marcadas y se muestran como «datos insuficientes».
-- No muestra contratos individuales ni nombres de personas. Solo proveedores que son personas jurídicas, y solo en el indicador de concentración (I4).
+## Etapas
 
-Lo único que hace con los datos es darles formato y dibujarlos.
+- **Solo `extract/` usa la red.** Todo lo que sigue lee de `data/snapshot/`, para que `--from-snapshot` funcione sin conexión.
+- **`data/snapshot/` guarda valores crudos.** Solo columnas de la lista blanca, sin normalizar y en CSV UTF-8. La normalización ocurre después, para que el jurado reproduzca todas las reglas.
+- **`manifest.json`** se escribe solo con `--refresh`: identificador del conjunto, URL, consulta, número de filas, SHA-256, fecha de extracción y fecha de corte.
+- **Falla segura:** cada ejecución escribe en un directorio temporal y lo mueve a `data/outputs/` solo si todo terminó bien. Nunca dejes una salida a medias.
 
-## Gráficos
+## Extracción
 
-- Los gráficos de la historia se renderizan como SVG en el build, sin JavaScript en el navegador. Observable Plot necesita un DOM en el servidor: se le pasa con la opción `document` (la librería exacta queda en un ADR).
-- Solo el explorador renderiza en el navegador, como isla de React con `client:visible`.
-- Cada gráfico lleva una frase que dice qué muestra, una descripción en texto y su tabla de datos accesible.
+- **SECOP II (Socrata):** pide siempre el endpoint CSV (`/resource/<id>.csv`), porque el JSON omite los campos nulos.
+  - Nunca uses `$select=*`. Construye el `$select` desde `sources.toml`.
+  - Pagina siempre con `$limit`, `$offset` y un `$order` estable. Sin `$limit`, la API corta en 1.000 filas sin avisar.
+  - Filtra en el `$where`, no en Python: entidad por nombre exacto (R1) y rango de fechas.
+  - Adiciones no tiene campo de entidad: consúltala con `id_contrato in (...)` en lotes de 200.
+  - El token de aplicación se lee de la variable de entorno `SOCRATA_APP_TOKEN` si existe. Es opcional.
+  - Al terminar, compara las filas recibidas con un `count(*)` de la misma consulta. Si no coinciden, falla sin escribir la copia.
+- **MEData · Ejecución contractual:** descarga el CSV completo a `data/raw/`, que está fuera de git.
+  - El parser propio vive en `extract/` porque hay que separar las columnas para descartar los datos personales antes de escribir la copia.
+  - Las filas truncadas después de la columna 28 se aceptan, se completan con vacíos y se marcan con la columna `truncated`.
+  - Una fila con un número de columnas inesperado detiene la extracción. El error indica el número de línea, nunca su contenido, porque puede tener datos personales.
+- **MEData · Plan Anual de Adquisiciones:** se pide por la API SQL del portal, que da errores 504. Como el conjunto ya no se actualiza, `--refresh` solo lo vuelve a pedir si se fuerza.
 
-## Formato y textos
+## Transformación con DuckDB
 
-- Todos los textos visibles están en español, con lenguaje ciudadano y según la guía de lenguaje de `docs/producto.md`.
-- Números y fechas con `Intl.NumberFormat` y `Intl.DateTimeFormat` en `es-CO`. Formatea en un solo módulo (`src/lib/format.ts`), no en cada componente.
-- Toda cifra muestra su base: «52 % de 1.390 contratos», no un porcentaje suelto.
-- Cada indicador muestra la fecha de corte y su n.
+- **Una regla por archivo SQL**, con el identificador en el nombre: `consolidate/r03_canonical_contract.sql`. La primera línea es un comentario en español que resume la regla y remite a `docs/reglas.md`.
+- El SQL vive en archivos `.sql`, no en strings de Python. Los valores se pasan con parámetros de DuckDB, nunca con formateo de strings.
+- La copia se lee como texto (`read_csv` con `all_varchar = true`) y los tipos se asignan de forma explícita en `normalize/`.
+- La reparación de codificación (`ftfy.fix_encoding`) ocurre en `normalize/`, antes del mapeo a catálogos.
+- La base de DuckDB vive en memoria. Para depurar se puede escribir en un archivo dentro de `data/raw/`, nunca en otra carpeta.
+- Los catálogos y el calendario electoral se leen de `reference/` (R10). No se infieren de los datos.
 
-## Publicación en GitHub Pages
+## Determinismo
 
-- El sitio vive bajo una ruta base (`/<repo>/`). `site` y `base` se configuran en `astro.config.mjs`.
-- Todos los enlaces internos y recursos se construyen con `import.meta.env.BASE_URL`. Nunca escribas rutas absolutas como `/secretarias/...`.
-- Durante el concurso, el sitio lleva `noindex` en todas las páginas y un `robots.txt` que bloquea la indexación.
-- Etiquetas Open Graph en todas las páginas, incluidas las de cada secretaría.
+- Todo `SELECT` cuyo resultado termina en un archivo lleva `ORDER BY` completo.
+- Redondeo explícito en `publish/`. JSON con llaves ordenadas y separadores fijos.
+- La fecha de corte es la fecha de firma más reciente en la copia (R12). No uses la fecha actual en ninguna salida de `data/outputs/`.
 
-## Diseño
+## Contrato con el tablero
 
-- Primero el celular: diseña para pantallas angostas y amplía después.
-- Las páginas de la historia no cargan JavaScript, salvo el explorador.
+- Los modelos de Pydantic de `publish/` son la fuente de verdad del contrato.
+- `uv run veeduria export-schema` exporta `data/schema/*.json`; luego `pnpm gen:types`, en `web/`, regenera `web/src/types/contract.ts`. `mise run contract` encadena ambos. La integración continua falla si eso produce cambios.
+- Si cambias un modelo, regenera el contrato y ajusta `web/src/lib/data.ts` en el mismo commit.
+- La supresión de celdas con menos de 5 contratos (R13) se aplica en `publish/`, antes de escribir. El tablero nunca recibe una cifra sin suprimir.
+
+## Pruebas
+
+- Los nombres citan la regla o el indicador: `test_r03_first_signed_date_wins`, `test_i2_window_2022`.
+- **Catálogos:** cada texto crudo conocido cae en su categoría y uno desconocido cae en «Otra».
+- **Golden:** cifras conocidas, como 723 contratos en SECOP II frente a 727 en MEData para enero de 2022.
+- **Privacidad:** se escribe antes que la extracción y verifica que:
+  - las columnas de cada CSV de `data/snapshot/` están en la lista permitida de `sources.toml`;
+  - ninguna columna excluida en `sources.toml` aparece en `data/snapshot/` ni en `data/outputs/`;
+  - las listas permitida y excluida no se cruzan;
+  - `data/raw/` está ignorado por git;
+  - ninguna celda publicada tiene menos de 5 contratos.
+- **Fixtures:** filas reales recortadas, con nombres y documentos reemplazados por valores falsos antes de guardarlas. El repositorio es público.
+- Las pruebas no usan la red. Las que la necesitan llevan la marca `network` y se excluyen por defecto.
 
 ## Comandos
 
-- `pnpm dev` · `pnpm build` · `pnpm preview`
-- `pnpm astro check`: revisa los tipos, incluidos los archivos `.astro`. Debe pasar antes de cada commit.
+- `uv run pytest` · `uv run pytest -m network` (solo cuando haga falta)
+- `uv run ruff check` · `uv run ruff format`
+- `uv run veeduria run --from-snapshot` · `uv run veeduria run --refresh`
+- `uv run veeduria export-schema` después de cambiar un modelo de `publish/`
+- `uv export --format requirements-txt > requirements.txt` después de cambiar dependencias; la integración continua verifica que coincida con `uv.lock`
