@@ -1,0 +1,169 @@
+# Lista blanca de columnas: fuente única (ADR 0007).
+# Debe coincidir con docs/fuentes.md §8; se cambian juntos, en el mismo commit.
+# `allowed` es lo único que se pide o conserva; `excluded` es la segunda red de las pruebas.
+
+[[queries]]
+id = "secop_contracts"
+dataset = "jbjy-vk9h"
+kind = "socrata"
+url = "https://www.datos.gov.co/resource/jbjy-vk9h.csv"
+where = "nombre_entidad = 'DISTRITO ESPECIAL DE CIENCIA TECNOLOGIA E INNOVACION DE MEDELLIN' AND fecha_de_firma >= '2022-01-01T00:00:00'"
+order_by = "id_contrato"
+allowed = [
+    "id_contrato",
+    "referencia_del_contrato",
+    "proceso_de_compra",
+    "nombre_entidad",
+    "modalidad_de_contratacion",
+    "justificacion_modalidad_de",
+    "tipo_de_contrato",
+    "fecha_de_firma",
+    "fecha_de_inicio_del_contrato",
+    "fecha_de_fin_del_contrato",
+    "valor_del_contrato",
+    "dias_adicionados",
+    "estado_contrato",
+    "tipodocproveedor",
+    "codigo_de_categoria_principal",
+    "urlproceso",
+]
+excluded = [
+    "nombre_supervisor",
+    "tipo_de_documento_supervisor",
+    "n_mero_de_documento_supervisor",
+    "nombre_ordenador_del_gasto",
+    "tipo_de_documento_ordenador_del_gasto",
+    "n_mero_de_documento_ordenador_del_gasto",
+    "nombre_ordenador_de_pago",
+    "tipo_de_documento_ordenador_de_pago",
+    "n_mero_de_documento_ordenador_de_pago",
+    "nombre_representante_legal",
+    "tipo_de_identificaci_n_representante_legal",
+    "identificaci_n_representante_legal",
+    "domicilio_representante_legal",
+    "g_nero_representante_legal",
+    "nombre_del_banco",
+    "tipo_de_cuenta",
+    "n_mero_de_cuenta",
+]
+
+# Segunda consulta: el nombre y el documento del proveedor solo se piden cuando
+# es persona jurídica (NIT). Los de personas naturales nunca se piden.
+[[queries]]
+id = "secop_contracts_suppliers"
+dataset = "jbjy-vk9h"
+kind = "socrata"
+url = "https://www.datos.gov.co/resource/jbjy-vk9h.csv"
+where = "nombre_entidad = 'DISTRITO ESPECIAL DE CIENCIA TECNOLOGIA E INNOVACION DE MEDELLIN' AND fecha_de_firma >= '2022-01-01T00:00:00' AND tipodocproveedor = 'NIT'"
+order_by = "id_contrato"
+allowed = [
+    "id_contrato",
+    "documento_proveedor",
+    "proveedor_adjudicado",
+]
+excluded = [
+    "nombre_supervisor",
+    "nombre_ordenador_del_gasto",
+    "nombre_ordenador_de_pago",
+    "nombre_representante_legal",
+    "n_mero_de_cuenta",
+]
+
+[[queries]]
+id = "secop_procurement_processes"
+dataset = "p6dx-8zbt"
+kind = "socrata"
+url = "https://www.datos.gov.co/resource/p6dx-8zbt.csv"
+# Nombre de la entidad verificado en Procesos el 30 oct 2026: 23.400 filas.
+where = "entidad = 'DISTRITO ESPECIAL DE CIENCIA TECNOLOGIA E INNOVACION DE MEDELLIN'"
+order_by = "id_del_portafolio,id_del_proceso"
+allowed = [
+    "id_del_portafolio",
+    "id_del_proceso",
+    "nit_entidad",
+    "entidad",
+    "modalidad_de_contratacion",
+    "tipo_de_contrato",
+    "fecha_de_publicacion_del",
+    "fecha_de_recepcion_de",
+    "precio_base",
+    "valor_total_adjudicacion",
+    "respuestas_al_procedimiento",
+    "proveedores_unicos_con",
+    "adjudicado",
+    "nombre_de_la_unidad_de",
+]
+excluded = [
+    "nombre_del_adjudicador",
+]
+
+# Adiciones no tiene campo de entidad: se consulta con `id_contrato in (...)`,
+# en lotes de 200, sobre los contratos del Distrito. `where` queda vacío a propósito.
+[[queries]]
+id = "secop_additions"
+dataset = "cb9c-h8sn"
+kind = "socrata"
+url = "https://www.datos.gov.co/resource/cb9c-h8sn.csv"
+where = ""
+order_by = "id_contrato,fecharegistro"
+allowed = [
+    "id_contrato",
+    "tipo",
+    "fecharegistro",
+]
+excluded = [
+    "descripcion",
+]
+
+# MEData solo se descarga completo: el archivo queda en data/raw/ (fuera de git)
+# y el parser conserva únicamente `allowed` antes de escribir la copia.
+[[queries]]
+id = "medata_contract_execution"
+dataset = "1-028-12-000088"
+kind = "medata_csv"
+url = "https://medata.app.medellin.gov.co/dataset/1-028-12-000088"
+where = ""
+order_by = "contrato"
+allowed = [
+    "contrato",
+    "fecha_contrato",
+    "modalidad",
+    "causal",
+    "nombre_secretaria",
+    "nombre_programa",
+    "valor_inicial_contrato",
+    "valor_total_adic_contrato",
+    "valor_fin_contrato",
+    "duracion_en_dias",
+    "estado",
+    "ano",
+]
+excluded = [
+    "contratista",
+    "cc_nit",
+    "supervisor_interventor",
+    "nit_ced_sup_interv",
+]
+
+# Se pide por la API SQL del portal (/api/1/datastore/sql).
+[[queries]]
+id = "medata_procurement_plan"
+dataset = "1-028-11-000089"
+kind = "medata_sql"
+url = "https://medata.app.medellin.gov.co/dataset/1-028-11-000089"
+where = ""
+order_by = "ano,fecha_estimada_inicio"
+allowed = [
+    "ano",
+    "fecha_estimada_inicio",
+    "modalidad_seleccion",
+    "valor_total_estimado",
+    "unidad_de_contratacion",
+    "codigos_unspsc",
+]
+excluded = [
+    "nombre_del_responsable",
+    "telefono_del_responsable",
+    "correo_del_responsable",
+    "descripcion",
+]
