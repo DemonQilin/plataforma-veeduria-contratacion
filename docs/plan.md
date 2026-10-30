@@ -241,6 +241,9 @@ por encima de los años sin restricción.
 - MEData Plan anual de adquisiciones histórico · 1-028-11-000089 · [enlace] · CC BY 4.0
 - Calendario de la Ley de Garantías: tabla propia con fuentes citadas
 - Copia de los datos usados: data/snapshot/ (sin datos personales)
+  Los archivos son CSV en UTF-8. Para abrirlos en Excel en Windows, use
+  Datos > Desde texto/CSV; si se abren con doble clic, las tildes pueden
+  verse mal.
 
 7. USO DE IA
 [texto de docs/producto.md, sección 4.6]
@@ -273,5 +276,7 @@ Después del pitch el jurado ajusta el puntaje con la rúbrica y no suma puntos 
 | Plantilla oficial de `guia_entrega.pdf` | Solicitarla en la charla o por correo | Antes del 4 nov |
 | Licencia de los conjuntos de SECOP II | Metadatos de datos.gov.co | 31 oct |
 | Nombre exacto de la entidad en SECOP II Procesos | Consulta a la API antes de fijar el filtro | 31 oct |
+| Token de aplicación de datos.gov.co | Crearlo y guardarlo como *secret* `SOCRATA_APP_TOKEN` en GitHub | 31 oct |
+| Activar la ejecución semanal programada | Agregar el disparador `schedule` a `publish.yml` (ADR 0008) | Después del 12 nov |
 | Fechas de la restricción de las locales de 2023 | Verificar con fuente oficial | Antes del 3 nov |
 | Nombre del equipo | Decisión del equipo | 30 oct |
