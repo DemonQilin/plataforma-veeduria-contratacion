@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "chrome-devtools": {
+      "type": "stdio",
+      "command": "pnpm",
+      "args": [
+        "exec",
+        "chrome-devtools-mcp",
+        "--incognito"
+      ]
+    }
+  }
+}
