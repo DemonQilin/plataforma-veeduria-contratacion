@@ -1,0 +1,68 @@
+INSTRUCCIONES - Veeduría de contratación de la Alcaldía de Medellín
+Equipo: [nombre] · Hackathon de Datos 2026
+
+1. QUÉ ES
+Tablero ciudadano que muestra cómo la Alcaldía de Medellín concentra su
+contratación directa alrededor de la Ley de Garantías, con indicadores
+estándar de riesgo en compras públicas, a partir de SECOP II y MEData.
+
+2. PROBARLO EN LÍNEA
+[enlace de GitHub Pages]
+
+3. ENTORNO
+- Python 3.13 (fijada en pipeline/.python-version), instalado por uv 0.12.5
+- Node.js 26.13.0 (fijada en web/.node-version) y pnpm 12.16.1,
+  solo para reconstruir el tablero
+- Dependencias con versión:
+  pipeline/pyproject.toml y pipeline/uv.lock
+  (alternativa para pip: pipeline/requirements.txt)
+  web/package.json y web/pnpm-lock.yaml
+
+4. EJECUTARLO
+Opción A (recomendada): requiere uv y Node.js
+  cd pipeline
+  uv sync
+  uv run veeduria run --from-snapshot
+  cd ../web
+  npx --yes pnpm@12.16.1 install --frozen-lockfile
+  npx --yes pnpm@12.16.1 build
+  npx --yes pnpm@12.16.1 preview
+
+Opción B (un solo instalador, versiones exactas): requiere mise
+  mise trust
+  mise install
+  mise run pipeline
+  mise run build
+  mise run preview
+
+Opcional, actualizar los datos desde las fuentes oficiales:
+  cd pipeline
+  uv run veeduria run --refresh
+
+5. QUÉ DEBE VER
+En la portada del tablero, la frase del hallazgo con su cifra:
+"[frase final del hallazgo]".
+En la pantalla 4, las barras de concentración por año, con 2022 y 2026
+por encima de los años sin restricción.
+
+6. DATOS Y FUENTES
+- SECOP II Contratos Electrónicos · jbjy-vk9h · https://www.datos.gov.co/resource/jbjy-vk9h.json · CC BY-SA 4.0
+- SECOP II Procesos de Contratación · p6dx-8zbt · https://www.datos.gov.co/resource/p6dx-8zbt.json · CC BY-SA 4.0
+- SECOP II Adiciones · cb9c-h8sn · https://www.datos.gov.co/resource/cb9c-h8sn.json · CC BY-SA 4.0
+- MEData Ejecución contractual histórico · 1-028-12-000088 · https://medata.app.medellin.gov.co/dataset/1-028-12-000088 · CC BY 4.0
+- MEData Plan anual de adquisiciones histórico · 1-028-11-000089 · https://medata.app.medellin.gov.co/dataset/1-028-11-000089 · CC BY 4.0
+- Calendario de la Ley de Garantías: tabla propia con fuentes citadas
+- Copia de los datos usados: data/snapshot/ (sin datos personales)
+  Los archivos son CSV en UTF-8. Para abrirlos en Excel en Windows, use
+  Datos > Desde texto/CSV; si se abren con doble clic, las tildes pueden
+  verse mal.
+
+7. USO DE IA
+Se usó Claude (Anthropic) para investigar fuentes y metodología, validar la
+estructura de los conjuntos de datos, redactar la documentación de diseño y
+asistir en la escritura de código con Claude Code. Las decisiones de diseño,
+el análisis y los resultados fueron revisados por el equipo, que puede
+explicar cada parte de la solución.
+
+8. CONTACTO
+[nombre y correo del líder]

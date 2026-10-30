@@ -42,3 +42,14 @@ def test_export_schema_is_idempotent(tmp_path) -> None:
     schema = json.loads(written)
     assert schema["title"] == "Metadata"
     assert "cutoff_date" in schema["properties"]
+
+
+def test_export_schema_removes_schemas_without_a_model(tmp_path) -> None:
+    stale = tmp_path / "removed_model.json"
+    stale.write_text("{}", encoding="utf-8")
+
+    result = runner.invoke(app, ["export-schema", "--output-dir", str(tmp_path)])
+
+    assert result.exit_code == 0
+    assert not stale.exists()
+    assert (tmp_path / "metadata.json").exists()

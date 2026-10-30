@@ -1,0 +1,70 @@
+# Los comandos de la opción A de instrucciones.txt y los de mise deben coincidir con estos
+# (docs/adr/0002). Si cambias uno, cambia el otro.
+name: ci
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  native:
+    name: nativo (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: astral-sh/setup-uv@v10.3.3
+        with:
+          version: "0.12.5"
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version-file: web/.node-version
+      - uses: pnpm/action-setup@v6.1.0
+        with:
+          package_json_file: web/package.json
+
+      - name: Pipeline · ruff
+        working-directory: pipeline
+        run: |
+          uv run ruff check
+          uv run ruff format --check
+      - name: Pipeline · pytest
+        working-directory: pipeline
+        run: uv run pytest
+
+      # Opción A de instrucciones.txt
+      - name: Opción A · pipeline
+        working-directory: pipeline
+        run: |
+          uv sync
+          # Se activa cuando exista la primera copia de datos (data/snapshot/manifest.json).
+          if [ -f ../data/snapshot/manifest.json ]; then uv run veeduria run --from-snapshot; fi
+      - name: Opción A · tablero
+        working-directory: web
+        run: |
+          npx --yes pnpm@12.16.1 install --frozen-lockfile
+          npx --yes pnpm@12.16.1 build
+
+      - name: Sin deriva (contrato, requirements.txt y versiones)
+        working-directory: web
+        run: pnpm check:drift
+      - name: Tipos del tablero
+        working-directory: web
+        run: pnpm astro check
+
+  mise:
+    name: opción B (mise)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: jdx/mise-action@v5.2.4
+      - run: mise run check

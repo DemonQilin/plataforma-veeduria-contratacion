@@ -35,8 +35,14 @@ CONTRACT_MODELS: dict[str, type[BaseModel]] = {
 
 
 def export_schemas(output_dir: Path) -> list[Path]:
-    """Escribe un JSON Schema por modelo, con llaves ordenadas y finales de línea LF."""
+    """Escribe un JSON Schema por modelo, con llaves ordenadas y finales de línea LF.
+
+    Borra los esquemas que ya no tienen modelo, para que el contrato no conserve restos.
+    """
     output_dir.mkdir(parents=True, exist_ok=True)
+    for stale in output_dir.glob("*.json"):
+        if stale.stem not in CONTRACT_MODELS:
+            stale.unlink()
     written: list[Path] = []
     for name, model in sorted(CONTRACT_MODELS.items()):
         schema = json.dumps(model.model_json_schema(), indent=2, sort_keys=True, ensure_ascii=False)

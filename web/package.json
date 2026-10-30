@@ -11,7 +11,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "gen:types": "node scripts/gen-types.mjs",
-    "check": "astro check"
+    "check": "astro check",
+    "check:drift": "node scripts/check-drift.mjs"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.12",
