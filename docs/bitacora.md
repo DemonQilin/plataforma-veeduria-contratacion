@@ -1,0 +1,109 @@
+# Bitácora
+
+Registro de lo que se observó al explorar los datos, con su fecha y sus cifras. Las entradas más recientes van arriba.
+
+Las decisiones que salen de estas observaciones no se registran aquí: pasan a [`reglas.md`](reglas.md), [`indicadores.md`](indicadores.md), [`fuentes.md`](fuentes.md) o [`adr/`](adr/). Una entrada antigua no se corrige: si una cifra cambia, se agrega una entrada nueva que lo explica.
+
+---
+
+## Preguntas abiertas
+
+| Pregunta | Desde | Cómo se resuelve |
+|---|---|---|
+| ¿`valor_del_contrato` de SECOP II ya incluye las adiciones? | 29 oct | Comparar contra `valor_fin_contrato` de MEData en contratos con adición |
+| ¿Qué es el 11 % de contratos de MEData que no cruza con SECOP II? | 29 oct | Revisar formatos de referencia y buscar en la Tienda Virtual del Estado |
+| ¿El repunte de junio de 2023 y la caída de julio tienen relación con la restricción de convenios por las locales? | 29 oct | Separar interadministrativos del resto y comparar contra el calendario |
+| ¿Las fechas de la restricción de las locales de 2023 son las estimadas? | 29 oct | Fuente oficial |
+| ¿El nombre de la entidad en SECOP II Procesos coincide con el de Contratos? | 30 oct | Consulta a la API |
+
+---
+
+## 30 oct 2026 · Decisiones técnicas y consulta a los organizadores
+
+- Se definieron la estructura del repositorio, las herramientas y la convención de idioma. Quedan registradas en [`adr/`](adr/).
+- Correo a los organizadores (envío programado para las 9:00 a. m.) con cinco preguntas: tratamiento de datos de proveedores personas jurídicas y naturales, si el uso de «Ejecución contractual histórico» cumple el requisito de integrar MEData, si SECOP II filtrado por el Distrito cuenta como fuente admitida, si hay lineamientos para publicar indicadores de riesgo sobre entidades públicas, y la descripción de los niveles de la rúbrica. Respuesta pendiente.
+
+---
+
+## 29 oct 2026 · Validación de las fuentes
+
+### SECOP II · Contratos
+
+- El NIT `890905211` aparece en registros del Distrito, del Concejo y de la Personería. Filtrar por nombre exacto de la entidad resuelve la ambigüedad.
+- El Distrito tiene entre 1.300 y 1.700 contratos por año desde 2018.
+- `referencia_del_contrato` coincide con el número de contrato de MEData. Verificado primero con tres contratos de enero de 2022 y luego a escala.
+- Una misma referencia puede tener varios `id_contrato`, por modificaciones o envíos al proveedor.
+- Conviven «Contratación directa» y «Contratación Directa (con ofertas)».
+- Un solo contrato de operación de crédito público de 2025 vale 503 mil millones de pesos.
+- El conjunto de Adiciones (`cb9c-h8sn`) solo trae tipo, descripción y fecha, sin montos.
+
+### SECOP II · Procesos
+
+- `proveedores_unicos_con` está poblado. Aparecen procesos competitivos adjudicados con un solo oferente.
+- El cruce con Contratos funciona por `id_del_portafolio` = `proceso_de_compra`, no por `id_del_proceso`.
+- Las filas se repiten por lote o adjudicación.
+- El Distrito tiene entre 3.000 y 4.100 procesos por año desde 2020.
+
+### MEData · Ejecución contractual histórico
+
+- Última modificación el 06-12-2023. CSV de 26,7 MB y 25.783 filas.
+- Cada fila es una línea presupuestal, no un contrato. Hay 2.939 contratos únicos firmados del 4 ene 2022 al 30 jun 2023 (1.730 de 2022 y 1.209 de 2023), de 28 secretarías.
+- 2.628 de los 2.939 contratos (89 %) aparecen en SECOP II por `referencia_del_contrato`.
+- 2.083 filas (8 %) vienen cortadas en origen después de la columna 28.
+- Cada línea viene envuelta en comillas, con comillas escapadas de forma irregular dentro.
+- Las tildes están rotas por doble codificación UTF-8, y la vista previa del portal carga el CSV en una sola columna.
+- Contiene nombre y cédula del contratista y del supervisor.
+
+### MEData · Plan anual de adquisiciones histórico
+
+- 18.764 líneas planeadas, vigencias 2014 a 2023; 27 unidades en 2022. Última modificación en sep 2023.
+- La API SQL del portal respondió con errores 504 de forma intermitente.
+- Modalidad y mes vienen escritos de muchas formas («Contratacion Directa», «contratacion directa», «concurso de m eritos», «mnima cuanta»).
+- Contratación directa planeada con inicio estimado en enero: 46 % (2014), 57 % (2018) y 52 % (2022), frente a 24–34 % en 2016, 2017, 2020 y 2021. Con inicio de febrero a junio: 15 %, 16 % y 8 %, frente a 35–46 %.
+- En 2019, último año de una administración, el 66 % de la contratación directa planeada tenía inicio en enero.
+- Para enero de 2022 había 726 contratos directos planeados.
+
+---
+
+## 29 oct 2026 · Primer vistazo a la contratación directa del Distrito
+
+*Preliminar, sin consolidar.* Contratos de contratación directa firmados por el Distrito en SECOP II, por mes. Datos al 29 oct 2026; 2026 llega hasta octubre. ⚑ = año con restricción presidencial a la contratación directa.
+
+| Año | Ene | Feb | Mar | Abr | May | Jun | Jul | Ago | Sep | Oct | Nov | Dic | Total |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 2021 | 184 | 285 | 157 | 78 | 69 | 106 | 123 | 96 | 84 | 106 | 88 | 71 | 1.447 |
+| 2022 ⚑ | **723** | 2 | 2 | 0 | 1 | 19 | 117 | 172 | 150 | 62 | 118 | 24 | 1.390 |
+| 2023 | 375 | 192 | 127 | 102 | 106 | **173** | 35 | 74 | 74 | 32 | 29 | 56 | 1.375 |
+| 2024 | 196 | 169 | 77 | 112 | 66 | 45 | 68 | 111 | 48 | 46 | 31 | 17 | 986 |
+| 2025 | 410 | 171 | 118 | 79 | 69 | 67 | 56 | 59 | 56 | 66 | 36 | 5 | 1.192 |
+| 2026 ⚑ | **709** | 0 | 0 | 0 | 4 | 16 | 142 | 90 | 79 | 39 | – | – | 1.079 |
+
+- En 2022 y 2026, enero concentra 723 y 709 contratos, y de febrero a junio la cifra cae casi a cero mientras rige la restricción.
+- En los años de control, enero tuvo 196 (2024) y 410 (2025).
+- En 2023 hay un repunte en junio (173) y una caída en julio (35), justo antes de la restricción por las elecciones locales.
+- Proporción del año firmada en enero: 52 % (2022), 27 % (2023), 20 % (2024), 34 % (2025) y 66 % (2026, sobre enero a octubre).
+
+**Contraste con MEData (todas las modalidades, contratos únicos, 2022):** enero 727 · febrero 4 · marzo 20 · abril 24 · mayo 39 · junio 91 · julio 145. La fuente del Distrito reproduce el mismo patrón que SECOP II.
+
+Es una señal fuerte, todavía no un hallazgo. Falta consolidar, separar prestación de servicios de otros tipos y comparar contra los años de control con la metodología de [`indicadores.md`](indicadores.md).
+
+---
+
+## 29 oct 2026 · Volumen de las instituciones universitarias
+
+Fuera del alcance del MVP. Se registra como contexto para una siguiente etapa.
+
+- El Distrito firma entre 1.300 y 1.700 contratos al año en SECOP II. El ITM pasó de 5.582 contratos en 2022 a 19.225 en 2025, y en 2025 casi todos (18.803) fueron con personas naturales. Pascual Bravo y Colegio Mayor también tienen volúmenes altos.
+- Una hipótesis es que parte de la contratación del Distrito se ejecute a través de contratos interadministrativos con sus instituciones universitarias. **No está verificada.**
+- En MEData (ene 2022 – jun 2023), el Distrito firmó 407 contratos interadministrativos en 18 meses. Entre las contrapartes con más contratos están la Universidad de Antioquia (62), Metroparques (45), Plaza Mayor (36), el ITM (34), Metrosalud (33), Pascual Bravo (29) y Colegio Mayor (19). Esto confirma que el canal existe, pero no dice cuánto de la contratación de esas instituciones viene del Distrito.
+- Calendario de los interadministrativos: ninguno entre enero y mayo de 2022, 61 en julio de 2022 (justo después de la segunda vuelta) y 47 en junio de 2023, el mes previo a la restricción de convenios por las elecciones locales. Este patrón también encaja con el repunte de junio de 2023 en SECOP II.
+
+---
+
+## 29 oct 2026 · Precedente nacional de la Ley de Garantías
+
+- En la víspera de la restricción de 2022, Colombia Compra Eficiente reportó cerca de 32.000 contratos en SECOP II en un solo día, frente a un máximo previo de unos 6.400, y la mitad de los procesos del periodo se concentró en los últimos siete días.
+- Un profesor del Externado matizó que parte del efecto venía de que la restricción se corrió de noviembre a enero.
+- Enero es también el mes de renovación anual de los contratos de prestación de servicios, así que un pico en enero no prueba nada por sí solo. Esto definió la metodología de comparación contra años de control.
+
+Fuente: [Portafolio · En víspera de Ley de Garantías se quintuplicó la contratación](https://www.portafolio.co/economia/en-vispera-a-ley-de-garantias-se-quintuplico-la-contratacion-561050).
