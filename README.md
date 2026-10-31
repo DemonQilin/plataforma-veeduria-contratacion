@@ -26,4 +26,4 @@ uv run veeduria run --from-snapshot
 ## Licencias
 
 - **Código:** MIT (ver [`LICENSE`](LICENSE)).
-- **Datos derivados y textos:** pendiente de fijar, a la espera de verificar la licencia de cada conjunto de SECOP II (ver [`docs/producto.md`](docs/producto.md#47-licencias)).
+- **Datos (`data/`) y textos del tablero:** CC BY-SA 4.0 (ver [`LICENSE-DATA`](LICENSE-DATA) y [`docs/producto.md`](docs/producto.md#47-licencias)).

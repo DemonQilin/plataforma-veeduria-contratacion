@@ -119,7 +119,7 @@ Si el tiempo no alcanza, se recorta de abajo hacia arriba.
 | `instrucciones.txt` no funciona en otro computador (por ejemplo, Windows) | Media | Alto (requisito habilitante) | La integración continua ejecuta los comandos de `instrucciones.txt` en Linux y Windows; prueba en el computador del compañero el 8 y 9 nov | Dos caminos documentados (uv y pnpm, o mise) |
 | Errores en las cifras por duplicados o valores atípicos | Media | Alto | Reglas de consolidación, conciliación entre tres fuentes y pruebas | Corregir antes del congelamiento y documentar el ajuste en `CORRECCIONES.md` |
 | Lectura política del proyecto en un tema sensible | Media | Medio | Guía de lenguaje, neutralidad por calendario, tres administraciones en la serie y sitio no indexado durante el concurso | Canal de réplica y corrección |
-| La licencia de los datos de SECOP II no permite la redistribución elegida | Baja | Bajo | Verificarla en los metadatos de datos.gov.co | Ajustar la licencia de los datos derivados |
+| La licencia de los datos de SECOP II no permite la redistribución elegida | Baja | Bajo | Verificada el 30 oct: CC BY-SA 4.0. Los datos derivados y los textos van con la misma licencia (ADR 0015) | Ninguno pendiente |
 
 ---
 
@@ -234,9 +234,9 @@ En la pantalla 4, las barras de concentración por año, con 2022 y 2026
 por encima de los años sin restricción.
 
 6. DATOS Y FUENTES
-- SECOP II Contratos Electrónicos · jbjy-vk9h · [enlace] · [licencia]
-- SECOP II Procesos de Contratación · p6dx-8zbt · [enlace] · [licencia]
-- SECOP II Adiciones · cb9c-h8sn · [enlace] · [licencia]
+- SECOP II Contratos Electrónicos · jbjy-vk9h · [enlace] · CC BY-SA 4.0
+- SECOP II Procesos de Contratación · p6dx-8zbt · [enlace] · CC BY-SA 4.0
+- SECOP II Adiciones · cb9c-h8sn · [enlace] · CC BY-SA 4.0
 - MEData Ejecución contractual histórico · 1-028-12-000088 · [enlace] · CC BY 4.0
 - MEData Plan anual de adquisiciones histórico · 1-028-11-000089 · [enlace] · CC BY 4.0
 - Calendario de la Ley de Garantías: tabla propia con fuentes citadas
@@ -274,7 +274,7 @@ Después del pitch el jurado ajusta el puntaje con la rúbrica y no suma puntos 
 | Respuesta de los organizadores a las cinco preguntas | Correo del 30 oct y charla de términos | Antes del 4 nov |
 | Descripción de los niveles de la rúbrica | Pregunta 5 del correo | Antes del 4 nov |
 | Plantilla oficial de `guia_entrega.pdf` | Solicitarla en la charla o por correo | Antes del 4 nov |
-| Licencia de los conjuntos de SECOP II | Metadatos de datos.gov.co | 31 oct |
+| ~~Licencia de los conjuntos de SECOP II~~ | Resuelto el 30 oct: CC BY-SA 4.0 (ADR 0015) | — |
 | Nombre exacto de la entidad en SECOP II Procesos | Consulta a la API antes de fijar el filtro | 31 oct |
 | Token de aplicación de datos.gov.co | Crearlo y guardarlo como *secret* `SOCRATA_APP_TOKEN` en GitHub | 31 oct |
 | Activar la ejecución semanal programada | Agregar el disparador `schedule` a `publish.yml` (ADR 0008) | Después del 12 nov |
