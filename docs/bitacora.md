@@ -18,6 +18,15 @@ Las decisiones que salen de estas observaciones no se registran aquí: pasan a [
 
 ---
 
+## 31 oct 2026 · Primera extracción de SECOP II Contratos
+
+- Con el filtro de `sources.toml` (entidad exacta y firma desde el 1 ene 2022): 7.453 filas y 7.453 `id_contrato` distintos, con firmas del 6 ene 2022 al 30 oct 2026. El orden por `id_contrato` es estable.
+- 75 contratos del Distrito no tienen fecha de firma y quedan fuera del filtro, coherente con R2 y R4. En 2021 hay 1.739 contratos, que no se extraen.
+- Dos extracciones seguidas dieron el mismo SHA-256 (`d4bcf19b…`).
+- Un `X-App-Token` inválido hace que la API responda HTTP 403 aunque el conjunto sea público; sin el encabezado responde 200.
+
+---
+
 ## 30 oct 2026 · Decisiones técnicas y consulta a los organizadores
 
 - Se definieron la estructura del repositorio, las herramientas y la convención de idioma. Quedan registradas en [`adr/`](adr/).
