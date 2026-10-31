@@ -58,7 +58,7 @@ El indicador de oferente único es viable: el campo está poblado y aparecen pro
 **Lo que hay que saber:**
 
 - Las filas se repiten por lote o adjudicación. Se consolida por `id_del_portafolio` (R5).
-- **Por verificar:** que el nombre de la entidad en Procesos se escriba igual que en Contratos, antes de usarlo como filtro.
+- **Verificado el 30 oct:** el nombre de la entidad en Procesos se escribe igual que en Contratos (23.400 filas).
 
 ## 4. SECOP II · Adiciones (`cb9c-h8sn`)
 

@@ -275,8 +275,8 @@ Después del pitch el jurado ajusta el puntaje con la rúbrica y no suma puntos 
 | Descripción de los niveles de la rúbrica | Pregunta 5 del correo | Antes del 4 nov |
 | Plantilla oficial de `guia_entrega.pdf` | Solicitarla en la charla o por correo | Antes del 4 nov |
 | ~~Licencia de los conjuntos de SECOP II~~ | Resuelto el 30 oct: CC BY-SA 4.0 (ADR 0015) | — |
-| Nombre exacto de la entidad en SECOP II Procesos | Consulta a la API antes de fijar el filtro | 31 oct |
-| Token de aplicación de datos.gov.co | Crearlo y guardarlo como *secret* `SOCRATA_APP_TOKEN` en GitHub | 31 oct |
+| ~~Nombre exacto de la entidad en SECOP II Procesos~~ | Resuelto el 30 oct: 23.400 filas con ese nombre | — |
+| ~~Token de aplicación de datos.gov.co~~ | Resuelto el 31 oct: guardado como *secret* `SOCRATA_APP_TOKEN` | — |
 | Activar la ejecución semanal programada | Agregar el disparador `schedule` a `publish.yml` (ADR 0008) | Después del 12 nov |
 | Topics del repositorio en GitHub | `open-data`, `public-procurement`, `data-visualization`, `medellin`, `colombia`, `secop`, `astro`, `python`, `duckdb`, `hackathon`. Se difieren para que el repositorio no sea descubrible mientras el hallazgo no está validado | Después del 12 nov |
 | Homepage del repositorio en GitHub | `https://demonqilin.github.io/plataforma-veeduria-contratacion/`, cuando exista el despliegue | Con `publish.yml` (8 nov) |
