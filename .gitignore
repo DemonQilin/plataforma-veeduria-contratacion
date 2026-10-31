@@ -25,6 +25,7 @@ web/.astro/
 # Herramientas locales de los agentes (índice de CodeGraph y registro de skills)
 .codegraph/
 .atl/
+.gga
 
 # Editores y sistema operativo
 .vscode/
