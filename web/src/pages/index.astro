@@ -1,0 +1,23 @@
+---
+import Base from '../layouts/Base.astro';
+import { getMetadata } from '../lib/data';
+import { formatDate } from '../lib/format';
+
+const metadata = getMetadata();
+---
+
+<Base
+  title="Veeduría de contratación · Alcaldía de Medellín"
+  description="Señales para revisar la contratación directa de la Alcaldía de Medellín alrededor de la Ley de Garantías."
+>
+  <main>
+    <h1>Veeduría de contratación · Alcaldía de Medellín</h1>
+    <p>
+      {
+        metadata
+          ? `Datos con fecha de corte ${formatDate(metadata.cutoff_date)}.`
+          : 'Los datos todavía no están disponibles.'
+      }
+    </p>
+  </main>
+</Base>

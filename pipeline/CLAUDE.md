@@ -95,4 +95,4 @@ pipeline/
 - `uv run ruff check` · `uv run ruff format`
 - `uv run veeduria run --from-snapshot` · `uv run veeduria run --refresh`
 - `uv run veeduria export-schema` después de cambiar un modelo de `publish/`
-- `uv export --format requirements-txt > requirements.txt` después de cambiar dependencias; la integración continua verifica que coincida con `uv.lock`
+- `uv export --format requirements-txt -o requirements.txt` después de cambiar dependencias; la integración continua verifica que coincida con `uv.lock`

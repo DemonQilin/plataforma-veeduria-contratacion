@@ -1,0 +1,31 @@
+{
+  "name": "veeduria-web",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.16.1",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "gen:types": "node scripts/gen-types.mjs",
+    "check": "astro check",
+    "check:drift": "node scripts/check-drift.mjs"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.12",
+    "@astrojs/react": "^7.1.2",
+    "@observablehq/plot": "^0.6.17",
+    "astro": "^7.4.4",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "json-schema-to-typescript": "^16.0.0",
+    "typescript": "^6.0.3"
+  }
+}

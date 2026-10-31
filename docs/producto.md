@@ -206,8 +206,8 @@ Texto base para `instrucciones.txt`, a completar con el detalle final:
 ### 4.7 Licencias
 
 - **Código:** MIT.
-- **Datos derivados y textos:** CC BY 4.0, compatible con la licencia de MEData (CC BY 4.0).
-- **Pendiente:** verificar en los metadatos de datos.gov.co la licencia de cada conjunto de SECOP II antes de fijar la licencia de los datos derivados.
+- **Datos (`data/`) y textos del tablero:** CC BY-SA 4.0 (ver [`LICENSE-DATA`](../LICENSE-DATA) y [ADR 0015](adr/0015-datos-y-textos-con-cc-by-sa.md)).
+- **Por qué:** los tres conjuntos de SECOP II son CC BY-SA 4.0 según los metadatos de datos.gov.co (verificado el 30 oct 2026), y MEData es CC BY 4.0. Una obra que combina ambas puede ir bajo CC BY-SA, pero no bajo CC BY.
 
 ---
 

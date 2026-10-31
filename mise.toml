@@ -1,0 +1,84 @@
+# Capa de conveniencia (docs/adr/0002). Todo funciona sin mise con los comandos nativos
+# de instrucciones.txt; cada tarea solo llama a `uv run` o `pnpm`.
+# Las versiones deben coincidir con web/.node-version y web/package.json;
+# `pnpm check:drift` lo verifica.
+
+[tools]
+uv = "0.12.5"
+node = "26.13.0"
+pnpm = "12.16.1"
+
+[tasks.install]
+description = "Instala las dependencias del tablero"
+dir = "web"
+run = "pnpm install --frozen-lockfile"
+
+[tasks.pipeline]
+description = "Corre el pipeline desde la copia de datos"
+dir = "pipeline"
+run = "uv run veeduria run --from-snapshot"
+
+[tasks.refresh]
+description = "Actualiza la copia de datos desde las fuentes"
+dir = "pipeline"
+run = "uv run veeduria run --refresh"
+
+[tasks."contract:schema"]
+description = "Exporta el JSON Schema del contrato"
+dir = "pipeline"
+run = "uv run veeduria export-schema"
+
+[tasks."contract:types"]
+description = "Genera los tipos de TypeScript del contrato"
+dir = "web"
+run = "pnpm gen:types"
+
+[tasks.contract]
+description = "Regenera el contrato (esquema y tipos)"
+run = [{ task = "contract:schema" }, { task = "contract:types" }]
+
+[tasks.dev]
+description = "Servidor de desarrollo del sitio"
+dir = "web"
+depends = ["install"]
+run = "pnpm dev"
+
+[tasks.build]
+description = "Construye el sitio"
+dir = "web"
+depends = ["install"]
+run = "pnpm build"
+
+[tasks.preview]
+description = "Previsualiza el sitio construido"
+dir = "web"
+depends = ["install"]
+run = "pnpm preview"
+
+[tasks."check:lint"]
+dir = "pipeline"
+run = ["uv run ruff check", "uv run ruff format --check"]
+
+[tasks."check:test"]
+dir = "pipeline"
+run = "uv run pytest"
+
+[tasks."check:drift"]
+description = "Contrato, requirements.txt y versiones sin deriva"
+dir = "web"
+run = "pnpm check:drift"
+
+[tasks."check:web"]
+dir = "web"
+run = "pnpm astro check"
+
+[tasks.check]
+description = "Todas las verificaciones, en el orden de CLAUDE.md"
+run = [
+  { task = "check:lint" },
+  { task = "check:test" },
+  { task = "install" },
+  { task = "check:drift" },
+  { task = "check:web" },
+  { task = "build" },
+]
