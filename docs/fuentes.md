@@ -119,7 +119,7 @@ Se hacen dos consultas, para que el nombre y el documento de personas naturales 
 
 ### MEData · Ejecución contractual
 
-`contrato`, `fecha_contrato`, `modalidad`, `causal`, `nombre_secretaria`, `nombre_programa`, `valor_inicial_contrato`, `valor_total_adic_contrato`, `valor_fin_contrato`, `duracion_en_dias`, `estado`, `ano`.
+`contrato`, `fecha_contrato`, `modalidad`, `causal`, `nombre_secretaria`, `nombre_programa`, `valor_inicial_contrato`, `valor_total_adic_contrato`, `valor_fin_contrato`, `duracion_en_dias`, `estado`, `ano`, y `truncated`, una marca que agrega el parser en las filas incompletas; no viene de la fuente y no contiene datos personales.
 
 ### MEData · Plan anual de adquisiciones
 
