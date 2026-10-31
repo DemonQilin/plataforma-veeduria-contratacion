@@ -137,6 +137,7 @@ allowed = [
     "duracion_en_dias",
     "estado",
     "ano",
+    "truncated",
 ]
 excluded = [
     "contratista",
