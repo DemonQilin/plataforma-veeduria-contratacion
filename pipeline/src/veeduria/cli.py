@@ -28,7 +28,9 @@ def run(
 ) -> None:
     """Ejecuta el pipeline."""
     if from_snapshot == refresh:
-        raise typer.BadParameter("indica exactamente una opción: --from-snapshot o --refresh")
+        # Sin el recuadro de Rich de BadParameter: el mensaje sale igual con o sin color.
+        typer.echo("Indica exactamente una opción: --from-snapshot o --refresh.", err=True)
+        raise typer.Exit(2)
     typer.echo("Las etapas del pipeline todavía no están implementadas.", err=True)
     raise typer.Exit(1)
 
