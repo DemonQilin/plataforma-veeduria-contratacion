@@ -2,8 +2,11 @@
 # (docs/adr/0002). Si cambias uno, cambia el otro.
 name: ci
 
+# `push` solo en main: en las demás ramas corre `pull_request`, y con ambos cada commit
+# de una rama con PR ejecutaba todo dos veces.
 on:
   push:
+    branches: [main]
   pull_request:
 
 permissions:

@@ -25,14 +25,6 @@ def test_extract_unknown_query_exits_with_2(tmp_path) -> None:
     assert list(tmp_path.iterdir()) == []
 
 
-def test_extract_query_not_implemented_yet_exits_with_2(tmp_path) -> None:
-    result = runner.invoke(
-        app, ["extract", "medata_contract_execution", "--snapshot-dir", str(tmp_path)]
-    )
-    assert result.exit_code == 2
-    assert list(tmp_path.iterdir()) == []
-
-
 def seed_contracts(directory, ids: list[str]) -> None:
     lines = ["id_contrato,valor", *[f"{contract_id},10" for contract_id in ids]]
     (directory / "secop_contracts.csv").write_text("\n".join(lines) + "\n", encoding="utf-8")

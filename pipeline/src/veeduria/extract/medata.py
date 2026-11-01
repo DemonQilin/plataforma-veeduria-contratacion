@@ -7,16 +7,10 @@ intentos y de tiempo. Los errores citan columnas y números de línea, nunca val
 """
 
 import httpx
-from tenacity import (
-    Retrying,
-    retry_if_exception,
-    stop_after_attempt,
-    stop_after_delay,
-    wait_exponential,
-)
+from tenacity import wait_exponential
 from tenacity.wait import wait_base
 
-from veeduria.extract.http import Extraction, ExtractionError, is_retryable
+from veeduria.extract.http import Extraction, ExtractionError, make_retrying
 from veeduria.extract.sources import Query
 
 DEFAULT_PAGE_SIZE = 1000
@@ -36,14 +30,8 @@ def _get_json(
     max_attempts: int,
     max_seconds: float,
 ) -> object:
-    retrying = Retrying(
-        stop=stop_after_attempt(max_attempts) | stop_after_delay(max_seconds),
-        wait=wait,
-        retry=retry_if_exception(is_retryable),
-        reraise=True,
-    )
     try:
-        for attempt in retrying:
+        for attempt in make_retrying(wait, max_attempts, max_seconds):
             with attempt:
                 response = client.get(query.url, params={"query": sql})
                 response.raise_for_status()
