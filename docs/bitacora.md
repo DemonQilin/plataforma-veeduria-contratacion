@@ -23,7 +23,8 @@ Las decisiones que salen de estas observaciones no se registran aquí: pasan a [
 - Con el filtro de `sources.toml` (entidad exacta y firma desde el 1 ene 2022): 7.453 filas y 7.453 `id_contrato` distintos, con firmas del 6 ene 2022 al 30 oct 2026. El orden por `id_contrato` es estable.
 - 75 contratos del Distrito no tienen fecha de firma y quedan fuera del filtro, coherente con R2 y R4. En 2021 hay 1.739 contratos, que no se extraen.
 - Dos extracciones seguidas dieron el mismo SHA-256 (`d4bcf19b…`).
-- Un `X-App-Token` inválido hace que la API responda HTTP 403 aunque el conjunto sea público; sin el encabezado responde 200.
+- Un `X-App-Token` inválido hace que la API responda HTTP 403 aunque el conjunto sea público; sin el encabezado responde 200. Lo que se había creado era una Clave API; el encabezado exige el Token de la aplicación, que es otra credencial.
+- Con el Token de la aplicación correcto, la extracción del 1 nov dio 7.468 filas y 7.468 `id_contrato` distintos (SHA-256 `c825d206…`), con firmas del 6 ene 2022 al 30 oct 2026 a las 22:26. Son 15 contratos más que el día anterior: la fuente recibe registros tardíos. La copia versionada es esta.
 
 ---
 
