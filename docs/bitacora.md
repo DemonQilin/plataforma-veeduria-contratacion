@@ -24,6 +24,7 @@ Las decisiones que salen de estas observaciones no se registran aquí: pasan a [
 - Se descargó Procesos completo (23.428 filas, páginas de 1.000) dos veces con cada orden. El orden por la pareja y el orden por `:id` dieron las mismas filas, sin faltantes ni sobrantes, y cada uno fue estable entre sus dos corridas. La pérdida de filas no se reprodujo. `:id` es único y `:created_at` es igual en todas las filas. Solo 19.367 filas son distintas en las columnas de la lista blanca: 4.061 son duplicados exactos. Decisión en [ADR 0016](adr/0016-orden-determinista-de-la-copia.md).
 - Procesos del Distrito: 14.577 publicados desde el 1 ene 2022, otros anteriores desde 2015 y 633 sin fecha de publicación. No se filtra por fecha, para no romper el cruce con contratos de 2022 cuyo proceso es anterior.
 - De 4.508 contratos con `tipodocproveedor = 'NIT'`, 42 (10 documentos distintos) no empiezan por 8 ni por 9. El prefijo es un indicio, no una prueba de persona jurídica. Decisión en [ADR 0017](adr/0017-proveedores-solo-nit-con-prefijo-8-o-9.md).
+- Extracción del 1 nov con las dos decisiones aplicadas: `secop_contracts_suppliers` dio 4.466 filas (4.508 contratos con NIT menos 42), todas con prefijo 8 o 9 y todas de contratos que están en `secop_contracts`; `secop_procurement_processes` dio 23.428 filas, igual al `count(*)`, con 4.061 duplicados exactos que se conservan. `secop_contracts` conservó su SHA-256 (`c825d206…`): su orden por `id_contrato`, que es único, coincide con el orden local. Las tres copias quedan ordenadas por todas sus columnas.
 
 ---
 
