@@ -8,6 +8,7 @@ comillas, dos capas de escape y filas cortadas a mitad de campo.
 import os
 import re
 import stat
+import sys
 from pathlib import Path
 
 import httpx
@@ -173,7 +174,7 @@ def download(handler, raw_dir: Path, **kwargs):
     return fetch_csv_query(client, execution_query(), raw_dir, wait=wait_none(), **kwargs)
 
 
-def test_download_saves_the_raw_file_privately_and_parses_it(tmp_path: Path) -> None:
+def test_download_saves_the_raw_file_and_parses_it(tmp_path: Path) -> None:
     content = FIXTURE.read_bytes()
     handler, seen = serve(content)
 
@@ -181,10 +182,18 @@ def test_download_saves_the_raw_file_privately_and_parses_it(tmp_path: Path) -> 
 
     raw = tmp_path / f"{QUERY_ID}.csv"
     assert raw.read_bytes() == content
-    assert stat.S_IMODE(os.stat(raw).st_mode) == 0o600
     assert len(extraction.rows) == 14
     assert str(seen[0].url) == execution_query().url
     assert [p.name for p in tmp_path.iterdir()] == [raw.name]
+
+
+@pytest.mark.skipif(sys.platform == "win32", reason="Windows no tiene modos POSIX")
+def test_raw_file_is_private_because_it_holds_personal_data(tmp_path: Path) -> None:
+    handler, _ = serve(FIXTURE.read_bytes())
+
+    download(handler, tmp_path)
+
+    assert stat.S_IMODE(os.stat(tmp_path / f"{QUERY_ID}.csv").st_mode) == 0o600
 
 
 def test_download_retries_server_errors(tmp_path: Path) -> None:
