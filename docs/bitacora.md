@@ -18,6 +18,18 @@ Las decisiones que salen de estas observaciones no se registran aquí: pasan a [
 
 ---
 
+## 1 nov 2026 · Ejecución contractual de MEData
+
+- La URL de la ficha del conjunto no es el archivo. El CSV está en `/sites/default/files/distribution/1-028-12-000088/Ejecucion_contractual.csv`: responde 200 directo, 26.714.918 bytes, UTF-8 sin BOM y líneas CRLF. La ficha de metadatos dio 504 dos veces antes de responder.
+- 25.783 filas de 59 columnas, 2.939 contratos únicos y 28 secretarías.
+- **Filas cortadas: 2.072, no 2.083.** 2.020 tienen 28 columnas y 52 tienen 21. La diferencia de 11 coincide con las filas completas cuyo objeto del contrato trae una comilla suelta, que un conteo por número de columnas ingenuo, como el de la exploración del 29 oct, clasifica como irregulares.
+- «Comillas escapadas de forma irregular» resultó ser un formato de dos capas de escape, casi regular (ver [ADR 0010](adr/0010-parser-medata-y-ftfy.md)). Con la decodificación de dos capas, ninguna línea queda con un número de columnas inesperado.
+- Modalidad, todas las filas: contratación directa 21.262, selección abreviada 3.063, licitación pública 676, mínima cuantía 279, régimen especial 276 y concurso de méritos 227. Las cortadas son sobre todo selección abreviada (1.582) y licitación pública (258); de contratación directa solo 196 de 21.262 (0,9 %).
+- Las tildes llegan rotas («ContrataciÃ³n Directa»), como se esperaba. La copia las conserva y `ftfy` las repara en la normalización.
+- Extracción: 25.783 filas con las 13 columnas de la lista blanca, SHA-256 `2759a1f3…`, igual en dos corridas. Ninguno de los ~4.000 nombres, cédulas y NIT distintos del archivo crudo aparece en la copia.
+
+---
+
 ## 1 nov 2026 · Plan Anual de Adquisiciones de MEData
 
 - La ficha del conjunto (`/api/1/metastore/schemas/dataset/items/1-028-11-000089`) dio 504 cuatro veces seguidas y luego respondió en 0,5 s. La API SQL respondió bien en todas las consultas de la prueba.

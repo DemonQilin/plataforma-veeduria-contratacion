@@ -7,6 +7,7 @@ import typer
 
 from veeduria.extract.http import Extraction, ExtractionError
 from veeduria.extract.medata import fetch_sql_query
+from veeduria.extract.medata_csv import fetch_csv_query
 from veeduria.extract.snapshot import read_column, write_snapshot
 from veeduria.extract.socrata import (
     app_token_from_env,
@@ -22,15 +23,7 @@ app = typer.Typer(no_args_is_help=True, add_completion=False, help="Veeduría de
 DATA_DIR = Path(__file__).resolve().parents[3] / "data"
 DEFAULT_SCHEMA_DIR = DATA_DIR / "schema"
 DEFAULT_SNAPSHOT_DIR = DATA_DIR / "snapshot"
-
-# Consultas que `extract` ya sabe descargar. Las demás llegan en sus tareas.
-EXTRACTABLE_QUERIES = (
-    "secop_contracts",
-    "secop_contracts_suppliers",
-    "secop_procurement_processes",
-    "secop_additions",
-    "medata_procurement_plan",
-)
+DEFAULT_RAW_DIR = DATA_DIR / "raw"
 
 
 def _batch_ids(query: Query, snapshot_dir: Path) -> list[str]:
@@ -44,7 +37,11 @@ def _batch_ids(query: Query, snapshot_dir: Path) -> list[str]:
         ) from None
 
 
-def _download(query: Query, snapshot_dir: Path) -> Extraction:
+def _download(query: Query, snapshot_dir: Path, raw_dir: Path) -> Extraction:
+    if query.kind == "medata_csv":
+        # Sin token de datos.gov.co, y el archivo completo queda en data/raw/ (fuera de git).
+        with make_client(None) as client:
+            return fetch_csv_query(client, query, raw_dir)
     if query.kind == "medata_sql":
         # El token de datos.gov.co no debe viajar a otro dominio.
         with make_client(None) as client:
@@ -85,22 +82,19 @@ def extract(
     snapshot_dir: Annotated[
         Path, typer.Option("--snapshot-dir", help="Carpeta de destino de la copia.")
     ] = DEFAULT_SNAPSHOT_DIR,
+    raw_dir: Annotated[
+        Path,
+        typer.Option("--raw-dir", help="Carpeta del archivo completo de MEData (fuera de git)."),
+    ] = DEFAULT_RAW_DIR,
 ) -> None:
     """Descarga una consulta de SECOP II o de MEData a data/snapshot/."""
     queries = {query.id: query for query in load_queries()}
     if query_id not in queries:
         typer.echo(f"Consulta desconocida: {query_id}. Disponibles: {sorted(queries)}.", err=True)
         raise typer.Exit(2)
-    if query_id not in EXTRACTABLE_QUERIES:
-        typer.echo(
-            f"La consulta {query_id} todavía no está implementada. "
-            f"Disponibles: {list(EXTRACTABLE_QUERIES)}.",
-            err=True,
-        )
-        raise typer.Exit(2)
     query = queries[query_id]
     try:
-        extraction = _download(query, snapshot_dir)
+        extraction = _download(query, snapshot_dir, raw_dir)
         result = write_snapshot(query, extraction.header, extraction.rows, snapshot_dir)
     except ExtractionError as error:
         typer.echo(f"Extracción fallida, la copia no se modificó: {error}", err=True)

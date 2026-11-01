@@ -76,6 +76,8 @@ El indicador de oferente único es viable: el campo está poblado y aparecen pro
 - **Aporta lo que SECOP no tiene:** secretaría, proyecto, ruta presupuestal y el valor de cada adición como pedido aparte.
 - **Cruce con SECOP II:** 2.628 de los 2.939 contratos (89 %) aparecen en SECOP II por `referencia_del_contrato`. El 11 % restante está por revisar: pueden ser contratos fuera de SECOP II (por ejemplo, en la Tienda Virtual del Estado) o referencias con formato distinto.
 - **Solo se descarga completo.** La fuente no permite elegir columnas, así que el archivo se guarda en `data/raw/` (fuera de git) y la lista blanca se aplica al leerlo.
+- **Descarga:** `https://medata.app.medellin.gov.co/sites/default/files/distribution/1-028-12-000088/Ejecucion_contractual.csv`. Responde 200 directo, sin redirección. La URL de la ficha del conjunto no es el archivo.
+- **Extracción del 1 nov:** 25.783 filas de 59 columnas (23.711 completas y 2.072 cortadas), 2.939 contratos y 28 secretarías. La copia en `data/snapshot/` tiene 13 columnas. Formato del archivo y del parser en [ADR 0010](adr/0010-parser-medata-y-ftfy.md).
 
 **Papel en el proyecto:** integración real para 2022 y el primer semestre de 2023, que incluyen un año electoral presidencial y la víspera de las locales. Valida SECOP contra la fuente del Distrito y aporta la secretaría, la causal detallada y el valor de las adiciones.
 
@@ -155,7 +157,7 @@ Se hacen dos consultas, para que el nombre y el documento de personas naturales 
 | Filas repetidas por lote o adjudicación | Procesos | Consolidar por `id_del_portafolio` | R5 |
 | Cada línea envuelta en comillas, con comillas escapadas de forma irregular dentro | MEData · Ejecución | Parser propio en la extracción, con pruebas sobre líneas reales | — |
 | Tildes rotas por doble codificación UTF-8 | MEData · Ejecución | Reparar con `ftfy` en la normalización | — |
-| 2.083 filas (8 %) truncadas en origen después de la columna 28: conservan contrato, fecha, modalidad, causal y secretaría, pero pierden valores, estado y enlace | MEData · Ejecución | Usarlas solo para los campos que conservan; marcarlas y reportar el porcentaje | — |
+| 2.072 filas (8 %) truncadas en origen, a mitad de un campo: 2.020 después de la columna 28 y 52 después de la 21. Conservan contrato, fecha, modalidad, causal, programa y secretaría, pero pierden valores, estado y enlace | MEData · Ejecución | Usarlas solo para los campos que conservan; marcarlas con `truncated` y reportar el porcentaje | — |
 | La vista previa del portal carga el CSV en una sola columna | MEData · Ejecución | Trabajar siempre con la descarga | — |
 | Adiciones sin montos | SECOP II | Montos solo desde MEData (2022–2023) | — |
 | Modalidad y mes escritos de formas distintas («Contratacion Directa», «contratacion directa», «concurso de m eritos», «mnima cuanta») | MEData · Plan | Normalizar sin mayúsculas, tildes ni espacios internos, y mapear al catálogo | R6 |

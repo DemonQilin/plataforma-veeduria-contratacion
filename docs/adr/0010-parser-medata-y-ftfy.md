@@ -9,7 +9,7 @@
 El CSV de MEData · Ejecución contractual histórico tiene tres problemas de calidad, que son de naturaleza distinta:
 
 - **Estructural:** cada línea viene envuelta en comillas, con comillas escapadas de forma irregular dentro. Un lector de CSV estándar desalinea las columnas o descarta filas.
-- **Estructural:** 2.083 filas (8 %) vienen cortadas en origen después de la columna 28. Conservan contrato, fecha, modalidad, causal y secretaría, pero pierden valores, estado y enlace.
+- **Estructural:** 2.072 filas (8 %) vienen cortadas en origen, a mitad de un campo: 2.020 después de la columna 28 y 52 después de la 21. Conservan contrato, fecha, modalidad, causal, programa y secretaría, pero pierden valores, estado y enlace.
 - **De contenido:** las tildes están rotas por doble codificación UTF-8 (*mojibake*).
 
 Además, el archivo contiene nombres y cédulas de contratistas y supervisores, y solo se puede descargar completo. Para escribir una copia sin datos personales (ver [0007](0007-lista-blanca-unica.md)) primero hay que separar las columnas.
@@ -18,11 +18,21 @@ Además, el archivo contiene nombres y cédulas de contratistas y supervisores, 
 
 - **Los problemas estructurales se resuelven en la extracción, con un parser propio.** Es necesario ahí porque, sin separar las columnas, no se pueden descartar los datos personales antes de escribir la copia.
   - Las filas truncadas se aceptan, se completan con vacíos y se marcan con una columna `truncated`, para reportar el porcentaje.
-  - Una fila que no tenga 28 columnas ni el total esperado detiene la extracción con un error que indica el número de línea, sin mostrar su contenido.
+  - Una fila que no tenga 21 ni 28 columnas ni el total del encabezado (59) detiene la extracción con un error que indica el número de línea, sin mostrar su contenido.
 - **La codificación se repara en la normalización, con `ftfy`.** La copia queda fiel a la fuente (ver [0006](0006-snapshot-csv-con-manifest.md)) y la reparación es una regla visible y probada.
   - Se aplica solo la reparación de codificación (`ftfy.fix_encoding` o una configuración equivalente), no las demás normalizaciones que `ftfy` hace por defecto, como cambiar comillas tipográficas.
   - La reparación ocurre antes del mapeo a catálogos, para que «SecretarÃ­a» y «Secretaría» caigan en el mismo valor.
-- **Pruebas sobre líneas reales:** entre 15 y 20 líneas problemáticas del archivo se convierten en fixtures, con nombres y cédulas reemplazados por valores falsos antes de guardarlas. Una prueba adicional, marcada `network`, recorre el archivo completo y verifica el conteo de filas y de truncadas (2.083).
+- **Pruebas sobre líneas reales:** entre 15 y 20 líneas problemáticas del archivo se convierten en fixtures, con nombres y cédulas reemplazados por valores falsos antes de guardarlas. Una prueba adicional, marcada `network`, recorre el archivo completo y verifica el conteo de filas (25.783), de truncadas (2.072) y de contratos (2.939).
+
+## Formato observado al implementar el parser (1 nov 2026)
+
+Las «comillas escapadas de forma irregular» son dos capas de escape, casi regulares:
+
+- **Capa exterior:** cada línea empieza con una comilla y termina en tres. Dentro, cada barra invertida va duplicada y cada comilla se escribe como una barra con dos comillas. La excepción es la apertura de un campo entrecomillado, que a veces pierde sus comillas y queda como una barra suelta.
+- **Capa interior:** un CSV normal. Los valores con coma (todos los montos, por ejemplo `1.234.567,00`) van entre comillas.
+- El parser quita la envoltura, decodifica la capa exterior en una sola pasada y entrega el resultado a `csv.reader`.
+- Las líneas terminan en CRLF; el parser acepta también LF, porque el repositorio normaliza a LF (ADR 0006).
+- Las 23.711 filas completas tienen 59 columnas, igual que el encabezado.
 
 ## Consecuencias
 

@@ -121,12 +121,13 @@ excluded = [
 ]
 
 # MEData solo se descarga completo: el archivo queda en data/raw/ (fuera de git)
-# y el parser conserva únicamente `allowed` antes de escribir la copia.
+# y el parser conserva únicamente `allowed` antes de escribir la copia. `url` es el CSV
+# directo, no la ficha del conjunto (ADR 0010).
 [[queries]]
 id = "medata_contract_execution"
 dataset = "1-028-12-000088"
 kind = "medata_csv"
-url = "https://medata.app.medellin.gov.co/dataset/1-028-12-000088"
+url = "https://medata.app.medellin.gov.co/sites/default/files/distribution/1-028-12-000088/Ejecucion_contractual.csv"
 where = ""
 order_by = "contrato"
 allowed = [
