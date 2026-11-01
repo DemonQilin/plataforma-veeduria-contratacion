@@ -42,12 +42,12 @@ pipeline/
 
 - **SECOP II (Socrata):** pide siempre el endpoint CSV (`/resource/<id>.csv`), porque el JSON omite los campos nulos.
   - Nunca uses `$select=*`. Construye el `$select` desde `sources.toml`.
-  - Pagina siempre con `$limit`, `$offset` y un `$order` estable. Sin `$limit`, la API corta en 1.000 filas sin avisar.
+  - Pagina siempre con `$limit`, `$offset` y un `$order` estable. Sin `$limit`, la API corta en 1.000 filas sin avisar. Si el orden tiene empates (Procesos), pagina por `:id`; el escritor de la copia ordena las filas por todas sus columnas (ADR 0016).
   - Filtra en el `$where`, no en Python: entidad por nombre exacto (R1) y rango de fechas.
   - Adiciones no tiene campo de entidad: consúltala con `id_contrato in (...)` en lotes de 200.
   - El token de aplicación se lee de la variable de entorno `SOCRATA_APP_TOKEN` si existe. Es opcional.
   - Al terminar, compara las filas recibidas con un `count(*)` de la misma consulta. Si no coinciden, falla sin escribir la copia.
-  - `uv run veeduria extract <query_id>` descarga una consulta a `data/snapshot/`. Por ahora solo `secop_contracts`; para usar el token de `.env`: `uv run --env-file ../.env veeduria extract secop_contracts`. Un token inválido da HTTP 403; si pasa, vuelve a correrlo sin token.
+  - `uv run veeduria extract <query_id>` descarga una consulta a `data/snapshot/`. Disponibles: `secop_contracts`, `secop_contracts_suppliers` y `secop_procurement_processes`; para usar el token de `.env`: `uv run --env-file ../.env veeduria extract secop_contracts`. Un token inválido da HTTP 403; si pasa, vuelve a correrlo sin token.
 - **MEData · Ejecución contractual:** descarga el CSV completo a `data/raw/`, que está fuera de git.
   - El parser propio vive en `extract/` porque hay que separar las columnas para descartar los datos personales antes de escribir la copia.
   - Las filas truncadas después de la columna 28 se aceptan, se completan con vacíos y se marcan con la columna `truncated`.
