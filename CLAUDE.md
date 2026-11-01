@@ -70,6 +70,7 @@ Usa siempre estos nombres en el código. Si necesitas un término nuevo, agréga
 | copia de datos | `snapshot` |
 | supresión de celdas pequeñas | `small_cell_suppression` |
 | numerador / denominador / n | `numerator` / `denominator` / `sample_size` |
+| fila cortada en origen | `truncated` |
 
 ## Reglas no negociables
 
