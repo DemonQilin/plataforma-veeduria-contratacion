@@ -18,6 +18,18 @@ Las decisiones que salen de estas observaciones no se registran aquí: pasan a [
 
 ---
 
+## 1 nov 2026 · Plan Anual de Adquisiciones de MEData
+
+- La ficha del conjunto (`/api/1/metastore/schemas/dataset/items/1-028-11-000089`) dio 504 cuatro veces seguidas y luego respondió en 0,5 s. La API SQL respondió bien en todas las consultas de la prueba.
+- La distribución CSV es `f338ad23-c393-51bc-8455-b0405e7d8655`. `SELECT COUNT(*)` da 18.764, igual a `docs/fuentes.md`. La API SQL no tiene tope de filas por respuesta: la consulta completa devolvió las 18.764 en 4,5 s.
+- `record_number` es un orden único. Pagina de a 1.000 y da las mismas filas que la consulta completa (12,9 s). Decisión en [ADR 0018](adr/0018-api-sql-de-medata-con-record-number-y-tiempo-limite.md).
+- Ninguna de las seis columnas de la lista blanca tiene valores vacíos. `ano` llega como `2014.0`; hay 24 grafías de mes, 15 de modalidad y 84 unidades. Se guardan crudas y se normalizan después.
+- La unidad más larga mide 61 caracteres y las tres columnas de texto no traen correos ni números largos.
+- Contratación directa planeada con inicio en enero de 2022: 726, la cifra de la exploración del 29 oct.
+- Extracción: 18.764 filas, igual al `COUNT(*)`, SHA-256 `650f3e5e…`, igual en dos corridas.
+
+---
+
 ## 1 nov 2026 · Adiciones de SECOP II
 
 - Adiciones (`cb9c-h8sn`) tiene 8.451.617 filas en el país y no trae entidad. Se consultó con los 7.468 `id_contrato` de la copia de Contratos, en 38 lotes de 200 con GET: la URL más larga fue de 5.657 caracteres y la API respondió bien.
