@@ -10,7 +10,6 @@ import csv
 import io
 import os
 from collections.abc import Iterable, Sequence
-from dataclasses import dataclass
 
 import httpx
 from tenacity import (
@@ -21,6 +20,7 @@ from tenacity import (
 )
 from tenacity.wait import wait_base
 
+from veeduria.extract.http import Extraction, ExtractionError, is_retryable
 from veeduria.extract.sources import Query
 
 DEFAULT_PAGE_SIZE = 1000
@@ -30,15 +30,8 @@ REQUEST_TIMEOUT_SECONDS = 60.0
 TOKEN_ENV_VAR = "SOCRATA_APP_TOKEN"
 
 
-class SocrataError(Exception):
-    """La extracción no puede garantizar una copia completa y correcta."""
-
-
-@dataclass(frozen=True)
-class Extraction:
-    header: tuple[str, ...]
-    rows: list[list[str]]
-    total: int
+class SocrataError(ExtractionError):
+    """La extracción de datos.gov.co no puede garantizar una copia completa y correcta."""
 
 
 def app_token_from_env() -> str | None:
@@ -55,13 +48,6 @@ def make_client(token: str | None, transport: httpx.BaseTransport | None = None)
     )
 
 
-def _is_retryable(error: BaseException) -> bool:
-    if isinstance(error, httpx.HTTPStatusError):
-        status = error.response.status_code
-        return status == 429 or status >= 500
-    return isinstance(error, httpx.TransportError)
-
-
 def _get(
     client: httpx.Client,
     url: str,
@@ -72,7 +58,7 @@ def _get(
     retrying = Retrying(
         stop=stop_after_attempt(max_attempts),
         wait=wait,
-        retry=retry_if_exception(_is_retryable),
+        retry=retry_if_exception(is_retryable),
         reraise=True,
     )
     try:

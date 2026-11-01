@@ -4,6 +4,7 @@ import httpx
 import pytest
 from typer.testing import CliRunner
 
+from tests.fake_medata import fake_medata
 from tests.fake_socrata import fake_socrata
 from veeduria.cli import app
 from veeduria.extract.socrata import make_client
@@ -88,6 +89,56 @@ def test_extract_socrata_queries_write_the_snapshot(
     written = (tmp_path / f"{query_id}.csv").read_text(encoding="utf-8").splitlines()
     assert written[0] == ",".join(header)
     assert len(written) == 4
+
+
+def plan_query():
+    return next(q for q in load_queries() if q.id == "medata_procurement_plan")
+
+
+def test_extract_procurement_plan_writes_the_snapshot_without_the_socrata_token(
+    tmp_path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    header = plan_query().allowed
+    rows = [[f"202{n}.0"] + ["x"] * (len(header) - 1) for n in range(3)]
+    transport = httpx.MockTransport(fake_medata(header, rows))
+    tokens: list[str | None] = []
+
+    def client_factory(token):
+        tokens.append(token)
+        return make_client(token, transport=transport)
+
+    monkeypatch.setenv("SOCRATA_APP_TOKEN", "token-de-datos-gov-co")
+    monkeypatch.setattr("veeduria.cli.make_client", client_factory)
+
+    result = runner.invoke(
+        app, ["extract", "medata_procurement_plan", "--snapshot-dir", str(tmp_path)]
+    )
+
+    assert result.exit_code == 0, result.output
+    assert "3 filas" in result.output
+    assert tokens == [None]
+    written = (tmp_path / "medata_procurement_plan.csv").read_text(encoding="utf-8").splitlines()
+    assert written[0] == ",".join(header)
+    assert len(written) == 4
+
+
+def test_extract_procurement_plan_failure_exits_with_1_and_writes_nothing(
+    tmp_path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    header = plan_query().allowed
+    rows = [["2022.0"] + ["x"] * (len(header) - 1)]
+    transport = httpx.MockTransport(fake_medata(header, rows, reported_total=99))
+    monkeypatch.setattr(
+        "veeduria.cli.make_client", lambda token: make_client(token, transport=transport)
+    )
+
+    result = runner.invoke(
+        app, ["extract", "medata_procurement_plan", "--snapshot-dir", str(tmp_path)]
+    )
+
+    assert result.exit_code == 1
+    assert "la copia no se modificó" in result.output
+    assert list(tmp_path.iterdir()) == []
 
 
 def test_extract_failure_exits_with_1_and_writes_nothing(

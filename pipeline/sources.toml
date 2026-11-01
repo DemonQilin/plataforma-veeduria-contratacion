@@ -151,14 +151,18 @@ excluded = [
     "nit_ced_sup_interv",
 ]
 
-# Se pide por la API SQL del portal (/api/1/datastore/sql).
+# Se pide por la API SQL del portal. `distribution` es la distribución CSV del conjunto
+# (la ficha del conjunto da 504 con frecuencia, así que no se averigua en cada corrida).
+# `record_number` es el orden único de la tabla; `ano,fecha_estimada_inicio` tiene empates
+# (ADR 0018). El conjunto completo se baja sin `where`, porque ya es solo el Distrito.
 [[queries]]
 id = "medata_procurement_plan"
 dataset = "1-028-11-000089"
 kind = "medata_sql"
-url = "https://medata.app.medellin.gov.co/dataset/1-028-11-000089"
+url = "https://medata.app.medellin.gov.co/api/1/datastore/sql/"
+distribution = "f338ad23-c393-51bc-8455-b0405e7d8655"
 where = ""
-order_by = "ano,fecha_estimada_inicio"
+order_by = "record_number"
 allowed = [
     "ano",
     "fecha_estimada_inicio",
