@@ -84,6 +84,24 @@ def test_rejects_rows_with_the_wrong_width(tmp_path: Path) -> None:
     assert list(tmp_path.iterdir()) == []
 
 
+def test_failure_while_replacing_keeps_the_previous_copy_and_leaves_no_leftovers(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    write_snapshot(make_query(), HEADER, [["C1", "10"]], tmp_path)
+    before = (tmp_path / "secop_contracts.csv").read_bytes()
+
+    def failing_replace(source: object, destination: object) -> None:
+        raise OSError("falla al mover el archivo")
+
+    monkeypatch.setattr("veeduria.extract.snapshot.os.replace", failing_replace)
+
+    with pytest.raises(OSError):
+        write_snapshot(make_query(), HEADER, [["C9", "90"]], tmp_path)
+
+    assert (tmp_path / "secop_contracts.csv").read_bytes() == before
+    assert [p.name for p in tmp_path.iterdir()] == ["secop_contracts.csv"]
+
+
 def test_failure_keeps_the_previous_copy_and_leaves_no_leftovers(tmp_path: Path) -> None:
     write_snapshot(make_query(), HEADER, [["C1", "10"]], tmp_path)
     before = (tmp_path / "secop_contracts.csv").read_bytes()
