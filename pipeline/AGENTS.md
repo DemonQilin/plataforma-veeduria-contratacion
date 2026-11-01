@@ -47,6 +47,7 @@ pipeline/
   - Adiciones no tiene campo de entidad: consúltala con `id_contrato in (...)` en lotes de 200.
   - El token de aplicación se lee de la variable de entorno `SOCRATA_APP_TOKEN` si existe. Es opcional.
   - Al terminar, compara las filas recibidas con un `count(*)` de la misma consulta. Si no coinciden, falla sin escribir la copia.
+  - `uv run veeduria extract <query_id>` descarga una consulta a `data/snapshot/`. Por ahora solo `secop_contracts`; para usar el token de `.env`: `uv run --env-file ../.env veeduria extract secop_contracts`. Un token inválido da HTTP 403; si pasa, vuelve a correrlo sin token.
 - **MEData · Ejecución contractual:** descarga el CSV completo a `data/raw/`, que está fuera de git.
   - El parser propio vive en `extract/` porque hay que separar las columnas para descartar los datos personales antes de escribir la copia.
   - Las filas truncadas después de la columna 28 se aceptan, se completan con vacíos y se marcan con la columna `truncated`.

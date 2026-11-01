@@ -18,7 +18,7 @@ Los conjuntos de SECOP II se consultan por la API de Socrata en datos.gov.co. So
 
 - **Endpoint CSV:** se consulta `/resource/<id>.csv`, que siempre trae en el encabezado las columnas del `$select`. Coincide además con el formato de la copia (ver [0006](0006-snapshot-csv-con-manifest.md)).
 - **`$select` explícito** desde `pipeline/sources.toml` (ver [0007](0007-lista-blanca-unica.md)). Nunca `$select=*`.
-- **Filtros en el `$where`, no en Python:** nombre exacto de la entidad (R1) y rango de fechas. Se extrae desde 2021 para tener contexto; R2 se aplica en la normalización.
+- **Filtros en el `$where`, no en Python:** nombre exacto de la entidad (R1) y rango de fechas. Se extrae desde el 1 de enero de 2022, el inicio de R2: los años de control de SECOP II son 2023 a 2025, y 2021 solo se usa en el Plan Anual de MEData.
 - **Paginación completa:** siempre `$limit`, `$offset` y un `$order` por una llave estable (`id_contrato`, `id_del_portafolio`). Se pide hasta recibir una página incompleta.
 - **Adiciones por lotes:** `id_contrato in (…)` con lotes de 200 identificadores, para no exceder el largo máximo de la URL.
 - **Robustez:** `httpx` con tiempo de espera explícito y `tenacity` con reintentos y espera exponencial ante errores 5xx, 429 y fallas de conexión.
