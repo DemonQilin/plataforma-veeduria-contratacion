@@ -5,9 +5,10 @@ from typing import Annotated
 
 import typer
 
+from veeduria.extract.http import Extraction, ExtractionError
+from veeduria.extract.medata import fetch_sql_query
 from veeduria.extract.snapshot import read_column, write_snapshot
 from veeduria.extract.socrata import (
-    SocrataError,
     app_token_from_env,
     fetch_query,
     fetch_query_by_ids,
@@ -22,12 +23,13 @@ DATA_DIR = Path(__file__).resolve().parents[3] / "data"
 DEFAULT_SCHEMA_DIR = DATA_DIR / "schema"
 DEFAULT_SNAPSHOT_DIR = DATA_DIR / "snapshot"
 
-# Consultas de Socrata que `extract` ya sabe descargar. Las demás llegan en sus tareas.
+# Consultas que `extract` ya sabe descargar. Las demás llegan en sus tareas.
 EXTRACTABLE_QUERIES = (
     "secop_contracts",
     "secop_contracts_suppliers",
     "secop_procurement_processes",
     "secop_additions",
+    "medata_procurement_plan",
 )
 
 
@@ -36,10 +38,22 @@ def _batch_ids(query: Query, snapshot_dir: Path) -> list[str]:
     try:
         return read_column(snapshot_dir / f"{query.batch_source}.csv", query.batch_column)
     except (FileNotFoundError, ValueError):
-        raise SocrataError(
+        raise ExtractionError(
             f"{query.id} necesita la copia de {query.batch_source}. "
             f"Extráela primero: veeduria extract {query.batch_source}."
         ) from None
+
+
+def _download(query: Query, snapshot_dir: Path) -> Extraction:
+    if query.kind == "medata_sql":
+        # El token de datos.gov.co no debe viajar a otro dominio.
+        with make_client(None) as client:
+            return fetch_sql_query(client, query)
+    ids = _batch_ids(query, snapshot_dir) if query.batch_source else None
+    with make_client(app_token_from_env()) as client:
+        if ids is None:
+            return fetch_query(client, query)
+        return fetch_query_by_ids(client, query, ids)
 
 
 @app.callback()
@@ -72,7 +86,7 @@ def extract(
         Path, typer.Option("--snapshot-dir", help="Carpeta de destino de la copia.")
     ] = DEFAULT_SNAPSHOT_DIR,
 ) -> None:
-    """Descarga una consulta de SECOP II a data/snapshot/."""
+    """Descarga una consulta de SECOP II o de MEData a data/snapshot/."""
     queries = {query.id: query for query in load_queries()}
     if query_id not in queries:
         typer.echo(f"Consulta desconocida: {query_id}. Disponibles: {sorted(queries)}.", err=True)
@@ -86,14 +100,9 @@ def extract(
         raise typer.Exit(2)
     query = queries[query_id]
     try:
-        ids = _batch_ids(query, snapshot_dir) if query.batch_source else None
-        with make_client(app_token_from_env()) as client:
-            if ids is None:
-                extraction = fetch_query(client, query)
-            else:
-                extraction = fetch_query_by_ids(client, query, ids)
+        extraction = _download(query, snapshot_dir)
         result = write_snapshot(query, extraction.header, extraction.rows, snapshot_dir)
-    except SocrataError as error:
+    except ExtractionError as error:
         typer.echo(f"Extracción fallida, la copia no se modificó: {error}", err=True)
         raise typer.Exit(1) from None
     typer.echo(f"{query_id}: {result.row_count} filas, SHA-256 {result.sha256}")

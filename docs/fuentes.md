@@ -85,6 +85,8 @@ El indicador de oferente único es viable: el campo está poblado y aparecen pro
 - Se consulta por la API SQL del portal (`/api/1/datastore/sql`), que permite elegir columnas.
 - **No tiene llave por contrato:** un plan describe necesidades, no contratos firmados. Se compara con la ejecución solo de forma agregada, por año, mes, modalidad y unidad (R17).
 - La API responde de forma intermitente (errores 504). Como el conjunto ya no se actualiza, la copia en `data/snapshot/` es en la práctica la fuente canónica.
+- **Consulta:** distribución `f338ad23-c393-51bc-8455-b0405e7d8655`, solo las columnas de la lista blanca, ordenadas por `record_number` y en páginas de 1.000. Cada petición se reintenta hasta 5 veces o 300 s, y el total se compara con `SELECT COUNT(*)` (ADR 0018).
+- **Extracción del 1 nov:** 18.764 filas, sin valores vacíos en las seis columnas; `ano` llega como `2014.0`.
 
 ---
 

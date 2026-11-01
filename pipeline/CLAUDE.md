@@ -47,12 +47,12 @@ pipeline/
   - Adiciones no tiene campo de entidad: consúltala con `id_contrato in (...)` en lotes de 200. Los identificadores salen de `data/snapshot/secop_contracts.csv` (`batch_source` en `sources.toml`), así que esa copia se extrae primero. Cada lote lleva su propio `count(*)`, y un lote sin adiciones es válido.
   - El token de aplicación se lee de la variable de entorno `SOCRATA_APP_TOKEN` si existe. Es opcional.
   - Al terminar, compara las filas recibidas con un `count(*)` de la misma consulta. Si no coinciden, falla sin escribir la copia.
-  - `uv run veeduria extract <query_id>` descarga una consulta a `data/snapshot/`. Disponibles: `secop_contracts`, `secop_contracts_suppliers`, `secop_procurement_processes` y `secop_additions` (esta última exige la copia de `secop_contracts`); para usar el token de `.env`: `uv run --env-file ../.env veeduria extract secop_contracts`. Un token inválido da HTTP 403; si pasa, vuelve a correrlo sin token.
+  - `uv run veeduria extract <query_id>` descarga una consulta a `data/snapshot/`. Disponibles: `secop_contracts`, `secop_contracts_suppliers`, `secop_procurement_processes`, `secop_additions` (esta última exige la copia de `secop_contracts`) y `medata_procurement_plan` (MEData); para usar el token de `.env`: `uv run --env-file ../.env veeduria extract secop_contracts`. Un token inválido da HTTP 403; si pasa, vuelve a correrlo sin token.
 - **MEData · Ejecución contractual:** descarga el CSV completo a `data/raw/`, que está fuera de git.
   - El parser propio vive en `extract/` porque hay que separar las columnas para descartar los datos personales antes de escribir la copia.
   - Las filas truncadas después de la columna 28 se aceptan, se completan con vacíos y se marcan con la columna `truncated`.
   - Una fila con un número de columnas inesperado detiene la extracción. El error indica el número de línea, nunca su contenido, porque puede tener datos personales.
-- **MEData · Plan Anual de Adquisiciones:** se pide por la API SQL del portal, que da errores 504. Como el conjunto ya no se actualiza, `--refresh` solo lo vuelve a pedir si se fuerza.
+- **MEData · Plan Anual de Adquisiciones:** se pide por la API SQL del portal, que da errores 504 (ADR 0018). `extract/medata.py` pide solo las columnas de la lista blanca, ordena por `record_number`, pagina de a 1.000, reintenta cada petición hasta 5 veces o 300 s y compara con `SELECT COUNT(*)`. No envía el token de datos.gov.co. Como el conjunto ya no se actualiza, `--refresh` solo lo vuelve a pedir si se fuerza.
 
 ## Transformación con DuckDB
 
