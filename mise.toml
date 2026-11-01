@@ -13,6 +13,10 @@ description = "Instala las dependencias del tablero"
 dir = "web"
 run = "pnpm install --frozen-lockfile"
 
+[tasks.setup]
+description = "Activa los hooks de git del repositorio"
+run = "git config core.hooksPath .githooks"
+
 [tasks.pipeline]
 description = "Corre el pipeline desde la copia de datos"
 dir = "pipeline"
@@ -67,6 +71,10 @@ run = "uv run pytest"
 description = "Contrato, requirements.txt y versiones sin deriva"
 dir = "web"
 run = "pnpm check:drift"
+
+[tasks."check:agents"]
+description = "Cada AGENTS.md es igual a su CLAUDE.md"
+run = "scripts/check-agents-sync.sh"
 
 [tasks."check:web"]
 dir = "web"
