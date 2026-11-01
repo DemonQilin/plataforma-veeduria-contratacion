@@ -5,9 +5,15 @@ from typing import Annotated
 
 import typer
 
-from veeduria.extract.snapshot import write_snapshot
-from veeduria.extract.socrata import SocrataError, app_token_from_env, fetch_query, make_client
-from veeduria.extract.sources import load_queries
+from veeduria.extract.snapshot import read_column, write_snapshot
+from veeduria.extract.socrata import (
+    SocrataError,
+    app_token_from_env,
+    fetch_query,
+    fetch_query_by_ids,
+    make_client,
+)
+from veeduria.extract.sources import Query, load_queries
 from veeduria.publish.models import export_schemas
 
 app = typer.Typer(no_args_is_help=True, add_completion=False, help="Veeduría de contratación.")
@@ -21,7 +27,19 @@ EXTRACTABLE_QUERIES = (
     "secop_contracts",
     "secop_contracts_suppliers",
     "secop_procurement_processes",
+    "secop_additions",
 )
+
+
+def _batch_ids(query: Query, snapshot_dir: Path) -> list[str]:
+    """Identificadores de la copia de origen; sin ella no hay qué consultar."""
+    try:
+        return read_column(snapshot_dir / f"{query.batch_source}.csv", query.batch_column)
+    except (FileNotFoundError, ValueError):
+        raise SocrataError(
+            f"{query.id} necesita la copia de {query.batch_source}. "
+            f"Extráela primero: veeduria extract {query.batch_source}."
+        ) from None
 
 
 @app.callback()
@@ -66,10 +84,15 @@ def extract(
             err=True,
         )
         raise typer.Exit(2)
+    query = queries[query_id]
     try:
+        ids = _batch_ids(query, snapshot_dir) if query.batch_source else None
         with make_client(app_token_from_env()) as client:
-            extraction = fetch_query(client, queries[query_id])
-        result = write_snapshot(queries[query_id], extraction.header, extraction.rows, snapshot_dir)
+            if ids is None:
+                extraction = fetch_query(client, query)
+            else:
+                extraction = fetch_query_by_ids(client, query, ids)
+        result = write_snapshot(query, extraction.header, extraction.rows, snapshot_dir)
     except SocrataError as error:
         typer.echo(f"Extracción fallida, la copia no se modificó: {error}", err=True)
         raise typer.Exit(1) from None

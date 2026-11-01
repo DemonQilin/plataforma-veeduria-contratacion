@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from veeduria.extract.snapshot import write_snapshot
+from veeduria.extract.snapshot import read_column, write_snapshot
 from veeduria.extract.sources import Query
 
 HEADER = ("id_contrato", "valor")
@@ -115,3 +115,24 @@ def test_failure_keeps_the_previous_copy_and_leaves_no_leftovers(tmp_path: Path)
 
     assert (tmp_path / "secop_contracts.csv").read_bytes() == before
     assert [p.name for p in tmp_path.iterdir()] == ["secop_contracts.csv"]
+
+
+# --- Lectura de una columna de la copia (identificadores para Adiciones) ----------------------
+
+
+def test_read_column_returns_that_column_in_file_order(tmp_path: Path) -> None:
+    path = tmp_path / "secop_contracts.csv"
+    path.write_text("valor,id_contrato\n10,C1\n20,C2\n", encoding="utf-8")
+    assert read_column(path, "id_contrato") == ["C1", "C2"]
+
+
+def test_read_column_rejects_a_missing_column(tmp_path: Path) -> None:
+    path = tmp_path / "secop_contracts.csv"
+    path.write_text("valor\n10\n", encoding="utf-8")
+    with pytest.raises(ValueError, match="id_contrato"):
+        read_column(path, "id_contrato")
+
+
+def test_read_column_rejects_a_missing_file(tmp_path: Path) -> None:
+    with pytest.raises(FileNotFoundError):
+        read_column(tmp_path / "no_existe.csv", "id_contrato")
