@@ -1,6 +1,7 @@
 """Escritor de la copia en `data/snapshot/` (ADR 0006).
 
-Un CSV por consulta, UTF-8 sin BOM y finales de línea LF, con valores crudos. Se escribe
+Un CSV por consulta, UTF-8 sin BOM y finales de línea LF, con valores crudos y las filas
+ordenadas por todas sus columnas (ADR 0016). Se escribe
 en un archivo temporal de la misma carpeta y se mueve al final: si algo falla, la copia
 anterior queda intacta y no quedan restos.
 """
@@ -36,6 +37,18 @@ def write_snapshot(
         # Segunda red de la lista blanca (ADR 0007): nada fuera de `allowed` llega al disco.
         raise ValueError(f"{query.id}: columnas fuera de la lista blanca {outside}.")
 
+    received = list(rows)
+    for index, row in enumerate(received):
+        if len(row) != len(header):
+            # Línea según el orden de llegada; el encabezado es la 1.
+            raise ValueError(
+                f"{query.id}: la línea {index + 2} tiene {len(row)} columnas "
+                f"y se esperaban {len(header)}."
+            )
+    # La API no garantiza un orden único entre filas con empates: ordenar aquí hace que
+    # las mismas filas den siempre el mismo archivo y el mismo SHA-256 (ADR 0016).
+    ordered = sorted(received, key=tuple)
+
     directory.mkdir(parents=True, exist_ok=True)
     final = directory / f"{query.id}.csv"
     descriptor, temp_name = tempfile.mkstemp(dir=directory, prefix=f".{query.id}.", suffix=".tmp")
@@ -45,12 +58,7 @@ def write_snapshot(
         with os.fdopen(descriptor, "w", encoding="utf-8", newline="") as handle:
             writer = csv.writer(handle, lineterminator="\n")
             writer.writerow(header)
-            for row in rows:
-                if len(row) != len(header):
-                    raise ValueError(
-                        f"{query.id}: la línea {row_count + 2} tiene {len(row)} columnas "
-                        f"y se esperaban {len(header)}."
-                    )
+            for row in ordered:
                 writer.writerow(row)
                 row_count += 1
         sha256 = hashlib.sha256(temp.read_bytes()).hexdigest()

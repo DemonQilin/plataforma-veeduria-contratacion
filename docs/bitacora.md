@@ -14,7 +14,16 @@ Las decisiones que salen de estas observaciones no se registran aquí: pasan a [
 | ¿Qué es el 11 % de contratos de MEData que no cruza con SECOP II? | 29 oct | Revisar formatos de referencia y buscar en la Tienda Virtual del Estado |
 | ¿El repunte de junio de 2023 y la caída de julio tienen relación con la restricción de convenios por las locales? | 29 oct | Separar interadministrativos del resto y comparar contra el calendario |
 | ¿Las fechas de la restricción de las locales de 2023 son las estimadas? | 29 oct | Fuente oficial |
-| ¿El nombre de la entidad en SECOP II Procesos coincide con el de Contratos? | 30 oct | Consulta a la API |
+
+---
+
+## 1 nov 2026 · Orden de SECOP II Procesos y NIT de proveedores
+
+- Resuelta la pregunta sobre el nombre de la entidad en Procesos: se escribe igual que en Contratos. Hoy son 23.428 filas con ese nombre; el 30 oct eran 23.400, porque la fuente recibe registros tardíos.
+- El orden `id_del_portafolio,id_del_proceso` no es único: la pareja se repite hasta 84 veces. Tampoco hay llave natural: con `id_adjudicacion`, `codigoproveedor` y `fecha_adjudicacion` quedan 944 grupos repetidos, el peor con 40 filas.
+- Se descargó Procesos completo (23.428 filas, páginas de 1.000) dos veces con cada orden. El orden por la pareja y el orden por `:id` dieron las mismas filas, sin faltantes ni sobrantes, y cada uno fue estable entre sus dos corridas. La pérdida de filas no se reprodujo. `:id` es único y `:created_at` es igual en todas las filas. Solo 19.367 filas son distintas en las columnas de la lista blanca: 4.061 son duplicados exactos. Decisión en [ADR 0016](adr/0016-orden-determinista-de-la-copia.md).
+- Procesos del Distrito: 14.577 publicados desde el 1 ene 2022, otros anteriores desde 2015 y 633 sin fecha de publicación. No se filtra por fecha, para no romper el cruce con contratos de 2022 cuyo proceso es anterior.
+- De 4.508 contratos con `tipodocproveedor = 'NIT'`, 42 (10 documentos distintos) no empiezan por 8 ni por 9. El prefijo es un indicio, no una prueba de persona jurídica. Decisión en [ADR 0017](adr/0017-proveedores-solo-nit-con-prefijo-8-o-9.md).
 
 ---
 
