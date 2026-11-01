@@ -32,6 +32,8 @@ jobs:
         with:
           package_json_file: web/package.json
 
+      - name: AGENTS.md igual a CLAUDE.md
+        run: bash scripts/check-agents-sync.sh
       - name: Pipeline · ruff
         working-directory: pipeline
         run: |

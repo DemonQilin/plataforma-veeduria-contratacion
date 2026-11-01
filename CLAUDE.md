@@ -23,8 +23,9 @@ Pipeline en Python que extrae datos de SECOP II y MEData, calcula indicadores es
 | Servidor de desarrollo del sitio | `mise run dev` | `cd web && pnpm dev` |
 | Construir y previsualizar el sitio | `mise run build` · `mise run preview` | `cd web && pnpm build` · `pnpm preview` |
 | Todas las verificaciones | `mise run check` | Ver la lista de abajo |
+| Activar los hooks de git (una vez por clon) | `mise run setup` | `git config core.hooksPath .githooks` |
 
-mise es opcional. Todo debe seguir funcionando con los comandos nativos de `instrucciones.txt`, sin mise. Las tareas de mise solo llaman a `uv run` o `pnpm`; si una tarea necesita lógica, esa lógica va en el pipeline o en un script de `package.json`.
+mise es opcional. Todo debe seguir funcionando con los comandos nativos de `instrucciones.txt`, sin mise. Las tareas de mise solo llaman a `uv run`, `pnpm`, `git config` o un script de `scripts/`; si una tarea necesita lógica, esa lógica va en el pipeline, en un script de `package.json` o en `scripts/`.
 
 `mise run check` y la integración continua verifican, en este orden:
 
@@ -34,6 +35,7 @@ mise es opcional. Todo debe seguir funcionando con los comandos nativos de `inst
 4. Que `pipeline/requirements.txt` coincida con `uv.lock` (`docs/adr/0013-python-con-uv-para-el-pipeline.md`).
 5. Que la versión de pnpm sea la misma en `web/package.json`, `mise.toml` e `instrucciones.txt` (`docs/adr/0003-pnpm-sin-corepack.md`).
 6. `astro check` y `pnpm build` en `web/`.
+7. Que cada `AGENTS.md` sea idéntico a su `CLAUDE.md` (`scripts/check-agents-sync.sh`, `docs/adr/0019-hooks-versionados-con-core-hookspath.md`).
 
 ## Convención de idioma
 

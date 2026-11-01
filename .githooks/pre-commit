@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Hook de pre-commit del repositorio (docs/adr/0019). Se activa con `mise run setup` o
+# `git config core.hooksPath .githooks`. Con core.hooksPath git ignora .git/hooks/, así
+# que aquí también se llama a GGA, que es opcional: sin `gga` instalado, se omite.
+set -euo pipefail
+
+if command -v gga >/dev/null 2>&1; then
+  gga run
+fi
+
+scripts/check-agents-sync.sh
