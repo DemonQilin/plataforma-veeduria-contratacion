@@ -14,6 +14,16 @@ Las decisiones que salen de estas observaciones no se registran aquí: pasan a [
 | ¿Qué es el 11 % de contratos de MEData que no cruza con SECOP II? | 29 oct | Revisar formatos de referencia y buscar en la Tienda Virtual del Estado |
 | ¿El repunte de junio de 2023 y la caída de julio tienen relación con la restricción de convenios por las locales? | 29 oct | Separar interadministrativos del resto y comparar contra el calendario |
 | ¿Las fechas de la restricción de las locales de 2023 son las estimadas? | 29 oct | Fuente oficial |
+| ¿Qué valores de `tipo` de Adiciones cuentan como adición en I5? | 1 nov | Cruzar `Adicion en el valor` con `valor_total_adic_contrato` de MEData |
+
+---
+
+## 1 nov 2026 · Adiciones de SECOP II
+
+- Adiciones (`cb9c-h8sn`) tiene 8.451.617 filas en el país y no trae entidad. Se consultó con los 7.468 `id_contrato` de la copia de Contratos, en 38 lotes de 200 con GET: la URL más larga fue de 5.657 caracteres y la API respondió bien.
+- Resultado: 15.884 filas de 5.990 contratos. Ningún lote vino vacío. `:id` e `identificador` son únicos, no hay duplicados exactos y `fecharegistro` nunca está vacía (del 12 ene 2022 al 30 oct 2026). Todos los `id_contrato` devueltos están en la copia de Contratos. SHA-256 `9e37494a…`, igual en dos extracciones.
+- Solo 642 filas son `Adicion en el valor`. Las otras son `Modificacion General` (7.958), `No definido` (4.354), `Conclusion` (2.379), `Reactivación` (262), `Suspensión` (244) y `Cesion` (45). La copia conserva todo, sin filtrar; I5 no puede contar filas como adiciones sin separar el `tipo`.
+- `descripcion`, que puede traer nombres, sigue fuera de la lista blanca.
 
 ---
 

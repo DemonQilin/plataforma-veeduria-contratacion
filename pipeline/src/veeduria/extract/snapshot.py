@@ -26,6 +26,17 @@ class SnapshotResult:
     sha256: str
 
 
+def read_column(path: Path, column: str) -> list[str]:
+    """Lee una columna de una copia ya escrita, en el orden del archivo."""
+    with path.open(encoding="utf-8", newline="") as handle:
+        reader = csv.reader(handle)
+        header = next(reader, [])
+        if column not in header:
+            raise ValueError(f"{path.name}: no tiene la columna {column}.")
+        index = header.index(column)
+        return [row[index] for row in reader]
+
+
 def write_snapshot(
     query: Query,
     header: Sequence[str],

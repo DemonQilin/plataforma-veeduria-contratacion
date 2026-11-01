@@ -65,7 +65,9 @@ El indicador de oferente único es viable: el campo está poblado y aparecen pro
 ## 4. SECOP II · Adiciones (`cb9c-h8sn`)
 
 - Solo trae tipo, descripción y fecha de cada adición, sin montos.
-- No tiene campo de entidad: se consulta por `id_contrato` de los contratos del Distrito, en lotes.
+- No tiene campo de entidad: se consulta por `id_contrato` de los contratos del Distrito, en lotes de 200. Los identificadores salen de la copia de `secop_contracts`, que se extrae primero.
+- **No son solo adiciones de valor.** Cada fila es un cambio posterior a la firma. Con los contratos de la copia del 1 nov: 15.884 filas de 5.990 contratos; `Modificacion General` 7.958, `No definido` 4.354, `Conclusion` 2.379, `Adicion en el valor` 642, `Reactivación` 262, `Suspensión` 244 y `Cesion` 45. Qué `tipo` cuenta como adición para I5 se decide en la normalización.
+- **Orden:** se pagina por `:id`; el par `id_contrato,fecharegistro` no se usó por no garantizar unicidad (ADR 0016).
 
 ## 5. MEData · Ejecución contractual histórico (`1-028-12-000088`)
 

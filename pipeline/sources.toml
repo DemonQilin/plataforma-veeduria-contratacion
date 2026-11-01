@@ -99,15 +99,18 @@ excluded = [
     "nombre_del_adjudicador",
 ]
 
-# Adiciones no tiene campo de entidad: se consulta con `id_contrato in (...)`,
-# en lotes de 200, sobre los contratos del Distrito. `where` queda vacío a propósito.
+# Adiciones no tiene campo de entidad: se consulta con `id_contrato in (...)`, en lotes de
+# 200, con los `id_contrato` de la copia de `secop_contracts` (`batch_source`). `where` queda
+# vacío a propósito. Se pagina por `:id`, porque `id_contrato,fecharegistro` no es único.
 [[queries]]
 id = "secop_additions"
 dataset = "cb9c-h8sn"
 kind = "socrata"
 url = "https://www.datos.gov.co/resource/cb9c-h8sn.csv"
 where = ""
-order_by = "id_contrato,fecharegistro"
+order_by = ":id"
+batch_source = "secop_contracts"
+batch_column = "id_contrato"
 allowed = [
     "id_contrato",
     "tipo",

@@ -25,8 +25,45 @@ def test_extract_unknown_query_exits_with_2(tmp_path) -> None:
 
 
 def test_extract_query_not_implemented_yet_exits_with_2(tmp_path) -> None:
-    result = runner.invoke(app, ["extract", "secop_additions", "--snapshot-dir", str(tmp_path)])
+    result = runner.invoke(
+        app, ["extract", "medata_contract_execution", "--snapshot-dir", str(tmp_path)]
+    )
     assert result.exit_code == 2
+    assert list(tmp_path.iterdir()) == []
+
+
+def seed_contracts(directory, ids: list[str]) -> None:
+    lines = ["id_contrato,valor", *[f"{contract_id},10" for contract_id in ids]]
+    (directory / "secop_contracts.csv").write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def test_extract_additions_reads_ids_from_the_contracts_snapshot(
+    tmp_path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    header = next(q for q in load_queries() if q.id == "secop_additions").allowed
+    seed_contracts(tmp_path, ["C1", "C2", "C3"])
+    rows = [["C1", "Adicion en el valor", "2022-01-12T15:08:16.288"]] * 2 + [
+        ["C3", "Conclusion", "2022-02-01T10:00:00.000"]
+    ]
+    transport = httpx.MockTransport(fake_socrata(header, rows))
+    monkeypatch.setattr(
+        "veeduria.cli.make_client", lambda token: make_client(token, transport=transport)
+    )
+
+    result = runner.invoke(app, ["extract", "secop_additions", "--snapshot-dir", str(tmp_path)])
+
+    assert result.exit_code == 0, result.output
+    assert "3 filas" in result.output
+    written = (tmp_path / "secop_additions.csv").read_text(encoding="utf-8").splitlines()
+    assert written[0] == ",".join(header)
+    assert len(written) == 4
+
+
+def test_extract_additions_without_the_contracts_snapshot_exits_with_1(tmp_path) -> None:
+    result = runner.invoke(app, ["extract", "secop_additions", "--snapshot-dir", str(tmp_path)])
+
+    assert result.exit_code == 1
+    assert "secop_contracts" in result.output
     assert list(tmp_path.iterdir()) == []
 
 

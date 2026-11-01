@@ -9,6 +9,7 @@ from veeduria.extract.socrata import (
     SocrataError,
     app_token_from_env,
     fetch_query,
+    fetch_query_by_ids,
     make_client,
 )
 from veeduria.extract.sources import Query
@@ -176,6 +177,134 @@ def test_gives_up_after_the_attempt_limit() -> None:
     with pytest.raises(SocrataError, match="503"):
         fetch(flaky(503, 99, calls), max_attempts=3)
     assert len(calls) == 3
+
+
+# --- Consulta por lotes de identificadores (Adiciones, ADR 0009) ------------------------------
+
+ADD_HEADER = ("id_contrato", "tipo", "fecharegistro")
+
+
+def make_addition_query(**overrides: object) -> Query:
+    values: dict[str, object] = {
+        "id": "secop_additions",
+        "where": "",
+        "order_by": ":id",
+        "allowed": ADD_HEADER,
+        "excluded": ("descripcion",),
+        "batch_source": "secop_contracts",
+        "batch_column": "id_contrato",
+    }
+    values.update(overrides)
+    return make_query(**values)
+
+
+def addition_rows(ids: list[str]) -> list[list[str]]:
+    return [[contract_id, "Adicion en el valor", "2022-01-12T15:08:16.288"] for contract_id in ids]
+
+
+def fetch_ids(handler, ids: list[str], query: Query | None = None, **kwargs):
+    return fetch_query_by_ids(
+        client_for(handler), query or make_addition_query(), ids, wait=wait_none(), **kwargs
+    )
+
+
+def page_requests(log: list[httpx.Request]) -> list[httpx.Request]:
+    return [r for r in log if "count(*)" not in r.url.params["$select"]]
+
+
+def listed_ids(request: httpx.Request) -> list[str]:
+    return request.url.params["$where"].removeprefix("id_contrato in(").removesuffix(")").split(",")
+
+
+def test_ids_are_split_into_batches_of_200() -> None:
+    ids = [f"CO1.PCCNTR.{n:04d}" for n in range(450)]
+    log: list[httpx.Request] = []
+    extraction = fetch_ids(fake_socrata(ADD_HEADER, addition_rows(ids), log=log), ids)
+
+    assert [len(listed_ids(r)) for r in page_requests(log)] == [200, 200, 50]
+    assert len(extraction.rows) == 450
+
+
+def test_ids_are_deduplicated_and_sorted_before_batching() -> None:
+    log: list[httpx.Request] = []
+    ids = ["C3", "C1", "C2", "C1"]
+    fetch_ids(fake_socrata(ADD_HEADER, addition_rows(["C1"]), log=log), ids)
+
+    assert listed_ids(page_requests(log)[0]) == ["'C1'", "'C2'", "'C3'"]
+
+
+def test_batch_request_keeps_select_order_and_limit() -> None:
+    log: list[httpx.Request] = []
+    fetch_ids(fake_socrata(ADD_HEADER, addition_rows(["C1"]), log=log), ["C1"])
+
+    params = page_requests(log)[0].url.params
+    assert params["$select"] == "id_contrato,tipo,fecharegistro"
+    assert params["$order"] == ":id"
+    assert params["$limit"] == "1000"
+
+
+def test_count_uses_the_where_of_its_own_batch() -> None:
+    log: list[httpx.Request] = []
+    fetch_ids(
+        fake_socrata(ADD_HEADER, addition_rows(["C1", "C2", "C3"]), log=log),
+        ["C1", "C2", "C3"],
+        batch_size=2,
+    )
+
+    wheres = [r.url.params["$where"] for r in log]
+    assert wheres == [wheres[0], wheres[0], wheres[2], wheres[2]]
+    assert wheres[0] != wheres[2]
+
+
+def test_a_batch_without_additions_is_valid() -> None:
+    handler = fake_socrata(ADD_HEADER, addition_rows(["C3", "C4"]))
+    extraction = fetch_ids(handler, ["C1", "C2", "C3", "C4"], batch_size=2)
+
+    assert extraction.rows == addition_rows(["C3", "C4"])
+    assert extraction.total == 2
+
+
+def test_no_additions_in_any_batch_fails() -> None:
+    with pytest.raises(SocrataError, match="0 filas"):
+        fetch_ids(fake_socrata(ADD_HEADER, []), ["C1", "C2"])
+
+
+def test_empty_id_list_is_refused_before_any_request() -> None:
+    log: list[httpx.Request] = []
+    with pytest.raises(SocrataError, match="identificadores"):
+        fetch_ids(fake_socrata(ADD_HEADER, addition_rows(["C1"]), log=log), [])
+    assert log == []
+
+
+def test_batch_count_mismatch_fails() -> None:
+    handler = fake_socrata(ADD_HEADER, addition_rows(["C1", "C2"]), reported_total=9)
+    with pytest.raises(SocrataError, match="2.*9"):
+        fetch_ids(handler, ["C1", "C2"])
+
+
+def test_single_quotes_in_ids_are_escaped() -> None:
+    log: list[httpx.Request] = []
+    fetch_ids(fake_socrata(ADD_HEADER, addition_rows(["A'B"]), log=log), ["A'B"])
+
+    assert "'A''B'" in page_requests(log)[0].url.params["$where"]
+
+
+def test_pagination_works_inside_a_batch() -> None:
+    ids = ["C1", "C2", "C3", "C4", "C5"]
+    extraction = fetch_ids(fake_socrata(ADD_HEADER, addition_rows(ids)), ids, page_size=2)
+
+    assert extraction.rows == addition_rows(ids)
+
+
+def test_query_without_batch_column_is_refused() -> None:
+    with pytest.raises(SocrataError, match="batch_column"):
+        fetch_ids(fake_socrata(ADD_HEADER, []), ["C1"], make_addition_query(batch_column=""))
+
+
+def test_unexpected_header_in_a_batch_fails() -> None:
+    handler = fake_socrata(("id_contrato", "descripcion", "fecharegistro"), [["C1", "x", "y"]])
+    with pytest.raises(SocrataError, match="descripcion"):
+        fetch_ids(handler, ["C1"])
 
 
 # --- Token de aplicación (opcional) ----------------------------------------------------------

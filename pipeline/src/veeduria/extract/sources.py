@@ -17,6 +17,10 @@ class Query:
     order_by: str
     allowed: tuple[str, ...]
     excluded: tuple[str, ...]
+    # Consultas sin campo de entidad (Adiciones): los identificadores salen de la copia
+    # de otra consulta, en la columna indicada, y se piden por lotes.
+    batch_source: str = ""
+    batch_column: str = ""
 
 
 def load_queries(path: Path = DEFAULT_SOURCES_PATH) -> tuple[Query, ...]:
@@ -32,6 +36,8 @@ def load_queries(path: Path = DEFAULT_SOURCES_PATH) -> tuple[Query, ...]:
             order_by=item["order_by"],
             allowed=tuple(item["allowed"]),
             excluded=tuple(item["excluded"]),
+            batch_source=item.get("batch_source", ""),
+            batch_column=item.get("batch_column", ""),
         )
         for item in raw["queries"]
     )
