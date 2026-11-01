@@ -16,7 +16,7 @@ Además, las fuentes se comportan distinto: SECOP II permite elegir columnas en 
 
 - **`pipeline/sources.toml` es la única implementación de la lista blanca.** Por cada consulta declara el conjunto, el endpoint, el filtro, la llave de orden y las columnas permitidas.
 - **También declara las columnas excluidas de forma explícita**, las de la tabla de [`fuentes.md`](../fuentes.md#8-lista-blanca-de-columnas). No se usan para filtrar; sirven como segunda red en las pruebas.
-- **SECOP II Contratos usa dos consultas:** una con las columnas generales para todos los contratos, y otra con `documento_proveedor` y `proveedor_adjudicado` solo para `tipodocproveedor = 'NIT'`. El nombre y el documento de personas naturales nunca se piden.
+- **SECOP II Contratos usa dos consultas:** una con las columnas generales para todos los contratos, y otra con `documento_proveedor` y `proveedor_adjudicado` solo para `tipodocproveedor = 'NIT'` con documento que empiece por 8 o 9 (ver [0017](0017-proveedores-solo-nit-con-prefijo-8-o-9.md)). El nombre y el documento de personas naturales nunca se piden.
 - **La extracción construye el `$select` desde `sources.toml`.** Nunca usa `$select=*`.
 - **Para MEData, el parser conserva solo las columnas permitidas** antes de escribir la copia. El archivo completo queda en `data/raw/`, fuera de git.
 - **La prueba de privacidad lee el mismo archivo** y verifica que:

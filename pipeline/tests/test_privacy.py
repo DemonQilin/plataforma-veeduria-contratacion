@@ -23,6 +23,10 @@ EXCLUDED = {column for query in QUERIES for column in query.excluded}
 SNAPSHOT_EXTRA_FILES = {"manifest.json", ".gitkeep"}
 SUPPLIER_COLUMNS = {"documento_proveedor", "proveedor_adjudicado"}
 NIT_FILTER = "tipodocproveedor = 'NIT'"
+# Una persona natural también puede tener NIT; las personas jurídicas empiezan por 8 o 9
+# (R14, ADR 0017).
+PREFIX_FILTER = "(documento_proveedor LIKE '8%' OR documento_proveedor LIKE '9%')"
+LEGAL_ENTITY_PREFIXES = ("8", "9")
 
 
 def _header(path: Path) -> list[str]:
@@ -78,11 +82,13 @@ def excluded_column_violations(directory: Path, excluded: set[str]) -> list[str]
 
 
 def supplier_query_violations(queries: tuple[Query, ...]) -> list[str]:
-    """Consultas que piden datos del proveedor sin limitarse a personas jurídicas."""
+    """Consultas que piden datos del proveedor sin limitarse a NIT que empiezan por 8 o 9."""
     return [
-        f"{query.id}: pide datos del proveedor sin el filtro {NIT_FILTER}"
+        f"{query.id}: pide datos del proveedor sin el filtro {required}"
         for query in queries
-        if SUPPLIER_COLUMNS & set(query.allowed) and NIT_FILTER not in query.where
+        if SUPPLIER_COLUMNS & set(query.allowed)
+        for required in (NIT_FILTER, PREFIX_FILTER)
+        if required not in query.where
     ]
 
 
@@ -102,6 +108,10 @@ def non_nit_supplier_violations(directory: Path) -> list[str]:
             if document_type.get(row["id_contrato"]) != "NIT":
                 violations.append(
                     f"{suppliers_path.name} fila {line}: el contrato no es de proveedor NIT"
+                )
+            elif not row["documento_proveedor"].startswith(LEGAL_ENTITY_PREFIXES):
+                violations.append(
+                    f"{suppliers_path.name} fila {line}: el documento no empieza por 8 ni 9"
                 )
     return violations
 
@@ -219,7 +229,7 @@ def test_excluded_name_inside_json_text_is_not_a_violation(tmp_path: Path) -> No
     assert excluded_column_violations(tmp_path, EXCLUDED) == []
 
 
-# --- Proveedores: nombre y documento solo de personas jurídicas ---------------------------
+# --- Proveedores (R14): nombre y documento solo de personas jurídicas ---------------------------
 
 
 def _supplier_query(where: str) -> Query:
@@ -239,8 +249,15 @@ def test_supplier_columns_require_nit_filter() -> None:
     assert supplier_query_violations((_supplier_query("entidad = 'X'"),)) != []
 
 
-def test_supplier_columns_with_nit_filter_are_accepted() -> None:
+def test_supplier_columns_with_nit_filter_but_no_prefix_filter_are_rejected() -> None:
     where = "entidad = 'X' AND tipodocproveedor = 'NIT'"
+    violations = supplier_query_violations((_supplier_query(where),))
+    assert len(violations) == 1
+    assert "LIKE" in violations[0]
+
+
+def test_supplier_columns_with_nit_and_prefix_filters_are_accepted() -> None:
+    where = f"entidad = 'X' AND tipodocproveedor = 'NIT' AND {PREFIX_FILTER}"
     assert supplier_query_violations((_supplier_query(where),)) == []
 
 
@@ -253,6 +270,25 @@ def test_snapshot_supplier_rows_must_belong_to_nit_contracts(tmp_path: Path) -> 
         tmp_path / "secop_contracts.csv",
         ["id_contrato", "tipodocproveedor"],
         (["C1", "NIT"], ["C2", "Cédula de Ciudadanía"]),
+    )
+    _write_csv(
+        tmp_path / "secop_contracts_suppliers.csv",
+        ["id_contrato", "documento_proveedor", "proveedor_adjudicado"],
+        (["C1", "900111222", "EMPRESA SA"], ["C2", "7654321", "NOMBRE PERSONAL"]),
+    )
+    violations = non_nit_supplier_violations(tmp_path)
+    assert len(violations) == 1
+    assert "fila 3" in violations[0]
+    # El mensaje nunca repite el contenido de la fila.
+    assert "7654321" not in violations[0]
+    assert "NOMBRE PERSONAL" not in violations[0]
+
+
+def test_snapshot_supplier_rows_with_a_non_legal_entity_prefix_are_rejected(tmp_path: Path) -> None:
+    _write_csv(
+        tmp_path / "secop_contracts.csv",
+        ["id_contrato", "tipodocproveedor"],
+        (["C1", "NIT"], ["C2", "NIT"]),
     )
     _write_csv(
         tmp_path / "secop_contracts_suppliers.csv",

@@ -34,7 +34,7 @@ El pipeline tiene dos modos:
 |---|---|---|
 | **Proceso** | Un procedimiento de selección (portafolio en SECOP II) | Modalidad, si es competitivo, fechas de publicación y cierre, precio base, oferentes únicos, unidad que lo adelanta |
 | **Contrato** | Un contrato del Distrito, identificado por su referencia | Fecha de firma canónica, modalidad, tipo de contrato, valor inicial y final, duración, tipo de proveedor, secretaría, proceso de origen |
-| **Proveedor** | Quien recibe el contrato | Tipo (natural, jurídica, no definido). Nombre y NIT solo si es persona jurídica |
+| **Proveedor** | Quien recibe el contrato | Tipo (natural, jurídica, no definido). Nombre y NIT solo si el NIT empieza por 8 o 9 (ADR 0017) |
 | **Adición** | Un cambio posterior a la firma | Contrato, fecha, tipo y valor (este último solo desde MEData) |
 | **Restricción electoral** | Un periodo de la Ley de Garantías | Ciclo, qué restringe (contratación directa, convenios), inicio, fin, ámbito, fuente |
 | **Ventana de comparación** | El tramo que se compara entre años | Año, inicio, fin, papel (tratamiento o control) |
@@ -73,7 +73,7 @@ Prestación de servicios, interadministrativo, obra, suministro y compraventa, o
 
 | Tipo | Valores de `tipodocproveedor` |
 |---|---|
-| Persona jurídica | NIT |
+| Persona jurídica | NIT (el nombre y el documento solo se piden si empieza por 8 o 9, ADR 0017) |
 | Persona natural | Cédula de ciudadanía, cédula de extranjería, pasaporte, permiso de protección temporal |
 | No definido | «No definido», «Otro» |
 
@@ -110,7 +110,7 @@ Prestación de servicios, interadministrativo, obra, suministro y compraventa, o
 ### Privacidad
 
 - **R13 · Supresión de celdas pequeñas.** Ningún indicador desagregado (por secretaría o por mes) se publica si se calcula sobre menos de 5 contratos. Se publica como «datos insuficientes». Así una cifra pequeña no permite identificar a una persona cruzándola con el portal de SECOP. La supresión se aplica en la etapa de publicación: el tablero nunca recibe una cifra sin suprimir.
-- **R14 · Proveedores.** Solo se nombran proveedores que son personas jurídicas, y solo en el indicador de concentración (I4).
+- **R14 · Proveedores.** Solo se nombran proveedores que son personas jurídicas, y solo en el indicador de concentración (I4). Hasta que respondan los organizadores, se considera persona jurídica al proveedor con NIT que empieza por 8 o 9 (ADR 0017).
 
 ### Calidad
 

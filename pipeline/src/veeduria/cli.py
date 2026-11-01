@@ -17,7 +17,11 @@ DEFAULT_SCHEMA_DIR = DATA_DIR / "schema"
 DEFAULT_SNAPSHOT_DIR = DATA_DIR / "snapshot"
 
 # Consultas de Socrata que `extract` ya sabe descargar. Las demás llegan en sus tareas.
-EXTRACTABLE_QUERIES = ("secop_contracts",)
+EXTRACTABLE_QUERIES = (
+    "secop_contracts",
+    "secop_contracts_suppliers",
+    "secop_procurement_processes",
+)
 
 
 @app.callback()

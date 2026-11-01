@@ -30,21 +30,26 @@ def test_extract_query_not_implemented_yet_exits_with_2(tmp_path) -> None:
     assert list(tmp_path.iterdir()) == []
 
 
-def test_extract_secop_contracts_writes_the_snapshot(
-    tmp_path, monkeypatch: pytest.MonkeyPatch, contracts_header
+@pytest.mark.parametrize(
+    "query_id",
+    ["secop_contracts", "secop_contracts_suppliers", "secop_procurement_processes"],
+)
+def test_extract_socrata_queries_write_the_snapshot(
+    tmp_path, monkeypatch: pytest.MonkeyPatch, query_id: str
 ) -> None:
-    rows = [[f"C{n}"] + ["x"] * (len(contracts_header) - 1) for n in range(3)]
-    transport = httpx.MockTransport(fake_socrata(contracts_header, rows))
+    header = next(q for q in load_queries() if q.id == query_id).allowed
+    rows = [[f"C{n}"] + ["x"] * (len(header) - 1) for n in range(3)]
+    transport = httpx.MockTransport(fake_socrata(header, rows))
     monkeypatch.setattr(
         "veeduria.cli.make_client", lambda token: make_client(token, transport=transport)
     )
 
-    result = runner.invoke(app, ["extract", "secop_contracts", "--snapshot-dir", str(tmp_path)])
+    result = runner.invoke(app, ["extract", query_id, "--snapshot-dir", str(tmp_path)])
 
     assert result.exit_code == 0, result.output
     assert "3 filas" in result.output
-    written = (tmp_path / "secop_contracts.csv").read_text(encoding="utf-8").splitlines()
-    assert written[0] == ",".join(contracts_header)
+    written = (tmp_path / f"{query_id}.csv").read_text(encoding="utf-8").splitlines()
+    assert written[0] == ",".join(header)
     assert len(written) == 4
 
 
