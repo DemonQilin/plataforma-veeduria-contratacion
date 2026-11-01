@@ -58,6 +58,8 @@ El indicador de oferente único es viable: el campo está poblado y aparecen pro
 **Lo que hay que saber:**
 
 - Las filas se repiten por lote o adjudicación. Se consolida por `id_del_portafolio` (R5).
+- **Sin filtro de fecha:** el conjunto trae procesos desde 2015, y un contrato firmado en 2022 puede venir de un proceso publicado antes. Se extraen todos los del Distrito; 633 no tienen fecha de publicación.
+- **Orden:** se pagina por `:id` y la copia se ordena en local (ADR 0016). No hay llave natural: el par portafolio-proceso se repite hasta 84 veces.
 - **Verificado el 30 oct:** el nombre de la entidad en Procesos se escribe igual que en Contratos (23.400 filas).
 
 ## 4. SECOP II · Adiciones (`cb9c-h8sn`)
@@ -107,7 +109,7 @@ El pipeline solo pide o conserva estas columnas. Los datos personales nunca lleg
 Se hacen dos consultas, para que el nombre y el documento de personas naturales nunca se pidan:
 
 - **Todos los contratos:** `id_contrato`, `referencia_del_contrato`, `proceso_de_compra`, `nombre_entidad`, `modalidad_de_contratacion`, `justificacion_modalidad_de`, `tipo_de_contrato`, `fecha_de_firma`, `fecha_de_inicio_del_contrato`, `fecha_de_fin_del_contrato`, `valor_del_contrato`, `dias_adicionados`, `estado_contrato`, `tipodocproveedor`, `codigo_de_categoria_principal`, `urlproceso`.
-- **Solo con `tipodocproveedor = 'NIT'`:** `id_contrato`, `documento_proveedor` y `proveedor_adjudicado`.
+- **Solo con `tipodocproveedor = 'NIT'` y documento que empieza por 8 o 9:** `id_contrato`, `documento_proveedor` y `proveedor_adjudicado`. Una persona natural también puede tener NIT, y el prefijo es un indicio, no una prueba (ADR 0017).
 
 ### SECOP II · Procesos
 

@@ -48,13 +48,14 @@ excluded = [
 ]
 
 # Segunda consulta: el nombre y el documento del proveedor solo se piden cuando
-# es persona jurídica (NIT). Los de personas naturales nunca se piden.
+# es persona jurídica: NIT que empieza por 8 o 9 (ADR 0017), porque una persona
+# natural también puede tener NIT. Los de personas naturales nunca se piden.
 [[queries]]
 id = "secop_contracts_suppliers"
 dataset = "jbjy-vk9h"
 kind = "socrata"
 url = "https://www.datos.gov.co/resource/jbjy-vk9h.csv"
-where = "nombre_entidad = 'DISTRITO ESPECIAL DE CIENCIA TECNOLOGIA E INNOVACION DE MEDELLIN' AND fecha_de_firma >= '2022-01-01T00:00:00' AND tipodocproveedor = 'NIT'"
+where = "nombre_entidad = 'DISTRITO ESPECIAL DE CIENCIA TECNOLOGIA E INNOVACION DE MEDELLIN' AND fecha_de_firma >= '2022-01-01T00:00:00' AND tipodocproveedor = 'NIT' AND (documento_proveedor LIKE '8%' OR documento_proveedor LIKE '9%')"
 order_by = "id_contrato"
 allowed = [
     "id_contrato",
@@ -76,7 +77,8 @@ kind = "socrata"
 url = "https://www.datos.gov.co/resource/p6dx-8zbt.csv"
 # Nombre de la entidad verificado en Procesos el 30 oct 2026: 23.400 filas.
 where = "entidad = 'DISTRITO ESPECIAL DE CIENCIA TECNOLOGIA E INNOVACION DE MEDELLIN'"
-order_by = "id_del_portafolio,id_del_proceso"
+# `:id` es único; el par portafolio-proceso se repite hasta 84 veces (ADR 0016).
+order_by = ":id"
 allowed = [
     "id_del_portafolio",
     "id_del_proceso",
