@@ -66,12 +66,15 @@ Dos modalidades de SECOP II · Procesos no están en la tabla y caen en «Otra»
 
 ### Tipo de contrato
 
-Prestación de servicios, interadministrativo, obra, suministro y compraventa, operación de crédito público y otro.
+Prestación de servicios, interadministrativo, obra, suministro y compraventa, operación de crédito público y otro. El catálogo es `pipeline/reference/contract_types.toml` (ADR 0022).
 
 - La prestación de servicios se separa porque explica la renovación de enero.
-- El interadministrativo se identifica por la justificación de la modalidad en SECOP II o por la causal en MEData.
+- El interadministrativo se identifica por la justificación de la modalidad en SECOP II o por la causal en MEData, y gana sobre el tipo crudo: 1.399 de los 1.446 contratos interadministrativos de SECOP II traen el tipo «Otro». Las variantes de causal de MEData que cuentan son «Contrato Interadmin», «Adic. Contr. Interad», «Cto Interadm Segurid», «Convenio Interadmin» y «Ad. Cto InterSegurid».
+- Los tipos sin categoría propia (arrendamiento, interventoría, consultoría, seguros, comodato, etc.) se listan bajo «Otro» para que el reporte de calidad solo muestre valores nuevos. «No» y «No Especificado» de Procesos caen ahí y se reportan.
 
 ### Tipo de proveedor
+
+El catálogo es `pipeline/reference/supplier_types.toml` (ADR 0022). Un valor no reconocido cae en «No definido».
 
 | Tipo | Valores de `tipodocproveedor` |
 |---|---|

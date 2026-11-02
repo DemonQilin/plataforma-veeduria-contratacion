@@ -1,0 +1,61 @@
+# Catálogo de tipos de contrato (R6; docs/reglas.md sección 3).
+#
+# Cada texto se compara sin mayúsculas, tildes ni espacios (`catalog_key`). Un texto que no
+# esté aquí cae en `other` y aparece en el reporte de calidad. Los tipos que no tienen
+# categoría propia se listan bajo `other` para que el reporte solo muestre lo realmente nuevo.
+#
+# El interadministrativo no es un tipo de SECOP II: se identifica por la justificación de la
+# modalidad (SECOP II) o por la causal (MEData · Ejecución, ya con la codificación reparada,
+# ADR 0010). Esa señal gana sobre el tipo crudo (ADR 0022).
+
+interadministrative_justifications = [
+  # SECOP II · Contratos
+  "Contratos o convenios Interadministrativos (con valor)",
+  "Contratos o convenios Interadministrativos (valor cero)",
+  # MEData · Ejecución contractual
+  "Contrato Interadmin",
+  "Adic. Contr. Interad",
+  "Cto Interadm Segurid",
+  "Convenio Interadmin",
+  "Ad. Cto InterSegurid",
+]
+
+[[type]]
+code = "service_contract"
+label = "Prestación de servicios"
+raw = ["Prestación de servicios"]
+
+[[type]]
+code = "interadministrative"
+label = "Interadministrativo"
+raw = []
+
+[[type]]
+code = "works"
+label = "Obra"
+raw = ["Obra"]
+
+[[type]]
+code = "supply_and_purchase"
+label = "Suministro y compraventa"
+raw = ["Suministros", "Compraventa"]
+
+[[type]]
+code = "public_credit"
+label = "Operación de crédito público"
+raw = ["Operaciones de Crédito Público"]
+
+[[type]]
+code = "other"
+label = "Otro"
+raw = [
+  "Otro",
+  "Arrendamiento de inmuebles",
+  "Interventoría",
+  "Consultoría",
+  "Seguros",
+  "Comodato",
+  "Decreto 092 de 2017",
+  "Servicios financieros",
+  "Asociación Público Privada",
+]

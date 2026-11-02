@@ -1,0 +1,24 @@
+# Catálogo de tipos de proveedor según `tipodocproveedor` (R6; docs/reglas.md sección 3).
+#
+# Cada texto se compara sin mayúsculas, tildes ni espacios (`catalog_key`). Un texto que no
+# esté aquí cae en `undefined` y aparece en el reporte de calidad.
+
+[[type]]
+code = "legal_entity"
+label = "Persona jurídica"
+raw = ["NIT"]
+
+[[type]]
+code = "natural_person"
+label = "Persona natural"
+raw = [
+  "Cédula de Ciudadanía",
+  "Cédula de Extranjería",
+  "Pasaporte",
+  "Permiso de protección temporal",
+]
+
+[[type]]
+code = "undefined"
+label = "No definido"
+raw = ["No Definido", "Otro"]
