@@ -18,6 +18,16 @@ Las decisiones que salen de estas observaciones no se registran aquí: pasan a [
 
 ---
 
+## 2 nov 2026 · Normalización de Procesos
+
+- La copia de Procesos tiene 23.450 filas, 17.260 portafolios y 18.852 procesos. Todas las fechas y cifras se leen sin error. Faltan 633 fechas de publicación y 12.023 de cierre de ofertas.
+- Cada portafolio trae una sola modalidad y un solo tipo de contrato, así que el catálogo no cambia de una fila a otra del mismo portafolio. En «Otra» caen 1.129 filas, las 786 de «Solicitud de información a los Proveedores» y las 343 de «Subasta de prueba»; ninguna está adjudicada.
+- **1.169 portafolios mezclan filas adjudicadas y no adjudicadas.** R5 solo define cómo se consolida el número de oferentes. Hay que decidir cómo se consolida `adjudicado` antes de la tarea 7, porque I3 y R9 dependen de eso.
+- Hay 251 filas adjudicadas con cero proveedores únicos y 10 adjudicadas con valor adjudicado en cero. R9 excluye las primeras del indicador; aquí se conservan.
+- 7.085 de los 7.108 `proceso_de_compra` de Contratos aparecen como portafolio en Procesos. Los otros 23 quedan sin proceso al cruzar.
+
+---
+
 ## 2 nov 2026 · Catálogos de tipo de contrato y de proveedor
 
 - `interadministrativo` no es un valor de `tipo_de_contrato`. En `secop_contracts` hay 1.446 contratos con justificación interadministrativa («con valor» 1.353, «valor cero» 93): 1.399 traen el tipo «Otro», 43 «Suministros» y 4 «Obra». La justificación debe ganarle al tipo.
