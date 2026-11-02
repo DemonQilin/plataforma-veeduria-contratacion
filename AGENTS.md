@@ -87,6 +87,12 @@ Usa siempre estos nombres en el código. Si necesitas un término nuevo, agréga
 | supresión de celdas pequeñas | `small_cell_suppression` |
 | numerador / denominador / n | `numerator` / `denominator` / `sample_size` |
 | fila cortada en origen | `truncated` |
+| fecha de publicación / fecha de cierre de ofertas | `published_date` / `response_deadline` |
+| precio base / valor adjudicado | `base_price` / `awarded_value` |
+| respuestas / proveedores únicos | `response_count` / `unique_suppliers` |
+| adjudicado | `awarded` |
+| entidad contratante | `entity` |
+| identificador del proceso | `process_id` |
 
 ## Reglas no negociables
 
