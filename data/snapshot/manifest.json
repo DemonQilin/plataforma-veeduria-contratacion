@@ -1,0 +1,154 @@
+{
+  "cutoff_date": "2026-10-30",
+  "sources": {
+    "medata_contract_execution": {
+      "cutoff_date": "2023-06-30",
+      "dataset": "1-028-12-000088",
+      "extracted_at": "2026-11-02T13:26:21Z",
+      "kind": "medata_csv",
+      "query": {
+        "order_by": "contrato",
+        "select": [
+          "contrato",
+          "fecha_contrato",
+          "modalidad",
+          "causal",
+          "nombre_secretaria",
+          "nombre_programa",
+          "valor_inicial_contrato",
+          "valor_total_adic_contrato",
+          "valor_fin_contrato",
+          "duracion_en_dias",
+          "estado",
+          "ano",
+          "truncated"
+        ],
+        "where": ""
+      },
+      "row_count": 25783,
+      "sha256": "2759a1f3fede9f181c94ddfe929cfa8efcedbdc70dcdc165c03a0d39dd5e620c",
+      "source_sha256": "71d683859e25d900c1c8d752756d7384f244f9e3a933438f7e22409889d989cd",
+      "url": "https://medata.app.medellin.gov.co/sites/default/files/distribution/1-028-12-000088/Ejecucion_contractual.csv"
+    },
+    "medata_procurement_plan": {
+      "cutoff_date": null,
+      "dataset": "1-028-11-000089",
+      "extracted_at": "2026-11-02T13:22:24Z",
+      "kind": "medata_sql",
+      "query": {
+        "distribution": "f338ad23-c393-51bc-8455-b0405e7d8655",
+        "order_by": "record_number",
+        "select": [
+          "ano",
+          "fecha_estimada_inicio",
+          "modalidad_seleccion",
+          "valor_total_estimado",
+          "unidad_de_contratacion",
+          "codigos_unspsc"
+        ],
+        "where": ""
+      },
+      "row_count": 18764,
+      "sha256": "650f3e5ee1b241042d730574da6213831165444603d92e244e563ffbf436bd89",
+      "url": "https://medata.app.medellin.gov.co/api/1/datastore/sql/"
+    },
+    "secop_additions": {
+      "cutoff_date": "2026-10-30",
+      "dataset": "cb9c-h8sn",
+      "extracted_at": "2026-11-02T13:26:21Z",
+      "kind": "socrata",
+      "query": {
+        "batch_column": "id_contrato",
+        "batch_source": "secop_contracts",
+        "order_by": ":id",
+        "select": [
+          "id_contrato",
+          "tipo",
+          "fecharegistro"
+        ],
+        "where": ""
+      },
+      "row_count": 15884,
+      "sha256": "9e37494ab1f7e44f12839e5479d1eebe6cd7b8ec1ac7b65d7cee15b38d5625cb",
+      "url": "https://www.datos.gov.co/resource/cb9c-h8sn.csv"
+    },
+    "secop_contracts": {
+      "cutoff_date": "2026-10-30",
+      "dataset": "jbjy-vk9h",
+      "extracted_at": "2026-11-02T13:26:21Z",
+      "kind": "socrata",
+      "query": {
+        "order_by": "id_contrato",
+        "select": [
+          "id_contrato",
+          "referencia_del_contrato",
+          "proceso_de_compra",
+          "nombre_entidad",
+          "modalidad_de_contratacion",
+          "justificacion_modalidad_de",
+          "tipo_de_contrato",
+          "fecha_de_firma",
+          "fecha_de_inicio_del_contrato",
+          "fecha_de_fin_del_contrato",
+          "valor_del_contrato",
+          "dias_adicionados",
+          "estado_contrato",
+          "tipodocproveedor",
+          "codigo_de_categoria_principal",
+          "urlproceso"
+        ],
+        "where": "nombre_entidad = 'DISTRITO ESPECIAL DE CIENCIA TECNOLOGIA E INNOVACION DE MEDELLIN' AND fecha_de_firma >= '2022-01-01T00:00:00'"
+      },
+      "row_count": 7468,
+      "sha256": "c825d206c15960853d5da33bc00a3ca9cd4233f8c5acc094fa94eee2bc380009",
+      "url": "https://www.datos.gov.co/resource/jbjy-vk9h.csv"
+    },
+    "secop_contracts_suppliers": {
+      "cutoff_date": null,
+      "dataset": "jbjy-vk9h",
+      "extracted_at": "2026-11-02T13:26:21Z",
+      "kind": "socrata",
+      "query": {
+        "order_by": "id_contrato",
+        "select": [
+          "id_contrato",
+          "documento_proveedor",
+          "proveedor_adjudicado"
+        ],
+        "where": "nombre_entidad = 'DISTRITO ESPECIAL DE CIENCIA TECNOLOGIA E INNOVACION DE MEDELLIN' AND fecha_de_firma >= '2022-01-01T00:00:00' AND tipodocproveedor = 'NIT' AND (documento_proveedor LIKE '8%' OR documento_proveedor LIKE '9%')"
+      },
+      "row_count": 4466,
+      "sha256": "ec075c1461f500d52b60311317eadf90a927868916fdb9c53ea083afdf790209",
+      "url": "https://www.datos.gov.co/resource/jbjy-vk9h.csv"
+    },
+    "secop_procurement_processes": {
+      "cutoff_date": "2026-10-30",
+      "dataset": "p6dx-8zbt",
+      "extracted_at": "2026-11-02T13:26:21Z",
+      "kind": "socrata",
+      "query": {
+        "order_by": ":id",
+        "select": [
+          "id_del_portafolio",
+          "id_del_proceso",
+          "nit_entidad",
+          "entidad",
+          "modalidad_de_contratacion",
+          "tipo_de_contrato",
+          "fecha_de_publicacion_del",
+          "fecha_de_recepcion_de",
+          "precio_base",
+          "valor_total_adjudicacion",
+          "respuestas_al_procedimiento",
+          "proveedores_unicos_con",
+          "adjudicado",
+          "nombre_de_la_unidad_de"
+        ],
+        "where": "entidad = 'DISTRITO ESPECIAL DE CIENCIA TECNOLOGIA E INNOVACION DE MEDELLIN'"
+      },
+      "row_count": 23450,
+      "sha256": "48fe760342ec6824d3831105cd3c4a40eaadf1005fcecfdc89a6fb01a148b358",
+      "url": "https://www.datos.gov.co/resource/p6dx-8zbt.csv"
+    }
+  }
+}

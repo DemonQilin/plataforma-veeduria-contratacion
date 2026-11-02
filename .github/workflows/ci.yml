@@ -51,8 +51,8 @@ jobs:
         working-directory: pipeline
         run: |
           uv sync
-          # Se activa cuando exista la primera copia de datos (data/snapshot/manifest.json).
-          if [ -f ../data/snapshot/manifest.json ]; then uv run veeduria run --from-snapshot; fi
+          # Se activa cuando las etapas generen la primera salida (data/outputs/metadata.json).
+          if [ -f ../data/outputs/metadata.json ]; then uv run veeduria run --from-snapshot; fi
       - name: Opción A · tablero
         working-directory: web
         run: |

@@ -35,7 +35,8 @@ pipeline/
 
 - **Solo `extract/` usa la red.** Todo lo que sigue lee de `data/snapshot/`, para que `--from-snapshot` funcione sin conexión.
 - **`data/snapshot/` guarda valores crudos.** Solo columnas de la lista blanca, sin normalizar y en CSV UTF-8. La normalización ocurre después, para que el jurado reproduzca todas las reglas.
-- **`manifest.json`** se escribe solo con `--refresh`: identificador del conjunto, URL, consulta, número de filas, SHA-256, fecha de extracción y fecha de corte.
+- **`manifest.json`** se escribe solo con `--refresh`: identificador del conjunto, URL, consulta, número de filas, SHA-256, fecha de extracción y fecha de corte. En MEData · Ejecución agrega el SHA-256 del archivo descargado (`source_sha256`); si cambia entre corridas, `--refresh` avisa.
+- **`--refresh` es todo o nada** (`extract/refresh.py`): extrae a una carpeta temporal de `data/raw/`, Adiciones lee los `id_contrato` de esa carpeta, y solo si todo sale bien mueve los CSV y escribe el manifiesto. El Plan Anual (`frozen = true` en `sources.toml`) se salta salvo `--force-procurement-plan`. La fecha de corte de cada fuente usa su `cutoff_column`.
 - **Falla segura:** cada ejecución escribe en un directorio temporal y lo mueve a `data/outputs/` solo si todo terminó bien. Nunca dejes una salida a medias.
 
 ## Extracción

@@ -8,6 +8,7 @@ import typer
 from veeduria.extract.http import Extraction, ExtractionError
 from veeduria.extract.medata import fetch_sql_query
 from veeduria.extract.medata_csv import fetch_csv_query
+from veeduria.extract.refresh import refresh_snapshot
 from veeduria.extract.snapshot import read_column, write_snapshot
 from veeduria.extract.socrata import (
     app_token_from_env,
@@ -66,14 +67,56 @@ def run(
     refresh: Annotated[
         bool, typer.Option("--refresh", help="Actualiza la copia desde las fuentes.")
     ] = False,
+    force_procurement_plan: Annotated[
+        bool,
+        typer.Option(
+            "--force-procurement-plan",
+            help="Con --refresh, vuelve a pedir el Plan Anual, que ya no se actualiza.",
+        ),
+    ] = False,
+    snapshot_dir: Annotated[
+        Path, typer.Option("--snapshot-dir", help="Carpeta de la copia de datos.")
+    ] = DEFAULT_SNAPSHOT_DIR,
+    raw_dir: Annotated[
+        Path,
+        typer.Option("--raw-dir", help="Carpeta de trabajo de las descargas (fuera de git)."),
+    ] = DEFAULT_RAW_DIR,
 ) -> None:
     """Ejecuta el pipeline."""
     if from_snapshot == refresh:
         # Sin el recuadro de Rich de BadParameter: el mensaje sale igual con o sin color.
         typer.echo("Indica exactamente una opción: --from-snapshot o --refresh.", err=True)
         raise typer.Exit(2)
+    if force_procurement_plan and not refresh:
+        typer.echo("--force-procurement-plan solo se usa junto con --refresh.", err=True)
+        raise typer.Exit(2)
+    if refresh:
+        _refresh(snapshot_dir, raw_dir, force_procurement_plan)
     typer.echo("Las etapas del pipeline todavía no están implementadas.", err=True)
-    raise typer.Exit(1)
+    raise typer.Exit(0 if refresh else 1)
+
+
+def _refresh(snapshot_dir: Path, raw_dir: Path, force_procurement_plan: bool) -> None:
+    try:
+        report = refresh_snapshot(
+            load_queries(),
+            snapshot_dir,
+            raw_dir,
+            lambda query, staging: _download(query, staging, raw_dir),
+            force_frozen=force_procurement_plan,
+        )
+    except ExtractionError as error:
+        typer.echo(f"Extracción fallida, la copia no se modificó: {error}", err=True)
+        raise typer.Exit(1) from None
+    for query_id, row_count, sha256 in report.refreshed:
+        typer.echo(f"{query_id}: {row_count} filas, SHA-256 {sha256}")
+    for query_id in report.skipped:
+        typer.echo(
+            f"{query_id}: sin cambios, la fuente ya no se actualiza (--force-procurement-plan)."
+        )
+    for warning in report.warnings:
+        typer.echo(f"Aviso · {warning}", err=True)
+    typer.echo(f"Copia actualizada: {snapshot_dir / 'manifest.json'}")
 
 
 @app.command()

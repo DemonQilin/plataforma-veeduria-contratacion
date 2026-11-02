@@ -18,6 +18,14 @@ Las decisiones que salen de estas observaciones no se registran aquí: pasan a [
 
 ---
 
+## 2 nov 2026 · Primera corrida completa de `--refresh`
+
+- Las seis consultas salieron en una sola corrida de 3 min 46 s. Se escribió `data/snapshot/manifest.json`.
+- Reproducibilidad: Contratos (7.468 filas), Adiciones (15.884), Ejecución contractual (25.783) y Plan Anual (18.764) dieron el mismo SHA-256 que la extracción individual del 1 nov. Proveedores quedó en 4.466 filas.
+- Procesos pasó de 23.428 a 23.450 filas: 22 registros tardíos de la fuente, como ya había ocurrido con Contratos.
+- Fecha de corte global: 30 oct 2026 (firma más reciente de los contratos). Por fuente: Procesos y Adiciones, 30 oct 2026; Ejecución contractual, 30 jun 2023, que coincide con la cobertura documentada. Proveedores y Plan Anual quedan en `null`: no tienen una columna de fecha utilizable (el Plan solo trae nombres de mes).
+- Las fechas de MEData vienen día/mes/año («24/06/2022»). Como texto, «9/12/2022» ordena después de «10/11/2022»; la fecha de corte se calcula sobre fechas, no sobre texto.
+
 ## 1 nov 2026 · Ejecución contractual de MEData
 
 - La URL de la ficha del conjunto no es el archivo. El CSV está en `/sites/default/files/distribution/1-028-12-000088/Ejecucion_contractual.csv`: responde 200 directo, 26.714.918 bytes, UTF-8 sin BOM y líneas CRLF. La ficha de metadatos dio 504 dos veces antes de responder.

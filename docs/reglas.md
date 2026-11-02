@@ -24,7 +24,7 @@ Extraer → Normalizar → Consolidar → Cruzar → Calcular → Publicar
 El pipeline tiene dos modos:
 
 - **`--from-snapshot`:** ejecuta desde Normalizar usando la copia versionada. No usa la red. Es el camino del jurado.
-- **`--refresh`:** ejecuta desde Extraer, actualiza la copia y continúa.
+- **`--refresh`:** ejecuta desde Extraer, actualiza la copia y continúa. La extracción es todo o nada: si una consulta falla, la copia y el `manifest.json` quedan como estaban. El Plan Anual de Adquisiciones solo se vuelve a pedir con `--force-procurement-plan` o si aún no tiene entrada en el manifiesto.
 
 ---
 

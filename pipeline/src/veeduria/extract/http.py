@@ -16,6 +16,8 @@ class Extraction:
     header: tuple[str, ...]
     rows: list[list[str]]
     total: int
+    # Huella del archivo descargado, solo cuando la fuente es un archivo (MEData · Ejecución).
+    source_sha256: str = ""
 
 
 def is_retryable(error: BaseException) -> bool:

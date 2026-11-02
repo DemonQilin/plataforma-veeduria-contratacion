@@ -13,9 +13,11 @@ línea, nunca su contenido.
 """
 
 import csv
+import hashlib
 import os
 import re
 import tempfile
+from dataclasses import replace
 from pathlib import Path
 
 import httpx
@@ -135,8 +137,9 @@ def fetch_csv_query(
     temp = Path(temp_name)  # mkstemp lo crea con modo 0600: tiene datos personales
     try:
         _download(client, query, temp, wait, max_attempts, max_seconds)
+        content = temp.read_bytes()
         try:
-            text = temp.read_bytes().decode("utf-8-sig")
+            text = content.decode("utf-8-sig")
         except UnicodeDecodeError:
             raise MedataError(f"{query.id}: el archivo no está en UTF-8.") from None
         extraction = parse_execution_csv(text, query)
@@ -144,4 +147,4 @@ def fetch_csv_query(
     except BaseException:
         temp.unlink(missing_ok=True)
         raise
-    return extraction
+    return replace(extraction, source_sha256=hashlib.sha256(content).hexdigest())
