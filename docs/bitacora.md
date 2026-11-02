@@ -18,6 +18,15 @@ Las decisiones que salen de estas observaciones no se registran aquí: pasan a [
 
 ---
 
+## 2 nov 2026 · Normalización del Plan Anual
+
+- La copia tiene 18.764 líneas y 15.139 distintas: 3.625 son idénticas en las seis columnas de la lista blanca. Se conservan; con todas se reproducen las 726 líneas directas de enero de 2022.
+- `valor_total_estimado`: 18.752 enteros, 10 en notación científica con coma («1,10E+11») y 2 sin lectura segura («1,2611», «5,1995», ambas de contratación directa en 2017). Hay 11 valores en 0: 9 en 2014, 1 en 2017 y 1 en 2023.
+- Serie de I8 sobre la tabla normalizada: enero 46 % (2014), 57 % (2018) y 52 % (2022); de febrero a junio, 15, 16 y 8 %. Coincide con la exploración. Decisiones en [ADR 0021](adr/0021-normalizacion-del-plan-anual-sin-deduplicar.md).
+- Sigue 2023 en 44 y 44 %: es año de elección local, que se analiza aparte.
+
+---
+
 ## 2 nov 2026 · Catálogo de modalidades contra la copia
 
 - Contratos usa 11 textos de modalidad y todos están en el catálogo de `docs/reglas.md`. Ejecución contractual usa 6, que `ftfy.fix_encoding` repara sin dejar restos. El Plan Anual usa 15 escrituras de 6 modalidades; «mnima cuanta» perdió las letras con tilde en origen, así que quitar tildes no basta y se cataloga como variante.

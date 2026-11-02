@@ -61,6 +61,7 @@ pipeline/
 - El SQL vive en archivos `.sql`, no en strings de Python. Los valores se pasan con parámetros de DuckDB, nunca con formateo de strings.
 - La copia se lee como texto (`read_csv` con `all_varchar = true`) y los tipos se asignan de forma explícita en `normalize/`.
 - La reparación de codificación (`ftfy.fix_encoding`) ocurre en `normalize/`, antes del mapeo a catálogos.
+- El catálogo se aplica en Python sobre los textos distintos y llega al SQL como parámetros de lista (`unnest($raw_texts)`), porque `create_function` exige numpy. Cuando el SQL hace `TRY_CAST` sobre `read_csv`, el CSV va en un `WITH ... AS MATERIALIZED`; sin eso DuckDB empuja el cast al lector y falla (`normalize/r06_procurement_plan.sql`, ADR 0021).
 - La base de DuckDB vive en memoria. Para depurar se puede escribir en un archivo dentro de `data/raw/`, nunca en otra carpeta.
 - Los catálogos y el calendario electoral se leen de `reference/` (R10). No se infieren de los datos.
 

@@ -162,6 +162,8 @@ Se hacen dos consultas, para que el nombre y el documento de personas naturales 
 | La vista previa del portal carga el CSV en una sola columna | MEData · Ejecución | Trabajar siempre con la descarga | — |
 | Adiciones sin montos | SECOP II | Montos solo desde MEData (2022–2023) | — |
 | Modalidad y mes escritos de formas distintas («Contratacion Directa», «contratacion directa», «concurso de m eritos», «mnima cuanta») | MEData · Plan | Normalizar sin mayúsculas, tildes ni espacios internos, y mapear al catálogo | R6 |
+| 3.625 líneas idénticas en las seis columnas de la lista blanca | MEData · Plan | Conservarlas: son necesidades distintas y quitarlas rompe las cifras de I8 (ADR 0021) | R17 |
+| `valor_total_estimado` con notación científica y coma («1,10E+11», 10 filas) o decimales sin sentido («1,2611», 2 filas) | MEData · Plan | Convertir los primeros; dejar los segundos en nulo (ADR 0021) | R17 |
 | La API del portal responde de forma intermitente (errores 504) | MEData | Reintentos y copia con huella; el conjunto ya no se actualiza | — |
 
 ---
