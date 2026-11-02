@@ -73,6 +73,8 @@ Usa siempre estos nombres en el código. Si necesitas un término nuevo, agréga
 | año de tratamiento / control | `treatment` / `control` |
 | concentración pre-restricción | `pre_restriction_share` |
 | Plan Anual de Adquisiciones | `procurement_plan` |
+| mes estimado de inicio / valor estimado | `estimated_start_month` / `estimated_value` |
+| códigos UNSPSC | `unspsc_codes` |
 | copia de datos | `snapshot` |
 | supresión de celdas pequeñas | `small_cell_suppression` |
 | numerador / denominador / n | `numerator` / `denominator` / `sample_size` |
