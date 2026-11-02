@@ -60,7 +60,9 @@ Cada texto crudo se traduce a un valor cerrado con dos propiedades: si es contra
 | Mínima cuantía | «Mínima cuantía» | No | Sí |
 | Otra | Cualquier valor no reconocido | No | No |
 
-En el Plan Anual de Adquisiciones de MEData, los textos se comparan sin mayúsculas, tildes ni espacios internos antes de mapearlos, porque vienen escritos de formas como «contratacion directa» o «concurso de m eritos».
+El catálogo es `pipeline/reference/procurement_methods.toml` (ADR 0020). En todas las fuentes, los textos se comparan sin mayúsculas, tildes ni espacios internos antes de mapearlos, porque el Plan Anual de MEData los trae escritos de formas como «contratacion directa» o «concurso de m eritos». Los textos de MEData · Ejecución se comparan después de reparar la codificación (ADR 0010).
+
+Dos modalidades de SECOP II · Procesos no están en la tabla y caen en «Otra»: «Solicitud de información a los Proveedores» (786 filas) y «Subasta de prueba» (343). Ninguna está adjudicada, así que no entran en R9.
 
 ### Tipo de contrato
 

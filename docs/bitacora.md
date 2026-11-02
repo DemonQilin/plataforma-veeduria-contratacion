@@ -18,6 +18,12 @@ Las decisiones que salen de estas observaciones no se registran aquí: pasan a [
 
 ---
 
+## 2 nov 2026 · Catálogo de modalidades contra la copia
+
+- Contratos usa 11 textos de modalidad y todos están en el catálogo de `docs/reglas.md`. Ejecución contractual usa 6, que `ftfy.fix_encoding` repara sin dejar restos. El Plan Anual usa 15 escrituras de 6 modalidades; «mnima cuanta» perdió las letras con tilde en origen, así que quitar tildes no basta y se cataloga como variante.
+- Procesos trae 13 textos: los 11 de Contratos más «Solicitud de información a los Proveedores» (786 filas, 388 con respuestas) y «Subasta de prueba» (343 filas, ninguna con respuestas). Ninguna de las 1.129 filas está adjudicada. Caen en «Otra».
+- Con el catálogo, esos dos son los únicos valores no reconocidos de las cuatro fuentes (decisión en [ADR 0020](adr/0020-catalogo-de-modalidades-en-toml.md)).
+
 ## 2 nov 2026 · Primera corrida completa de `--refresh`
 
 - Las seis consultas salieron en una sola corrida de 3 min 46 s. Se escribió `data/snapshot/manifest.json`.

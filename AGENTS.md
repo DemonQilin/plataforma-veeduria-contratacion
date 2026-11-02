@@ -58,6 +58,12 @@ Usa siempre estos nombres en el código. Si necesitas un término nuevo, agréga
 | modalidad de contratación | `procurement_method` |
 | contratación directa | `direct_award` |
 | régimen especial | `special_regime` |
+| licitación pública | `public_tender` |
+| selección abreviada | `abbreviated_selection` |
+| concurso de méritos | `merit_based_selection` |
+| mínima cuantía | `minimum_amount` |
+| otra (modalidad no reconocida) | `other` |
+| competitivo | `competitive` |
 | causal o justificación de la modalidad | `method_justification` |
 | oferente único | `single_bidder` |
 | fecha de firma | `signed_date` |

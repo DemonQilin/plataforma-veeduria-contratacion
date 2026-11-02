@@ -153,6 +153,7 @@ Se hacen dos consultas, para que el nombre y el documento de personas naturales 
 | NIT compartido con Concejo y Personería | Contratos | Filtrar por nombre exacto de la entidad | R1 |
 | Varios `id_contrato` por referencia (modificaciones, envíos al proveedor) | Contratos | Consolidar por referencia | R3 |
 | Modalidades escritas de distintas formas | Contratos, Procesos | Normalizar a un catálogo cerrado | R6 |
+| «Solicitud de información a los Proveedores» (786 filas) y «Subasta de prueba» (343), que no son modalidades de selección | Procesos | Dejarlas en «Otra» y reportarlas; ninguna está adjudicada | R6, R9 |
 | Operaciones de crédito público con valores enormes | Contratos | Excluirlas de los indicadores de valor | R7 |
 | Filas repetidas por lote o adjudicación | Procesos | Consolidar por `id_del_portafolio` | R5 |
 | Cada línea envuelta en comillas, con comillas escapadas de forma irregular dentro | MEData · Ejecución | Parser propio en la extracción, con pruebas sobre líneas reales | — |
