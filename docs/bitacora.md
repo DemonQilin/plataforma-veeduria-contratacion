@@ -18,6 +18,17 @@ Las decisiones que salen de estas observaciones no se registran aquí: pasan a [
 
 ---
 
+## 2 nov 2026 · Catálogos de tipo de contrato y de proveedor
+
+- `interadministrativo` no es un valor de `tipo_de_contrato`. En `secop_contracts` hay 1.446 contratos con justificación interadministrativa («con valor» 1.353, «valor cero» 93): 1.399 traen el tipo «Otro», 43 «Suministros» y 4 «Obra». La justificación debe ganarle al tipo.
+- Las 4.079 filas con justificación «Servicios profesionales y apoyo a la gestión» ya tienen el tipo «Prestación de servicios»; no hace falta la justificación para ese tipo.
+- MEData · Ejecución no trae tipo de contrato, solo `causal` (49 valores distintos tras reparar la codificación). Las interadministrativas son «Contrato Interadmin» (406 contratos), «Adic. Contr. Interad», «Cto Interadm Segurid», «Convenio Interadmin» y «Ad. Cto InterSegurid»: 432 contratos con firma desde 2022.
+- «Ley 489 Artículo 95» y «Ley 489 Artículo 108» no se incluyen: desde 2022 no suman ningún contrato respecto de las variantes anteriores (431 con y sin ellas). «Conv. Coop. Internal» es cooperación internacional.
+- SECOP II · Procesos trae «No» (492 filas) y «No Especificado» (638) como tipo de contrato; caen en `other`. Contratos no tiene valores sin reconocer.
+- `tipodocproveedor` trae NIT, Cédula de Ciudadanía, Cédula de Extranjería, «No Definido» (65) y «Otro» (20): todos están en la tabla de `reglas.md`. Decisiones en [ADR 0022](adr/0022-catalogos-de-tipo-de-contrato-y-proveedor.md).
+
+---
+
 ## 2 nov 2026 · Normalización del Plan Anual
 
 - La copia tiene 18.764 líneas y 15.139 distintas: 3.625 son idénticas en las seis columnas de la lista blanca. Se conservan; con todas se reproducen las 726 líneas directas de enero de 2022.

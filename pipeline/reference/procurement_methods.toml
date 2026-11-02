@@ -1,6 +1,6 @@
 # Catálogo de modalidades de contratación (R6, D1, D2; docs/reglas.md sección 3).
 #
-# Cada texto crudo se compara sin mayúsculas, tildes ni espacios (`method_key`), así que
+# Cada texto crudo se compara sin mayúsculas, tildes ni espacios (`catalog_key`), así que
 # solo se listan las formas que difieren más allá de eso. Los textos de MEData llegan ya
 # con la codificación reparada (ADR 0010). Un texto que no esté aquí cae en `other`.
 

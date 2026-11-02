@@ -62,7 +62,15 @@ Usa siempre estos nombres en el código. Si necesitas un término nuevo, agréga
 | selección abreviada | `abbreviated_selection` |
 | concurso de méritos | `merit_based_selection` |
 | mínima cuantía | `minimum_amount` |
-| otra (modalidad no reconocida) | `other` |
+| otra (modalidad o tipo de contrato no reconocido) | `other` |
+| tipo de contrato | `contract_type` |
+| prestación de servicios | `service_contract` |
+| interadministrativo | `interadministrative` |
+| obra | `works` |
+| suministro y compraventa | `supply_and_purchase` |
+| operación de crédito público | `public_credit` |
+| tipo de proveedor | `supplier_type` |
+| tipo de proveedor no definido | `undefined` |
 | competitivo | `competitive` |
 | causal o justificación de la modalidad | `method_justification` |
 | oferente único | `single_bidder` |
