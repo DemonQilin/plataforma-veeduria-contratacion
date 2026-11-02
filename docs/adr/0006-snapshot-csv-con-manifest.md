@@ -24,6 +24,13 @@ Esa copia tiene requisitos que pesan más que el rendimiento:
 - **Solo `--refresh` escribe la copia.** `--from-snapshot` la lee y nunca la modifica.
 - **El Plan Anual de Adquisiciones** ya no se actualiza en MEData, así que su copia es en la práctica la fuente canónica. `--refresh` solo lo vuelve a pedir si se fuerza de forma explícita.
 
+### Enmienda (2 nov 2026): cómo se ejecuta `--refresh`
+
+- **Todo o nada.** Las consultas se extraen a una carpeta temporal de `data/raw/` y solo se mueven a `data/snapshot/` si todas terminan bien; el manifiesto se escribe al final. Adiciones usa los `id_contrato` recién extraídos, no los de la copia anterior, para no mezclar contratos nuevos con adiciones viejas.
+- **Plan Anual congelado:** `frozen = true` en `sources.toml`. Se pide si se usa `--force-procurement-plan` o si no tiene entrada en el manifiesto.
+- **Fecha de corte por fuente** (`cutoff_column`), normalizada a AAAA-MM-DD. MEData escribe día/mes/año y se compara como fecha, no como texto.
+- **Aviso, no error,** cuando cambia la huella de una fuente de MEData: la corrida sigue y reporta la diferencia.
+
 ## Consecuencias
 
 - El jurado reproduce todas las reglas, desde la normalización, sin conexión.

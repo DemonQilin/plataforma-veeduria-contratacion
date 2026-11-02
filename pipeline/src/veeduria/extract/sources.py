@@ -24,6 +24,10 @@ class Query:
     # API SQL de MEData: identificador de la distribución CSV que se consulta. La ficha
     # del conjunto da 504 con frecuencia, así que no se averigua en cada ejecución.
     distribution: str = ""
+    # Fuente que ya no se actualiza: `--refresh` no la vuelve a pedir salvo que se fuerce.
+    frozen: bool = False
+    # Columna con la que se calcula la fecha de corte de la fuente en el manifiesto.
+    cutoff_column: str = ""
 
 
 def load_queries(path: Path = DEFAULT_SOURCES_PATH) -> tuple[Query, ...]:
@@ -42,6 +46,8 @@ def load_queries(path: Path = DEFAULT_SOURCES_PATH) -> tuple[Query, ...]:
             batch_source=item.get("batch_source", ""),
             batch_column=item.get("batch_column", ""),
             distribution=item.get("distribution", ""),
+            frozen=item.get("frozen", False),
+            cutoff_column=item.get("cutoff_column", ""),
         )
         for item in raw["queries"]
     )

@@ -81,6 +81,8 @@ def test_extract_socrata_queries_write_the_snapshot(
     written = (tmp_path / f"{query_id}.csv").read_text(encoding="utf-8").splitlines()
     assert written[0] == ",".join(header)
     assert len(written) == 4
+    # Solo `run --refresh` escribe el manifiesto (ADR 0006).
+    assert not (tmp_path / "manifest.json").exists()
 
 
 def plan_query():

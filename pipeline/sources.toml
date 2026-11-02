@@ -4,6 +4,7 @@
 
 [[queries]]
 id = "secop_contracts"
+cutoff_column = "fecha_de_firma"
 dataset = "jbjy-vk9h"
 kind = "socrata"
 url = "https://www.datos.gov.co/resource/jbjy-vk9h.csv"
@@ -72,6 +73,7 @@ excluded = [
 
 [[queries]]
 id = "secop_procurement_processes"
+cutoff_column = "fecha_de_publicacion_del"
 dataset = "p6dx-8zbt"
 kind = "socrata"
 url = "https://www.datos.gov.co/resource/p6dx-8zbt.csv"
@@ -104,6 +106,7 @@ excluded = [
 # vacío a propósito. Se pagina por `:id`, porque `id_contrato,fecharegistro` no es único.
 [[queries]]
 id = "secop_additions"
+cutoff_column = "fecharegistro"
 dataset = "cb9c-h8sn"
 kind = "socrata"
 url = "https://www.datos.gov.co/resource/cb9c-h8sn.csv"
@@ -125,6 +128,7 @@ excluded = [
 # directo, no la ficha del conjunto (ADR 0010).
 [[queries]]
 id = "medata_contract_execution"
+cutoff_column = "fecha_contrato"
 dataset = "1-028-12-000088"
 kind = "medata_csv"
 url = "https://medata.app.medellin.gov.co/sites/default/files/distribution/1-028-12-000088/Ejecucion_contractual.csv"
@@ -158,6 +162,8 @@ excluded = [
 # (ADR 0018). El conjunto completo se baja sin `where`, porque ya es solo el Distrito.
 [[queries]]
 id = "medata_procurement_plan"
+# Ya no se actualiza en MEData: `--refresh` solo lo vuelve a pedir si se fuerza (ADR 0006).
+frozen = true
 dataset = "1-028-11-000089"
 kind = "medata_sql"
 url = "https://medata.app.medellin.gov.co/api/1/datastore/sql/"

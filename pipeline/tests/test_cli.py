@@ -25,11 +25,6 @@ def test_run_from_snapshot_is_not_implemented_yet() -> None:
     assert "etapas" in result.output
 
 
-def test_run_refresh_is_not_implemented_yet() -> None:
-    result = runner.invoke(app, ["run", "--refresh"])
-    assert result.exit_code == 1
-
-
 def test_export_schema_is_idempotent(tmp_path) -> None:
     first = runner.invoke(app, ["export-schema", "--output-dir", str(tmp_path)])
     assert first.exit_code == 0

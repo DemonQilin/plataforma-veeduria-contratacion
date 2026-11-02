@@ -184,7 +184,7 @@ Tabla de referencia curada a mano (R10). Vive en `pipeline/reference/` con la fu
 Los detalles de implementación están en `pipeline/CLAUDE.md` y en [`adr/`](adr/). Lo esencial:
 
 - La API de datos.gov.co se consulta en formato CSV, con paginación ordenada y filtros en el `$where`.
-- Solo la extracción usa la red. La copia en `data/snapshot/` guarda los valores tal como vienen de la fuente, ya filtrados por la lista blanca, con un `manifest.json` que registra consulta, filas, huella y fecha de corte.
+- Solo la extracción usa la red. La copia en `data/snapshot/` guarda los valores tal como vienen de la fuente, ya filtrados por la lista blanca, con un `manifest.json` que registra consulta, filas, huella y fecha de corte. La fecha de corte de cada fuente sale de su columna de fecha (firma, publicación, registro o contrato); Proveedores y el Plan Anual no tienen una columna de fecha utilizable y quedan en `null`. La fecha de corte global es la de los contratos (R12).
 
 ---
 
