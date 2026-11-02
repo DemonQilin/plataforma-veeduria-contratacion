@@ -1,0 +1,76 @@
+# Catálogo de modalidades de contratación (R6, D1, D2; docs/reglas.md sección 3).
+#
+# Cada texto crudo se compara sin mayúsculas, tildes ni espacios (`method_key`), así que
+# solo se listan las formas que difieren más allá de eso. Los textos de MEData llegan ya
+# con la codificación reparada (ADR 0010). Un texto que no esté aquí cae en `other`.
+
+[[method]]
+code = "direct_award"
+label = "Contratación directa"
+direct_award = true
+competitive = false
+raw = [
+  "Contratación directa",
+  "Contratación Directa (con ofertas)",
+]
+
+[[method]]
+code = "special_regime"
+label = "Régimen especial"
+direct_award = false
+competitive = false
+raw = [
+  "Contratación régimen especial",
+  "Contratación régimen especial (con ofertas)",
+  "Régimen Especial",
+]
+
+[[method]]
+code = "public_tender"
+label = "Licitación pública"
+direct_award = false
+competitive = true
+raw = [
+  "Licitación pública",
+  "Licitación pública Obra Publica",
+]
+
+[[method]]
+code = "abbreviated_selection"
+label = "Selección abreviada"
+direct_award = false
+competitive = true
+raw = [
+  "Selección abreviada",
+  "Selección abreviada subasta inversa",
+  "Selección Abreviada de Menor Cuantía",
+  "Seleccion Abreviada Menor Cuantia Sin Manifestacion Interes",
+]
+
+[[method]]
+code = "merit_based_selection"
+label = "Concurso de méritos"
+direct_award = false
+competitive = true
+raw = [
+  "Concurso de méritos",
+  "Concurso de méritos abierto",
+]
+
+[[method]]
+code = "minimum_amount"
+label = "Mínima cuantía"
+direct_award = false
+competitive = true
+raw = [
+  "Mínima cuantía",
+  # El Plan Anual de MEData perdió las letras con tilde en origen.
+  "mnima cuanta",
+]
+
+[[method]]
+code = "other"
+label = "Otra"
+direct_award = false
+competitive = false
+raw = []
