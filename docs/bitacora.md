@@ -14,7 +14,7 @@ Las decisiones que salen de estas observaciones no se registran aquí: pasan a [
 | ¿Qué es el 11 % de contratos de MEData que no cruza con SECOP II? | 29 oct | Revisar formatos de referencia y buscar en la Tienda Virtual del Estado |
 | ¿El repunte de junio de 2023 y la caída de julio tienen relación con la restricción de convenios por las locales? | 29 oct | Separar interadministrativos del resto y comparar contra el calendario |
 | ¿Las fechas de la restricción de las locales de 2023 son las estimadas? | 29 oct | Fuente oficial |
-| ¿Qué valores de `tipo` de Adiciones cuentan como adición en I5? | 1 nov | Cruzar `Adicion en el valor` con `valor_total_adic_contrato` de MEData |
+| ¿Qué valores de `tipo` de Adiciones cuentan como adición en I5? | 1 nov | Decidido el 3 nov: solo `Adicion en el valor` (ADR 0025). Falta confirmarlo cruzando con `valor_total_adic_contrato` de MEData (R15) |
 
 ---
 
