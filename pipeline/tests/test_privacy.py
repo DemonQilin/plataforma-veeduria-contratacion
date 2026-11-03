@@ -24,9 +24,11 @@ SNAPSHOT_EXTRA_FILES = {"manifest.json", ".gitkeep"}
 SUPPLIER_COLUMNS = {"documento_proveedor", "proveedor_adjudicado"}
 NIT_FILTER = "tipodocproveedor = 'NIT'"
 # Una persona natural también puede tener NIT; las personas jurídicas empiezan por 8 o 9
-# (R14, ADR 0017).
+# (R14, ADR 0017) y tienen 9 dígitos, o 10 con el dígito de verificación (ADR 0026).
 PREFIX_FILTER = "(documento_proveedor LIKE '8%' OR documento_proveedor LIKE '9%')"
+LENGTH_FILTER = "length(documento_proveedor) >= 9 AND length(documento_proveedor) <= 10"
 LEGAL_ENTITY_PREFIXES = ("8", "9")
+LEGAL_ENTITY_LENGTHS = (9, 10)
 
 
 def _header(path: Path) -> list[str]:
@@ -82,12 +84,12 @@ def excluded_column_violations(directory: Path, excluded: set[str]) -> list[str]
 
 
 def supplier_query_violations(queries: tuple[Query, ...]) -> list[str]:
-    """Consultas que piden datos del proveedor sin limitarse a NIT que empiezan por 8 o 9."""
+    """Consultas que piden datos del proveedor sin NIT de 9 o 10 dígitos que empiezan por 8 o 9."""
     return [
         f"{query.id}: pide datos del proveedor sin el filtro {required}"
         for query in queries
         if SUPPLIER_COLUMNS & set(query.allowed)
-        for required in (NIT_FILTER, PREFIX_FILTER)
+        for required in (NIT_FILTER, PREFIX_FILTER, LENGTH_FILTER)
         if required not in query.where
     ]
 
@@ -112,6 +114,10 @@ def non_nit_supplier_violations(directory: Path) -> list[str]:
             elif not row["documento_proveedor"].startswith(LEGAL_ENTITY_PREFIXES):
                 violations.append(
                     f"{suppliers_path.name} fila {line}: el documento no empieza por 8 ni 9"
+                )
+            elif len(row["documento_proveedor"]) not in LEGAL_ENTITY_LENGTHS:
+                violations.append(
+                    f"{suppliers_path.name} fila {line}: el documento no tiene 9 ni 10 dígitos"
                 )
     return violations
 
@@ -250,14 +256,21 @@ def test_supplier_columns_require_nit_filter() -> None:
 
 
 def test_supplier_columns_with_nit_filter_but_no_prefix_filter_are_rejected() -> None:
-    where = "entidad = 'X' AND tipodocproveedor = 'NIT'"
+    where = f"entidad = 'X' AND tipodocproveedor = 'NIT' AND {LENGTH_FILTER}"
     violations = supplier_query_violations((_supplier_query(where),))
     assert len(violations) == 1
     assert "LIKE" in violations[0]
 
 
-def test_supplier_columns_with_nit_and_prefix_filters_are_accepted() -> None:
+def test_supplier_columns_with_nit_and_prefix_but_no_length_filter_are_rejected() -> None:
     where = f"entidad = 'X' AND tipodocproveedor = 'NIT' AND {PREFIX_FILTER}"
+    violations = supplier_query_violations((_supplier_query(where),))
+    assert len(violations) == 1
+    assert "length" in violations[0]
+
+
+def test_supplier_columns_with_nit_prefix_and_length_filters_are_accepted() -> None:
+    where = f"entidad = 'X' AND tipodocproveedor = 'NIT' AND {PREFIX_FILTER} AND {LENGTH_FILTER}"
     assert supplier_query_violations((_supplier_query(where),)) == []
 
 
@@ -301,6 +314,41 @@ def test_snapshot_supplier_rows_with_a_non_legal_entity_prefix_are_rejected(tmp_
     # El mensaje nunca repite el contenido de la fila.
     assert "7654321" not in violations[0]
     assert "NOMBRE PERSONAL" not in violations[0]
+
+
+@pytest.mark.parametrize("document", ["80123456", "9001112", "90011122233"])
+def test_snapshot_supplier_rows_with_a_non_legal_entity_length_are_rejected(
+    tmp_path: Path, document: str
+) -> None:
+    _write_csv(
+        tmp_path / "secop_contracts.csv",
+        ["id_contrato", "tipodocproveedor"],
+        (["C1", "NIT"], ["C2", "NIT"]),
+    )
+    _write_csv(
+        tmp_path / "secop_contracts_suppliers.csv",
+        ["id_contrato", "documento_proveedor", "proveedor_adjudicado"],
+        (["C1", "900111222", "EMPRESA SA"], ["C2", document, "NOMBRE PERSONAL"]),
+    )
+    violations = non_nit_supplier_violations(tmp_path)
+    assert len(violations) == 1
+    assert "fila 3" in violations[0]
+    assert document not in violations[0]
+    assert "NOMBRE PERSONAL" not in violations[0]
+
+
+def test_snapshot_supplier_rows_with_nine_or_ten_digits_are_accepted(tmp_path: Path) -> None:
+    _write_csv(
+        tmp_path / "secop_contracts.csv",
+        ["id_contrato", "tipodocproveedor"],
+        (["C1", "NIT"], ["C2", "NIT"]),
+    )
+    _write_csv(
+        tmp_path / "secop_contracts_suppliers.csv",
+        ["id_contrato", "documento_proveedor", "proveedor_adjudicado"],
+        (["C1", "900111222", "EMPRESA SA"], ["C2", "8909000811", "OTRA SA"]),
+    )
+    assert non_nit_supplier_violations(tmp_path) == []
 
 
 def test_snapshot_supplier_rows_without_contract_are_rejected(tmp_path: Path) -> None:
