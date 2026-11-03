@@ -113,6 +113,11 @@ Usa siempre estos nombres en el código. Si necesitas un término nuevo, agréga
 | contrato canónico / proceso canónico | `canonical_contracts` / `canonical_processes` |
 | versiones de un contrato / filas de un proceso | `version_count` / `row_count` |
 | hallazgo de calidad | `quality_issues` |
+| contrato enriquecido (cruce de SECOP II y MEData) | `linked_contracts` |
+| fuente de la secretaría | `department_source` |
+| el contrato aparece en MEData | `in_medata` |
+| sin asignar (secretaría) | `unassigned` |
+| cuenta en los indicadores de valor | `is_value_eligible` |
 
 ## Reglas no negociables
 
