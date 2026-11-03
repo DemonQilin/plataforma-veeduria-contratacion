@@ -55,6 +55,15 @@ Usa siempre estos nombres en el código. Si necesitas un término nuevo, agréga
 | proveedor | `supplier` |
 | persona jurídica / natural | `legal_entity` / `natural_person` |
 | adición | `addition` |
+| tipo de adición | `addition_type` |
+| adición en el valor | `value_addition` |
+| marca de adición en el valor | `is_value_addition` |
+| modificación general | `general_modification` |
+| terminación o conclusión | `closure` |
+| reactivación | `reactivation` |
+| suspensión | `suspension` |
+| cesión | `assignment` |
+| fecha de registro | `registered_date` |
 | modalidad de contratación | `procurement_method` |
 | contratación directa | `direct_award` |
 | régimen especial | `special_regime` |

@@ -1,0 +1,48 @@
+# Catálogo de tipos de adición de SECOP II (R6, I5; docs/fuentes.md sección 4).
+#
+# Cada texto se compara sin mayúsculas, tildes ni espacios (`catalog_key`). Un texto que no
+# esté aquí cae en `other` y aparece en el reporte de calidad.
+#
+# Solo `value_addition` cuenta como adición en el valor para I5. Es un criterio provisorio:
+# la conciliación con `valor_total_adic_contrato` de MEData (R15) lo confirma o lo corrige
+# (docs/bitacora.md, ADR 0025).
+
+[[type]]
+code = "value_addition"
+label = "Adición en el valor"
+raw = ["Adicion en el valor"]
+
+[[type]]
+code = "general_modification"
+label = "Modificación general"
+raw = ["Modificacion General"]
+
+[[type]]
+code = "closure"
+label = "Conclusión"
+raw = ["Conclusion"]
+
+[[type]]
+code = "reactivation"
+label = "Reactivación"
+raw = ["Reactivación"]
+
+[[type]]
+code = "suspension"
+label = "Suspensión"
+raw = ["Suspensión"]
+
+[[type]]
+code = "assignment"
+label = "Cesión"
+raw = ["Cesion"]
+
+[[type]]
+code = "undefined"
+label = "No definido"
+raw = ["No definido"]
+
+[[type]]
+code = "other"
+label = "Otro"
+raw = []
