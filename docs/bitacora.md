@@ -28,6 +28,14 @@ Las decisiones que salen de estas observaciones no se registran aquí: pasan a [
 
 ---
 
+## 3 nov 2026 · NIT de proveedores con menos de 9 dígitos
+
+- La copia de proveedores tenía 4.466 filas y 980 NIT. 5 documentos (7 filas) tenían 7 u 8 dígitos y al menos 3 traían el nombre de una persona natural. La nueva copia tiene 4.459 filas. Decisión en [ADR 0026](adr/0026-proveedores-nit-de-9-o-10-digitos.md).
+- 24 NIT tienen 10 dígitos. En 23 el último dígito coincide con el dígito de verificación de la DIAN calculado sobre los 9 primeros, y 4 de ellos también aparecen con 9 dígitos: el mismo proveedor con dos documentos distintos.
+- 11 NIT tienen más de un nombre, por ejemplo la sigla y la razón social de la misma empresa («ESU», 105 filas). La llave del proveedor debe ser el NIT, no el nombre.
+
+---
+
 ## 2 nov 2026 · Catálogos de tipo de contrato y de proveedor
 
 - `interadministrativo` no es un valor de `tipo_de_contrato`. En `secop_contracts` hay 1.446 contratos con justificación interadministrativa («con valor» 1.353, «valor cero» 93): 1.399 traen el tipo «Otro», 43 «Suministros» y 4 «Obra». La justificación debe ganarle al tipo.
