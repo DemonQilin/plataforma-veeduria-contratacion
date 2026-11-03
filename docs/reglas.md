@@ -108,7 +108,7 @@ El catálogo es `pipeline/reference/supplier_types.toml` (ADR 0022). Un valor no
 
 - **R6 · Modalidad y tipo.** Se aplican los catálogos de la sección 3.
 - **R7 · Crédito público.** Las operaciones de crédito público cuentan en los conteos, pero se excluyen de todo indicador de valor.
-- **R8 · Secretaría.** Se asigna en este orden: la de MEData si el contrato está allí; si no, la unidad del proceso en SECOP II; si no, «Sin asignar». El porcentaje de «Sin asignar» se reporta.
+- **R8 · Secretaría.** Se asigna en este orden: la de MEData si el contrato está allí; si no, la unidad del proceso en SECOP II; si no, «Sin asignar». Los textos de las dos fuentes se traducen con el catálogo `pipeline/reference/departments.toml` (ADR 0030); un texto que no está en el catálogo no asigna secretaría y se reporta. El porcentaje de «Sin asignar» se reporta.
 
 ### Indicadores
 

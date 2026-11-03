@@ -18,6 +18,15 @@ Las decisiones que salen de estas observaciones no se registran aquí: pasan a [
 
 ---
 
+## 3 nov 2026 · Cruce con MEData y asignación de secretaría
+
+- MEData tiene 25.783 líneas de 2.939 contratos (de 1 a 682 líneas por contrato). Secretaría, fecha de firma, valores, duración y estado no cambian entre las líneas de un contrato; solo varían el programa (249 contratos) y la causal (420). 54 contratos tienen todas sus líneas truncadas: conservan la secretaría y no tienen valores.
+- 2.632 de esos 2.939 contratos están en los contratos canónicos de SECOP II. De los 7.428 contratos canónicos, 23 no tienen proceso.
+- Las dos fuentes escriben la secretaría con vocabularios distintos: 28 textos en MEData y 41 en SECOP II. Con el catálogo de 29 secretarías, 2.632 contratos toman la secretaría de MEData, 4.777 la de SECOP II y 19 (0,26 %) quedan sin asignar. Un único texto de SECOP II no se mapea, «SUMINISTRO DE VESTIDO Y CALZADO DE LABOR», un nombre de proceso escrito en el campo de la unidad.
+- 11 contratos son de crédito público y quedan fuera de los indicadores de valor (R7).
+
+---
+
 ## 3 nov 2026 · Consolidación de contratos y procesos
 
 - De 7.468 filas de Contratos salen 7.428 referencias. 40 referencias se repiten, cada una con exactamente 2 filas, y 13 de esas 40 tienen valores distintos entre sus versiones.
