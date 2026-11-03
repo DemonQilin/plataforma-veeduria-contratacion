@@ -115,7 +115,7 @@ El catálogo es `pipeline/reference/supplier_types.toml` (ADR 0022). Un valor no
 ### Privacidad
 
 - **R13 · Supresión de celdas pequeñas.** Ningún indicador desagregado (por secretaría o por mes) se publica si se calcula sobre menos de 5 contratos. Se publica como «datos insuficientes». Así una cifra pequeña no permite identificar a una persona cruzándola con el portal de SECOP. La supresión se aplica en la etapa de publicación: el tablero nunca recibe una cifra sin suprimir.
-- **R14 · Proveedores.** Solo se nombran proveedores que son personas jurídicas, y solo en el indicador de concentración (I4). Hasta que respondan los organizadores, se considera persona jurídica al proveedor con NIT que empieza por 8 o 9 y tiene 9 o 10 dígitos (ADR 0017, ADR 0026).
+- **R14 · Proveedores.** Solo se nombran proveedores que son personas jurídicas, y solo en el indicador de concentración (I4). Hasta que respondan los organizadores, se considera persona jurídica al proveedor con NIT que empieza por 8 o 9 y tiene 9 o 10 dígitos (ADR 0017, ADR 0026). El identificador es el NIT sin dígito de verificación y el nombre es el más frecuente de ese NIT (ADR 0027).
 
 ### Calidad
 
