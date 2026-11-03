@@ -96,6 +96,11 @@ Usa siempre estos nombres en el código. Si necesitas un término nuevo, agréga
 | supresión de celdas pequeñas | `small_cell_suppression` |
 | numerador / denominador / n | `numerator` / `denominator` / `sample_size` |
 | fila cortada en origen | `truncated` |
+| referencia del contrato | `contract_reference` |
+| programa | `program` |
+| valor inicial / valor de adiciones / valor final | `initial_value` / `total_addition_value` / `final_value` |
+| duración en días | `duration_days` |
+| estado del contrato | `contract_status` |
 | fecha de publicación / fecha de cierre de ofertas | `published_date` / `response_deadline` |
 | precio base / valor adjudicado | `base_price` / `awarded_value` |
 | respuestas / proveedores únicos | `response_count` / `unique_suppliers` |
