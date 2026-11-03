@@ -18,6 +18,13 @@ Las decisiones que salen de estas observaciones no se registran aquí: pasan a [
 
 ---
 
+## 3 nov 2026 · Normalización de la ejecución contractual de MEData
+
+- La copia tiene 25.783 líneas, 2.939 contratos y 2.072 líneas truncadas. Ninguna fecha de firma es anterior al 1 de enero de 2022: van del 4 de enero de 2022 al 30 de junio de 2023, y todas se leen con `d/mm/yyyy`.
+- Las 23.711 líneas completas cumplen el formato de montos y de duración. `ano` solo falta en las truncadas.
+- Un contrato tiene dos modalidades entre sus líneas. La fecha y la secretaría sí coinciden en todos.
+- Tras `ftfy.fix_encoding`, ninguna columna de texto conserva `Ã` y ninguna modalidad cae en `other`.
+
 ## 2 nov 2026 · Normalización de Procesos
 
 - La copia de Procesos tiene 23.450 filas, 17.260 portafolios y 18.852 procesos. Todas las fechas y cifras se leen sin error. Faltan 633 fechas de publicación y 12.023 de cierre de ofertas.
