@@ -10,12 +10,8 @@
 # «Secretaria de Paz y Derechos Humanos» (SECOP II); «Gest y ContrTerrit» y «Secretaria
 # Gestión y Control»; «Gobierno y GestGab» y «Secretaría de Gobierno»; «Gest Hum yServ Ciu» y
 # «Secretaria Gestión Humana». «Buen Comienzo» es un programa que las dos fuentes usan como
-# unidad.
-
-[[type]]
-code = "mayors_office"
-label = "Alcaldía"
-raw = ["Alcaldía"]
+# unidad. «Alcaldía» (MEData) es la Secretaría Privada: los 5 contratos que tienen ese texto
+# figuran como «Secretaria Privada» en SECOP II (ADR 0030).
 
 [[type]]
 code = "buen_comienzo"
@@ -143,7 +139,7 @@ raw = ["Planeación", "Secretaria Planeación"]
 [[type]]
 code = "private_office"
 label = "Privada"
-raw = ["Privada", "Secretaria Privada"]
+raw = ["Privada", "Secretaria Privada", "Alcaldía"]
 
 [[type]]
 code = "health"

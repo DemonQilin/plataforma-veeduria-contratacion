@@ -23,6 +23,7 @@ SAME_DEPARTMENT = [
     ("Medio Ambiente", "MEDIO AMBIENTE", "environment"),
     ("DAGRED", "DAGRD", "disaster_management"),
     ("Gcia Centro", "Gerencia del Centro", "downtown_management"),
+    ("Alcaldía", "Secretaria Privada", "private_office"),
     ("Seguridad", "Secretaría de Seguridad y Convivencia", "security"),
 ]
 

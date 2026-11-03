@@ -8,6 +8,7 @@ from veeduria.consolidate.canonical_contracts import consolidate_contracts
 from veeduria.consolidate.canonical_processes import consolidate_processes
 from veeduria.link.linked_contracts import link_contracts
 from veeduria.link.medata_contracts import collapse_medata_contracts
+from veeduria.normalize.catalogs import classify_department
 from veeduria.normalize.contract_execution import normalize_contract_execution
 from veeduria.normalize.contracts import normalize_contracts
 from veeduria.normalize.procurement_processes import normalize_procurement_processes
@@ -83,3 +84,22 @@ def test_determinism_two_runs_produce_identical_tables(
         "SELECT * FROM quality_issues ORDER BY rule, record_key",
     ):
         assert linked.execute(query).fetchall() == second.execute(query).fetchall()
+
+
+def test_r08_snapshot_both_sources_agree_on_the_department_of_every_shared_contract(
+    linked: duckdb.DuckDBPyConnection,
+) -> None:
+    """Evidencia del catálogo (ADR 0030): los 2.628 contratos presentes en ambas fuentes."""
+    pairs = linked.execute(
+        "SELECT m.department, p.department, count(*)"
+        " FROM canonical_contracts AS k"
+        " JOIN canonical_processes AS p USING (procurement_process)"
+        " JOIN medata_contracts AS m USING (contract_reference)"
+        " GROUP BY ALL"
+    ).fetchall()
+    codes = [
+        (classify_department(medata), classify_department(secop), count)
+        for medata, secop, count in pairs
+    ]
+    assert sum(count for _, _, count in codes) == 2628
+    assert [(left, right) for left, right, _ in codes if left != right] == []
