@@ -14,9 +14,11 @@ REFERENCE_DIR = Path(__file__).resolve().parents[3] / "reference"
 PROCUREMENT_METHODS_PATH = REFERENCE_DIR / "procurement_methods.toml"
 CONTRACT_TYPES_PATH = REFERENCE_DIR / "contract_types.toml"
 SUPPLIER_TYPES_PATH = REFERENCE_DIR / "supplier_types.toml"
+ADDITION_TYPES_PATH = REFERENCE_DIR / "addition_types.toml"
 OTHER_CODE = "other"
 UNDEFINED_CODE = "undefined"
 INTERADMINISTRATIVE_CODE = "interadministrative"
+VALUE_ADDITION_CODE = "value_addition"
 
 
 class CatalogError(Exception):
@@ -122,6 +124,13 @@ def load_supplier_types(path: Path = SUPPLIER_TYPES_PATH) -> EntryCatalog:
     return _load_entries(path, UNDEFINED_CODE)
 
 
+def load_addition_types(path: Path = ADDITION_TYPES_PATH) -> EntryCatalog:
+    catalog = _load_entries(path, OTHER_CODE)
+    if VALUE_ADDITION_CODE not in catalog.by_code:
+        raise CatalogError(f"El catálogo no define el tipo «{VALUE_ADDITION_CODE}».")
+    return catalog
+
+
 @cache
 def _default_catalog() -> ProcurementMethodCatalog:
     return load_procurement_methods()
@@ -167,4 +176,14 @@ def classify_contract_type(
 
 def classify_supplier_type(raw: str | None, catalog: EntryCatalog | None = None) -> CatalogEntry:
     catalog = catalog or _default_supplier_types()
+    return catalog.by_key.get(catalog_key(raw or ""), catalog.default)
+
+
+@cache
+def _default_addition_types() -> EntryCatalog:
+    return load_addition_types()
+
+
+def classify_addition_type(raw: str | None, catalog: EntryCatalog | None = None) -> CatalogEntry:
+    catalog = catalog or _default_addition_types()
     return catalog.by_key.get(catalog_key(raw or ""), catalog.default)
