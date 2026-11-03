@@ -96,8 +96,13 @@ El catálogo es `pipeline/reference/supplier_types.toml` (ADR 0022). Un valor no
 - **R3 · Contrato canónico.** Las filas con la misma referencia se consolidan en un solo contrato.
   - La fecha de firma canónica es la primera fecha no vacía.
   - El valor inicial es el de la primera versión firmada; el valor final, el que indica D3.
-- **R4 · Contratos sin firma.** Se excluyen los registros sin fecha de firma (por ejemplo, los que solo fueron enviados al proveedor).
+  - «Primera» se decide por la marca de tiempo completa de la firma; si coinciden, por el identificador del contrato.
+  - Los atributos del contrato (proceso, modalidad, tipo, proveedor) salen de la primera versión firmada. Si las versiones apuntan a procesos distintos, gana el proceso de la primera firma y la referencia se reporta en la calidad de datos. El estado, los días adicionados y la fecha de fin salen de la versión más reciente.
+- **R4 · Contratos sin firma.** Se excluyen los registros sin fecha de firma (por ejemplo, los que solo fueron enviados al proveedor). Cada exclusión se reporta en la calidad de datos.
 - **R5 · Proceso canónico.** Las filas con el mismo portafolio se consolidan en un solo proceso. El número de oferentes es el máximo reportado entre sus filas.
+  - El proceso está adjudicado si alguna de sus filas lo está.
+  - El precio base y el valor adjudicado son el máximo entre las filas, porque las filas repetidas no se suman.
+  - Los demás campos salen de la fila con la primera fecha de publicación.
 
 ### Clasificación
 

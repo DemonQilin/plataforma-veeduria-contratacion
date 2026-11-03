@@ -18,6 +18,14 @@ Las decisiones que salen de estas observaciones no se registran aquí: pasan a [
 
 ---
 
+## 3 nov 2026 · Consolidación de contratos y procesos
+
+- De 7.468 filas de Contratos salen 7.428 referencias. 40 referencias se repiten, cada una con exactamente 2 filas, y 13 de esas 40 tienen valores distintos entre sus versiones.
+- 6 de las 40 referencias apuntan a procesos distintos entre sus filas. Ninguna tiene dos firmas con la misma marca de tiempo, así que hoy el desempate por identificador no se usa. Ninguna fila trae la firma vacía: R4 no excluye nada con esta copia.
+- De 23.450 filas de Procesos salen 17.260 portafolios, y 4.147 quedan adjudicados. 1.169 portafolios mezclan filas adjudicadas y no adjudicadas; con la regla de R5 («alguna fila adjudicada») cuentan como adjudicados.
+
+---
+
 ## 3 nov 2026 · Normalización de la ejecución contractual de MEData
 
 - La copia tiene 25.783 líneas, 2.939 contratos y 2.072 líneas truncadas. Ninguna fecha de firma es anterior al 1 de enero de 2022: van del 4 de enero de 2022 al 30 de junio de 2023, y todas se leen con `d/mm/yyyy`.
