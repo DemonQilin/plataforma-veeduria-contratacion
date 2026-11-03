@@ -1,4 +1,4 @@
-"""Catálogos de `reference/` aplicados a los textos crudos (R6).
+"""Catálogos de `reference/` aplicados a los textos crudos (R6, R8).
 
 Un valor no reconocido no rompe el pipeline: cae en `other` (`undefined` en proveedores) y queda
 para el reporte de calidad.
@@ -15,10 +15,12 @@ PROCUREMENT_METHODS_PATH = REFERENCE_DIR / "procurement_methods.toml"
 CONTRACT_TYPES_PATH = REFERENCE_DIR / "contract_types.toml"
 SUPPLIER_TYPES_PATH = REFERENCE_DIR / "supplier_types.toml"
 ADDITION_TYPES_PATH = REFERENCE_DIR / "addition_types.toml"
+DEPARTMENTS_PATH = REFERENCE_DIR / "departments.toml"
 OTHER_CODE = "other"
 UNDEFINED_CODE = "undefined"
 INTERADMINISTRATIVE_CODE = "interadministrative"
 VALUE_ADDITION_CODE = "value_addition"
+UNASSIGNED_CODE = "unassigned"
 
 
 class CatalogError(Exception):
@@ -187,3 +189,24 @@ def _default_addition_types() -> EntryCatalog:
 def classify_addition_type(raw: str | None, catalog: EntryCatalog | None = None) -> CatalogEntry:
     catalog = catalog or _default_addition_types()
     return catalog.by_key.get(catalog_key(raw or ""), catalog.default)
+
+
+def load_departments(path: Path = DEPARTMENTS_PATH) -> EntryCatalog:
+    return _load_entries(path, UNASSIGNED_CODE)
+
+
+@cache
+def _default_departments() -> EntryCatalog:
+    return load_departments()
+
+
+def classify_department(
+    raw: str | None, catalog: EntryCatalog | None = None
+) -> CatalogEntry | None:
+    """Traduce el texto de una secretaría; `None` si está vacío o el catálogo no lo reconoce.
+
+    A diferencia de los demás catálogos no devuelve el valor por defecto: R8 pasa a la
+    siguiente fuente cuando una no asigna secretaría.
+    """
+    catalog = catalog or _default_departments()
+    return catalog.by_key.get(catalog_key(raw or ""))

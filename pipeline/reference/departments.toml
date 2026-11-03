@@ -1,0 +1,171 @@
+# Catálogo de secretarías (R8; docs/reglas.md; ADR 0030).
+#
+# MEData · Ejecución abrevia los nombres («Gest Hum yServ Ciu») y SECOP II usa la unidad
+# del proceso («Secretaria Gestión Humana»), con variantes entre años. Cada texto se compara
+# sin mayúsculas, tildes ni espacios (`catalog_key`), así que solo se listan las formas que
+# difieren más allá de eso. Un texto que no esté aquí no se asigna y queda en el reporte de
+# calidad; `unassigned` es el resultado de R8 cuando ninguna fuente aporta una secretaría.
+#
+# Equivalencias que no son obvias por el nombre (ADR 0030): «De la No Violencia» (MEData) y
+# «Secretaria de Paz y Derechos Humanos» (SECOP II); «Gest y ContrTerrit» y «Secretaria
+# Gestión y Control»; «Gobierno y GestGab» y «Secretaría de Gobierno»; «Gest Hum yServ Ciu» y
+# «Secretaria Gestión Humana». «Buen Comienzo» es un programa que las dos fuentes usan como
+# unidad.
+
+[[type]]
+code = "mayors_office"
+label = "Alcaldía"
+raw = ["Alcaldía"]
+
+[[type]]
+code = "buen_comienzo"
+label = "Buen Comienzo"
+raw = ["Buen Comienzo"]
+
+[[type]]
+code = "communications"
+label = "Comunicaciones"
+raw = ["Comunicaciones", "Secretaria Comunicaciones"]
+
+[[type]]
+code = "citizen_culture"
+label = "Cultura Ciudadana"
+raw = ["Cultura Ciudadana", "Secretaria Cultura Ciudadana"]
+
+[[type]]
+code = "disaster_management"
+label = "Gestión del Riesgo de Desastres (DAGRD)"
+raw = ["DAGRED", "DAGRD", "Contratación Dagrd"]
+
+[[type]]
+code = "youth"
+label = "Juventud"
+raw = ["De la Juventud", "Secretaria Juventud"]
+
+[[type]]
+code = "peace_and_human_rights"
+label = "Paz y Derechos Humanos"
+raw = ["De la No Violencia", "Secretaria de Paz y Derechos Humanos"]
+
+[[type]]
+code = "women"
+label = "Mujeres"
+raw = ["De las Mujeres", "Secretaria Mujeres", "Secretaría de las Mujeres"]
+
+[[type]]
+code = "economic_development"
+label = "Desarrollo Económico"
+raw = ["Desarrollo Econom.", "Secretaria Desarrollo Económico"]
+
+[[type]]
+code = "education"
+label = "Educación"
+raw = ["Educación", "Secretaria Educación"]
+
+[[type]]
+code = "evaluation_and_control"
+label = "Evaluación y Control"
+raw = ["Evaluac. y Control", "Secretaria Evaluación y control"]
+
+[[type]]
+code = "downtown_management"
+label = "Gerencia del Centro"
+raw = ["Gcia Centro", "Gerencia del Centro"]
+
+[[type]]
+code = "general"
+label = "General"
+raw = ["General", "Secretaria General"]
+
+[[type]]
+code = "human_management"
+label = "Gestión Humana y Servicio a la Ciudadanía"
+raw = ["Gest Hum yServ Ciu", "Secretaria Gestión Humana"]
+
+[[type]]
+code = "territorial_management"
+label = "Gestión y Control Territorial"
+raw = ["Gest y ContrTerrit", "Secretaria Gestión y Control"]
+
+[[type]]
+code = "government"
+label = "Gobierno"
+raw = ["Gobierno y GestGab", "Secretaría de Gobierno"]
+
+[[type]]
+code = "treasury"
+label = "Hacienda"
+raw = [
+  "Hacienda",
+  "Secretaria Hacienda",
+  "Secretaría de Hacienda",
+]
+
+[[type]]
+code = "social_inclusion"
+label = "Inclusión Social y Familia"
+raw = ["Incl.Social y Flia", "Secretaria Inclusión social"]
+
+[[type]]
+code = "infrastructure"
+label = "Infraestructura Física"
+raw = ["Infraestruc.Fisica", "Secretaria Infraestructura"]
+
+[[type]]
+code = "digital_innovation"
+label = "Innovación Digital"
+raw = ["Innovación Digital", "Secretaria Innovación Digital"]
+
+[[type]]
+code = "environment"
+label = "Medio Ambiente"
+raw = [
+  "Medio Ambiente",
+  "Secretaria Medio Ambiente",
+  "Secretaría de Medio Ambiente",
+]
+
+[[type]]
+code = "mobility"
+label = "Movilidad"
+raw = ["Movilidad", "Secretaría de Movilidad"]
+
+[[type]]
+code = "participation"
+label = "Participación Ciudadana"
+raw = ["Participación Ciud", "Secretaria Participación"]
+
+[[type]]
+code = "planning"
+label = "Planeación"
+raw = ["Planeación", "Secretaria Planeación"]
+
+[[type]]
+code = "private_office"
+label = "Privada"
+raw = ["Privada", "Secretaria Privada"]
+
+[[type]]
+code = "health"
+label = "Salud"
+raw = ["Salud", "Secretaria Salud"]
+
+[[type]]
+code = "security"
+label = "Seguridad y Convivencia"
+raw = ["Seguridad", "Secretaría de Seguridad y Convivencia"]
+
+[[type]]
+code = "supplies_and_services"
+label = "Suministros y Servicios"
+raw = ["Suministros y Serv", "SECRETARÍA SUMINISTROS Y SERVICIOS", "SUMINISTROS Y SERVICIOS"]
+
+[[type]]
+code = "tourism"
+label = "Turismo y Entretenimiento"
+raw = ["Secretaria Turismo y Entretenimiento"]
+
+[[type]]
+code = "unassigned"
+label = "Sin asignar"
+raw = []
