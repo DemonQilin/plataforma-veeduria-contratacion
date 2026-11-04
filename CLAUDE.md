@@ -121,6 +121,7 @@ Usa siempre estos nombres en el código. Si necesitas un término nuevo, agréga
 | conciliación (SECOP–MEData) | `reconciliation` |
 | contratos en ambas fuentes / en la unión | `shared_count` / `union_count` |
 | cobertura / umbral | `coverage` / `threshold` |
+| versión de las reglas | `rules_version` |
 
 ## Reglas no negociables
 
