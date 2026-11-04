@@ -159,7 +159,7 @@ Se publican en `data/outputs/` como JSON. Su estructura la definen los modelos d
 
 | Salida | Contenido |
 |---|---|
-| Indicadores | Una fila por indicador, nivel y periodo, con los campos de trazabilidad de R16 |
+| Indicadores | Una fila por indicador, nivel y periodo, con los campos de trazabilidad de R16 (forma de la celda en el [ADR 0033](adr/0033-celda-de-indicador-en-el-contrato.md)) |
 | Serie mensual | Contratos y valor por mes, modalidad y tipo, para las gráficas del hallazgo |
 | Calidad de datos | Cobertura, conciliación SECOP–MEData, porcentaje sin secretaría, filas truncadas de MEData, valores no reconocidos en catálogos |
 | Metadatos | Fecha de corte, fuentes con enlace y licencia, versión de las reglas |
