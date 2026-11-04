@@ -238,3 +238,10 @@ Fuera del alcance del MVP. Se registra como contexto para una siguiente etapa.
 - Enero es también el mes de renovación anual de los contratos de prestación de servicios, así que un pico en enero no prueba nada por sí solo. Esto definió la metodología de comparación contra años de control.
 
 Fuente: [Portafolio · En víspera de Ley de Garantías se quintuplicó la contratación](https://www.portafolio.co/economia/en-vispera-a-ley-de-garantias-se-quintuplico-la-contratacion-561050).
+
+## 4 nov 2026 · Conciliación mensual SECOP–MEData (R15)
+
+- Con la copia, seis de los 18 meses de MEData (2022-01 a 2023-06) quedan bajo el 80 % de contratos en ambas fuentes: marzo a julio y diciembre de 2022. Detalle por mes en el [ADR 0031](adr/0031-conciliacion-secop-medata.md).
+- En 2.503 de los 2.632 contratos compartidos, MEData fecha la firma después que SECOP II (mediana de 5 días). Por eso el mes de la conciliación sale de la fecha de SECOP II.
+- Enero de 2022: 727 contratos por la fecha propia de MEData y 725 por la de SECOP II. Los 723 de la primera validación son solo contratación directa en SECOP II; los 727, todas las modalidades en MEData. La comparación no es estricta, pero la conciliación de R15 sí usa todas las modalidades en las dos fuentes.
+- Pendiente: confirmar `Adicion en el valor` contra `valor_total_adic_contrato` (ADR 0025).
