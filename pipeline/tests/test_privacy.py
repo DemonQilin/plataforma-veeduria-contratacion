@@ -1,7 +1,7 @@
 """Pruebas de privacidad (regla no negociable 1, ADR 0007).
 
 Se escriben antes que la extracción. La supresión de celdas pequeñas (R13) se prueba
-en `publish/`, cuando existan las salidas.
+en `test_suppression.py`.
 """
 
 import csv
