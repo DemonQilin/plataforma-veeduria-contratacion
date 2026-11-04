@@ -1,0 +1,31 @@
+{
+  "cutoff_date": "2026-10-30",
+  "rules_version": "1",
+  "sources": [
+    {
+      "license": "CC BY 4.0",
+      "name": "MEData Ejecución contractual histórico",
+      "url": "https://medata.app.medellin.gov.co/dataset/1-028-12-000088"
+    },
+    {
+      "license": "CC BY 4.0",
+      "name": "MEData Plan anual de adquisiciones histórico",
+      "url": "https://medata.app.medellin.gov.co/dataset/1-028-11-000089"
+    },
+    {
+      "license": "CC BY-SA 4.0",
+      "name": "SECOP II Adiciones",
+      "url": "https://www.datos.gov.co/resource/cb9c-h8sn.json"
+    },
+    {
+      "license": "CC BY-SA 4.0",
+      "name": "SECOP II Contratos Electrónicos",
+      "url": "https://www.datos.gov.co/resource/jbjy-vk9h.json"
+    },
+    {
+      "license": "CC BY-SA 4.0",
+      "name": "SECOP II Procesos de Contratación",
+      "url": "https://www.datos.gov.co/resource/p6dx-8zbt.json"
+    }
+  ]
+}

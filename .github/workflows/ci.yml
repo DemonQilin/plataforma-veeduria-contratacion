@@ -51,8 +51,9 @@ jobs:
         working-directory: pipeline
         run: |
           uv sync
-          # Se activa cuando las etapas generen la primera salida (data/outputs/metadata.json).
-          if [ -f ../data/outputs/metadata.json ]; then uv run veeduria run --from-snapshot; fi
+          uv run veeduria run --from-snapshot
+          # Las salidas versionadas deben coincidir con las que produce la copia (determinismo).
+          git diff --exit-code -- ../data/outputs
       - name: Opción A · tablero
         working-directory: web
         run: |
