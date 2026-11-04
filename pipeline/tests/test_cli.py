@@ -1,10 +1,14 @@
 import json
 
+import duckdb
 from typer.testing import CliRunner
 
+from tests.paths import REPO_ROOT
 from veeduria.cli import app
+from veeduria.publish.models import Metadata
 
 runner = CliRunner()
+SNAPSHOT = REPO_ROOT / "data" / "snapshot"
 
 
 def test_run_requires_a_mode() -> None:
@@ -19,10 +23,56 @@ def test_run_rejects_both_modes() -> None:
     assert result.exit_code == 2
 
 
-def test_run_from_snapshot_is_not_implemented_yet() -> None:
-    result = runner.invoke(app, ["run", "--from-snapshot"])
+def test_r12_run_from_snapshot_writes_metadata_with_the_latest_signed_date(tmp_path) -> None:
+    result = runner.invoke(app, ["run", "--from-snapshot", "--output-dir", str(tmp_path / "out")])
+    assert result.exit_code == 0, result.output
+    metadata = json.loads((tmp_path / "out" / "metadata.json").read_text(encoding="utf-8"))
+    Metadata.model_validate(metadata)
+    latest = (
+        duckdb.connect()
+        .execute(
+            "SELECT max(CAST(fecha_de_firma AS TIMESTAMP))::DATE::VARCHAR"
+            f" FROM read_csv('{SNAPSHOT / 'secop_contracts.csv'}', all_varchar = true)"
+        )
+        .fetchone()
+    )
+    assert metadata["cutoff_date"] == latest[0]
+    assert [source["name"] for source in metadata["sources"]] == sorted(
+        source["name"] for source in metadata["sources"]
+    )
+    assert {source["license"] for source in metadata["sources"]} == {"CC BY-SA 4.0", "CC BY 4.0"}
+
+
+def test_run_from_snapshot_is_deterministic(tmp_path) -> None:
+    for name in ("first", "second"):
+        result = runner.invoke(
+            app, ["run", "--from-snapshot", "--output-dir", str(tmp_path / name)]
+        )
+        assert result.exit_code == 0, result.output
+    assert (tmp_path / "first" / "metadata.json").read_bytes() == (
+        tmp_path / "second" / "metadata.json"
+    ).read_bytes()
+
+
+def test_run_from_snapshot_failure_leaves_outputs_untouched(tmp_path) -> None:
+    output_dir = tmp_path / "out"
+    output_dir.mkdir()
+    (output_dir / "metadata.json").write_text("previous", encoding="utf-8")
+    result = runner.invoke(
+        app,
+        [
+            "run",
+            "--from-snapshot",
+            "--snapshot-dir",
+            str(tmp_path / "missing"),
+            "--output-dir",
+            str(output_dir),
+        ],
+    )
     assert result.exit_code == 1
-    assert "etapas" in result.output
+    assert "copia" in result.output
+    assert (output_dir / "metadata.json").read_text(encoding="utf-8") == "previous"
+    assert [path.name for path in tmp_path.iterdir()] == ["out"]
 
 
 def test_export_schema_is_idempotent(tmp_path) -> None:

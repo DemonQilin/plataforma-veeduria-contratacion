@@ -51,3 +51,22 @@ def load_queries(path: Path = DEFAULT_SOURCES_PATH) -> tuple[Query, ...]:
         )
         for item in raw["queries"]
     )
+
+
+@dataclass(frozen=True)
+class Dataset:
+    """Fuente citada en el tablero: enlace y licencia (R16)."""
+
+    id: str
+    name: str
+    url: str
+    license: str
+
+
+def load_datasets(path: Path = DEFAULT_SOURCES_PATH) -> tuple[Dataset, ...]:
+    with path.open("rb") as handle:
+        raw = tomllib.load(handle)
+    return tuple(
+        Dataset(id=item["id"], name=item["name"], url=item["url"], license=item["license"])
+        for item in raw["datasets"]
+    )

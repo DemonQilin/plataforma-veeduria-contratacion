@@ -3,6 +3,7 @@
 from pathlib import Path
 from typing import Annotated
 
+import duckdb
 import typer
 
 from veeduria.extract.http import Extraction, ExtractionError
@@ -17,7 +18,11 @@ from veeduria.extract.socrata import (
     make_client,
 )
 from veeduria.extract.sources import Query, load_queries
+from veeduria.normalize.catalogs import CatalogError
+from veeduria.pipeline import build
+from veeduria.publish.metadata import build_metadata, serialize
 from veeduria.publish.models import export_schemas
+from veeduria.publish.outputs import write_outputs
 
 app = typer.Typer(no_args_is_help=True, add_completion=False, help="Veeduría de contratación.")
 
@@ -25,6 +30,7 @@ DATA_DIR = Path(__file__).resolve().parents[3] / "data"
 DEFAULT_SCHEMA_DIR = DATA_DIR / "schema"
 DEFAULT_SNAPSHOT_DIR = DATA_DIR / "snapshot"
 DEFAULT_RAW_DIR = DATA_DIR / "raw"
+DEFAULT_OUTPUT_DIR = DATA_DIR / "outputs"
 
 
 def _batch_ids(query: Query, snapshot_dir: Path) -> list[str]:
@@ -81,6 +87,9 @@ def run(
         Path,
         typer.Option("--raw-dir", help="Carpeta de trabajo de las descargas (fuera de git)."),
     ] = DEFAULT_RAW_DIR,
+    output_dir: Annotated[
+        Path, typer.Option("--output-dir", help="Carpeta de las salidas del tablero.")
+    ] = DEFAULT_OUTPUT_DIR,
 ) -> None:
     """Ejecuta el pipeline."""
     if from_snapshot == refresh:
@@ -92,8 +101,24 @@ def run(
         raise typer.Exit(2)
     if refresh:
         _refresh(snapshot_dir, raw_dir, force_procurement_plan)
-    typer.echo("Las etapas del pipeline todavía no están implementadas.", err=True)
-    raise typer.Exit(0 if refresh else 1)
+    if from_snapshot:
+        _publish(snapshot_dir, output_dir)
+
+
+def _publish(snapshot_dir: Path, output_dir: Path) -> None:
+    """Corre las etapas desde la copia y publica; ante un fallo no toca `output_dir`."""
+    try:
+        metadata = build_metadata(build(snapshot_dir))
+    except (duckdb.IOException, CatalogError, ValueError) as error:
+        # El mensaje de DuckDB puede citar rutas, nunca filas; no se imprime tal cual.
+        typer.echo(
+            f"No se pudo leer la copia de {snapshot_dir}: {type(error).__name__}. "
+            "Las salidas no se modificaron.",
+            err=True,
+        )
+        raise typer.Exit(1) from None
+    for path in write_outputs({"metadata.json": serialize(metadata)}, output_dir):
+        typer.echo(f"Escrito {path}")
 
 
 def _refresh(snapshot_dir: Path, raw_dir: Path, force_procurement_plan: bool) -> None:
