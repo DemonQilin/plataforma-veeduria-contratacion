@@ -5,7 +5,7 @@ from typer.testing import CliRunner
 
 from tests.paths import REPO_ROOT
 from veeduria.cli import app
-from veeduria.publish.models import Metadata
+from veeduria.publish.models import Indicators, Metadata
 
 runner = CliRunner()
 SNAPSHOT = REPO_ROOT / "data" / "snapshot"
@@ -43,21 +43,28 @@ def test_r12_run_from_snapshot_writes_metadata_with_the_latest_signed_date(tmp_p
     assert {source["license"] for source in metadata["sources"]} == {"CC BY-SA 4.0", "CC BY 4.0"}
 
 
+def test_r13_run_from_snapshot_writes_indicators_that_match_the_contract(tmp_path) -> None:
+    result = runner.invoke(app, ["run", "--from-snapshot", "--output-dir", str(tmp_path / "out")])
+    assert result.exit_code == 0, result.output
+    payload = json.loads((tmp_path / "out" / "indicators.json").read_text(encoding="utf-8"))
+    Indicators.model_validate(payload)
+
+
 def test_run_from_snapshot_is_deterministic(tmp_path) -> None:
     for name in ("first", "second"):
         result = runner.invoke(
             app, ["run", "--from-snapshot", "--output-dir", str(tmp_path / name)]
         )
         assert result.exit_code == 0, result.output
-    assert (tmp_path / "first" / "metadata.json").read_bytes() == (
-        tmp_path / "second" / "metadata.json"
-    ).read_bytes()
+    for name in ("metadata.json", "indicators.json"):
+        assert (tmp_path / "first" / name).read_bytes() == (tmp_path / "second" / name).read_bytes()
 
 
 def test_run_from_snapshot_failure_leaves_outputs_untouched(tmp_path) -> None:
     output_dir = tmp_path / "out"
     output_dir.mkdir()
     (output_dir / "metadata.json").write_text("previous", encoding="utf-8")
+    (output_dir / "indicators.json").write_text("previous", encoding="utf-8")
     result = runner.invoke(
         app,
         [
@@ -72,6 +79,7 @@ def test_run_from_snapshot_failure_leaves_outputs_untouched(tmp_path) -> None:
     assert result.exit_code == 1
     assert "copia" in result.output
     assert (output_dir / "metadata.json").read_text(encoding="utf-8") == "previous"
+    assert (output_dir / "indicators.json").read_text(encoding="utf-8") == "previous"
     assert [path.name for path in tmp_path.iterdir()] == ["out"]
 
 

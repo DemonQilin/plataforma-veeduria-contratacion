@@ -4,6 +4,7 @@ import json
 from datetime import date
 
 import duckdb
+from pydantic import BaseModel
 
 from veeduria.extract.sources import load_datasets
 from veeduria.publish.models import Metadata, Source
@@ -26,7 +27,7 @@ def build_metadata(connection: duckdb.DuckDBPyConnection) -> Metadata:
     )
 
 
-def serialize(model: Metadata) -> bytes:
+def serialize(model: BaseModel) -> bytes:
     """JSON con llaves ordenadas, sangría fija y final de línea LF."""
     text = json.dumps(model.model_dump(mode="json"), indent=2, sort_keys=True, ensure_ascii=False)
     return (text + "\n").encode("utf-8")
