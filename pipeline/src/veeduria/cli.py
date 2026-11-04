@@ -18,8 +18,10 @@ from veeduria.extract.socrata import (
     make_client,
 )
 from veeduria.extract.sources import Query, load_queries
+from veeduria.indicators import build_indicators
 from veeduria.normalize.catalogs import CatalogError
 from veeduria.pipeline import build
+from veeduria.publish.indicators import publish_indicators
 from veeduria.publish.metadata import build_metadata, serialize
 from veeduria.publish.models import export_schemas
 from veeduria.publish.outputs import write_outputs
@@ -108,7 +110,9 @@ def run(
 def _publish(snapshot_dir: Path, output_dir: Path) -> None:
     """Corre las etapas desde la copia y publica; ante un fallo no toca `output_dir`."""
     try:
-        metadata = build_metadata(build(snapshot_dir))
+        connection = build(snapshot_dir)
+        metadata = build_metadata(connection)
+        indicators = publish_indicators(build_indicators(connection))
     except (duckdb.IOException, CatalogError, ValueError) as error:
         # El mensaje de DuckDB puede citar rutas, nunca filas; no se imprime tal cual.
         typer.echo(
@@ -117,7 +121,8 @@ def _publish(snapshot_dir: Path, output_dir: Path) -> None:
             err=True,
         )
         raise typer.Exit(1) from None
-    for path in write_outputs({"metadata.json": serialize(metadata)}, output_dir):
+    files = {"indicators.json": serialize(indicators), "metadata.json": serialize(metadata)}
+    for path in write_outputs(files, output_dir):
         typer.echo(f"Escrito {path}")
 
 
