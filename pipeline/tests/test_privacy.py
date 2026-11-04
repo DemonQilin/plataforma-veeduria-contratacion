@@ -1,7 +1,8 @@
 """Pruebas de privacidad (regla no negociable 1, ADR 0007).
 
-Se escriben antes que la extracción. La supresión de celdas pequeñas (R13) se prueba
-en `test_suppression.py`.
+Se escriben antes que la extracción. La función de supresión de celdas pequeñas (R13)
+se prueba en `test_suppression.py`; aquí vive la guarda sobre lo que se publica en
+`data/outputs/`.
 """
 
 import csv
@@ -13,6 +14,8 @@ import pytest
 
 from tests.paths import REPO_ROOT
 from veeduria.extract.sources import Query, load_queries
+from veeduria.publish.models import Indicators
+from veeduria.publish.suppression import SUPPRESSION_THRESHOLD
 
 SNAPSHOT_DIR = REPO_ROOT / "data" / "snapshot"
 OUTPUTS_DIR = REPO_ROOT / "data" / "outputs"
@@ -384,3 +387,94 @@ def test_raw_data_is_ignored_by_git() -> None:
         check=False,
     )
     assert result.returncode == 0
+
+
+# --- Celdas pequeñas (R13, D4): ninguna celda desagregada con n < 5 sale sin suprimir ------------
+
+
+def small_cell_violations(directory: Path) -> list[str]:
+    """Celdas desagregadas con `sample_size` < umbral que se publicaron sin suprimir.
+
+    Desagregada es por secretaría o por mes; la cifra anual del Distrito siempre se publica.
+    El predicado no reutiliza `suppression.py`, para que la guarda no herede sus errores.
+    """
+    violations = []
+    for path in _files(directory):
+        if path.suffix != ".json":
+            continue
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        if not (isinstance(payload, dict) and "cells" in payload):
+            continue
+        for position, cell in enumerate(Indicators.model_validate(payload).cells):
+            disaggregated = cell.level == "department" or len(cell.period) == len("AAAA-MM")
+            if (
+                disaggregated
+                and cell.sample_size < SUPPRESSION_THRESHOLD
+                and not cell.is_suppressed
+            ):
+                violations.append(
+                    f"{path.relative_to(directory)} celda {position}: {cell.indicator} "
+                    f"{cell.level} {cell.period} con n < {SUPPRESSION_THRESHOLD} sin suprimir"
+                )
+    return violations
+
+
+def _cell(
+    *, level: str = "department", period: str = "2025", sample_size: int, suppressed: bool = False
+) -> dict:
+    figures = None if suppressed else 1.0
+    return {
+        "indicator": "I2",
+        "variant": None,
+        "measure": "count",
+        "level": level,
+        "department": "Secretaría de Prueba" if level == "department" else None,
+        "period": period,
+        "sample_size": sample_size,
+        "numerator": figures,
+        "denominator": figures,
+        "ratio": figures,
+        "is_suppressed": suppressed,
+    }
+
+
+def _write_cells(directory: Path, *cells: dict, name: str = "indicators.json") -> None:
+    directory.mkdir(parents=True, exist_ok=True)
+    (directory / name).write_text(json.dumps({"cells": list(cells)}), encoding="utf-8")
+
+
+def test_r13_published_outputs_have_no_small_unsuppressed_cells() -> None:
+    assert small_cell_violations(OUTPUTS_DIR) == []
+
+
+def test_r13_unsuppressed_department_cell_below_threshold_is_detected(tmp_path: Path) -> None:
+    _write_cells(tmp_path, _cell(sample_size=3))
+    violations = small_cell_violations(tmp_path)
+    assert len(violations) == 1
+    assert "celda 0" in violations[0]
+
+
+def test_r13_unsuppressed_monthly_district_cell_below_threshold_is_detected(
+    tmp_path: Path,
+) -> None:
+    _write_cells(tmp_path, _cell(level="district", period="2025-03", sample_size=3))
+    assert len(small_cell_violations(tmp_path)) == 1
+
+
+def test_r13_annual_district_cell_below_threshold_is_not_a_violation(tmp_path: Path) -> None:
+    _write_cells(tmp_path, _cell(level="district", sample_size=3))
+    assert small_cell_violations(tmp_path) == []
+
+
+def test_r13_suppressed_and_threshold_cells_are_not_violations(tmp_path: Path) -> None:
+    _write_cells(
+        tmp_path,
+        _cell(sample_size=3, suppressed=True),
+        _cell(sample_size=SUPPRESSION_THRESHOLD),
+    )
+    assert small_cell_violations(tmp_path) == []
+
+
+def test_r13_nested_outputs_are_checked_too(tmp_path: Path) -> None:
+    _write_cells(tmp_path / "a" / "b", _cell(sample_size=3), name="by_department.json")
+    assert len(small_cell_violations(tmp_path)) == 1
