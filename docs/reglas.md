@@ -124,7 +124,7 @@ El catálogo es `pipeline/reference/supplier_types.toml` (ADR 0022). Un valor no
 
 ### Calidad
 
-- **R15 · Conciliación SECOP–MEData.** Para el periodo común se calcula, por mes, qué proporción de contratos aparece en ambas fuentes. Si un mes queda por debajo del 80 %, el tablero lo advierte.
+- **R15 · Conciliación SECOP–MEData.** Para el periodo común (los meses que cubre MEData) se calcula, por mes, qué proporción de contratos aparece en ambas fuentes: los de ambas ÷ la unión de las dos. Si un mes queda por debajo del 80 %, el tablero lo advierte. El mes sale de la fecha de firma de SECOP II y, si el contrato no está allí, de la de MEData. Además se guarda la cobertura de cada fuente en la otra (ADR 0031).
 - **R16 · Trazabilidad.** Cada indicador guarda numerador, denominador, n, fuentes, fecha de corte y versión de las reglas, para que cualquier cifra se pueda reconstruir.
 - **R17 · Planeación.** El Plan Anual de Adquisiciones se compara con la ejecución solo de forma agregada, porque no tiene llave por contrato.
 

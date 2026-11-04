@@ -30,7 +30,7 @@ MEData trae una línea por cambio del contrato: 25.783 líneas de 2.939 contrato
 - Con la copia: 7.428 contratos, 2.632 con MEData, 11 de crédito público, secretaría de MEData en 2.632, de SECOP II en 4.777 y sin asignar en 19 (0,26 %).
 - Un único texto queda sin mapear, «SUMINISTRO DE VESTIDO Y CALZADO DE LABOR», que es el nombre de un proceso escrito en el campo de la unidad. Ningún contrato depende de él.
 - Si una equivalencia del catálogo resulta incorrecta, se corrige en un archivo TOML sin tocar código.
-- La conciliación de R15 (tarea 9) parte de `in_medata`. Falta cablear el cruce en `run` (tarea 10).
+- La conciliación de R15 (tarea 9, [ADR 0031](0031-conciliacion-secop-medata.md)) cruza las dos fuentes por referencia. Falta cablear el cruce en `run` (tarea 10).
 
 ## Alternativas
 

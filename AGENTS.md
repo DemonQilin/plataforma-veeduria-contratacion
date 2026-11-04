@@ -118,6 +118,9 @@ Usa siempre estos nombres en el código. Si necesitas un término nuevo, agréga
 | el contrato aparece en MEData | `in_medata` |
 | sin asignar (secretaría) | `unassigned` |
 | cuenta en los indicadores de valor | `is_value_eligible` |
+| conciliación (SECOP–MEData) | `reconciliation` |
+| contratos en ambas fuentes / en la unión | `shared_count` / `union_count` |
+| cobertura / umbral | `coverage` / `threshold` |
 
 ## Reglas no negociables
 
