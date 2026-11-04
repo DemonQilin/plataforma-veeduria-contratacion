@@ -119,7 +119,7 @@ El catálogo es `pipeline/reference/supplier_types.toml` (ADR 0022). Un valor no
 
 ### Privacidad
 
-- **R13 · Supresión de celdas pequeñas.** Ningún indicador desagregado (por secretaría o por mes) se publica si se calcula sobre menos de 5 contratos. Se publica como «datos insuficientes». Así una cifra pequeña no permite identificar a una persona cruzándola con el portal de SECOP. La supresión se aplica en la etapa de publicación: el tablero nunca recibe una cifra sin suprimir.
+- **R13 · Supresión de celdas pequeñas.** Ningún indicador desagregado (por secretaría o por mes) se publica si se calcula sobre menos de 5 contratos. Se publica como «datos insuficientes»: la celda conserva su n (`sample_size`) y oculta numerador, denominador y razón. La cifra anual del Distrito siempre se publica. Así una cifra pequeña no permite identificar a una persona cruzándola con el portal de SECOP. Si un desglose (las secretarías de un periodo o los meses de un año) queda con una sola celda suprimida, se suprime también la siguiente más chica, para que no se despeje restando del total (D6). La supresión se aplica en la etapa de publicación (`publish/suppression.py`): el tablero nunca recibe una cifra sin suprimir.
 - **R14 · Proveedores.** Solo se nombran proveedores que son personas jurídicas, y solo en el indicador de concentración (I4). Hasta que respondan los organizadores, se considera persona jurídica al proveedor con NIT que empieza por 8 o 9 y tiene 9 o 10 dígitos (ADR 0017, ADR 0026). El identificador es el NIT sin dígito de verificación y el nombre es el más frecuente de ese NIT (ADR 0027).
 
 ### Calidad
@@ -141,6 +141,7 @@ Se resolvieron siguiendo la práctica habitual en análisis de compras públicas
 | D3 | ¿Qué valor representa al contrato? | Inicial: primera versión firmada. Final: MEData si existe; si no, la versión más reciente de SECOP II | Es la distinción entre valor firmado y valor modificado que usa el estándar de datos de contratación abierta (OCDS) |
 | D4 | ¿Qué umbral de supresión? | 5 contratos | Es un umbral habitual en control de divulgación estadística para datos no sensibles |
 | D5 | ¿Cómo se tratan las secretarías que cambiaron de nombre? | Se conserva el nombre histórico y se agrega una tabla de equivalencias solo si afecta las comparaciones | Evita reescribir la historia de los datos y mantiene la trazabilidad |
+| D6 | ¿Cómo se evita despejar una celda suprimida restando del total? | Supresión complementaria: si un desglose tiene una sola celda suprimida, se suprime también la de menor n; se repite hasta que ningún desglose cambie | Es la supresión secundaria habitual en control de divulgación estadística; una sola celda oculta se despeja con el total y las demás |
 
 ---
 
