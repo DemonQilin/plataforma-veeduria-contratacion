@@ -122,6 +122,14 @@ Usa siempre estos nombres en el código. Si necesitas un término nuevo, agréga
 | contratos en ambas fuentes / en la unión | `shared_count` / `union_count` |
 | cobertura / umbral | `coverage` / `threshold` |
 | versión de las reglas | `rules_version` |
+| indicador | `indicator` |
+| celda de indicador | `indicator_cell` |
+| variante de un indicador | `variant` |
+| medida (por número de contratos / por valor) | `measure` (`count` / `value`) |
+| nivel (Distrito / secretaría) | `level` (`district` / `department`) |
+| periodo (año o mes) | `period` |
+| razón (resultado del indicador: numerador ÷ denominador) | `ratio` |
+| celda suprimida | `is_suppressed` |
 
 ## Reglas no negociables
 

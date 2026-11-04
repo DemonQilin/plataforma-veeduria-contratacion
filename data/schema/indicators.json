@@ -1,0 +1,140 @@
+{
+  "$defs": {
+    "IndicatorCell": {
+      "additionalProperties": false,
+      "description": "Un indicador en un nivel y un periodo, con su trazabilidad (R16).\n\nUna celda suprimida (R13) publica su `sample_size` y oculta numerador, denominador y razón.",
+      "properties": {
+        "denominator": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Denominator"
+        },
+        "department": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Department"
+        },
+        "indicator": {
+          "enum": [
+            "I1",
+            "I2",
+            "I3",
+            "I4",
+            "I5",
+            "I6",
+            "I7",
+            "I8"
+          ],
+          "title": "Indicator",
+          "type": "string"
+        },
+        "is_suppressed": {
+          "title": "Is Suppressed",
+          "type": "boolean"
+        },
+        "level": {
+          "enum": [
+            "district",
+            "department"
+          ],
+          "title": "Level",
+          "type": "string"
+        },
+        "measure": {
+          "enum": [
+            "count",
+            "value"
+          ],
+          "title": "Measure",
+          "type": "string"
+        },
+        "numerator": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Numerator"
+        },
+        "period": {
+          "pattern": "^\\d{4}(-\\d{2})?$",
+          "title": "Period",
+          "type": "string"
+        },
+        "ratio": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Ratio"
+        },
+        "sample_size": {
+          "minimum": 0,
+          "title": "Sample Size",
+          "type": "integer"
+        },
+        "variant": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Variant"
+        }
+      },
+      "required": [
+        "indicator",
+        "variant",
+        "measure",
+        "level",
+        "department",
+        "period",
+        "sample_size",
+        "numerator",
+        "denominator",
+        "ratio",
+        "is_suppressed"
+      ],
+      "title": "IndicatorCell",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Una fila por indicador, nivel y periodo (docs/reglas.md, sección 7).",
+  "properties": {
+    "cells": {
+      "items": {
+        "$ref": "#/$defs/IndicatorCell"
+      },
+      "title": "Cells",
+      "type": "array"
+    }
+  },
+  "required": [
+    "cells"
+  ],
+  "title": "Indicators",
+  "type": "object"
+}

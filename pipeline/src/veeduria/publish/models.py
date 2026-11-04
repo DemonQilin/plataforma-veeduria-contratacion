@@ -7,8 +7,9 @@ Son la única fuente de verdad: de aquí salen `data/schema/*.json` y
 import json
 from datetime import date
 from pathlib import Path
+from typing import Literal, Self
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 
 class Source(BaseModel):
@@ -29,7 +30,50 @@ class Metadata(BaseModel):
     rules_version: str
 
 
+class IndicatorCell(BaseModel):
+    """Un indicador en un nivel y un periodo, con su trazabilidad (R16).
+
+    Una celda suprimida (R13) publica su `sample_size` y oculta numerador, denominador y razón.
+    """
+
+    model_config = ConfigDict(extra="forbid")
+
+    indicator: Literal["I1", "I2", "I3", "I4", "I5", "I6", "I7", "I8"]
+    variant: str | None
+    measure: Literal["count", "value"]
+    level: Literal["district", "department"]
+    department: str | None
+    period: str = Field(pattern=r"^\d{4}(-\d{2})?$")
+    sample_size: int = Field(ge=0)
+    numerator: float | None
+    denominator: float | None
+    ratio: float | None
+    is_suppressed: bool
+
+    @model_validator(mode="after")
+    def check_coherence(self) -> Self:
+        # R13: una celda suprimida no puede llevar ninguna cifra que permita despejarla.
+        figures = (self.numerator, self.denominator, self.ratio)
+        if self.is_suppressed and any(figure is not None for figure in figures):
+            raise ValueError("Una celda suprimida no publica numerador, denominador ni razón.")
+        # R16: una celda publicada trae las tres cifras para poder reconstruirla.
+        if not self.is_suppressed and any(figure is None for figure in figures):
+            raise ValueError("Una celda publicada trae numerador, denominador y razón.")
+        if (self.level == "department") != (self.department is not None):
+            raise ValueError("La secretaría va si y solo si el nivel es `department`.")
+        return self
+
+
+class Indicators(BaseModel):
+    """Una fila por indicador, nivel y periodo (docs/reglas.md, sección 7)."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    cells: list[IndicatorCell]
+
+
 CONTRACT_MODELS: dict[str, type[BaseModel]] = {
+    "indicators": Indicators,
     "metadata": Metadata,
 }
 
