@@ -47,7 +47,7 @@ Para cada año *a* se calcula:
 - **Denominador en el tramo común:** del 1 de enero al día y mes de la fecha de corte, en todos los años (R12). Con la copia actual, el corte es el 30 de octubre, así que todos los años se miden del 1 de enero al 30 de octubre.
 - **Dos versiones:** por número de contratos y por valor (sin operaciones de crédito público, R7). El valor es el inicial (D3), el de la primera versión firmada: no mezcla las adiciones posteriores, que mide I5, ni depende de si el contrato aparece en MEData.
 - **Cuatro variantes:** el total, la prestación de servicios (`service_contract`), el resto de tipos de contrato (`non_service_contract`) y el total sin contratos interadministrativos (`excluding_interadministrative`).
-  - La última es una sensibilidad: quita los interadministrativos del numerador y del denominador, porque su peso cambia entre años (en 2023 no hay interadministrativos de julio a octubre por la restricción local). La definición base no cambia; cuál de las dos lecturas es la cifra titular se decide en el punto de decisión 1 (ADR 0036).
+  - La última es una sensibilidad: quita los interadministrativos del numerador y del denominador, porque su peso cambia entre años (en 2023 no hay interadministrativos de julio a octubre por la restricción local). La definición base no cambia y es la cifra titular, por número de contratos; la variante se publica como sensibilidad (ADR 0036, ADR 0037).
 
 ### El principal factor de confusión
 
@@ -89,13 +89,17 @@ El hallazgo se mantiene como titular si se cumple al menos una de estas condicio
 1. **Serie ejecutada:** en ambos años de restricción, la concentración supera el valor más alto de los años de control, tanto por número como por valor.
 2. **Serie de planeación:** en los tres años de elección presidencial, la proporción planeada de febrero a junio queda por debajo del mínimo de los años de control.
 
-Con la copia actual, la serie de planeación cumple su criterio en las dos medidas. Por número de contratos, los años de tratamiento van de 8,3 a 16,0 % y el mínimo de control es 34,8 %; por valor, de 6,3 a 23,5 % frente a 37,4 %. Si ninguna se cumple, el titular pasa al indicador con el resultado más claro entre I3, I4 e I5, y la Ley de Garantías queda como contexto.
+Con la copia actual, la serie de planeación cumple su criterio en las dos medidas. Por número de contratos, los años de tratamiento van de 8,3 a 16,0 % y el mínimo de control es 34,8 %; por valor, de 6,3 a 23,5 % frente a 37,4 %.
+
+La serie ejecutada también lo cumple. Con la definición base, el menor año de tratamiento (2022) supera al máximo de control (2025) por 27,6 puntos por número (58,3 % frente a 30,7 %) y por 0,9 puntos por valor (30,7 % frente a 29,8 %). Sin interadministrativos, las brechas son 30,5 y 26,3 puntos.
+
+**Resultado del punto de decisión 1 (5 nov 2026):** el titular se mantiene. La cifra titular de I2 es la definición base por número de contratos (ADR 0037); el registro está en la [bitácora](bitacora.md). Si ninguna se cumpliera, el titular pasa al indicador con el resultado más claro entre I3, I4 e I5, y la Ley de Garantías queda como contexto.
 
 ### Cómo se comunica
 
-Plantilla de la frase del hallazgo, a completar con las cifras finales:
+Frase del hallazgo, con las cifras finales de la definición base por número de contratos (ADR 0037):
 
-> En 2022 y 2026, antes de que la Ley de Garantías restringiera la contratación directa, la Alcaldía de Medellín firmó en enero el **X %** de la contratación directa del año. En los años sin restricción, esa proporción estuvo entre **Y %** y **Z %**.
+> En 2022 y 2026, antes de que la Ley de Garantías restringiera la contratación directa, la Alcaldía de Medellín firmó en enero el **58 %** y el **65 %** de su contratación directa del 1 de enero al 30 de octubre. En los años sin restricción (2023 a 2025), esa proporción estuvo entre **19 %** y **31 %**.
 
 ### Limitaciones que se declaran
 
@@ -104,6 +108,7 @@ Plantilla de la frase del hallazgo, a completar con las cifras finales:
 - **Cobertura.** El 10 % de los contratos de MEData (307 de 2.939) no aparece en SECOP II, y MEData solo cubre hasta junio de 2023.
 - **Conciliación de 2022.** Seis meses de 2022 (marzo a julio y diciembre) tienen menos del 80 % de los contratos en ambas fuentes (R15).
 - **I8 por valor es menos robusto que por número.** Si se quitan las cinco líneas directas más grandes de cada año, la brecha por valor baja de 13,9 a 3,2 puntos. La medida principal es el número de contratos; el valor se presenta como complemento. El plan tampoco permite excluir el crédito público (R7), y el de 2023 no sirve como referencia mensual.
+- **I2 por valor es menos concluyente que por número.** Con la definición base, 2022 supera al mejor año de control por 0,9 puntos (30,7 % frente a 29,8 %). Sin interadministrativos la brecha es de 26,3 puntos. Por eso la cifra titular es la del número de contratos y el valor es un complemento (ADR 0037).
 - **Dos años de tratamiento.** Con tan pocos casos, el resultado se presenta como un patrón descriptivo, sin pruebas de significancia estadística.
 
 ---
