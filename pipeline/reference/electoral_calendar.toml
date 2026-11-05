@@ -1,0 +1,41 @@
+# Calendario de la Ley de Garantías (R10; docs/fuentes.md sección 10).
+#
+# Tabla curada a mano: no se infiere de los datos. Cada restricción cita sus fuentes. Las ventanas
+# de comparación de I2 se derivan de aquí (R11, `indicators/electoral_calendar.py`).
+#
+# `scope` dice qué contratación limita la restricción:
+#   direct_award        contratación directa de todas las entidades (restricción presidencial).
+#   interadministrative convenios interadministrativos de las entidades territoriales.
+#
+# Las restricciones de las elecciones locales de 2023 y 2027 no están: sus fechas siguen por
+# verificar con fuente oficial (docs/plan.md sección 10) y I2 no las usa.
+
+[[restriction]]
+cycle = "presidential_2022"
+scope = "direct_award"
+start = 2022-01-29
+end = 2022-06-19  # segunda vuelta
+sources = [
+  "Ley 996 de 2005, artículos 33 y 38",
+  "https://www.valoraanalitik.com/?p=158425",
+]
+
+[[restriction]]
+cycle = "congress_2026"
+scope = "interadministrative"
+start = 2025-11-08
+end = 2026-03-08
+sources = [
+  "Ley 996 de 2005, artículos 33 y 38",
+  "https://www.bloomberglinea.com/latinoamerica/colombia/ley-de-garantias-2026-que-es-a-quienes-impacta-este-ano-y-hasta-cuando-va/",
+]
+
+[[restriction]]
+cycle = "presidential_2026"
+scope = "direct_award"
+start = 2026-01-31
+end = 2026-06-21  # segunda vuelta
+sources = [
+  "Ley 996 de 2005, artículos 33 y 38",
+  "https://www.bloomberglinea.com/latinoamerica/colombia/ley-de-garantias-2026-que-es-a-quienes-impacta-este-ano-y-hasta-cuando-va/",
+]

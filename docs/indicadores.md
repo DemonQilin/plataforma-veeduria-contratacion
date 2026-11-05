@@ -41,10 +41,10 @@ Todo indicador se publica con numerador, denominador, n, fuentes, fecha de corte
 
 Para cada año *a* se calcula:
 
-> **Concentración pre-restricción (a)** = contratos de contratación directa firmados entre el 1 de enero y el día anterior al inicio de la restricción ÷ contratos de contratación directa firmados de enero a octubre del mismo año.
+> **Concentración pre-restricción (a)** = contratos de contratación directa firmados entre el 1 de enero y el día anterior al inicio de la restricción ÷ contratos de contratación directa firmados del 1 de enero a la fecha de corte (día y mes) del mismo año.
 
-- **Ventanas:** en 2022, del 1 al 28 de enero; en 2026, del 1 al 30 de enero. En los años de control (2023, 2024, 2025) se usa la misma ventana, del 1 al 29 de enero, para comparar periodos de igual duración. Las ventanas se derivan del calendario de referencia (R10, R11).
-- **Denominador de enero a octubre:** 2026 solo tiene datos hasta octubre, así que todos los años se miden con ese mismo tramo (R12).
+- **Ventanas:** en 2022, del 1 al 28 de enero; en 2026, del 1 al 30 de enero. En los años de control (2023, 2024, 2025) se usa la ventana a mitad de camino entre las dos, del 1 al 29 de enero, para comparar periodos de igual duración. Las ventanas se derivan del calendario de referencia (R10, R11, ADR 0034).
+- **Denominador en el tramo común:** del 1 de enero al día y mes de la fecha de corte, en todos los años (R12). Con la copia actual, el corte es el 30 de octubre, así que todos los años se miden del 1 de enero al 30 de octubre.
 - **Dos versiones:** por número de contratos y por valor (sin operaciones de crédito público).
 
 ### El principal factor de confusión
