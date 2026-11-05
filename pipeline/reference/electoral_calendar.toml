@@ -7,9 +7,8 @@
 #   direct_award        contratación directa de todas las entidades (restricción presidencial).
 #   interadministrative convenios interadministrativos de las entidades territoriales.
 #
-# La restricción de las elecciones locales de 2027 no está: su fecha sigue por verificar con fuente
-# oficial (docs/plan.md sección 10). La de nómina no se modela porque no es contratación, y I2 solo
-# usa las de `direct_award`.
+# La restricción de nómina no se modela porque no es contratación, y I2 solo usa las de
+# `direct_award`.
 
 [[restriction]]
 cycle = "presidential_2022"
@@ -51,4 +50,15 @@ end = 2026-06-21  # segunda vuelta
 sources = [
   "Ley 996 de 2005, artículos 33 y 38",
   "https://www.bloomberglinea.com/latinoamerica/colombia/ley-de-garantias-2026-que-es-a-quienes-impacta-este-ano-y-hasta-cuando-va/",
+]
+
+[[restriction]]
+cycle = "local_2027"
+scope = "interadministrative"
+start = 2027-06-30
+end = 2027-10-31  # día de la elección; las locales no tienen segunda vuelta
+sources = [
+  "Ley 996 de 2005, parágrafo del artículo 38 (cuatro meses antes de la elección)",
+  "Registraduría Nacional, Resolución 12338 del 28 de octubre de 2026 (elección del 31 de octubre de 2027)",
+  "https://www.elnuevosiglo.com.co/politica/registraduria-define-calendario-electoral-para-los-comicios-territoriales-de-2027",
 ]

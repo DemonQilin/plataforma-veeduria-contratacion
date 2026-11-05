@@ -171,7 +171,7 @@ Se hacen dos consultas, para que el nombre y el documento de personas naturales 
 
 ## 10. Calendario de la Ley de Garantías
 
-Tabla de referencia curada a mano (R10). Vive en `pipeline/reference/electoral_calendar.toml` con la fuente de cada fecha; no se infiere de los datos (ADR 0034). Las locales de 2023 están verificadas y cargadas; las de 2027 entran cuando su fecha se verifique. La restricción de nómina de las locales no se modela porque no es contratación. Para las locales aplica solo el parágrafo del artículo 38; el artículo 33 (contratación directa) rige únicamente en elecciones presidenciales (Colombia Compra Eficiente, concepto C-239 de 2023).
+Tabla de referencia curada a mano (R10). Vive en `pipeline/reference/electoral_calendar.toml` con la fuente de cada fecha; no se infiere de los datos (ADR 0034). Las locales de 2023 y las de 2027 están verificadas y cargadas. La restricción de nómina de las locales no se modela porque no es contratación. Para las locales aplica solo el parágrafo del artículo 38; el artículo 33 (contratación directa) rige únicamente en elecciones presidenciales (Colombia Compra Eficiente, concepto C-239 de 2023).
 
 | Ciclo | Restricción | Desde | Hasta | Estado |
 |---|---|---|---|---|
@@ -179,7 +179,7 @@ Tabla de referencia curada a mano (R10). Vive en `pipeline/reference/electoral_c
 | Locales 2023 | Convenios interadministrativos (territorial) | 29 jun 2023 | 29 oct 2023 | Verificado |
 | Congreso 2026 | Convenios interadministrativos (territorial) | 8 nov 2025 | 8 mar 2026 | Verificado |
 | Presidencial 2026 | Contratación directa (todas las entidades) | 31 ene 2026 | 21 jun 2026 (2.ª vuelta) | Verificado |
-| Locales 2027 | Convenios interadministrativos y nómina (territorial) | ≈jun 2027 | oct 2027 | Estimado |
+| Locales 2027 | Convenios interadministrativos (territorial) | 30 jun 2027 | 31 oct 2027 | Verificado (Resolución 12338 de 2026 de la Registraduría, por prensa; confirmar en el sitio oficial) |
 
 ---
 
