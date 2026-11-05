@@ -15,14 +15,14 @@ Las pantallas 2 y 3 dibujan los periodos de restricción de la Ley de Garantías
   - `comparison_windows`, ordenadas por año: `year`, `role` (`treatment` o `control`), `window_start`, `window_end`, `denominator_end` y `reference_restriction_end`. Son las ventanas de I2 (R11, R12), para que la pantalla 4 y la metodología digan qué compara cada año sin recalcularlo.
 - **`status` se calcula contra la fecha de corte (R12), nunca contra el reloj:** `ended` si el fin es anterior al corte, `upcoming` si el inicio es posterior, y `ongoing` en cualquier otro caso. Los extremos son inclusivos: el día de la elección sigue restringido. El tablero no compara fechas.
 - **Sin supresión.** Son fechas públicas con su fuente, no cifras de contratos; R13 no aplica.
-- **Las locales de 2027 entran al calendario como verificadas.** La Registraduría fijó la jornada para el domingo 31 de octubre de 2027 (Resolución 12338 del 28 de octubre de 2026). El parágrafo del artículo 38 de la Ley 996 prohíbe los convenios interadministrativos en los cuatro meses anteriores, igual que en 2023, así que la restricción va del 30 de junio al 31 de octubre de 2027 con alcance `interadministrative`. No genera ventanas de I2 (ADR 0034), por lo que las cifras publicadas no cambian.
+- **Las locales de 2027 entran al calendario como verificadas.** La Registraduría fijó la jornada para el domingo 31 de octubre de 2027 (Resolución 12338 del 28 de octubre de 2026, artículo primero; leída en el documento oficial). El parágrafo del artículo 38 de la Ley 996 prohíbe los convenios interadministrativos en los cuatro meses anteriores, igual que en 2023, así que la restricción va del 30 de junio al 31 de octubre de 2027 con alcance `interadministrative`. La resolución no cita la Ley 996: el inicio es un cálculo con la regla de cuatro meses, y el calendario de la propia resolución marca el 30 de junio de 2027 como «4 meses antes de la elección». No genera ventanas de I2 (ADR 0034), por lo que las cifras publicadas no cambian.
 
 ## Consecuencias
 
 - Las pantallas 2, 3 y 4 leen todo del contrato: fechas, papel de cada año y si el periodo ya pasó, está en curso o viene.
 - Cambiar una fecha es editar el TOML y su fuente; la salida se regenera sola.
 - Con corte al 30 de octubre de 2026, 2027 sale como `upcoming`; cuando la copia avance, el estado cambia sin tocar código.
-- La resolución de la Registraduría se verificó por prensa porque `registraduria.gov.co` rechazó la consulta automática; conviene confirmarla en el sitio oficial antes de la entrega.
+- El archivo oficial se llama `resolucion_12338_20_octubre_de_2026.pdf`, pero la resolución está fechada el 28 de octubre de 2026 (sello y «Dado en Bogotá, D.C.»): el «20» del nombre es un error del archivo.
 
 ## Alternativas
 

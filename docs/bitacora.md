@@ -20,7 +20,7 @@ Las decisiones que salen de estas observaciones no se registran aquí: pasan a [
 
 ## 5 nov 2026 · Locales de 2027 verificadas
 
-La Registraduría fijó la jornada de elecciones territoriales para el domingo 31 de octubre de 2027 (Resolución 12338 del 28 de octubre de 2026). Con el parágrafo del artículo 38 de la Ley 996 (cuatro meses antes), la restricción de convenios interadministrativos va del 30 de junio al 31 de octubre de 2027 y entra al calendario como `local_2027` ([ADR 0041](adr/0041-calendario-electoral-publicado.md)). No genera ventanas de I2, así que ninguna cifra publicada cambia. La fuente es prensa porque `registraduria.gov.co` rechazó la consulta automática; falta confirmarla en el sitio oficial.
+La Registraduría fijó la jornada de elecciones territoriales para el domingo 31 de octubre de 2027 (Resolución 12338 del 28 de octubre de 2026). Con el parágrafo del artículo 38 de la Ley 996 (cuatro meses antes), la restricción de convenios interadministrativos va del 30 de junio al 31 de octubre de 2027 y entra al calendario como `local_2027` ([ADR 0041](adr/0041-calendario-electoral-publicado.md)). No genera ventanas de I2, así que ninguna cifra publicada cambia. Se leyó el PDF oficial (7 páginas): la resolución está fechada el 28 de octubre de 2026, aunque el archivo se llama `resolucion_12338_20_octubre_de_2026.pdf`. No cita la Ley 996; su calendario marca el 30 de junio de 2027 como «4 meses antes de la elección», igual que el cálculo.
 
 ---
 
