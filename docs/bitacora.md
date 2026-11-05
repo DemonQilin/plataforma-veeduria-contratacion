@@ -18,6 +18,27 @@ Las decisiones que salen de estas observaciones no se registran aquí: pasan a [
 
 ---
 
+## 5 nov 2026 · Revisión de cifras de I1, I3 e I5 (C4)
+
+Revisión de las cifras publicadas de I1, I3 e I5 (corte 30 oct 2026) contra las fórmulas de [`indicadores.md`](indicadores.md) §1–2. Las consultas se escribieron aparte, desde la fórmula y no desde el SQL del pipeline, y se corrieron en memoria sobre la copia, sin escribir nada.
+
+**Verificado**
+
+- **Salidas al día:** `run --from-snapshot` en una copia del repositorio fuera del árbol de trabajo produce los cinco archivos de `data/outputs/` con el mismo SHA-256.
+- **I1, por número, Distrito:** las 10 cifras coinciden exactamente (directa 1.387, 1.366, 978, 1.186 y 1.084 de 1.716, 1.666, 1.287, 1.449 y 1.310 en 2022–2026; no competitiva 1.463, 1.449, 1.061, 1.244 y 1.120).
+- **I3, Distrito:** coincide en los cinco años (44 de 198, 49 de 164, 31 de 194, 25 de 173 y 21 de 144). Los procesos con cero oferentes que R9 excluye suman 21 (20 en 2022 y 1 en 2023), igual que `single_bidder_exclusions` de `quality.json` (21 de 894).
+- **I5, conteo:** cruzando MEData con SECOP II, las cifras reproducen las publicadas con diferencias de hasta 1 %; ver Abierto.
+- **Supresión (R13, D6):** en las 31 combinaciones de indicador, variante, medida y año de I1, I3 e I5, las secretarías suman al Distrito cuando no hay celdas ocultas, ninguna celda visible tiene menos de 5 contratos y ningún desglose queda con una sola celda oculta. Hay 51 celdas suprimidas.
+- **Pruebas:** `test_i1_direct_award_share.py`, `test_i3_single_bidder.py` y `test_i5_additions.py` fijan cifras de referencia.
+- **Lenguaje:** ninguno de los términos que evita la guía aparece en `web/src/`, `pipeline/src/` ni `data/outputs/`.
+
+**Abierto**
+
+- **I5, diferencia de 21 contratos:** el recálculo independiente da 1.510 contratos en 2022 y 1.072 en 2023, frente a 1.524 y 1.079 publicados (14 y 7 de diferencia). Con adición: 344 y 66, frente a 353 y 66. Cerca del tope: 139 y 22, frente a 140 y 22. Se cruzó por la referencia del contrato en mayúsculas y sin espacios; la causa probable es que el cruce del pipeline reconoce más formatos de referencia, pero no se verificó. Ninguna diferencia cambia la lectura.
+- **No se recalculó** I1 por valor, I5 por valor ni el desglose por secretaría; de ellos solo se comprobó la suma y la supresión.
+
+---
+
 ## 5 nov 2026 · Correo a los organizadores enviado
 
 El correo que la entrada del 30 de octubre da como programado nunca se envió. Se envió el 5 de noviembre, con las cinco preguntas de esa entrada y la solicitud de la plantilla oficial de `guia_entrega.pdf`, ordenadas por impacto: fuentes admitidas, nombres de proveedores personas jurídicas y plantilla primero. El correo pide respuesta antes del sábado 7 de noviembre y avisa que, sin ella, I4 se publica solo agregado, sin nombres de proveedores, y SECOP II y MEData se mantienen como fuentes. Respuesta pendiente.
