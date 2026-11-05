@@ -162,7 +162,7 @@ Se publican en `data/outputs/` como JSON. Su estructura la definen los modelos d
 |---|---|
 | Indicadores | Una fila por indicador, nivel y periodo, con los campos de trazabilidad de R16 (forma de la celda en el [ADR 0033](adr/0033-celda-de-indicador-en-el-contrato.md)) |
 | Serie mensual | Contratos y valor por mes, modalidad y tipo, para las gráficas del hallazgo |
-| Calidad de datos | Cobertura, conciliación SECOP–MEData, porcentaje sin secretaría, filas truncadas de MEData, valores no reconocidos en catálogos |
+| Calidad de datos | Cobertura, conciliación SECOP–MEData, porcentaje sin secretaría, filas truncadas de MEData, valores no reconocidos en catálogos. Hoy `quality.json` publica la conciliación R15 por mes ([ADR 0038](adr/0038-r15-publicada-sin-supresion.md)); el resto llega después |
 | Metadatos | Fecha de corte, fuentes con enlace y licencia, versión de las reglas |
 
 ---

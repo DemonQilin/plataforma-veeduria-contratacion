@@ -72,9 +72,56 @@ class Indicators(BaseModel):
     cells: list[IndicatorCell]
 
 
+class ReconciliationMonth(BaseModel):
+    """Un mes de la conciliación SECOP–MEData (R15; ADR 0031).
+
+    Publica los conteos junto a las razones: con pocos contratos, uno de diferencia mueve mucho
+    el porcentaje y el tablero debe mostrar la base (ADR 0038).
+    """
+
+    model_config = ConfigDict(extra="forbid")
+
+    # El título distinto evita que el generador de tipos cree dos alias `Period`.
+    period: str = Field(pattern=r"^\d{4}-\d{2}$", title="ReconciliationPeriod")
+    secop_count: int = Field(ge=0)
+    medata_count: int = Field(ge=0)
+    shared_count: int = Field(ge=0)
+    union_count: int = Field(ge=0)
+    shared_share: float | None
+    secop_coverage: float | None
+    medata_coverage: float | None
+    below_threshold: bool
+
+    @model_validator(mode="after")
+    def check_coherence(self) -> Self:
+        if self.union_count != self.secop_count + self.medata_count - self.shared_count:
+            raise ValueError("La unión es SECOP II más MEData menos los contratos en ambas.")
+        if (self.shared_share is None) != (self.union_count == 0):
+            raise ValueError("La razón de un mes falta si y solo si el mes no tiene contratos.")
+        return self
+
+
+class Reconciliation(BaseModel):
+    """Conciliación mensual y el umbral con el que se advierte (R15)."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    threshold: float
+    months: list[ReconciliationMonth]
+
+
+class Quality(BaseModel):
+    """Calidad de datos que el tablero advierte (docs/reglas.md, sección 7)."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    reconciliation: Reconciliation
+
+
 CONTRACT_MODELS: dict[str, type[BaseModel]] = {
     "indicators": Indicators,
     "metadata": Metadata,
+    "quality": Quality,
 }
 
 

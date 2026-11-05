@@ -31,6 +31,16 @@ def test_r15_snapshot_january_2022_matches_the_first_validation(
     ).fetchone() == (726, 725, 661, 790)
 
 
+def test_r15_snapshot_medata_january_2022_by_its_own_date_is_727(
+    reconciled: duckdb.DuckDBPyConnection,
+) -> None:
+    """Primera validación: MEData fecha en enero 2 contratos que SECOP II firma después."""
+    assert reconciled.execute(
+        "SELECT count(*) FROM medata_contracts"
+        " WHERE date_trunc('month', signed_date) = DATE '2022-01-01'"
+    ).fetchone() == (727,)
+
+
 def test_r15_snapshot_flags_6_of_18_months_below_80_percent(
     reconciled: duckdb.DuckDBPyConnection,
 ) -> None:

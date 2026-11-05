@@ -136,6 +136,10 @@ Usa siempre estos nombres en el código. Si necesitas un término nuevo, agréga
 | contrato que termina después de la restricción (variante de I2) | `spans_restriction` |
 | sin interadministrativos (variante de I2) | `excluding_interadministrative` |
 | fin de la restricción de referencia | `reference_restriction_end` |
+| calidad de datos (salida del tablero) | `quality` |
+| contratos en SECOP II / en MEData (conciliación) | `secop_count` / `medata_count` |
+| proporción de contratos en ambas fuentes sobre la unión | `shared_share` |
+| mes por debajo del umbral de conciliación | `below_threshold` |
 
 ## Reglas no negociables
 

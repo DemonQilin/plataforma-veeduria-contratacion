@@ -1,0 +1,205 @@
+{
+  "reconciliation": {
+    "months": [
+      {
+        "below_threshold": false,
+        "medata_count": 725,
+        "medata_coverage": 0.9117,
+        "period": "2022-01",
+        "secop_count": 726,
+        "secop_coverage": 0.9105,
+        "shared_count": 661,
+        "shared_share": 0.8367,
+        "union_count": 790
+      },
+      {
+        "below_threshold": false,
+        "medata_count": 6,
+        "medata_coverage": 0.8333,
+        "period": "2022-02",
+        "secop_count": 5,
+        "secop_coverage": 1.0,
+        "shared_count": 5,
+        "shared_share": 0.8333,
+        "union_count": 6
+      },
+      {
+        "below_threshold": true,
+        "medata_count": 14,
+        "medata_coverage": 0.3571,
+        "period": "2022-03",
+        "secop_count": 11,
+        "secop_coverage": 0.4545,
+        "shared_count": 5,
+        "shared_share": 0.25,
+        "union_count": 20
+      },
+      {
+        "below_threshold": true,
+        "medata_count": 18,
+        "medata_coverage": 0.7222,
+        "period": "2022-04",
+        "secop_count": 14,
+        "secop_coverage": 0.9286,
+        "shared_count": 13,
+        "shared_share": 0.6842,
+        "union_count": 19
+      },
+      {
+        "below_threshold": true,
+        "medata_count": 46,
+        "medata_coverage": 0.7391,
+        "period": "2022-05",
+        "secop_count": 36,
+        "secop_coverage": 0.9444,
+        "shared_count": 34,
+        "shared_share": 0.7083,
+        "union_count": 48
+      },
+      {
+        "below_threshold": true,
+        "medata_count": 62,
+        "medata_coverage": 0.8387,
+        "period": "2022-06",
+        "secop_count": 60,
+        "secop_coverage": 0.8667,
+        "shared_count": 52,
+        "shared_share": 0.7429,
+        "union_count": 70
+      },
+      {
+        "below_threshold": true,
+        "medata_count": 149,
+        "medata_coverage": 0.8255,
+        "period": "2022-07",
+        "secop_count": 156,
+        "secop_coverage": 0.7885,
+        "shared_count": 123,
+        "shared_share": 0.6758,
+        "union_count": 182
+      },
+      {
+        "below_threshold": false,
+        "medata_count": 198,
+        "medata_coverage": 0.9141,
+        "period": "2022-08",
+        "secop_count": 199,
+        "secop_coverage": 0.9095,
+        "shared_count": 181,
+        "shared_share": 0.838,
+        "union_count": 216
+      },
+      {
+        "below_threshold": false,
+        "medata_count": 188,
+        "medata_coverage": 0.9574,
+        "period": "2022-09",
+        "secop_count": 191,
+        "secop_coverage": 0.9424,
+        "shared_count": 180,
+        "shared_share": 0.9045,
+        "union_count": 199
+      },
+      {
+        "below_threshold": false,
+        "medata_count": 118,
+        "medata_coverage": 0.9153,
+        "period": "2022-10",
+        "secop_count": 114,
+        "secop_coverage": 0.9474,
+        "shared_count": 108,
+        "shared_share": 0.871,
+        "union_count": 124
+      },
+      {
+        "below_threshold": false,
+        "medata_count": 156,
+        "medata_coverage": 0.8974,
+        "period": "2022-11",
+        "secop_count": 147,
+        "secop_coverage": 0.9524,
+        "shared_count": 140,
+        "shared_share": 0.8589,
+        "union_count": 163
+      },
+      {
+        "below_threshold": true,
+        "medata_count": 48,
+        "medata_coverage": 0.8333,
+        "period": "2022-12",
+        "secop_count": 57,
+        "secop_coverage": 0.7018,
+        "shared_count": 40,
+        "shared_share": 0.6154,
+        "union_count": 65
+      },
+      {
+        "below_threshold": false,
+        "medata_count": 393,
+        "medata_coverage": 0.8957,
+        "period": "2023-01",
+        "secop_count": 378,
+        "secop_coverage": 0.9312,
+        "shared_count": 352,
+        "shared_share": 0.8401,
+        "union_count": 419
+      },
+      {
+        "below_threshold": false,
+        "medata_count": 183,
+        "medata_coverage": 0.929,
+        "period": "2023-02",
+        "secop_count": 199,
+        "secop_coverage": 0.8543,
+        "shared_count": 170,
+        "shared_share": 0.8019,
+        "union_count": 212
+      },
+      {
+        "below_threshold": false,
+        "medata_count": 142,
+        "medata_coverage": 0.8944,
+        "period": "2023-03",
+        "secop_count": 143,
+        "secop_coverage": 0.8881,
+        "shared_count": 127,
+        "shared_share": 0.8038,
+        "union_count": 158
+      },
+      {
+        "below_threshold": false,
+        "medata_count": 121,
+        "medata_coverage": 0.9008,
+        "period": "2023-04",
+        "secop_count": 115,
+        "secop_coverage": 0.9478,
+        "shared_count": 109,
+        "shared_share": 0.8583,
+        "union_count": 127
+      },
+      {
+        "below_threshold": false,
+        "medata_count": 142,
+        "medata_coverage": 0.8662,
+        "period": "2023-05",
+        "secop_count": 132,
+        "secop_coverage": 0.9318,
+        "shared_count": 123,
+        "shared_share": 0.8146,
+        "union_count": 151
+      },
+      {
+        "below_threshold": false,
+        "medata_count": 226,
+        "medata_coverage": 0.9071,
+        "period": "2023-06",
+        "secop_count": 235,
+        "secop_coverage": 0.8723,
+        "shared_count": 205,
+        "shared_share": 0.8008,
+        "union_count": 256
+      }
+    ],
+    "threshold": 0.8
+  }
+}

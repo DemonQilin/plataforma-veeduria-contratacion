@@ -18,6 +18,14 @@ Las decisiones que salen de estas observaciones no se registran aquí: pasan a [
 
 ---
 
+## 5 nov 2026 · Cierre de los pendientes de C1
+
+- **R15 publicada.** `data/outputs/quality.json` trae la conciliación por mes (18 meses), con los conteos de cada fuente, las razones y el umbral de 0,8. Marca los seis meses de 2022 bajo el 80 %: marzo, abril, mayo, junio, julio y diciembre. No se aplica la supresión R13 a esta salida; la decisión y su guarda están en el [ADR 0038](adr/0038-r15-publicada-sin-supresion.md). El mínimo de contratos es 5, en los contratos de ambas fuentes de febrero y marzo de 2022 y en SECOP II de febrero de 2022.
+- **El 727 de MEData tiene prueba.** `test_r15_snapshot_medata_january_2022_by_its_own_date_is_727` fija los 727 contratos de MEData en enero de 2022 por su propia fecha. Son 2 más que los 725 que da la fecha de SECOP II, porque SECOP II firma esos 2 en febrero.
+- **La diferencia de 4 contratos sí tiene causa.** La entrada de C1 dice que 2.632 frente a 2.628 «no tiene causa verificada». Se verificó con una consulta de solo lectura sobre la copia: los 2.632 contratos de MEData están en SECOP II, y 4 los firma SECOP II en julio de 2023 mientras MEData los fecha en junio. Quedan fuera de los 18 meses de la conciliación, que cuentan por la fecha de SECOP II, y por eso la suma mensual da 2.628. La cobertura de 2.632 de 2.939 no cambia.
+
+---
+
 ## 5 nov 2026 · Punto de decisión 1 (T8)
 
 Evaluación de los dos criterios de [`indicadores.md`](indicadores.md) §3 con la copia de corte 30 oct 2026. Las cifras salen de `data/outputs/indicators.json`.
