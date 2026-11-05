@@ -102,6 +102,7 @@ Si el tiempo no alcanza, se recorta de abajo hacia arriba.
 | Mar 3 nov | ¿El hallazgo cumple el criterio de [`indicadores.md`](indicadores.md)? | Se mantiene como titular | El titular pasa al indicador más claro entre I3, I4 e I5, y la Ley de Garantías queda como contexto |
 | | **Resultado (5 nov):** se cumplen los dos criterios y el titular se mantiene, con la definición base de I2 por número de contratos. Ver la [bitácora](bitacora.md) y [ADR 0037](adr/0037-cifra-titular-de-i2.md) | | |
 | Antes del 4 nov | ¿Qué respondieron los organizadores? | Se sigue el plan | Si no permiten nombrar personas jurídicas, I4 se reporta solo agregado. Si SECOP II no cuenta como fuente admitida, MEData pasa a ser la fuente principal del hallazgo |
+| | **Aplicado (5 nov):** sin respuesta todavía (el correo se envió el 5 nov), I4 se publica solo agregado ([ADR 0045](adr/0045-i4-concentracion-agregada-de-proveedores.md)). Si responden antes del congelamiento, nombrar personas jurídicas es una tarea aparte | | |
 | Vie 6 nov | ¿El tablero va al ritmo previsto? | Se completa todo lo importante | Se recorta lo deseable (sección 5) |
 
 ---
