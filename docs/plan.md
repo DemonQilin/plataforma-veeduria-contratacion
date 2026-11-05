@@ -136,7 +136,7 @@ Si uno falla, el proyecto no se califica.
 | Requisito | Cómo se cumple | Responsable |
 |---|---|---|
 | Usa e integra al menos un conjunto de MEData | «Ejecución contractual histórico», cruzado con SECOP II (89 % de coincidencia) y usado para validar, asignar secretaría y medir adiciones; «Plan anual de adquisiciones histórico» para la serie de planeación | Juan |
-| Solo fuentes admitidas y datos reales | MEData y datos.gov.co filtrado por Medellín. Pendiente confirmar SECOP II (pregunta 3 del correo) | Juan |
+| Solo fuentes admitidas y datos reales | MEData y datos.gov.co filtrado por Medellín. Pendiente confirmar SECOP II (pregunta 1 del correo) | Juan |
 | Ficha de hallazgos con al menos una propuesta de mejora | Ver sección 8.4 | Compañero |
 | Repositorio público que abre sin iniciar sesión | GitHub público; se prueba en ventana privada antes de entregar | Juan |
 | Entrega en plazo y todos matriculados | Entrega el 9 nov (un día de margen); copia de ambos carnés | Ambos |
@@ -144,7 +144,7 @@ Si uno falla, el proyecto no se califica.
 
 ### 8.2 Rúbrica de 100 puntos
 
-Cada criterio se califica por niveles (el peso equivale a 5 niveles por un multiplicador). Las bases no publican la descripción de cada nivel, así que se pidió en el correo (pregunta 5).
+Cada criterio se califica por niveles (el peso equivale a 5 niveles por un multiplicador). Las bases no publican la descripción de cada nivel, así que se pidió en el correo (pregunta 6).
 
 | Criterio | Puntos | Qué lo cubre | Evidencia para el jurado | Brecha y acción |
 |---|---:|---|---|---|
@@ -275,9 +275,9 @@ Después del pitch el jurado ajusta el puntaje con la rúbrica y no suma puntos 
 
 | Pendiente | Cómo se resuelve | Fecha |
 |---|---|---|
-| Respuesta de los organizadores a las cinco preguntas | Correo a los organizadores. La invitación a la charla de términos nunca llegó (sección 4) | Antes del 4 nov |
-| Descripción de los niveles de la rúbrica | Pregunta 5 del correo | Antes del 4 nov |
-| Plantilla oficial de `guia_entrega.pdf` | Solicitarla por correo | Antes del 4 nov |
+| Respuesta de los organizadores a las seis preguntas | Correo a los organizadores, enviado el 5 nov. La invitación a la charla de términos nunca llegó (sección 4) | Antes del 7 nov (plazo pedido en el correo) |
+| Descripción de los niveles de la rúbrica | Pregunta 6 del correo | Antes del 7 nov |
+| Plantilla oficial de `guia_entrega.pdf` | Pregunta 3 del correo | Antes del 7 nov |
 | ~~Licencia de los conjuntos de SECOP II~~ | Resuelto el 30 oct: CC BY-SA 4.0 (ADR 0015) | — |
 | ~~Nombre exacto de la entidad en SECOP II Procesos~~ | Resuelto el 30 oct: 23.400 filas con ese nombre | — |
 | ~~Token de aplicación de datos.gov.co~~ | Resuelto el 31 oct: guardado como *secret* `SOCRATA_APP_TOKEN` | — |
