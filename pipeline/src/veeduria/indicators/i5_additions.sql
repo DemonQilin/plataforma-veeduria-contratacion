@@ -1,7 +1,8 @@
 -- I5, R7, R8 y D3: adiciones de los contratos que están en MEData, por año de firma; ver docs/indicadores.md §2 y ADR 0044.
 WITH base AS (
     SELECT
-        year(contract.signed_date) AS year,
+        -- El periodo sigue la fecha de firma de MEData, no la de SECOP II: el conjunto es de MEData.
+        year(medata.signed_date) AS year,
         contract.department,
         medata.total_addition_value,
         medata.initial_value,
@@ -16,7 +17,7 @@ WITH base AS (
     JOIN medata_contracts AS medata
         ON contract.contract_reference = medata.contract_reference
     WHERE contract.in_medata
-        AND contract.signed_date IS NOT NULL
+        AND medata.signed_date IS NOT NULL
         -- Un monto de adiciones no informado no es «sin adición»: el contrato sale del denominador.
         AND medata.total_addition_value IS NOT NULL
 ),

@@ -15,17 +15,17 @@ I5 pregunta cuánto crecen los contratos después de firmados. La fórmula del c
 ## Decisión
 
 - **Fuente.** Solo MEData: los contratos de `linked_contracts` que están en MEData, con `initial_value` y `total_addition_value` de MEData. Cubre contratos firmados del 4 de enero de 2022 al 30 de junio de 2023, así que se publican 2022 y 2023 (parcial).
-- **Periodo y nivel.** Año de la fecha de firma. Distrito y cada secretaría de R8, incluida «sin asignar», para que sumen al Distrito (D6).
+- **Periodo y nivel.** Año de la fecha de firma de MEData, no la de SECOP II: el conjunto es de MEData, y así ningún contrato queda fuera de la cobertura (2 contratos cambian de año entre fuentes). Distrito y cada secretaría de R8, incluida «sin asignar», para que sumen al Distrito (D6).
 - **Contratos con adición.** Contratos con `total_addition_value > 0` ÷ contratos de MEData con monto informado. Un monto vacío no es «sin adición»: el contrato sale del denominador (29 contratos). `sample_size` es el denominador.
 - **Valor adicionado.** Suma de `total_addition_value` ÷ suma de `initial_value` de MEData, sin crédito público (R7) ni contratos sin valor inicial. `sample_size` son los contratos con valor.
-- **Cerca del tope (variante `near_addition_cap`).** Contratos cuya adición llega al 45 % del valor inicial ÷ contratos con adición, solo por número. Describe cuántos contratos con adición están cerca del límite legal del 50 %; no los califica. El umbral del 45 % es una decisión de presentación, no una regla legal: queda como constante del SQL.
-- **Supresión.** R13 y D6 se aplican en `publish_indicators` sin cambios.
+- **Cerca del tope (variante `near_addition_cap`).** Contratos cuya adición llega al 45 % del valor inicial ÷ contratos con adición, solo por número. Describe cuántos contratos con adición están cerca del límite legal del 50 %; no los califica. Es una medida por número, así que, como el conteo, incluye el crédito público (R7). El umbral del 45 % es una decisión de presentación, no una regla legal: queda como constante del SQL.
+- **Supresión.** R13 y D6 se aplican en `publish_indicators`. Además, la celda de la variante `near_addition_cap` se suprime siempre que se suprima la celda de conteo de la misma secretaría y año, porque su denominador es el numerador del conteo y lo despejaría (`DEPENDENT_VARIANTS` en `publish/suppression.py`). Con la copia actual pasaba en una celda: Comunicaciones 2022.
 - **SECOP II Adiciones no entra a I5.** Sirve para ocurrencia y fecha de las modificaciones, no para contar adiciones en valor.
 
 ## Consecuencias
 
 - `indicators.json` agrega las celdas de I5 (1.898 líneas, solo adiciones). El contrato no cambia: `IndicatorCell` ya admite `I5`.
-- Con la copia actual: 353 de 1.522 contratos de 2022 (23,2 %) y 66 de 1.081 de 2023 (6,1 %) tienen adición. La diferencia entre años refleja el seguimiento: MEData se detuvo en diciembre de 2023, así que los contratos de 2023 tuvieron menos tiempo de acumular adiciones registradas. El tablero lo aclara.
+- Con la copia actual: 353 de 1.524 contratos de 2022 (23,2 %) y 66 de 1.079 de 2023 (6,1 %) tienen adición. El 2023 cubre solo contratos firmados hasta el 30 de junio y con menos tiempo de acumular adiciones registradas (MEData se detuvo en diciembre de 2023), así que no es comparable de año a año con 2022. El tablero debe mostrarlo como periodo parcial.
 - I5 no cubre 2024–2026. Es una limitación de la fuente y se muestra como tal.
 - **D3 corregida.** Como el valor de SECOP II incluye las adiciones, D3 y `indicadores.md` ya no dicen que el valor inicial excluye las adiciones. Las proporciones por valor de I1 e I2 casi no se mueven (menos de 1 punto en 2022 y 2023); no cambia ninguna cifra publicada.
 

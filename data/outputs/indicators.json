@@ -8321,7 +8321,7 @@
       "variant": null
     },
     {
-      "denominator": 1522.0,
+      "denominator": 1524.0,
       "department": null,
       "indicator": "I5",
       "is_suppressed": false,
@@ -8329,12 +8329,12 @@
       "measure": "count",
       "numerator": 353.0,
       "period": "2022",
-      "ratio": 0.231932,
-      "sample_size": 1522,
+      "ratio": 0.231627,
+      "sample_size": 1524,
       "variant": null
     },
     {
-      "denominator": 1081.0,
+      "denominator": 1079.0,
       "department": null,
       "indicator": "I5",
       "is_suppressed": false,
@@ -8342,8 +8342,8 @@
       "measure": "count",
       "numerator": 66.0,
       "period": "2023",
-      "ratio": 0.061055,
-      "sample_size": 1081,
+      "ratio": 0.061168,
+      "sample_size": 1079,
       "variant": null
     },
     {
@@ -8919,7 +8919,7 @@
       "variant": null
     },
     {
-      "denominator": 308.0,
+      "denominator": 310.0,
       "department": "supplies_and_services",
       "indicator": "I5",
       "is_suppressed": false,
@@ -8927,12 +8927,12 @@
       "measure": "count",
       "numerator": 49.0,
       "period": "2022",
-      "ratio": 0.159091,
-      "sample_size": 308,
+      "ratio": 0.158065,
+      "sample_size": 310,
       "variant": null
     },
     {
-      "denominator": 160.0,
+      "denominator": 158.0,
       "department": "supplies_and_services",
       "indicator": "I5",
       "is_suppressed": false,
@@ -8940,8 +8940,8 @@
       "measure": "count",
       "numerator": 8.0,
       "period": "2023",
-      "ratio": 0.05,
-      "sample_size": 160,
+      "ratio": 0.050633,
+      "sample_size": 158,
       "variant": null
     },
     {
@@ -9049,7 +9049,7 @@
       "variant": null
     },
     {
-      "denominator": 1732963204232.0,
+      "denominator": 1737969764666.0,
       "department": null,
       "indicator": "I5",
       "is_suppressed": false,
@@ -9057,12 +9057,12 @@
       "measure": "value",
       "numerator": 121706942560.0,
       "period": "2022",
-      "ratio": 0.070231,
-      "sample_size": 1522,
+      "ratio": 0.070028,
+      "sample_size": 1524,
       "variant": null
     },
     {
-      "denominator": 1591033064664.0,
+      "denominator": 1586026504230.0,
       "department": null,
       "indicator": "I5",
       "is_suppressed": false,
@@ -9070,8 +9070,8 @@
       "measure": "value",
       "numerator": 31623952112.0,
       "period": "2023",
-      "ratio": 0.019876,
-      "sample_size": 1079,
+      "ratio": 0.019939,
+      "sample_size": 1077,
       "variant": null
     },
     {
@@ -9647,7 +9647,7 @@
       "variant": null
     },
     {
-      "denominator": 353980088665.0,
+      "denominator": 358986649099.0,
       "department": "supplies_and_services",
       "indicator": "I5",
       "is_suppressed": false,
@@ -9655,12 +9655,12 @@
       "measure": "value",
       "numerator": 30140809561.0,
       "period": "2022",
-      "ratio": 0.085148,
-      "sample_size": 308,
+      "ratio": 0.083961,
+      "sample_size": 310,
       "variant": null
     },
     {
-      "denominator": 241222309158.0,
+      "denominator": 236215748724.0,
       "department": "supplies_and_services",
       "indicator": "I5",
       "is_suppressed": false,
@@ -9668,8 +9668,8 @@
       "measure": "value",
       "numerator": 597413557.0,
       "period": "2023",
-      "ratio": 0.002477,
-      "sample_size": 160,
+      "ratio": 0.002529,
+      "sample_size": 158,
       "variant": null
     },
     {
@@ -9855,15 +9855,15 @@
       "variant": "near_addition_cap"
     },
     {
-      "denominator": 5.0,
+      "denominator": null,
       "department": "communications",
       "indicator": "I5",
-      "is_suppressed": false,
+      "is_suppressed": true,
       "level": "department",
       "measure": "count",
-      "numerator": 2.0,
+      "numerator": null,
       "period": "2022",
-      "ratio": 0.4,
+      "ratio": null,
       "sample_size": 5,
       "variant": "near_addition_cap"
     },

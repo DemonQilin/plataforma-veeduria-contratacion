@@ -36,8 +36,8 @@ def _connection(contracts: list[dict[str, Any]]) -> duckdb.DuckDBPyConnection:
         " department VARCHAR, in_medata BOOLEAN, is_value_eligible BOOLEAN)"
     )
     connection.execute(
-        "CREATE TABLE medata_contracts (contract_reference VARCHAR, initial_value DECIMAL(18, 2),"
-        " total_addition_value DECIMAL(18, 2))"
+        "CREATE TABLE medata_contracts (contract_reference VARCHAR, signed_date TIMESTAMP,"
+        " initial_value DECIMAL(18, 2), total_addition_value DECIMAL(18, 2))"
     )
     for contract in contracts:
         connection.execute(
@@ -52,9 +52,10 @@ def _connection(contracts: list[dict[str, Any]]) -> duckdb.DuckDBPyConnection:
         )
         if contract["in_medata"]:
             connection.execute(
-                "INSERT INTO medata_contracts VALUES (?, ?, ?)",
+                "INSERT INTO medata_contracts VALUES (?, ?, ?, ?)",
                 [
                     contract["contract_reference"],
+                    contract.get("medata_signed_date", contract["signed_date"]),
                     contract["initial_value"],
                     contract["total_addition_value"],
                 ],
@@ -188,6 +189,47 @@ def test_r13_i5_small_department_cells_are_suppressed_and_district_is_published(
     assert cells[("department", "supplies_and_services")].is_suppressed
 
 
+def test_i5_period_follows_the_medata_signed_date() -> None:
+    connection = _connection(
+        [
+            # SECOP II lo fecha en 2023, pero MEData lo firma en 2022: cuenta en 2022.
+            _contract(
+                1,
+                signed_date=datetime(2023, 1, 25),
+                medata_signed_date=datetime(2022, 12, 30),
+                total_addition_value=10.0,
+            ),
+            # SECOP II lo fecha el 4 de julio de 2023, fuera de la cobertura de MEData.
+            _contract(
+                2,
+                signed_date=datetime(2023, 7, 4),
+                medata_signed_date=datetime(2023, 6, 30),
+            ),
+        ]
+    )
+    cells = _cells(connection)
+    assert cells[("district", None, "2022", None, "count")] == (1.0, 1.0, 1)
+    assert cells[("district", None, "2023", None, "count")] == (0.0, 1.0, 1)
+    assert {key[2] for key in cells} == {"2022", "2023"}
+
+
+def test_r13_i5_near_cap_cell_is_suppressed_when_its_count_cell_is() -> None:
+    # El denominador de la variante es el numerador del conteo: si el conteo está oculto, la
+    # variante también, o se despejaría restando.
+    connection = _connection(
+        [_contract(n, total_addition_value=50.0 if n <= 5 else 0.0) for n in range(1, 7)]
+        + [_contract(20, department="security")]
+    )
+    cells = {
+        (cell.department, cell.variant, cell.measure): cell
+        for cell in publish_indicators(build_additions(connection)).cells
+        if cell.level == "department"
+    }
+    # D6: «security» tiene un solo contrato; se suprime y arrastra a la otra secretaría.
+    assert cells[("supplies_and_services", None, "count")].is_suppressed
+    assert cells[("supplies_and_services", "near_addition_cap", "count")].is_suppressed
+
+
 @pytest.fixture(scope="module")
 def real() -> duckdb.DuckDBPyConnection:
     return build(Path(SNAPSHOT))
@@ -196,10 +238,10 @@ def real() -> duckdb.DuckDBPyConnection:
 def test_i5_golden_district_by_year(real: duckdb.DuckDBPyConnection) -> None:
     cells = _cells(real)
     expected = {
-        ("2022", None, "count"): (353.0, 1522.0, 1522),
-        ("2023", None, "count"): (66.0, 1081.0, 1081),
-        ("2022", None, "value"): (121706942560.0, 1732963204232.0, 1522),
-        ("2023", None, "value"): (31623952112.0, 1591033064664.0, 1079),
+        ("2022", None, "count"): (353.0, 1524.0, 1524),
+        ("2023", None, "count"): (66.0, 1079.0, 1079),
+        ("2022", None, "value"): (121706942560.0, 1737969764666.0, 1524),
+        ("2023", None, "value"): (31623952112.0, 1586026504230.0, 1077),
         ("2022", "near_addition_cap", "count"): (140.0, 353.0, 353),
         ("2023", "near_addition_cap", "count"): (22.0, 66.0, 66),
     }
@@ -209,3 +251,17 @@ def test_i5_golden_district_by_year(real: duckdb.DuckDBPyConnection) -> None:
     } == expected
     # MEData cubre contratos firmados hasta el 30 de junio de 2023.
     assert {cell.period for cell in build_additions(real)} == {"2022", "2023"}
+
+
+def test_i5_golden_departments_add_up_to_the_district(real: duckdb.DuckDBPyConnection) -> None:
+    totals: dict[tuple[str, str | None, str], list[float]] = {}
+    district: dict[tuple[str, str | None, str], list[float]] = {}
+    for cell in build_additions(real):
+        key = (cell.period, cell.variant, cell.measure)
+        target = district if cell.level == "district" else totals
+        figures = target.setdefault(key, [0.0, 0.0, 0.0])
+        figures[0] += cell.numerator or 0.0
+        figures[1] += cell.denominator or 0.0
+        figures[2] += cell.sample_size
+    assert totals == district
+    assert {key[2] for key in district} == {"count", "value"}
