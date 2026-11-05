@@ -18,6 +18,24 @@ Las decisiones que salen de estas observaciones no se registran aquí: pasan a [
 
 ---
 
+## 5 nov 2026 · Duración de los contratos de enero (factor de confusión 3 de I2)
+
+Proporción de contratos directos firmados en la ventana de enero cuyo plazo pactado (`end_date` menos `added_days`) termina después del fin de la restricción de referencia (ADR 0035): el real en 2022 y 2026, y el 20 de junio en los años de control. Solo por número de contratos.
+
+| Año | Termina después de la restricción |
+|---|---:|
+| 2022 (tratamiento) | 720 de 723 (99,6 %) |
+| 2023 (control) | 176 de 320 (55,0 %) |
+| 2024 (control) | 121 de 173 (69,9 %) |
+| 2025 (control) | 345 de 349 (98,9 %) |
+| 2026 (tratamiento) | 701 de 708 (99,0 %) |
+
+- `duration_days` solo existe en MEData (hasta junio de 2023), así que no cubre 2024–2026. Se usó la fecha de fin de SECOP II, presente en todos los directos de enero.
+- **La señal no separa tratamiento de control:** 2025, año de control, queda igual que 2022 y 2026. Los contratos de enero duran hasta después de junio casi siempre, con o sin restricción. Para T8: este control no apoya ni refuta el titular, y se declara como no concluyente.
+- No se pudo verificar si SECOP II actualiza `end_date` cuando se agregan días (solo hay 31 directos con más de una versión), así que restar `added_days` es un supuesto.
+
+---
+
 ## 4 nov 2026 · Primera corrida de I8 (serie de planeación) sobre la copia
 
 Proporción de las líneas directas del Plan Anual con inicio estimado en enero y de febrero a junio, 2014–2023. Todas las líneas directas traen mes; solo 2 de 2017 no traen valor y quedan fuera de la medida por valor.

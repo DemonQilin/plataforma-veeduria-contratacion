@@ -25,6 +25,7 @@ WINDOW_2022 = ComparisonWindow(
     window_end=date(2022, 1, 28),
     denominator_end=date(2022, 10, 30),
     restriction_end=date(2022, 6, 19),
+    reference_restriction_end=date(2022, 6, 19),
 )
 
 
@@ -129,6 +130,7 @@ def test_i2_cells_are_district_yearly_and_sorted() -> None:
         window_end=date(2023, 1, 29),
         denominator_end=date(2023, 10, 30),
         restriction_end=None,
+        reference_restriction_end=date(2023, 6, 20),
     )
     cells = build_pre_restriction_share(
         _connection([_row("a", "2023-01-05"), _row("b", "2022-01-05")]),

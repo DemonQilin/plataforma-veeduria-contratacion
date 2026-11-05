@@ -12,6 +12,7 @@ from veeduria.normalize.catalogs import REFERENCE_DIR, CatalogError
 ELECTORAL_CALENDAR_PATH = REFERENCE_DIR / "electoral_calendar.toml"
 DIRECT_AWARD_SCOPE = "direct_award"
 SCOPES = frozenset({DIRECT_AWARD_SCOPE, "interadministrative"})
+_COMMON_YEAR = 2001  # año no bisiesto para calcular puntos medios por día y mes
 
 
 @dataclass(frozen=True)
@@ -31,6 +32,10 @@ class ComparisonWindow:
 
     `restriction_end` es el fin de la restricción presidencial y solo existe en los años de
     tratamiento; los años de control no tienen restricción.
+
+    `reference_restriction_end` es el fin de restricción contra el que se compara la terminación de
+    los contratos (ADR 0035): el real en los años de tratamiento y, en los de control, el punto
+    medio de los fines de restricción presidencial, para que los dos grupos sean comparables.
     """
 
     year: int
@@ -39,6 +44,7 @@ class ComparisonWindow:
     window_end: date
     denominator_end: date
     restriction_end: date | None
+    reference_restriction_end: date
 
 
 @cache
@@ -79,6 +85,8 @@ def comparison_windows(
     - Control: los años intermedios sin restricción, con la ventana a mitad de camino entre las de
       tratamiento, para comparar periodos de igual duración.
     - Denominador: del 1 de enero al día y mes de la fecha de corte en todos los años (tramo común).
+    - Fin de restricción de referencia: el real en tratamiento; en control, el punto medio de los
+      fines de restricción presidencial (20 de junio con el calendario actual, ADR 0035).
     """
     direct = [r for r in calendar if r.scope == DIRECT_AWARD_SCOPE]
     if not direct:
@@ -88,6 +96,14 @@ def comparison_windows(
     if sum(offsets) % len(offsets):
         raise CatalogError("Las ventanas de tratamiento no tienen un punto medio de día entero.")
     control_offset = sum(offsets) // len(offsets)
+    # Los días se cuentan desde el 1 de enero de un año no bisiesto, para que el día y mes del
+    # punto medio sea el mismo en todos los años de control.
+    end_offsets = [
+        (date(_COMMON_YEAR, r.end.month, r.end.day) - date(_COMMON_YEAR, 1, 1)).days for r in direct
+    ]
+    if sum(end_offsets) % len(end_offsets):
+        raise CatalogError("Los fines de restricción no tienen un punto medio de día entero.")
+    reference_day = date(_COMMON_YEAR, 1, 1) + timedelta(days=sum(end_offsets) // len(end_offsets))
 
     windows: list[ComparisonWindow] = []
     for year in range(min(treatment), min(max(treatment), cutoff_date.year) + 1):
@@ -106,6 +122,11 @@ def comparison_windows(
                 window_end=window_end,
                 denominator_end=_same_day(year, cutoff_date),
                 restriction_end=restriction.end if restriction else None,
+                reference_restriction_end=(
+                    restriction.end
+                    if restriction
+                    else date(year, reference_day.month, reference_day.day)
+                ),
             )
         )
     return windows
