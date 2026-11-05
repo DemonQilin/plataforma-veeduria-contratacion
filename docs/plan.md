@@ -72,9 +72,11 @@ Desde la entrega hasta la final, la publicación queda con una **fecha de corte 
 
 ---
 
-## 4. Inscripción: el 30 de octubre, no el 4 de noviembre
+## 4. Inscripción: el 31 de octubre, no el 4 de noviembre
 
 Según las bases, la fecha de la charla de términos llega al correo del líder después de inscribirse, y la charla es antes del 4 de noviembre. Inscribirse temprano asegura recibir esa fecha y poder llevar a la charla las preguntas que el correo no alcance a resolver. El formulario pide los datos de los integrantes, no el proyecto, así que no depende de la respuesta de los organizadores.
+
+**Resultado:** el equipo se inscribió el 31 de octubre. La invitación a la charla de términos nunca llegó al correo del líder, así que las preguntas a los organizadores dependen solo del correo.
 
 | Campo | Decisión | Por qué |
 |---|---|---|
@@ -112,7 +114,7 @@ Si el tiempo no alcanza, se recorta de abajo hacia arriba.
 | Riesgo | Probabilidad | Impacto | Mitigación | Plan B |
 |---|---|---|---|---|
 | El hallazgo ejecutado no sobrevive a la limpieza (5 nov: el hallazgo sobrevive, ADR 0037) | Media | Alto | Criterio explícito el 3 nov; la serie de planeación ya cumple su criterio con datos preliminares | El titular se apoya en la serie de planeación; si tampoco se sostiene, pasa a I3, I4 o I5 |
-| Los organizadores no aceptan SECOP II como fuente o no permiten nombrar personas jurídicas | Baja | Alto | Correo del 30 oct y charla de términos | MEData como fuente principal (plan y ejecución); I4 solo agregado |
+| Los organizadores no aceptan SECOP II como fuente o no permiten nombrar personas jurídicas | Baja | Alto | Correo a los organizadores (la invitación a la charla de términos nunca llegó) | MEData como fuente principal (plan y ejecución); I4 solo agregado |
 | La API de datos.gov.co o de MEData falla durante el desarrollo o la evaluación (MEData ya dio errores 504) | Alta | Alto | El repositorio incluye la copia de datos sin información personal y las salidas; el tablero no consulta APIs | El jurado prueba todo con `--from-snapshot`; la actualización desde las APIs queda como paso opcional |
 | Las cifras del tablero cambian durante la evaluación y no coinciden con la ficha | Media | Alto | Fecha de corte fija hasta la final (sección 3) | Corregir la ficha antes de la entrega oficial |
 | La curva de Astro consume tiempo del pipeline | Media | Medio | El tablero empieza el 5 nov, con los datos listos; aprendizaje acotado a 4 horas | Si al mediodía del 5 nov no hay avance, se hace una sola página estática sin islas y el explorador se simplifica |
@@ -273,9 +275,9 @@ Después del pitch el jurado ajusta el puntaje con la rúbrica y no suma puntos 
 
 | Pendiente | Cómo se resuelve | Fecha |
 |---|---|---|
-| Respuesta de los organizadores a las cinco preguntas | Correo del 30 oct y charla de términos | Antes del 4 nov |
+| Respuesta de los organizadores a las cinco preguntas | Correo a los organizadores. La invitación a la charla de términos nunca llegó (sección 4) | Antes del 4 nov |
 | Descripción de los niveles de la rúbrica | Pregunta 5 del correo | Antes del 4 nov |
-| Plantilla oficial de `guia_entrega.pdf` | Solicitarla en la charla o por correo | Antes del 4 nov |
+| Plantilla oficial de `guia_entrega.pdf` | Solicitarla por correo | Antes del 4 nov |
 | ~~Licencia de los conjuntos de SECOP II~~ | Resuelto el 30 oct: CC BY-SA 4.0 (ADR 0015) | — |
 | ~~Nombre exacto de la entidad en SECOP II Procesos~~ | Resuelto el 30 oct: 23.400 filas con ese nombre | — |
 | ~~Token de aplicación de datos.gov.co~~ | Resuelto el 31 oct: guardado como *secret* `SOCRATA_APP_TOKEN` | — |
