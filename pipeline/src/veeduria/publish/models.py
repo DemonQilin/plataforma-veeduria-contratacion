@@ -118,9 +118,66 @@ class Quality(BaseModel):
     reconciliation: Reconciliation
 
 
+ProcurementMethod = Literal[
+    "direct_award",
+    "special_regime",
+    "public_tender",
+    "abbreviated_selection",
+    "merit_based_selection",
+    "minimum_amount",
+    "other",
+]
+ContractType = Literal[
+    "service_contract",
+    "interadministrative",
+    "works",
+    "supply_and_purchase",
+    "public_credit",
+    "other",
+]
+
+
+class MonthlySeriesRow(BaseModel):
+    """Contratos y valor de un mes, por modalidad y tipo (docs/reglas.md, sección 7; ADR 0040).
+
+    Una modalidad o un tipo vacíos son el total de esa dimensión. El conteo siempre se publica
+    (es la `n` de R13); el valor se suprime si lo respaldan menos de 5 contratos con valor.
+    """
+
+    model_config = ConfigDict(extra="forbid")
+
+    # El título distinto evita que el generador de tipos cree dos alias `Period`.
+    period: str = Field(pattern=r"^\d{4}-\d{2}$", title="SeriesPeriod")
+    procurement_method: ProcurementMethod | None
+    contract_type: ContractType | None
+    contract_count: int = Field(ge=0)
+    value_sample_size: int = Field(ge=0)
+    value: float | None
+    is_suppressed: bool = Field(title="SeriesIsSuppressed")
+
+    @model_validator(mode="after")
+    def check_coherence(self) -> Self:
+        # R13: una celda suprimida no publica el valor; una publicada lo trae (R16).
+        if self.is_suppressed != (self.value is None):
+            raise ValueError("El valor falta si y solo si la celda está suprimida.")
+        # R7: solo cuentan en el valor los contratos con valor, que son parte de los del mes.
+        if self.value_sample_size > self.contract_count:
+            raise ValueError("Los contratos con valor no pueden superar a los del mes.")
+        return self
+
+
+class MonthlySeries(BaseModel):
+    """Una fila por mes, modalidad y tipo del Distrito (docs/reglas.md, sección 7)."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    rows: list[MonthlySeriesRow]
+
+
 CONTRACT_MODELS: dict[str, type[BaseModel]] = {
     "indicators": Indicators,
     "metadata": Metadata,
+    "monthly_series": MonthlySeries,
     "quality": Quality,
 }
 

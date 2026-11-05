@@ -141,6 +141,9 @@ Usa siempre estos nombres en el código. Si necesitas un término nuevo, agréga
 | contratos en SECOP II / en MEData (conciliación) | `secop_count` / `medata_count` |
 | proporción de contratos en ambas fuentes sobre la unión | `shared_share` |
 | mes por debajo del umbral de conciliación | `below_threshold` |
+| serie mensual | `monthly_series` |
+| contratos del mes (el conteo de la serie) | `contract_count` |
+| contratos con valor que respaldan el valor | `value_sample_size` |
 
 ## Reglas no negociables
 
