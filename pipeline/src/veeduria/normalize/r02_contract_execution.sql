@@ -20,7 +20,8 @@ parsed AS (
     FROM raw
 )
 SELECT
-    parsed.contrato AS contract_reference,
+    -- R3 y ADR 0046: la referencia es la llave de cruce con SECOP II; trim() quita también el NBSP.
+    trim(parsed.contrato) AS contract_reference,
     parsed.signed_date,
     method.code AS procurement_method,
     method.direct_award,

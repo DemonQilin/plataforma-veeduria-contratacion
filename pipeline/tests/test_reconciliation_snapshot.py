@@ -62,7 +62,7 @@ def test_r15_snapshot_leaves_4_shared_contracts_signed_in_july_2023_outside_the_
     reconciled: duckdb.DuckDBPyConnection,
 ) -> None:
     """MEData las fecha en junio de 2023 y SECOP II en julio, fuera de los 18 meses."""
-    assert reconciled.execute("SELECT sum(shared_count) FROM reconciliation").fetchone() == (2628,)
+    assert reconciled.execute("SELECT sum(shared_count) FROM reconciliation").fetchone() == (2629,)
 
 
 def test_r15_snapshot_is_deterministic(reconciled: duckdb.DuckDBPyConnection) -> None:

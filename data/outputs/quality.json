@@ -180,13 +180,13 @@
       {
         "below_threshold": false,
         "medata_count": 142,
-        "medata_coverage": 0.8662,
+        "medata_coverage": 0.8732,
         "period": "2023-05",
         "secop_count": 132,
-        "secop_coverage": 0.9318,
-        "shared_count": 123,
-        "shared_share": 0.8146,
-        "union_count": 151
+        "secop_coverage": 0.9394,
+        "shared_count": 124,
+        "shared_share": 0.8267,
+        "union_count": 150
       },
       {
         "below_threshold": false,

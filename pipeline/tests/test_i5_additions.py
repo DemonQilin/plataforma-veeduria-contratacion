@@ -239,9 +239,9 @@ def test_i5_golden_district_by_year(real: duckdb.DuckDBPyConnection) -> None:
     cells = _cells(real)
     expected = {
         ("2022", None, "count"): (353.0, 1524.0, 1524),
-        ("2023", None, "count"): (66.0, 1079.0, 1079),
+        ("2023", None, "count"): (66.0, 1080.0, 1080),
         ("2022", None, "value"): (121706942560.0, 1737969764666.0, 1524),
-        ("2023", None, "value"): (31623952112.0, 1586026504230.0, 1077),
+        ("2023", None, "value"): (31623952112.0, 1586078162980.0, 1078),
         ("2022", "near_addition_cap", "count"): (140.0, 353.0, 353),
         ("2023", "near_addition_cap", "count"): (22.0, 66.0, 66),
     }
