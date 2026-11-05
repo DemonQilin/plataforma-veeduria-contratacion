@@ -19,9 +19,11 @@ from veeduria.extract.socrata import (
 )
 from veeduria.extract.sources import Query, load_queries
 from veeduria.indicators import build_indicators
+from veeduria.indicators.electoral_calendar import comparison_windows, load_electoral_calendar
 from veeduria.indicators.monthly_series import build_monthly_series
 from veeduria.normalize.catalogs import CatalogError
 from veeduria.pipeline import build
+from veeduria.publish.electoral_calendar import publish_electoral_calendar
 from veeduria.publish.indicators import publish_indicators
 from veeduria.publish.metadata import build_metadata, serialize
 from veeduria.publish.models import export_schemas
@@ -120,6 +122,10 @@ def _publish(snapshot_dir: Path, output_dir: Path) -> None:
             build_monthly_series(connection, metadata.cutoff_date)
         )
         quality = build_quality(connection)
+        calendar = load_electoral_calendar()
+        electoral_calendar = publish_electoral_calendar(
+            calendar, comparison_windows(calendar, metadata.cutoff_date), metadata.cutoff_date
+        )
     except (duckdb.IOException, CatalogError, ValueError) as error:
         # El mensaje de DuckDB puede citar rutas, nunca filas; no se imprime tal cual.
         typer.echo(
@@ -129,6 +135,7 @@ def _publish(snapshot_dir: Path, output_dir: Path) -> None:
         )
         raise typer.Exit(1) from None
     files = {
+        "electoral_calendar.json": serialize(electoral_calendar),
         "indicators.json": serialize(indicators),
         "metadata.json": serialize(metadata),
         "monthly_series.json": serialize(monthly_series),

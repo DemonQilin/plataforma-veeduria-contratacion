@@ -54,9 +54,14 @@ def test_r10_calendar_dates_match_fuentes() -> None:
         date(2023, 6, 29),
         date(2023, 10, 29),
     )
+    assert (calendar["local_2027"].start, calendar["local_2027"].end) == (
+        date(2027, 6, 30),
+        date(2027, 10, 31),
+    )
     assert calendar["presidential_2022"].scope == "direct_award"
     assert calendar["congress_2026"].scope == "interadministrative"
     assert calendar["local_2023"].scope == "interadministrative"
+    assert calendar["local_2027"].scope == "interadministrative"
 
 
 def test_r10_every_restriction_cites_a_source() -> None:

@@ -1,5 +1,56 @@
 // Archivo generado por `pnpm gen:types` desde data/schema/. No lo edites a mano.
 
+export type DenominatorEnd = string;
+export type ReferenceRestrictionEnd = string;
+export type Role = "treatment" | "control";
+export type WindowEnd = string;
+export type WindowStart = string;
+export type Year = number;
+export type ComparisonWindows = ComparisonYear[];
+export type Cycle = string;
+export type End = string;
+export type Scope = "direct_award" | "interadministrative";
+/**
+ * @minItems 1
+ */
+export type RestrictionSources = [string, ...string[]];
+export type Start = string;
+export type Status = "ended" | "ongoing" | "upcoming";
+export type Restrictions = ElectoralRestriction[];
+
+/**
+ * Restricciones por inicio y ventanas de I2 por año (docs/reglas.md, sección 7).
+ */
+export interface ElectoralCalendar {
+  comparison_windows: ComparisonWindows;
+  restrictions: Restrictions;
+}
+/**
+ * La ventana de comparación de I2 de un año (R11, R12).
+ */
+export interface ComparisonYear {
+  denominator_end: DenominatorEnd;
+  reference_restriction_end: ReferenceRestrictionEnd;
+  role: Role;
+  window_end: WindowEnd;
+  window_start: WindowStart;
+  year: Year;
+}
+/**
+ * Un periodo de la Ley de Garantías con su fuente (R10).
+ *
+ * `status` es relativo a la fecha de corte (R12): `ended` si ya terminó, `upcoming` si aún no
+ * empieza y `ongoing` en cualquier otro caso. Los extremos son inclusivos.
+ */
+export interface ElectoralRestriction {
+  cycle: Cycle;
+  end: End;
+  scope: Scope;
+  sources: RestrictionSources;
+  start: Start;
+  status: Status;
+}
+
 export type Denominator = number | null;
 export type Department = string | null;
 export type Indicator = "I1" | "I2" | "I3" | "I4" | "I5" | "I6" | "I7" | "I8";

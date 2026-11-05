@@ -160,6 +160,7 @@ Se publican en `data/outputs/` como JSON. Su estructura la definen los modelos d
 
 | Salida | Contenido |
 |---|---|
+| Calendario electoral | Restricciones de la Ley de Garantías (ciclo, alcance, inicio, fin, estado frente a la fecha de corte y fuentes) y ventanas de comparación de I2 por año, con su papel de tratamiento o control. Sin supresión: son fechas públicas ([ADR 0041](adr/0041-calendario-electoral-publicado.md)) |
 | Indicadores | Una fila por indicador, nivel y periodo, con los campos de trazabilidad de R16 (forma de la celda en el [ADR 0033](adr/0033-celda-de-indicador-en-el-contrato.md)) |
 | Serie mensual | Contratos y valor por mes, modalidad y tipo, para las gráficas del hallazgo. El conteo siempre se publica; el valor se suprime con R13 y D6 ([ADR 0040](adr/0040-serie-mensual-con-valor-suprimido.md)) |
 | Calidad de datos | Cobertura, conciliación SECOP–MEData, porcentaje sin secretaría, filas truncadas de MEData, valores no reconocidos en catálogos. Hoy `quality.json` publica la conciliación R15 por mes ([ADR 0038](adr/0038-r15-publicada-sin-supresion.md)); el resto llega después |

@@ -18,6 +18,12 @@ Las decisiones que salen de estas observaciones no se registran aquí: pasan a [
 
 ---
 
+## 5 nov 2026 · Locales de 2027 verificadas
+
+La Registraduría fijó la jornada de elecciones territoriales para el domingo 31 de octubre de 2027 (Resolución 12338 del 28 de octubre de 2026). Con el parágrafo del artículo 38 de la Ley 996 (cuatro meses antes), la restricción de convenios interadministrativos va del 30 de junio al 31 de octubre de 2027 y entra al calendario como `local_2027` ([ADR 0041](adr/0041-calendario-electoral-publicado.md)). No genera ventanas de I2, así que ninguna cifra publicada cambia. Se leyó el PDF oficial (7 páginas): la resolución está fechada el 28 de octubre de 2026, aunque el archivo se llama `resolucion_12338_20_octubre_de_2026.pdf`. No cita la Ley 996; su calendario marca el 30 de junio de 2027 como «4 meses antes de la elección», igual que el cálculo.
+
+---
+
 ## 5 nov 2026 · Serie mensual publicada
 
 `data/outputs/monthly_series.json` trae contratos y valor por mes, modalidad y tipo del Distrito, de enero de 2022 a octubre de 2026 (58 meses, 2.088 filas). La decisión sobre R13 está en el [ADR 0040](adr/0040-serie-mensual-con-valor-suprimido.md): el conteo siempre se publica y el valor se suprime.
