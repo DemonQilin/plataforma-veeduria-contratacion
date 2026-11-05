@@ -134,6 +134,7 @@ Usa siempre estos nombres en el código. Si necesitas un término nuevo, agréga
 | razón (resultado del indicador: numerador ÷ denominador) | `ratio` |
 | celda suprimida | `is_suppressed` |
 | contrato que termina después de la restricción (variante de I2) | `spans_restriction` |
+| sin interadministrativos (variante de I2) | `excluding_interadministrative` |
 | fin de la restricción de referencia | `reference_restriction_end` |
 
 ## Reglas no negociables

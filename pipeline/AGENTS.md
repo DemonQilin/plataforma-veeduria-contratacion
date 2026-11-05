@@ -39,7 +39,7 @@ pipeline/
 - **`manifest.json`** se escribe solo con `--refresh`: identificador del conjunto, URL, consulta, número de filas, SHA-256, fecha de extracción y fecha de corte. En MEData · Ejecución agrega el SHA-256 del archivo descargado (`source_sha256`); si cambia entre corridas, `--refresh` avisa.
 - **`--refresh` es todo o nada** (`extract/refresh.py`): extrae a una carpeta temporal de `data/raw/`, Adiciones lee los `id_contrato` de esa carpeta, y solo si todo sale bien mueve los CSV y escribe el manifiesto. El Plan Anual (`frozen = true` en `sources.toml`) se salta salvo `--force-procurement-plan`. La fecha de corte de cada fuente usa su `cutoff_column`.
 - **Falla segura:** cada ejecución escribe en un directorio temporal y lo mueve a `data/outputs/` solo si todo terminó bien (`publish/outputs.py`). Nunca dejes una salida a medias.
-- **`run --from-snapshot`** corre `pipeline.build()` y publica `data/outputs/metadata.json` (ADR 0032). La integración continua lo ejecuta y falla si las salidas versionadas cambian.
+- **`run --from-snapshot`** corre `pipeline.build()` y publica `data/outputs/metadata.json` (ADR 0032) e `indicators.json` con las celdas de I2 e I8, ya con la supresión R13 aplicada (`indicators/__init__.py`). La integración continua lo ejecuta y falla si las salidas versionadas cambian.
 
 ## Extracción
 

@@ -19,7 +19,9 @@ def build_pre_restriction_share(
     El numerador son los contratos directos firmados hasta el fin de la ventana (R11) y el
     denominador, los firmados hasta el día y mes de la fecha de corte (R12). La medida por valor
     suma el valor inicial (D3) y excluye el crédito público (R7). Una medida sin denominador no
-    publica celda. Las variantes son el total (`None`), `service_contract` y `non_service_contract`.
+    publica celda. Las variantes son el total (`None`), `service_contract`,
+    `non_service_contract` y `excluding_interadministrative`, que quita los contratos
+    interadministrativos del numerador y del denominador (ADR 0036).
     """
     rows = connection.execute(
         SQL_PATH.read_text(encoding="utf-8"),
