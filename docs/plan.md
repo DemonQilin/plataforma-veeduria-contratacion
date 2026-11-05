@@ -280,5 +280,5 @@ Después del pitch el jurado ajusta el puntaje con la rúbrica y no suma puntos 
 | Activar la ejecución semanal programada | Agregar el disparador `schedule` a `publish.yml` (ADR 0008) | Después del 12 nov |
 | Topics del repositorio en GitHub | `open-data`, `public-procurement`, `data-visualization`, `medellin`, `colombia`, `secop`, `astro`, `python`, `duckdb`, `hackathon`. Se difieren para que el repositorio no sea descubrible mientras el hallazgo no está validado | Después del 12 nov |
 | Homepage del repositorio en GitHub | `https://demonqilin.github.io/plataforma-veeduria-contratacion/`, cuando exista el despliegue | Con `publish.yml` (8 nov) |
-| Fechas de la restricción de las locales de 2023 | Verificar con fuente oficial | Antes del 3 nov |
+| ~~Fechas de la restricción de las locales de 2023~~ | Resuelto el 4 nov: 29 jun–29 oct 2023 (Circular 016 de 2023 de la Secretaría Jurídica Distrital de Bogotá; concepto C-239 de CCE) | — |
 | Nombre del equipo | Decisión del equipo | 30 oct |

@@ -15,11 +15,11 @@ I2 compara la contratación directa de enero en los años de restricción con la
 - **Ventanas de tratamiento:** del 1 de enero al día anterior al inicio de la restricción (2022: 28 ene; 2026: 30 ene).
 - **Ventanas de control:** los años intermedios sin restricción directa usan el punto medio de las ventanas de tratamiento (29 ene). Si el punto medio no fuera un día entero, el cálculo falla en lugar de redondear.
 - **Denominador (R12):** del 1 de enero al día y mes de la fecha de corte, en todos los años (tramo común). Hoy es el 30 de octubre. Si el corte es un 29 de febrero, los años no bisiestos usan el 28.
-- **Las locales de 2023 y 2027 no están en el calendario** hasta que sus fechas se verifiquen con fuente oficial. I2 no las usa.
+- **Las locales de 2023 están en el calendario** (29 jun–29 oct 2023, verificadas el 4 nov 2026) con alcance `interadministrative`, así que no generan ventana. **Las de 2027 no están** hasta que su fecha se verifique con fuente oficial.
 - El fin de la restricción presidencial (19 jun 2022, 21 jun 2026) queda en la ventana de tratamiento para el factor de confusión 3.
 
 ## Consecuencias
 
 - Cambiar una fecha es editar el TOML y su fuente; las ventanas se recalculan solas.
 - «De enero a octubre» deja de ser una constante: si la copia se actualiza con un corte distinto, el denominador de todos los años se mueve con él.
-- Cuando se verifiquen las locales de 2023, se agregan al TOML sin tocar el código.
+- Las locales de 2023 se agregaron al TOML sin tocar el código; las de 2027 se agregarán igual.
