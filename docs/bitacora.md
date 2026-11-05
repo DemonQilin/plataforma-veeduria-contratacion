@@ -18,6 +18,12 @@ Las decisiones que salen de estas observaciones no se registran aquí: pasan a [
 
 ---
 
+## 5 nov 2026 · Correo a los organizadores enviado
+
+El correo que la entrada del 30 de octubre da como programado nunca se envió. Se envió el 5 de noviembre, con las cinco preguntas de esa entrada y la solicitud de la plantilla oficial de `guia_entrega.pdf`, ordenadas por impacto: fuentes admitidas, nombres de proveedores personas jurídicas y plantilla primero. El correo pide respuesta antes del sábado 7 de noviembre y avisa que, sin ella, I4 se publica solo agregado, sin nombres de proveedores, y SECOP II y MEData se mantienen como fuentes. Respuesta pendiente.
+
+---
+
 ## 5 nov 2026 · Adiciones: SECOP II incluye las adiciones y subcuenta las de valor
 
 Se cruzaron las adiciones de SECOP II con `valor_total_adic_contrato` de MEData antes de implementar I5.
