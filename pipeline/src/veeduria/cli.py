@@ -19,6 +19,7 @@ from veeduria.extract.socrata import (
 )
 from veeduria.extract.sources import Query, load_queries
 from veeduria.indicators import build_indicators
+from veeduria.indicators.monthly_series import build_monthly_series
 from veeduria.normalize.catalogs import CatalogError
 from veeduria.pipeline import build
 from veeduria.publish.indicators import publish_indicators
@@ -26,6 +27,7 @@ from veeduria.publish.metadata import build_metadata, serialize
 from veeduria.publish.models import export_schemas
 from veeduria.publish.outputs import write_outputs
 from veeduria.publish.quality import build_quality
+from veeduria.publish.series import publish_monthly_series
 
 app = typer.Typer(no_args_is_help=True, add_completion=False, help="Veeduría de contratación.")
 
@@ -114,6 +116,9 @@ def _publish(snapshot_dir: Path, output_dir: Path) -> None:
         connection = build(snapshot_dir)
         metadata = build_metadata(connection)
         indicators = publish_indicators(build_indicators(connection, metadata.cutoff_date))
+        monthly_series = publish_monthly_series(
+            build_monthly_series(connection, metadata.cutoff_date)
+        )
         quality = build_quality(connection)
     except (duckdb.IOException, CatalogError, ValueError) as error:
         # El mensaje de DuckDB puede citar rutas, nunca filas; no se imprime tal cual.
@@ -126,6 +131,7 @@ def _publish(snapshot_dir: Path, output_dir: Path) -> None:
     files = {
         "indicators.json": serialize(indicators),
         "metadata.json": serialize(metadata),
+        "monthly_series.json": serialize(monthly_series),
         "quality.json": serialize(quality),
     }
     for path in write_outputs(files, output_dir):

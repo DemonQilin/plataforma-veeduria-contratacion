@@ -59,6 +59,48 @@ export interface Source {
   url: Url;
 }
 
+export type ContractCount = number;
+export type ContractType =
+  ("service_contract" | "interadministrative" | "works" | "supply_and_purchase" | "public_credit" | "other") | null;
+export type SeriesIsSuppressed = boolean;
+export type SeriesPeriod = string;
+export type ProcurementMethod =
+  | (
+      | "direct_award"
+      | "special_regime"
+      | "public_tender"
+      | "abbreviated_selection"
+      | "merit_based_selection"
+      | "minimum_amount"
+      | "other"
+    )
+  | null;
+export type Value = number | null;
+export type ValueSampleSize = number;
+export type Rows = MonthlySeriesRow[];
+
+/**
+ * Una fila por mes, modalidad y tipo del Distrito (docs/reglas.md, sección 7).
+ */
+export interface MonthlySeries {
+  rows: Rows;
+}
+/**
+ * Contratos y valor de un mes, por modalidad y tipo (docs/reglas.md, sección 7; ADR 0040).
+ *
+ * Una modalidad o un tipo vacíos son el total de esa dimensión. El conteo siempre se publica
+ * (es la `n` de R13); el valor se suprime si lo respaldan menos de 5 contratos con valor.
+ */
+export interface MonthlySeriesRow {
+  contract_count: ContractCount;
+  contract_type: ContractType;
+  is_suppressed: SeriesIsSuppressed;
+  period: SeriesPeriod;
+  procurement_method: ProcurementMethod;
+  value: Value;
+  value_sample_size: ValueSampleSize;
+}
+
 export type BelowThreshold = boolean;
 export type MedataCount = number;
 export type MedataCoverage = number | null;

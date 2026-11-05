@@ -1,0 +1,106 @@
+{
+  "$defs": {
+    "MonthlySeriesRow": {
+      "additionalProperties": false,
+      "description": "Contratos y valor de un mes, por modalidad y tipo (docs/reglas.md, sección 7; ADR 0040).\n\nUna modalidad o un tipo vacíos son el total de esa dimensión. El conteo siempre se publica\n(es la `n` de R13); el valor se suprime si lo respaldan menos de 5 contratos con valor.",
+      "properties": {
+        "contract_count": {
+          "minimum": 0,
+          "title": "Contract Count",
+          "type": "integer"
+        },
+        "contract_type": {
+          "anyOf": [
+            {
+              "enum": [
+                "service_contract",
+                "interadministrative",
+                "works",
+                "supply_and_purchase",
+                "public_credit",
+                "other"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Contract Type"
+        },
+        "is_suppressed": {
+          "title": "SeriesIsSuppressed",
+          "type": "boolean"
+        },
+        "period": {
+          "pattern": "^\\d{4}-\\d{2}$",
+          "title": "SeriesPeriod",
+          "type": "string"
+        },
+        "procurement_method": {
+          "anyOf": [
+            {
+              "enum": [
+                "direct_award",
+                "special_regime",
+                "public_tender",
+                "abbreviated_selection",
+                "merit_based_selection",
+                "minimum_amount",
+                "other"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Procurement Method"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        },
+        "value_sample_size": {
+          "minimum": 0,
+          "title": "Value Sample Size",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "period",
+        "procurement_method",
+        "contract_type",
+        "contract_count",
+        "value_sample_size",
+        "value",
+        "is_suppressed"
+      ],
+      "title": "MonthlySeriesRow",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Una fila por mes, modalidad y tipo del Distrito (docs/reglas.md, sección 7).",
+  "properties": {
+    "rows": {
+      "items": {
+        "$ref": "#/$defs/MonthlySeriesRow"
+      },
+      "title": "Rows",
+      "type": "array"
+    }
+  },
+  "required": [
+    "rows"
+  ],
+  "title": "MonthlySeries",
+  "type": "object"
+}

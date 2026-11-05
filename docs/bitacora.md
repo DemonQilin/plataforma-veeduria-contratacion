@@ -18,6 +18,16 @@ Las decisiones que salen de estas observaciones no se registran aquí: pasan a [
 
 ---
 
+## 5 nov 2026 · Serie mensual publicada
+
+`data/outputs/monthly_series.json` trae contratos y valor por mes, modalidad y tipo del Distrito, de enero de 2022 a octubre de 2026 (58 meses, 2.088 filas). La decisión sobre R13 está en el [ADR 0040](adr/0040-serie-mensual-con-valor-suprimido.md): el conteo siempre se publica y el valor se suprime.
+
+- **La caída de la restricción se ve en el conteo.** Contratación directa de 2022: enero 723, febrero 2, marzo 2, abril 0, mayo 1. El valor de febrero, marzo y mayo queda suprimido; el de abril es cero, porque no hay contratos.
+- **La suma mensual coincide con I1.** Para cada año, los meses de contratación directa suman el numerador de I1 en número y en valor (prueba `test_golden_series_direct_award_matches_i1_numerators_by_year`).
+- **710 de 2.088 filas** tienen el valor suprimido (primaria más complementaria D6). El valor de la contratación directa de enero de 2022 también queda oculto, porque en ese mes solo hay 3 contratos de régimen especial y la directa es la única parte publicada que los despejaría. Es el costo de D6; el conteo sí se publica y la cifra anual de I1 no cambia.
+
+---
+
 ## 5 nov 2026 · I1 publicado
 
 I1 entra a `data/outputs/indicators.json` por año y secretaría (decisión en el [ADR 0039](adr/0039-i1-anual-por-secretaria.md)). Cifras del Distrito, copia de corte 30 oct 2026; 2026 llega hasta el corte.
