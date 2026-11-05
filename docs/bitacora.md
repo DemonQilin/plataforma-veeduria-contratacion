@@ -18,6 +18,17 @@ Las decisiones que salen de estas observaciones no se registran aquí: pasan a [
 
 ---
 
+## 5 nov 2026 · I4 publicado solo agregado
+
+Sin respuesta de los organizadores, I4 se publica sin nombres de proveedores ([ADR 0045](adr/0045-i4-concentracion-agregada-de-proveedores.md)). Corte 30 oct 2026, valor inicial, personas jurídicas, sin crédito público.
+
+- **Distrito, top 5 sobre el total:** 43,1 % en 2022 (915 contratos), 50,9 % en 2023, 35,6 % en 2024, 49,8 % en 2025 y 30,9 % en 2026 (parcial).
+- **Cruce:** 4.483 contratos canónicos tienen proveedor persona jurídica; 4.435 tienen fila en `suppliers`. De esas filas, 24 apuntan a una versión no canónica del contrato, así que el cruce va por referencia.
+- **Secretarías:** de 132 celdas secretaría-año, 31 salen suprimidas: las de menos de 5 contratos (R13), las de 5 proveedores o menos (razón de 100 % por construcción) y las que D6 complementa. Las publicadas tienen al menos 6 contratos.
+- **Abierto:** si los organizadores responden antes del congelamiento (8 nov) y permiten nombrar personas jurídicas, queda por decidir una salida con nombres.
+
+---
+
 ## 5 nov 2026 · Revisión de cifras de I1, I3 e I5 (C4)
 
 Revisión de las cifras publicadas de I1, I3 e I5 (corte 30 oct 2026) contra las fórmulas de [`indicadores.md`](indicadores.md) §1–2. Las consultas se escribieron aparte, desde la fórmula y no desde el SQL del pipeline, y se corrieron en memoria sobre la copia, sin escribir nada.
