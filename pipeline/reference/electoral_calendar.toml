@@ -7,8 +7,9 @@
 #   direct_award        contratación directa de todas las entidades (restricción presidencial).
 #   interadministrative convenios interadministrativos de las entidades territoriales.
 #
-# Las restricciones de las elecciones locales de 2023 y 2027 no están: sus fechas siguen por
-# verificar con fuente oficial (docs/plan.md sección 10) y I2 no las usa.
+# La restricción de las elecciones locales de 2027 no está: su fecha sigue por verificar con fuente
+# oficial (docs/plan.md sección 10). La de nómina no se modela porque no es contratación, y I2 solo
+# usa las de `direct_award`.
 
 [[restriction]]
 cycle = "presidential_2022"
@@ -18,6 +19,18 @@ end = 2022-06-19  # segunda vuelta
 sources = [
   "Ley 996 de 2005, artículos 33 y 38",
   "https://www.valoraanalitik.com/?p=158425",
+]
+
+[[restriction]]
+cycle = "local_2023"
+scope = "interadministrative"
+start = 2023-06-29
+end = 2023-10-29  # día de la elección; las locales no tienen segunda vuelta
+sources = [
+  "Ley 996 de 2005, parágrafo del artículo 38",
+  "Registraduría Nacional, Resolución 28229 de 2022, artículo 1 (elección del 29 de octubre de 2023)",
+  "https://www.alcaldiabogota.gov.co/sisjur/normas/Norma1.jsp?i=141998",
+  "Colombia Compra Eficiente, concepto C-239 del 14 de agosto de 2023",
 ]
 
 [[restriction]]

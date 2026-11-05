@@ -171,12 +171,12 @@ Se hacen dos consultas, para que el nombre y el documento de personas naturales 
 
 ## 10. Calendario de la Ley de Garantías
 
-Tabla de referencia curada a mano (R10). Vive en `pipeline/reference/electoral_calendar.toml` con la fuente de cada fecha; no se infiere de los datos (ADR 0034). Las restricciones de las locales aún no están en el archivo: entran cuando su fecha se verifique.
+Tabla de referencia curada a mano (R10). Vive en `pipeline/reference/electoral_calendar.toml` con la fuente de cada fecha; no se infiere de los datos (ADR 0034). Las locales de 2023 están verificadas y cargadas; las de 2027 entran cuando su fecha se verifique. La restricción de nómina de las locales no se modela porque no es contratación. Para las locales aplica solo el parágrafo del artículo 38; el artículo 33 (contratación directa) rige únicamente en elecciones presidenciales (Colombia Compra Eficiente, concepto C-239 de 2023).
 
 | Ciclo | Restricción | Desde | Hasta | Estado |
 |---|---|---|---|---|
 | Presidencial 2022 | Contratación directa (todas las entidades) | 29 ene 2022 | 19 jun 2022 (2.ª vuelta) | Verificado |
-| Locales 2023 | Convenios interadministrativos y nómina (territorial) | ≈29 jun 2023 | 29 oct 2023 | Por verificar |
+| Locales 2023 | Convenios interadministrativos (territorial) | 29 jun 2023 | 29 oct 2023 | Verificado |
 | Congreso 2026 | Convenios interadministrativos (territorial) | 8 nov 2025 | 8 mar 2026 | Verificado |
 | Presidencial 2026 | Contratación directa (todas las entidades) | 31 ene 2026 | 21 jun 2026 (2.ª vuelta) | Verificado |
 | Locales 2027 | Convenios interadministrativos y nómina (territorial) | ≈jun 2027 | oct 2027 | Estimado |
@@ -201,3 +201,6 @@ Los detalles de implementación están en `pipeline/CLAUDE.md` y en [`adr/`](adr
 - [SECOP-MCP · identificadores de los conjuntos SECOP II](https://github.com/amgallego8/SECOP-MCP)
 - [Bloomberg Línea · Ley de Garantías 2026](https://www.bloomberglinea.com/latinoamerica/colombia/ley-de-garantias-2026-que-es-a-quienes-impacta-este-ano-y-hasta-cuando-va/)
 - [Valora Analitik · Ley de Garantías 2022](https://www.valoraanalitik.com/?p=158425)
+- [Secretaría Jurídica Distrital de Bogotá · Circular 016 de 2023](https://www.alcaldiabogota.gov.co/sisjur/normas/Norma1.jsp?i=141998)
+- [Registraduría · Resolución 28229 de 2022, calendario de las elecciones territoriales de 2023](https://normograma.mintic.gov.co/mintic/compilacion/docs/resolucion_registraduria_28229_2022.htm)
+- [Colombia Compra Eficiente · Concepto C-239 de 2023](https://relatoria.colombiacompra.gov.co/wp-content/uploads/2024/05/1693338384970-C-239-Copia.docx)
