@@ -112,7 +112,7 @@ def _publish(snapshot_dir: Path, output_dir: Path) -> None:
     try:
         connection = build(snapshot_dir)
         metadata = build_metadata(connection)
-        indicators = publish_indicators(build_indicators(connection))
+        indicators = publish_indicators(build_indicators(connection, metadata.cutoff_date))
     except (duckdb.IOException, CatalogError, ValueError) as error:
         # El mensaje de DuckDB puede citar rutas, nunca filas; no se imprime tal cual.
         typer.echo(
