@@ -6,6 +6,7 @@ import duckdb
 
 from veeduria.consolidate.canonical_contracts import consolidate_contracts
 from veeduria.consolidate.canonical_processes import consolidate_processes
+from veeduria.consolidate.single_bidder_processes import select_single_bidder_processes
 from veeduria.link.linked_contracts import link_contracts
 from veeduria.link.medata_contracts import collapse_medata_contracts
 from veeduria.link.reconciliation import reconcile_sources
@@ -34,6 +35,7 @@ def build(snapshot_dir: Path) -> duckdb.DuckDBPyConnection:
     record_unrecognized_values(connection, snapshot_dir)
     consolidate_contracts(connection)
     consolidate_processes(connection)
+    select_single_bidder_processes(connection)
     collapse_medata_contracts(connection)
     link_contracts(connection)
     reconcile_sources(connection)

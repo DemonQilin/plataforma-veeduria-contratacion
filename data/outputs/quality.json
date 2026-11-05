@@ -202,6 +202,11 @@
     ],
     "threshold": 0.8
   },
+  "single_bidder_exclusions": {
+    "count": 21,
+    "share": 0.0235,
+    "total": 894
+  },
   "truncated_rows": {
     "contracts": {
       "count": 54,

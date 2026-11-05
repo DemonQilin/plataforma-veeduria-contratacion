@@ -243,6 +243,9 @@
     "reconciliation": {
       "$ref": "#/$defs/Reconciliation"
     },
+    "single_bidder_exclusions": {
+      "$ref": "#/$defs/QualityShare"
+    },
     "truncated_rows": {
       "$ref": "#/$defs/TruncatedRows"
     },
@@ -265,6 +268,7 @@
     "unassigned_share",
     "truncated_rows",
     "unsigned_records",
+    "single_bidder_exclusions",
     "unrecognized_values"
   ],
   "title": "Quality",

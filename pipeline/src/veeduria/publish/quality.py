@@ -1,4 +1,7 @@
-"""Calidad de datos publicada: conciliación R15 y reportes de R4, R6 y R8 (ADR 0038, ADR 0042)."""
+"""Calidad de datos publicada: conciliación R15 y reportes de R4, R6, R8 y R9.
+
+Ver ADR 0038, ADR 0042 y ADR 0043.
+"""
 
 import duckdb
 
@@ -117,6 +120,7 @@ def build_quality(connection: duckdb.DuckDBPyConnection) -> Quality:
             contracts=_count_where(connection, "medata_contracts", "truncated"),
         ),
         unsigned_records=_share(unsigned, records),
+        single_bidder_exclusions=_count_where(connection, "single_bidder_processes", "is_excluded"),
         unrecognized_values=[
             UnrecognizedValue(catalog=catalog, source=source, raw_text=raw_text, row_count=count)
             for catalog, source, raw_text, count in connection.execute(

@@ -179,6 +179,7 @@ export type UnrecognizedValues = UnrecognizedValue[];
  */
 export interface Quality {
   reconciliation: Reconciliation;
+  single_bidder_exclusions: QualityShare;
   truncated_rows: TruncatedRows;
   unassigned_share: UnassignedShare;
   unrecognized_values: UnrecognizedValues;
@@ -209,6 +210,14 @@ export interface ReconciliationMonth {
   union_count: UnionCount;
 }
 /**
+ * Cuántos de un total cumplen una condición de calidad, con su proporción (ADR 0042).
+ */
+export interface QualityShare {
+  count: Count;
+  share: Share;
+  total: Total;
+}
+/**
  * Filas de MEData cortadas en origen, que no traen valores (ADR 0010, ADR 0028, ADR 0042).
  *
  * `rows` son las líneas de MEData · Ejecución; `contracts`, los contratos cuyas líneas vienen
@@ -217,14 +226,6 @@ export interface ReconciliationMonth {
 export interface TruncatedRows {
   contracts: QualityShare;
   rows: QualityShare;
-}
-/**
- * Cuántos de un total cumplen una condición de calidad, con su proporción (ADR 0042).
- */
-export interface QualityShare {
-  count: Count;
-  share: Share;
-  total: Total;
 }
 /**
  * Contratos «Sin asignar» en el Distrito y por año de firma (R8; ADR 0042).
