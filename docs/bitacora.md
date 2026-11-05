@@ -37,7 +37,24 @@ Proporción de las líneas directas del Plan Anual con inicio estimado en enero 
 
 - Criterio 2 del punto de decisión 1: en los tres años de elección presidencial, febrero a junio queda por debajo del mínimo de los años de control (34,8 % por número y 37,4 % por valor): 15,0 / 16,0 / 8,3 % y 6,3 / 23,5 / 17,1 %. Se cumple en las dos medidas; la decisión formal es de T8.
 - Los primeros años de administración (2016, 2020) se señalan, como pide [`indicadores.md`](indicadores.md). Su enero por número (26,8 % y 34,5 %) no es sistemáticamente menor que el de los otros controles (33,5 % y 24,5 %), y el mínimo de febrero a junio de los controles por número es 2020 (34,8 %).
-- El plan no distingue el crédito público, así que la medida por valor no puede excluirlo (R7).
+- El plan no distingue el crédito público, así que la medida por valor no puede excluirlo (R7). No se encontró en el plan ninguna señal de esas operaciones; los códigos UNSPSC que contienen «84» (servicios financieros) son un indicador débil y no se usan.
+- Por valor pesan pocas líneas: en 2014 dos líneas con inicio en julio suman el 46,7 % del valor directo (por eso su feb–jun da 6,3 %) y en 2022 una línea de noviembre pesa el 19,8 %. Ninguna parece crédito (códigos de mantenimiento e infraestructura).
+
+### Sensibilidad del criterio 2 por valor
+
+Feb–jun por valor, quitando de cada año las *k* líneas directas de mayor valor. Se compara el máximo de los años de tratamiento con el mínimo de los de control.
+
+| *k* | Máx. tratamiento | Mín. control | Brecha | Criterio 2 |
+|---:|---:|---:|---:|---|
+| 0 | 23,5 % | 37,4 % | 13,9 | Se cumple |
+| 1 | 25,2 % | 39,2 % | 14,0 | Se cumple |
+| 3 | 29,0 % | 34,9 % | 5,9 | Se cumple |
+| 5 | 30,4 % | 33,6 % | 3,2 | Se cumple |
+| 10 | 31,4 % | 36,2 % | 4,8 | Se cumple |
+
+- El criterio por valor se mantiene en todos los casos, pero con poco margen: la brecha baja de unos 14 puntos a unos 3 con *k* = 5.
+- Es un ejercicio de robustez, no una prueba de que no haya crédito público en el plan.
+- Para T8: apoyar el titular en la medida por número, que no tiene este problema, y presentar la de valor como complemento, con la nota de que el resultado se mantiene al quitar las líneas más grandes, con menor margen.
 
 ---
 
