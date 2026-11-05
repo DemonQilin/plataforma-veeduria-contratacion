@@ -95,7 +95,7 @@ El catálogo es `pipeline/reference/supplier_types.toml` (ADR 0022). Un valor no
 
 - **R3 · Contrato canónico.** Las filas con la misma referencia se consolidan en un solo contrato.
   - La fecha de firma canónica es la primera fecha no vacía.
-  - El valor inicial es el de la primera versión firmada; el valor final, el que indica D3.
+  - El valor inicial es el de la primera versión firmada, que en SECOP II ya incluye las adiciones (D3); el valor final, el que indica D3.
   - «Primera» se decide por la marca de tiempo completa de la firma; si coinciden, por el identificador del contrato.
   - Los atributos del contrato (proceso, modalidad, tipo, proveedor) salen de la primera versión firmada. Si las versiones apuntan a procesos distintos, gana el proceso de la primera firma y la referencia se reporta en la calidad de datos. El estado, los días adicionados y la fecha de fin salen de la versión más reciente.
 - **R4 · Contratos sin firma.** Se excluyen los registros sin fecha de firma (por ejemplo, los que solo fueron enviados al proveedor). Cada exclusión se reporta en la calidad de datos.
@@ -138,7 +138,7 @@ Se resolvieron siguiendo la práctica habitual en análisis de compras públicas
 |---|---|---|---|
 | D1 | ¿La «Contratación Directa (con ofertas)» cuenta como directa? | Sí | En SECOP II es una variante de la contratación directa: la entidad pide cotizaciones, pero no abre competencia |
 | D2 | ¿El régimen especial se suma a la contratación directa? | No en el indicador principal. I1 se reporta en dos niveles: contratación directa sola y «no competitiva» (directa más régimen especial) | La literatura de *red flags* mide los procedimientos no abiertos en conjunto, pero el público reconoce el término «contratación directa» |
-| D3 | ¿Qué valor representa al contrato? | Inicial: primera versión firmada. Final: MEData si existe; si no, la versión más reciente de SECOP II | Es la distinción entre valor firmado y valor modificado que usa el estándar de datos de contratación abierta (OCDS) |
+| D3 | ¿Qué valor representa al contrato? | Inicial: el valor de la primera versión firmada en SECOP II, que ya incluye las adiciones registradas hasta la fecha de corte, porque SECOP II sobrescribe el valor en la misma fila (ADR 0044). Final: MEData si existe; si no, la versión más reciente de SECOP II. El valor inicial sin adiciones solo existe en MEData (2022–2023) | Es la distinción entre valor firmado y valor modificado que usa el estándar de datos de contratación abierta (OCDS). SECOP II no deja separarlos: en 2022 y 2023 la diferencia mueve menos de un punto las proporciones por valor de I1 e I2 |
 | D4 | ¿Qué umbral de supresión? | 5 contratos | Es un umbral habitual en control de divulgación estadística para datos no sensibles |
 | D5 | ¿Cómo se tratan las secretarías que cambiaron de nombre? | Se conserva el nombre histórico y se agrega una tabla de equivalencias solo si afecta las comparaciones | Evita reescribir la historia de los datos y mantiene la trazabilidad |
 | D6 | ¿Cómo se evita despejar una celda suprimida restando del total? | Supresión complementaria: si un desglose tiene una sola celda suprimida, se suprime también la de menor n; se repite hasta que ningún desglose cambie | Es la supresión secundaria habitual en control de divulgación estadística; una sola celda oculta se despeja con el total y las demás |

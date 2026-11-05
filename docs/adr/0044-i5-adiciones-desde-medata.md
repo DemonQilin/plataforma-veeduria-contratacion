@@ -27,7 +27,7 @@ I5 pregunta cuánto crecen los contratos después de firmados. La fórmula del c
 - `indicators.json` agrega las celdas de I5 (1.898 líneas, solo adiciones). El contrato no cambia: `IndicatorCell` ya admite `I5`.
 - Con la copia actual: 353 de 1.522 contratos de 2022 (23,2 %) y 66 de 1.081 de 2023 (6,1 %) tienen adición. La diferencia entre años refleja el seguimiento: MEData se detuvo en diciembre de 2023, así que los contratos de 2023 tuvieron menos tiempo de acumular adiciones registradas. El tablero lo aclara.
 - I5 no cubre 2024–2026. Es una limitación de la fuente y se muestra como tal.
-- **Queda abierto:** como el valor de SECOP II incluye las adiciones, la frase de D3 y de `indicadores.md` §3 («valor inicial = primera versión firmada, sin adiciones») no se cumple para los contratos con adiciones. Las proporciones por valor de I1 e I2 casi no se mueven (menos de 1 punto en 2022 y 2023), pero el texto se corrige en una tarea aparte.
+- **D3 corregida.** Como el valor de SECOP II incluye las adiciones, D3 y `indicadores.md` ya no dicen que el valor inicial excluye las adiciones. Las proporciones por valor de I1 e I2 casi no se mueven (menos de 1 punto en 2022 y 2023); no cambia ninguna cifra publicada.
 
 ## Alternativas
 
