@@ -171,7 +171,7 @@ Se hacen dos consultas, para que el nombre y el documento de personas naturales 
 
 ## 10. Calendario de la Ley de Garantías
 
-Tabla de referencia curada a mano (R10). Vive en `pipeline/reference/` con la fuente de cada fecha; no se infiere de los datos.
+Tabla de referencia curada a mano (R10). Vive en `pipeline/reference/electoral_calendar.toml` con la fuente de cada fecha; no se infiere de los datos (ADR 0034). Las restricciones de las locales aún no están en el archivo: entran cuando su fecha se verifique.
 
 | Ciclo | Restricción | Desde | Hasta | Estado |
 |---|---|---|---|---|

@@ -18,6 +18,13 @@ Las decisiones que salen de estas observaciones no se registran aquí: pasan a [
 
 ---
 
+## 4 nov 2026 · Fin del denominador de I2
+
+- La documentación decía que el denominador de I2 va «de enero a octubre», pero la fecha de corte de la copia es el 30 de octubre de 2026 (`metadata.json`): a 2026 le falta el 31 de octubre.
+- Se resolvió con R12 (tramo común): todos los años se miden del 1 de enero al día y mes de la fecha de corte (ADR 0034). Hoy da el 30 de octubre.
+
+---
+
 ## 3 nov 2026 · Cruce con MEData y asignación de secretaría
 
 - MEData tiene 25.783 líneas de 2.939 contratos (de 1 a 682 líneas por contrato). Secretaría, fecha de firma, valores, duración y estado no cambian entre las líneas de un contrato; solo varían el programa (249 contratos) y la causal (420). 54 contratos tienen todas sus líneas truncadas: conservan la secretaría y no tienen valores.
