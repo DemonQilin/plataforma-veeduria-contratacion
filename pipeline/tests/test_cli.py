@@ -57,7 +57,13 @@ def test_run_from_snapshot_is_deterministic(tmp_path) -> None:
             app, ["run", "--from-snapshot", "--output-dir", str(tmp_path / name)]
         )
         assert result.exit_code == 0, result.output
-    for name in ("metadata.json", "indicators.json", "monthly_series.json", "quality.json"):
+    for name in (
+        "electoral_calendar.json",
+        "metadata.json",
+        "indicators.json",
+        "monthly_series.json",
+        "quality.json",
+    ):
         assert (tmp_path / "first" / name).read_bytes() == (tmp_path / "second" / name).read_bytes()
 
 
@@ -68,6 +74,7 @@ def test_run_from_snapshot_failure_leaves_outputs_untouched(tmp_path) -> None:
     (output_dir / "indicators.json").write_text("previous", encoding="utf-8")
     (output_dir / "quality.json").write_text("previous", encoding="utf-8")
     (output_dir / "monthly_series.json").write_text("previous", encoding="utf-8")
+    (output_dir / "electoral_calendar.json").write_text("previous", encoding="utf-8")
     result = runner.invoke(
         app,
         [
@@ -85,6 +92,7 @@ def test_run_from_snapshot_failure_leaves_outputs_untouched(tmp_path) -> None:
     assert (output_dir / "indicators.json").read_text(encoding="utf-8") == "previous"
     assert (output_dir / "quality.json").read_text(encoding="utf-8") == "previous"
     assert (output_dir / "monthly_series.json").read_text(encoding="utf-8") == "previous"
+    assert (output_dir / "electoral_calendar.json").read_text(encoding="utf-8") == "previous"
     assert [path.name for path in tmp_path.iterdir()] == ["out"]
 
 

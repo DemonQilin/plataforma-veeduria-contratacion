@@ -1,0 +1,131 @@
+{
+  "$defs": {
+    "ComparisonYear": {
+      "additionalProperties": false,
+      "description": "La ventana de comparación de I2 de un año (R11, R12).",
+      "properties": {
+        "denominator_end": {
+          "format": "date",
+          "title": "Denominator End",
+          "type": "string"
+        },
+        "reference_restriction_end": {
+          "format": "date",
+          "title": "Reference Restriction End",
+          "type": "string"
+        },
+        "role": {
+          "enum": [
+            "treatment",
+            "control"
+          ],
+          "title": "Role",
+          "type": "string"
+        },
+        "window_end": {
+          "format": "date",
+          "title": "Window End",
+          "type": "string"
+        },
+        "window_start": {
+          "format": "date",
+          "title": "Window Start",
+          "type": "string"
+        },
+        "year": {
+          "title": "Year",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "year",
+        "role",
+        "window_start",
+        "window_end",
+        "denominator_end",
+        "reference_restriction_end"
+      ],
+      "title": "ComparisonYear",
+      "type": "object"
+    },
+    "ElectoralRestriction": {
+      "additionalProperties": false,
+      "description": "Un periodo de la Ley de Garantías con su fuente (R10).\n\n`status` es relativo a la fecha de corte (R12): `ended` si ya terminó, `upcoming` si aún no\nempieza y `ongoing` en cualquier otro caso. Los extremos son inclusivos.",
+      "properties": {
+        "cycle": {
+          "title": "Cycle",
+          "type": "string"
+        },
+        "end": {
+          "format": "date",
+          "title": "End",
+          "type": "string"
+        },
+        "scope": {
+          "enum": [
+            "direct_award",
+            "interadministrative"
+          ],
+          "title": "Scope",
+          "type": "string"
+        },
+        "sources": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "RestrictionSources",
+          "type": "array"
+        },
+        "start": {
+          "format": "date",
+          "title": "Start",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "ended",
+            "ongoing",
+            "upcoming"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "cycle",
+        "scope",
+        "start",
+        "end",
+        "status",
+        "sources"
+      ],
+      "title": "ElectoralRestriction",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Restricciones por inicio y ventanas de I2 por año (docs/reglas.md, sección 7).",
+  "properties": {
+    "comparison_windows": {
+      "items": {
+        "$ref": "#/$defs/ComparisonYear"
+      },
+      "title": "Comparison Windows",
+      "type": "array"
+    },
+    "restrictions": {
+      "items": {
+        "$ref": "#/$defs/ElectoralRestriction"
+      },
+      "title": "Restrictions",
+      "type": "array"
+    }
+  },
+  "required": [
+    "restrictions",
+    "comparison_windows"
+  ],
+  "title": "ElectoralCalendar",
+  "type": "object"
+}

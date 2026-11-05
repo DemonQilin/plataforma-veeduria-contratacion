@@ -137,6 +137,14 @@ Usa siempre estos nombres en el código. Si necesitas un término nuevo, agréga
 | sin interadministrativos (variante de I2) | `excluding_interadministrative` |
 | no competitiva (variante de I1: directa más régimen especial) | `non_competitive` |
 | fin de la restricción de referencia | `reference_restriction_end` |
+| calendario electoral (salida del tablero) | `electoral_calendar` |
+| restricción (periodo de la Ley de Garantías) | `restriction` |
+| ciclo electoral / alcance de la restricción | `cycle` / `scope` |
+| inicio / fin (de la restricción) | `start` / `end` |
+| estado frente a la fecha de corte (terminada / en curso / próxima) | `status` (`ended` / `ongoing` / `upcoming`) |
+| papel del año en la comparación | `role` |
+| inicio / fin de la ventana de comparación | `window_start` / `window_end` |
+| fin del denominador | `denominator_end` |
 | calidad de datos (salida del tablero) | `quality` |
 | contratos en SECOP II / en MEData (conciliación) | `secop_count` / `medata_count` |
 | proporción de contratos en ambas fuentes sobre la unión | `shared_share` |

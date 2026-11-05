@@ -174,7 +174,47 @@ class MonthlySeries(BaseModel):
     rows: list[MonthlySeriesRow]
 
 
+class ElectoralRestriction(BaseModel):
+    """Un periodo de la Ley de Garantías con su fuente (R10).
+
+    `status` es relativo a la fecha de corte (R12): `ended` si ya terminó, `upcoming` si aún no
+    empieza y `ongoing` en cualquier otro caso. Los extremos son inclusivos.
+    """
+
+    model_config = ConfigDict(extra="forbid")
+
+    cycle: str
+    scope: Literal["direct_award", "interadministrative"]
+    start: date
+    end: date
+    status: Literal["ended", "ongoing", "upcoming"]
+    sources: list[str] = Field(min_length=1, title="RestrictionSources")
+
+
+class ComparisonYear(BaseModel):
+    """La ventana de comparación de I2 de un año (R11, R12)."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    year: int
+    role: Literal["treatment", "control"]
+    window_start: date
+    window_end: date
+    denominator_end: date
+    reference_restriction_end: date
+
+
+class ElectoralCalendar(BaseModel):
+    """Restricciones por inicio y ventanas de I2 por año (docs/reglas.md, sección 7)."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    restrictions: list[ElectoralRestriction]
+    comparison_windows: list[ComparisonYear]
+
+
 CONTRACT_MODELS: dict[str, type[BaseModel]] = {
+    "electoral_calendar": ElectoralCalendar,
     "indicators": Indicators,
     "metadata": Metadata,
     "monthly_series": MonthlySeries,

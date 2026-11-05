@@ -1,0 +1,104 @@
+{
+  "comparison_windows": [
+    {
+      "denominator_end": "2022-10-30",
+      "reference_restriction_end": "2022-06-19",
+      "role": "treatment",
+      "window_end": "2022-01-28",
+      "window_start": "2022-01-01",
+      "year": 2022
+    },
+    {
+      "denominator_end": "2023-10-30",
+      "reference_restriction_end": "2023-06-20",
+      "role": "control",
+      "window_end": "2023-01-29",
+      "window_start": "2023-01-01",
+      "year": 2023
+    },
+    {
+      "denominator_end": "2024-10-30",
+      "reference_restriction_end": "2024-06-20",
+      "role": "control",
+      "window_end": "2024-01-29",
+      "window_start": "2024-01-01",
+      "year": 2024
+    },
+    {
+      "denominator_end": "2025-10-30",
+      "reference_restriction_end": "2025-06-20",
+      "role": "control",
+      "window_end": "2025-01-29",
+      "window_start": "2025-01-01",
+      "year": 2025
+    },
+    {
+      "denominator_end": "2026-10-30",
+      "reference_restriction_end": "2026-06-21",
+      "role": "treatment",
+      "window_end": "2026-01-30",
+      "window_start": "2026-01-01",
+      "year": 2026
+    }
+  ],
+  "restrictions": [
+    {
+      "cycle": "presidential_2022",
+      "end": "2022-06-19",
+      "scope": "direct_award",
+      "sources": [
+        "Ley 996 de 2005, artículos 33 y 38",
+        "https://www.valoraanalitik.com/?p=158425"
+      ],
+      "start": "2022-01-29",
+      "status": "ended"
+    },
+    {
+      "cycle": "local_2023",
+      "end": "2023-10-29",
+      "scope": "interadministrative",
+      "sources": [
+        "Ley 996 de 2005, parágrafo del artículo 38",
+        "Registraduría Nacional, Resolución 28229 de 2022, artículo 1 (elección del 29 de octubre de 2023)",
+        "https://www.alcaldiabogota.gov.co/sisjur/normas/Norma1.jsp?i=141998",
+        "Colombia Compra Eficiente, concepto C-239 del 14 de agosto de 2023"
+      ],
+      "start": "2023-06-29",
+      "status": "ended"
+    },
+    {
+      "cycle": "congress_2026",
+      "end": "2026-03-08",
+      "scope": "interadministrative",
+      "sources": [
+        "Ley 996 de 2005, artículos 33 y 38",
+        "https://www.bloomberglinea.com/latinoamerica/colombia/ley-de-garantias-2026-que-es-a-quienes-impacta-este-ano-y-hasta-cuando-va/"
+      ],
+      "start": "2025-11-08",
+      "status": "ended"
+    },
+    {
+      "cycle": "presidential_2026",
+      "end": "2026-06-21",
+      "scope": "direct_award",
+      "sources": [
+        "Ley 996 de 2005, artículos 33 y 38",
+        "https://www.bloomberglinea.com/latinoamerica/colombia/ley-de-garantias-2026-que-es-a-quienes-impacta-este-ano-y-hasta-cuando-va/"
+      ],
+      "start": "2026-01-31",
+      "status": "ended"
+    },
+    {
+      "cycle": "local_2027",
+      "end": "2027-10-31",
+      "scope": "interadministrative",
+      "sources": [
+        "Ley 996 de 2005, parágrafo del artículo 38 (cuatro meses antes de la elección)",
+        "Registraduría Nacional, Resolución 12338 del 28 de octubre de 2026 (elección del 31 de octubre de 2027)",
+        "https://www.elnuevosiglo.com.co/politica/registraduria-define-calendario-electoral-para-los-comicios-territoriales-de-2027"
+      ],
+      "start": "2027-06-30",
+      "status": "upcoming"
+    }
+  ]
+}
