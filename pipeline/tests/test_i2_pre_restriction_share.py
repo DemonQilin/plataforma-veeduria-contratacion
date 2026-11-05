@@ -122,6 +122,29 @@ def test_i2_variants_split_service_contracts_and_the_rest() -> None:
     assert cells[("non_service_contract", "count")].sample_size == 3
 
 
+def test_i2_excluding_interadministrative_filters_numerator_and_denominator() -> None:
+    cells = _cells(
+        [
+            _row("a", "2022-01-10", kind="service_contract", initial=100),
+            _row("b", "2022-01-11", kind="interadministrative", initial=900),
+            _row("c", "2022-03-10", kind="works", initial=50),
+            _row("d", "2022-03-11", kind="interadministrative", initial=700),
+        ]
+    )
+    count = cells[("excluding_interadministrative", "count")]
+    assert (count.numerator, count.denominator, count.sample_size) == (1, 2, 2)
+    value = cells[("excluding_interadministrative", "value")]
+    assert (value.numerator, value.denominator, value.sample_size) == (100, 150, 2)
+    # La definición base no cambia: el total sigue contando los interadministrativos.
+    assert (cells[(None, "count")].numerator, cells[(None, "count")].denominator) == (2, 4)
+
+
+def test_i2_excluding_interadministrative_year_without_other_awards_emits_no_cell() -> None:
+    cells = _cells([_row("a", "2022-01-10", kind="interadministrative")])
+    assert ("excluding_interadministrative", "count") not in cells
+    assert (None, "count") in cells
+
+
 def test_i2_cells_are_district_yearly_and_sorted() -> None:
     window_2023 = ComparisonWindow(
         year=2023,
@@ -172,6 +195,19 @@ def test_golden_i2_2022_total_by_count(real_linked) -> None:
     )
     cell = next(c for c in cells if (c.period, c.variant, c.measure) == ("2022", None, "count"))
     assert (cell.numerator, cell.denominator) == (723, 1240)
+
+
+def test_golden_i2_2022_excluding_interadministrative_by_count(real_linked) -> None:
+    cutoff = date(2026, 10, 30)
+    cells = build_pre_restriction_share(
+        real_linked, comparison_windows(load_electoral_calendar(), cutoff)
+    )
+    cell = next(
+        c
+        for c in cells
+        if (c.period, c.variant, c.measure) == ("2022", "excluding_interadministrative", "count")
+    )
+    assert (cell.numerator, cell.denominator) == (723, 1031)
 
 
 def test_golden_i2_every_window_year_has_a_published_total(real_linked) -> None:
