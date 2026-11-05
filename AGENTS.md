@@ -152,6 +152,13 @@ Usa siempre estos nombres en el código. Si necesitas un término nuevo, agréga
 | serie mensual | `monthly_series` |
 | contratos del mes (el conteo de la serie) | `contract_count` |
 | contratos con valor que respaldan el valor | `value_sample_size` |
+| catálogo | `catalog` |
+| valores no reconocidos (texto crudo que el catálogo no conoce) | `unrecognized_values` |
+| registros sin firma excluidos (R4) | `unsigned_records` |
+| texto crudo | `raw_text` |
+| conteo / total / proporción (calidad de datos) | `count` / `total` / `share` |
+| sin secretaría (proporción) | `unassigned_share` |
+| filas truncadas (MEData) | `truncated_rows` |
 
 ## Reglas no negociables
 
