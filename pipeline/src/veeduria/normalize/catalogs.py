@@ -9,6 +9,7 @@ import unicodedata
 from dataclasses import dataclass
 from functools import cache
 from pathlib import Path
+from typing import Literal
 
 REFERENCE_DIR = Path(__file__).resolve().parents[3] / "reference"
 PROCUREMENT_METHODS_PATH = REFERENCE_DIR / "procurement_methods.toml"
@@ -189,6 +190,24 @@ def _default_addition_types() -> EntryCatalog:
 def classify_addition_type(raw: str | None, catalog: EntryCatalog | None = None) -> CatalogEntry:
     catalog = catalog or _default_addition_types()
     return catalog.by_key.get(catalog_key(raw or ""), catalog.default)
+
+
+CatalogName = Literal[
+    "procurement_method", "contract_type", "supplier_type", "addition_type", "department"
+]
+
+
+def is_recognized(catalog: CatalogName, raw: str) -> bool:
+    """¿El catálogo conoce el texto? Distinto de que su código no sea `other`: los catálogos
+    listan a propósito textos conocidos bajo «Otro» (docs/reglas.md, sección 3)."""
+    keys = {
+        "procurement_method": lambda: _default_catalog().by_key,
+        "contract_type": lambda: _default_contract_types().by_key,
+        "supplier_type": lambda: _default_supplier_types().by_key,
+        "addition_type": lambda: _default_addition_types().by_key,
+        "department": lambda: _default_departments().by_key,
+    }[catalog]()
+    return catalog_key(raw) in keys
 
 
 def load_departments(path: Path = DEPARTMENTS_PATH) -> EntryCatalog:

@@ -9,7 +9,7 @@ from typer.testing import CliRunner
 
 from tests.paths import REPO_ROOT
 from veeduria.cli import app
-from veeduria.publish.models import CONTRACT_MODELS, Quality, ReconciliationMonth
+from veeduria.publish.models import CONTRACT_MODELS, Quality, QualityShare, ReconciliationMonth
 
 runner = CliRunner()
 BELOW_THRESHOLD = [
@@ -120,3 +120,60 @@ def test_r15_month_without_contracts_has_no_share() -> None:
 def test_r15_quality_json_in_outputs_matches_a_fresh_run(quality: Quality) -> None:
     published = (REPO_ROOT / "data" / "outputs" / "quality.json").read_text(encoding="utf-8")
     assert Quality.model_validate(json.loads(published)) == quality
+
+
+def test_r08_quality_reports_the_unassigned_share_of_the_district(quality: Quality) -> None:
+    district = quality.unassigned_share.district
+    assert (district.count, district.total, district.share) == (19, 7428, 0.0026)
+
+
+def test_r08_quality_unassigned_years_add_up_to_the_district(quality: Quality) -> None:
+    years = quality.unassigned_share.years
+    district = quality.unassigned_share.district
+    assert [year.period for year in years] == ["2022", "2023", "2024", "2025", "2026"]
+    assert sum(year.unassigned.count for year in years) == district.count
+    assert sum(year.unassigned.total for year in years) == district.total
+
+
+def test_adr_0010_quality_reports_the_truncated_medata_rows(quality: Quality) -> None:
+    rows, contracts = quality.truncated_rows.rows, quality.truncated_rows.contracts
+    assert (rows.count, rows.total, rows.share) == (2072, 25783, 0.0804)
+    assert (contracts.count, contracts.total) == (54, 2939)
+
+
+def test_r04_quality_reports_the_unsigned_records_excluded(quality: Quality) -> None:
+    # La copia no trae registros sin firma: el reporte existe y dice cero sobre el total.
+    unsigned = quality.unsigned_records
+    assert (unsigned.count, unsigned.total, unsigned.share) == (0, 7468, 0.0)
+
+
+def test_r06_quality_reports_the_texts_the_catalogs_do_not_know(quality: Quality) -> None:
+    reported = {
+        (value.catalog, value.raw_text): value.row_count for value in quality.unrecognized_values
+    }
+    assert reported[("procurement_method", "Subasta de prueba")] == 343
+    assert reported[("contract_type", "No")] == 492
+    assert reported[("contract_type", "No Especificado")] == 638
+    assert reported[("department", "SUMINISTRO DE VESTIDO Y CALZADO DE LABOR")] == 1
+    assert sum(1 for catalog, _ in reported if catalog == "procurement_method") == 2
+
+
+def test_adr_0042_quality_json_publishes_no_contract_reference() -> None:
+    published = (REPO_ROOT / "data" / "outputs" / "quality.json").read_text(encoding="utf-8")
+    assert "contract_reference" not in published
+    assert "referencia_del_contrato" not in published
+
+
+def test_adr_0042_share_accepts_a_coherent_count() -> None:
+    assert QualityShare.model_validate({"count": 1, "total": 4, "share": 0.25}).count == 1
+
+
+def test_adr_0042_share_rejects_a_count_above_the_total() -> None:
+    with pytest.raises(ValidationError, match="conteo"):
+        QualityShare.model_validate({"count": 5, "total": 4, "share": 1.25})
+
+
+def test_adr_0042_share_is_missing_if_and_only_if_the_total_is_zero() -> None:
+    assert QualityShare.model_validate({"count": 0, "total": 0, "share": None}).share is None
+    with pytest.raises(ValidationError, match="proporción"):
+        QualityShare.model_validate({"count": 0, "total": 0, "share": 0.0})

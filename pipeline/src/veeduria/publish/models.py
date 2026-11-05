@@ -110,12 +110,80 @@ class Reconciliation(BaseModel):
     months: list[ReconciliationMonth]
 
 
+class QualityShare(BaseModel):
+    """Cuántos de un total cumplen una condición de calidad, con su proporción (ADR 0042)."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    count: int = Field(ge=0)
+    total: int = Field(ge=0)
+    share: float | None
+
+    @model_validator(mode="after")
+    def check_coherence(self) -> Self:
+        if self.count > self.total:
+            raise ValueError("El conteo no puede superar al total.")
+        if (self.share is None) != (self.total == 0):
+            raise ValueError("La proporción falta si y solo si el total es cero.")
+        return self
+
+
+class UnassignedYear(BaseModel):
+    """Contratos sin secretaría de un año de firma (R8)."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    # El título distinto evita que el generador de tipos cree dos alias `Period`.
+    period: str = Field(pattern=r"^\d{4}$", title="UnassignedPeriod")
+    unassigned: QualityShare
+
+
+class UnassignedShare(BaseModel):
+    """Contratos «Sin asignar» en el Distrito y por año de firma (R8; ADR 0042)."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    district: QualityShare
+    years: list[UnassignedYear]
+
+
+class TruncatedRows(BaseModel):
+    """Filas de MEData cortadas en origen, que no traen valores (ADR 0010, ADR 0028, ADR 0042).
+
+    `rows` son las líneas de MEData · Ejecución; `contracts`, los contratos cuyas líneas vienen
+    todas cortadas.
+    """
+
+    model_config = ConfigDict(extra="forbid")
+
+    rows: QualityShare
+    contracts: QualityShare
+
+
+class UnrecognizedValue(BaseModel):
+    """Un texto que un catálogo no reconoce, con las filas de la copia que lo traen (R6)."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    catalog: Literal[
+        "procurement_method", "contract_type", "supplier_type", "addition_type", "department"
+    ]
+    # El título distinto evita chocar con la interfaz `Source` de los metadatos.
+    source: str = Field(title="UnrecognizedSource")
+    raw_text: str
+    row_count: int = Field(ge=1)
+
+
 class Quality(BaseModel):
     """Calidad de datos que el tablero advierte (docs/reglas.md, sección 7)."""
 
     model_config = ConfigDict(extra="forbid")
 
     reconciliation: Reconciliation
+    unassigned_share: UnassignedShare
+    truncated_rows: TruncatedRows
+    unsigned_records: QualityShare
+    unrecognized_values: list[UnrecognizedValue]
 
 
 ProcurementMethod = Literal[

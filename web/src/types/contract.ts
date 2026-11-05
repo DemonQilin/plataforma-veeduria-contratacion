@@ -163,12 +163,26 @@ export type SharedShare = number | null;
 export type UnionCount = number;
 export type Months = ReconciliationMonth[];
 export type Threshold = number;
+export type Count = number;
+export type Share = number | null;
+export type Total = number;
+export type UnassignedPeriod = string;
+export type Years = UnassignedYear[];
+export type Catalog = "procurement_method" | "contract_type" | "supplier_type" | "addition_type" | "department";
+export type RawText = string;
+export type RowCount = number;
+export type UnrecognizedSource = string;
+export type UnrecognizedValues = UnrecognizedValue[];
 
 /**
  * Calidad de datos que el tablero advierte (docs/reglas.md, sección 7).
  */
 export interface Quality {
   reconciliation: Reconciliation;
+  truncated_rows: TruncatedRows;
+  unassigned_share: UnassignedShare;
+  unrecognized_values: UnrecognizedValues;
+  unsigned_records: QualityShare;
 }
 /**
  * Conciliación mensual y el umbral con el que se advierte (R15).
@@ -193,4 +207,45 @@ export interface ReconciliationMonth {
   shared_count: SharedCount;
   shared_share: SharedShare;
   union_count: UnionCount;
+}
+/**
+ * Filas de MEData cortadas en origen, que no traen valores (ADR 0010, ADR 0028, ADR 0042).
+ *
+ * `rows` son las líneas de MEData · Ejecución; `contracts`, los contratos cuyas líneas vienen
+ * todas cortadas.
+ */
+export interface TruncatedRows {
+  contracts: QualityShare;
+  rows: QualityShare;
+}
+/**
+ * Cuántos de un total cumplen una condición de calidad, con su proporción (ADR 0042).
+ */
+export interface QualityShare {
+  count: Count;
+  share: Share;
+  total: Total;
+}
+/**
+ * Contratos «Sin asignar» en el Distrito y por año de firma (R8; ADR 0042).
+ */
+export interface UnassignedShare {
+  district: QualityShare;
+  years: Years;
+}
+/**
+ * Contratos sin secretaría de un año de firma (R8).
+ */
+export interface UnassignedYear {
+  period: UnassignedPeriod;
+  unassigned: QualityShare;
+}
+/**
+ * Un texto que un catálogo no reconoce, con las filas de la copia que lo traen (R6).
+ */
+export interface UnrecognizedValue {
+  catalog: Catalog;
+  raw_text: RawText;
+  row_count: RowCount;
+  source: UnrecognizedSource;
 }

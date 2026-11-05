@@ -15,6 +15,7 @@ from veeduria.normalize.contracts import normalize_contracts
 from veeduria.normalize.procurement_plan import normalize_procurement_plan
 from veeduria.normalize.procurement_processes import normalize_procurement_processes
 from veeduria.normalize.suppliers import normalize_suppliers
+from veeduria.normalize.unrecognized_values import record_unrecognized_values
 
 
 def build(snapshot_dir: Path) -> duckdb.DuckDBPyConnection:
@@ -30,6 +31,7 @@ def build(snapshot_dir: Path) -> duckdb.DuckDBPyConnection:
     normalize_additions(connection, snapshot_dir / "secop_additions.csv")
     normalize_procurement_plan(connection, snapshot_dir / "medata_procurement_plan.csv")
     normalize_contract_execution(connection, snapshot_dir / "medata_contract_execution.csv")
+    record_unrecognized_values(connection, snapshot_dir)
     consolidate_contracts(connection)
     consolidate_processes(connection)
     collapse_medata_contracts(connection)

@@ -201,5 +201,103 @@
       }
     ],
     "threshold": 0.8
+  },
+  "truncated_rows": {
+    "contracts": {
+      "count": 54,
+      "share": 0.0184,
+      "total": 2939
+    },
+    "rows": {
+      "count": 2072,
+      "share": 0.0804,
+      "total": 25783
+    }
+  },
+  "unassigned_share": {
+    "district": {
+      "count": 19,
+      "share": 0.0026,
+      "total": 7428
+    },
+    "years": [
+      {
+        "period": "2022",
+        "unassigned": {
+          "count": 0,
+          "share": 0.0,
+          "total": 1716
+        }
+      },
+      {
+        "period": "2023",
+        "unassigned": {
+          "count": 2,
+          "share": 0.0012,
+          "total": 1666
+        }
+      },
+      {
+        "period": "2024",
+        "unassigned": {
+          "count": 17,
+          "share": 0.0132,
+          "total": 1287
+        }
+      },
+      {
+        "period": "2025",
+        "unassigned": {
+          "count": 0,
+          "share": 0.0,
+          "total": 1449
+        }
+      },
+      {
+        "period": "2026",
+        "unassigned": {
+          "count": 0,
+          "share": 0.0,
+          "total": 1310
+        }
+      }
+    ]
+  },
+  "unrecognized_values": [
+    {
+      "catalog": "contract_type",
+      "raw_text": "No",
+      "row_count": 492,
+      "source": "secop_procurement_processes"
+    },
+    {
+      "catalog": "contract_type",
+      "raw_text": "No Especificado",
+      "row_count": 638,
+      "source": "secop_procurement_processes"
+    },
+    {
+      "catalog": "department",
+      "raw_text": "SUMINISTRO DE VESTIDO Y CALZADO DE LABOR",
+      "row_count": 1,
+      "source": "secop_procurement_processes"
+    },
+    {
+      "catalog": "procurement_method",
+      "raw_text": "Solicitud de información a los Proveedores",
+      "row_count": 786,
+      "source": "secop_procurement_processes"
+    },
+    {
+      "catalog": "procurement_method",
+      "raw_text": "Subasta de prueba",
+      "row_count": 343,
+      "source": "secop_procurement_processes"
+    }
+  ],
+  "unsigned_records": {
+    "count": 0,
+    "share": 0.0,
+    "total": 7468
   }
 }
