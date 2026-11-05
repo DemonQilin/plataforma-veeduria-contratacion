@@ -24,7 +24,7 @@ Las decisiones que salen de estas observaciones no se registran aquí: pasan a [
 
 - **La caída de la restricción se ve en el conteo.** Contratación directa de 2022: enero 723, febrero 2, marzo 2, abril 0, mayo 1. El valor de febrero, marzo y mayo queda suprimido; el de abril es cero, porque no hay contratos.
 - **La suma mensual coincide con I1.** Para cada año, los meses de contratación directa suman el numerador de I1 en número y en valor (prueba `test_golden_series_direct_award_matches_i1_numerators_by_year`).
-- **710 de 2.088 filas** tienen el valor suprimido (primaria más complementaria D6). El valor de la contratación directa de enero de 2022 también queda oculto, porque en ese mes solo hay 3 contratos de régimen especial y la directa es la única parte publicada que los despejaría. Es el costo de D6; el conteo sí se publica y la cifra anual de I1 no cambia.
+- **757 de 2.088 filas** tienen el valor suprimido (primaria, complementaria D6 y espejos). Una primera versión dejaba 710 y un verificador independiente despejó 35 valores de menos de 5 contratos en cascada; la regla de espejos del [ADR 0040](adr/0040-serie-mensual-con-valor-suprimido.md) lo corrige y una prueba propaga los desgloses sobre la salida publicada. El valor de la contratación directa de enero de 2022 también queda oculto, porque en ese mes solo hay 3 contratos de régimen especial y la directa es la única parte publicada que los despejaría. Es el costo de D6; el conteo sí se publica y la cifra anual de I1 no cambia.
 
 ---
 

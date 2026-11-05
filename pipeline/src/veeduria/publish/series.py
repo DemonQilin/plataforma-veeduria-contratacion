@@ -64,18 +64,28 @@ def suppress_series_values(rows: list[MonthlySeriesRow]) -> list[MonthlySeriesRo
     Primaria: el valor respaldado por entre 1 y 4 contratos con valor se suprime. Con cero
     contratos con valor el valor es cero y no hay nada que despejar. Complementaria (D6): si un
     desglose queda con un solo valor suprimido, se suprime también el publicado de menor
-    `value_sample_size` que tenga contratos. Se repite hasta que ningún desglose cambie.
+    `value_sample_size` que tenga contratos. Las filas del mismo mes con los mismos contratos con
+    valor y el mismo valor son espejos (una hoja que es la única hija con contratos de un total
+    publicado): ocultar una sin las otras no protege nada, así que se ocultan juntas. Se repite
+    hasta que ningún desglose cambie.
     """
-    result = sorted(
-        (
-            _suppress(row) if 0 < row.value_sample_size < SUPPRESSION_THRESHOLD else row
-            for row in rows
-        ),
-        key=_sort_key,
-    )
+    ordered = sorted(rows, key=_sort_key)
+    mirrors: dict[Hashable, list[int]] = defaultdict(list)
+    for index, row in enumerate(ordered):
+        if row.value_sample_size:
+            mirrors[(row.period, row.value_sample_size, row.value)].append(index)
+    result = [
+        _suppress(row) if 0 < row.value_sample_size < SUPPRESSION_THRESHOLD else row
+        for row in ordered
+    ]
     changed = True
     while changed:
         changed = False
+        for indexes in mirrors.values():
+            if 0 < sum(result[i].is_suppressed for i in indexes) < len(indexes):
+                for i in indexes:
+                    result[i] = _suppress(result[i])
+                changed = True
         for breakdown in BREAKDOWNS:
             groups: dict[Hashable, list[int]] = defaultdict(list)
             for index, row in enumerate(result):

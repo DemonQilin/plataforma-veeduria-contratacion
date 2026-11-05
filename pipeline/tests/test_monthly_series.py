@@ -208,6 +208,27 @@ def test_d6_series_complementary_never_hides_a_zero_value_cell() -> None:
     assert zero.is_suppressed is False
 
 
+def test_d6_series_hiding_a_cell_also_hides_its_identical_margin() -> None:
+    # `direct_award/interadministrative` es la única hija con contratos de
+    # `(None, interadministrative)`: tienen el mismo valor, así que ocultar una sin la otra no
+    # protege nada (hallazgo del verificador de ADR 0040).
+    rows = publish_monthly_series(
+        [
+            _series_row(method="direct_award", kind=None, count=19, sample=19, value=122.0),
+            _series_row(
+                method="direct_award", kind="interadministrative", count=17, sample=17, value=117.0
+            ),
+            _series_row(
+                method="direct_award", kind="service_contract", count=2, sample=2, value=5.0
+            ),
+            _series_row(method=None, kind="interadministrative", count=17, sample=17, value=117.0),
+        ]
+    ).rows
+    hidden = {(r.procurement_method, r.contract_type) for r in rows if r.is_suppressed}
+    assert ("direct_award", "interadministrative") in hidden
+    assert (None, "interadministrative") in hidden
+
+
 def test_series_row_rejects_value_with_suppression() -> None:
     with pytest.raises(ValueError):
         MonthlySeriesRow(
@@ -250,6 +271,45 @@ def test_r13_published_series_never_shows_a_value_backed_by_one_to_four_contract
     for row in series.rows:
         if row.value is not None:
             assert not 0 < row.value_sample_size < SUPPRESSION_THRESHOLD
+
+
+def _exposed_cells(rows) -> set[tuple]:
+    """Celdas suprimidas que se despejan al propagar cada desglose con una sola incógnita."""
+    cell = {(r.period, r.procurement_method, r.contract_type): r for r in rows}
+    unknown = {key for key, row in cell.items() if row.is_suppressed}
+    by: dict[tuple, list[tuple]] = {}
+    for period, method, kind in cell:
+        if method is not None and kind is not None:
+            by.setdefault(("types", period, method), []).append((period, method, kind))
+            by.setdefault(("methods", period, kind), []).append((period, method, kind))
+        elif method is not None:
+            by.setdefault(("month-methods", period), []).append((period, method, kind))
+        elif kind is not None:
+            by.setdefault(("month-types", period), []).append((period, method, kind))
+    totals = {
+        "types": lambda k: (k[1], k[2], None),
+        "methods": lambda k: (k[1], None, k[2]),
+        "month-methods": lambda k: (k[1], None, None),
+        "month-types": lambda k: (k[1], None, None),
+    }
+    groups = [(totals[k[0]](k), parts) for k, parts in by.items() if totals[k[0]](k) in cell]
+    changed = True
+    while changed:
+        changed = False
+        for total, parts in groups:
+            unresolved = [key for key in [*parts, total] if key in unknown]
+            if len(unresolved) == 1:
+                unknown.discard(unresolved[0])
+                changed = True
+    return {key for key, row in cell.items() if row.is_suppressed and key not in unknown}
+
+
+def test_d6_series_published_suppression_cannot_be_undone_by_propagating_totals() -> None:
+    path = SNAPSHOT_DIR.parent / "outputs" / "monthly_series.json"
+    if not path.exists():
+        pytest.skip("No hay salida publicada.")
+    series = MonthlySeries.model_validate(json.loads(path.read_text(encoding="utf-8")))
+    assert _exposed_cells(series.rows) == set()
 
 
 def test_golden_series_direct_award_matches_i1_numerators_by_year(real_linked) -> None:
