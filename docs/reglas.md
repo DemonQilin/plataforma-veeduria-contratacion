@@ -119,7 +119,7 @@ El catálogo es `pipeline/reference/supplier_types.toml` (ADR 0022). Un valor no
 
 ### Privacidad
 
-- **R13 · Supresión de celdas pequeñas.** Ningún indicador desagregado (por secretaría o por mes) se publica si se calcula sobre menos de 5 contratos. Se publica como «datos insuficientes»: la celda conserva su n (`sample_size`) y oculta numerador, denominador y razón. La cifra anual del Distrito siempre se publica. Así una cifra pequeña no permite identificar a una persona cruzándola con el portal de SECOP. Si un desglose (las secretarías de un periodo o los meses de un año) queda con una sola celda suprimida, se suprime también la siguiente más chica, para que no se despeje restando del total (D6). La supresión se aplica en la etapa de publicación (`publish/suppression.py`), y `run` la ejecuta siempre antes de escribir `indicators.json`: el tablero nunca recibe una cifra sin suprimir.
+- **R13 · Supresión de celdas pequeñas.** Ningún indicador desagregado (por secretaría o por mes) se publica si se calcula sobre menos de 5 contratos. Se publica como «datos insuficientes»: la celda conserva su n (`sample_size`) y oculta numerador, denominador y razón. La cifra anual del Distrito siempre se publica. Así una cifra pequeña no permite identificar a una persona cruzándola con el portal de SECOP. Si un desglose (las secretarías de un periodo o los meses de un año) queda con una sola celda suprimida, se suprime también la siguiente más chica, para que no se despeje restando del total (D6). En la serie mensual, el conteo es la `n` y siempre se publica; la supresión recae en el valor (ADR 0040). La supresión se aplica en la etapa de publicación (`publish/suppression.py`), y `run` la ejecuta siempre antes de escribir `indicators.json`: el tablero nunca recibe una cifra sin suprimir.
 - **R14 · Proveedores.** Solo se nombran proveedores que son personas jurídicas, y solo en el indicador de concentración (I4). Hasta que respondan los organizadores, se considera persona jurídica al proveedor con NIT que empieza por 8 o 9 y tiene 9 o 10 dígitos (ADR 0017, ADR 0026). El identificador es el NIT sin dígito de verificación y el nombre es el más frecuente de ese NIT (ADR 0027).
 
 ### Calidad
@@ -161,7 +161,7 @@ Se publican en `data/outputs/` como JSON. Su estructura la definen los modelos d
 | Salida | Contenido |
 |---|---|
 | Indicadores | Una fila por indicador, nivel y periodo, con los campos de trazabilidad de R16 (forma de la celda en el [ADR 0033](adr/0033-celda-de-indicador-en-el-contrato.md)) |
-| Serie mensual | Contratos y valor por mes, modalidad y tipo, para las gráficas del hallazgo |
+| Serie mensual | Contratos y valor por mes, modalidad y tipo, para las gráficas del hallazgo. El conteo siempre se publica; el valor se suprime con R13 y D6 ([ADR 0040](adr/0040-serie-mensual-con-valor-suprimido.md)) |
 | Calidad de datos | Cobertura, conciliación SECOP–MEData, porcentaje sin secretaría, filas truncadas de MEData, valores no reconocidos en catálogos. Hoy `quality.json` publica la conciliación R15 por mes ([ADR 0038](adr/0038-r15-publicada-sin-supresion.md)); el resto llega después |
 | Metadatos | Fecha de corte, fuentes con enlace y licencia, versión de las reglas |
 
