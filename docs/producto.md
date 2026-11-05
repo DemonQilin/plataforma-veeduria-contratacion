@@ -18,17 +18,17 @@ Qué se construye, para quién, con qué alcance y con qué principios éticos.
 | Periodistas | Indicadores con método documentado que puedan citar y contrastar |
 | Jurado del hackathon | Un artefacto que funcione, con datos reales y un hallazgo con cifra |
 
-### Hallazgo titular (hipótesis por confirmar)
+### Hallazgo titular
 
 > En los años con restricción presidencial a la contratación directa (2022 y 2026), la Alcaldía firmó antes de que empezara la restricción una proporción de su contratación directa anual muy superior a la de los años sin restricción.
 
-Señal preliminar, sin limpieza (SECOP II, contratación directa, proporción firmada en enero):
+Confirmado en el punto de decisión 1 (5 nov 2026, ADR 0037). Concentración pre-restricción (I2), definición base, por número de contratos, del 1 de enero al 30 de octubre de cada año:
 
 | Año | 2022 ⚑ | 2023 | 2024 | 2025 | 2026 ⚑ |
 |---|---:|---:|---:|---:|---:|
-| % del año firmado en enero | 52 % | 27 % | 20 % | 34 % | 66 %* |
+| % de la contratación directa firmada antes de la restricción | 58 % | 25 % | 19 % | 31 % | 65 % |
 
-⚑ Año con restricción presidencial. *2026 sobre enero a octubre. Estas cifras se recalculan con la metodología de [`indicadores.md`](indicadores.md) antes de usarse.
+⚑ Año con restricción presidencial. Por valor, 2022 supera al mejor año de control por menos de un punto; por eso el valor es un complemento y no la cifra titular. Metodología y limitaciones en [`indicadores.md`](indicadores.md).
 
 ### Segundo nivel del hallazgo: la anticipación se planea
 

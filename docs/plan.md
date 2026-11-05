@@ -100,6 +100,7 @@ Si el tiempo no alcanza, se recorta de abajo hacia arriba.
 | Fecha | Decisión | Si sale bien | Si sale mal |
 |---|---|---|---|
 | Mar 3 nov | ¿El hallazgo cumple el criterio de [`indicadores.md`](indicadores.md)? | Se mantiene como titular | El titular pasa al indicador más claro entre I3, I4 e I5, y la Ley de Garantías queda como contexto |
+| | **Resultado (5 nov):** se cumplen los dos criterios y el titular se mantiene, con la definición base de I2 por número de contratos. Ver la [bitácora](bitacora.md) y [ADR 0037](adr/0037-cifra-titular-de-i2.md) | | |
 | Antes del 4 nov | ¿Qué respondieron los organizadores? | Se sigue el plan | Si no permiten nombrar personas jurídicas, I4 se reporta solo agregado. Si SECOP II no cuenta como fuente admitida, MEData pasa a ser la fuente principal del hallazgo |
 | Vie 6 nov | ¿El tablero va al ritmo previsto? | Se completa todo lo importante | Se recorta lo deseable (sección 5) |
 
@@ -109,7 +110,7 @@ Si el tiempo no alcanza, se recorta de abajo hacia arriba.
 
 | Riesgo | Probabilidad | Impacto | Mitigación | Plan B |
 |---|---|---|---|---|
-| El hallazgo ejecutado no sobrevive a la limpieza | Media | Alto | Criterio explícito el 3 nov; la serie de planeación ya cumple su criterio con datos preliminares | El titular se apoya en la serie de planeación; si tampoco se sostiene, pasa a I3, I4 o I5 |
+| El hallazgo ejecutado no sobrevive a la limpieza (5 nov: el hallazgo sobrevive, ADR 0037) | Media | Alto | Criterio explícito el 3 nov; la serie de planeación ya cumple su criterio con datos preliminares | El titular se apoya en la serie de planeación; si tampoco se sostiene, pasa a I3, I4 o I5 |
 | Los organizadores no aceptan SECOP II como fuente o no permiten nombrar personas jurídicas | Baja | Alto | Correo del 30 oct y charla de términos | MEData como fuente principal (plan y ejecución); I4 solo agregado |
 | La API de datos.gov.co o de MEData falla durante el desarrollo o la evaluación (MEData ya dio errores 504) | Alta | Alto | El repositorio incluye la copia de datos sin información personal y las salidas; el tablero no consulta APIs | El jurado prueba todo con `--from-snapshot`; la actualización desde las APIs queda como paso opcional |
 | Las cifras del tablero cambian durante la evaluación y no coinciden con la ficha | Media | Alto | Fecha de corte fija hasta la final (sección 3) | Corregir la ficha antes de la entrega oficial |
