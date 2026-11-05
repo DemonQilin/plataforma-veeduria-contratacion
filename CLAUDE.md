@@ -91,6 +91,7 @@ Usa siempre estos nombres en el código. Si necesitas un término nuevo, agréga
 | año de tratamiento / control | `treatment` / `control` |
 | concentración pre-restricción | `pre_restriction_share` |
 | Plan Anual de Adquisiciones | `procurement_plan` |
+| planeado en enero / de febrero a junio | `planned_january` / `planned_february_june` |
 | mes estimado de inicio / valor estimado | `estimated_start_month` / `estimated_value` |
 | códigos UNSPSC | `unspsc_codes` |
 | copia de datos | `snapshot` |

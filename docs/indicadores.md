@@ -64,7 +64,8 @@ Con el Plan Anual de Adquisiciones se calcula, para cada año, la proporción de
 - **Elecciones locales (2015, 2019, 2023):** se analizan aparte, porque su restricción afecta convenios y nómina desde mediados de año, no la contratación directa en enero.
 - **Control:** 2016, 2017, 2020 y 2021.
 - **Factor de confusión adicional:** el primer año de cada administración (2016, 2020) tiende a planear menos para enero, porque el plan lo arma un gobierno que apenas llega. Se señala en los resultados.
-- **Limitaciones propias:** un plan no es un contrato; el mes es una estimación, y puede referirse al inicio del proceso y no a la firma.
+- **Cálculo:** el denominador son las líneas directas del año con mes estimado de inicio; el numerador, las que empiezan en enero (`planned_january`) o de febrero a junio (`planned_february_june`). Se publica por número y por valor (`estimated_value`), a nivel Distrito. Las líneas sin valor quedan fuera de la medida por valor.
+- **Limitaciones propias:** un plan no es un contrato; el mes es una estimación, y puede referirse al inicio del proceso y no a la firma. El plan no distingue el crédito público, así que la medida por valor no puede excluirlo (R7).
 
 ### Limpieza previa
 
