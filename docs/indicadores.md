@@ -13,7 +13,7 @@ Los indicadores siguen la literatura de *red flags* en compras públicas: la gu�
 | ID | Indicador | Pregunta para el ciudadano | Fórmula | Fuente | Prioridad |
 |---|---|---|---|---|---|
 | I1 | Proporción de contratación directa | ¿Cuánto se contrata sin competencia? | Contratos (y valor) por contratación directa ÷ total, por año y secretaría. Se reporta también la proporción «no competitiva» (directa más régimen especial) | Contratos | **MVP** |
-| I2 | Concentración antes de la restricción | ¿Se adelanta la contratación cuando se acerca la Ley de Garantías? | % de la contratación directa de enero a octubre firmada antes del inicio de la restricción, frente a la misma ventana en años de control | Contratos + MEData | **MVP · titular** |
+| I2 | Concentración antes de la restricción | ¿Se adelanta la contratación cuando se acerca la Ley de Garantías? | % de la contratación directa del 1 de enero a la fecha de corte (día y mes) firmada antes del inicio de la restricción, frente a la misma ventana en años de control | Contratos + MEData | **MVP · titular** |
 | I3 | Oferente único | En los procesos con competencia, ¿cuántas veces se presentó una sola empresa? | Procesos competitivos adjudicados con `proveedores_unicos_con = 1` ÷ procesos competitivos adjudicados | Procesos | **MVP** |
 | I4 | Concentración de proveedores | ¿Unas pocas empresas reciben buena parte del dinero? | Valor adjudicado a las 5 personas jurídicas con más valor ÷ valor total a personas jurídicas, por secretaría y año | Contratos + Procesos | **MVP** |
 | I5 | Adiciones | ¿Cuánto crecen los contratos después de firmados? | Contratos con adición ÷ total; valor adicionado ÷ valor inicial, por secretaría | MEData (2022–2023) + Adiciones | **MVP** |
@@ -59,6 +59,7 @@ Enero es también el mes en que se renuevan los contratos de prestación de serv
    - **Plazo pactado:** la fecha de fin de SECOP II menos los días adicionados. Se usa SECOP II y no `duracion_en_dias` de MEData porque este llega hasta junio de 2023.
    - **Fin de restricción de referencia:** el real en 2022 (19 de junio) y 2026 (21 de junio); en los años de control, el punto medio de ambos, el 20 de junio.
    - **Limitación:** no se pudo verificar que SECOP II actualice la fecha de fin cuando se agregan días, así que restar los días adicionados es un supuesto.
+   - **Resultado: no concluyente.** La señal no separa tratamiento de control. En 2022 es 99,6 % (720 de 723) y en 2026, 99,0 % (701 de 708), pero en 2025, año de control, es 98,9 % (345 de 349). Casi todos los contratos de enero duran hasta después de junio, con o sin restricción. Por eso no apoya ni refuta el titular y no entra en los criterios de decisión.
 
 ### Serie de planeación (I8, 2014–2023)
 
@@ -76,7 +77,10 @@ Con el Plan Anual de Adquisiciones se calcula, para cada año, la proporción de
 
 - **Consolidación:** una fila por `referencia_del_contrato`, con la primera fecha de firma no vacía; se descartan los registros sin fecha de firma (R3, R4).
 - **Normalización de modalidad:** todo lo que empiece por «Contratación directa», sin distinguir mayúsculas, cuenta como directa (R6, D1).
-- **Validación cruzada:** para 2022 y el primer semestre de 2023, los conteos mensuales de SECOP II se comparan con MEData (R15). La primera prueba dio 723 en SECOP II frente a 727 en MEData para enero de 2022.
+- **Validación cruzada:** para 2022 y el primer semestre de 2023, se calcula por mes qué proporción de contratos aparece en ambas fuentes (R15, ADR 0031).
+  - **2022:** seis meses quedan por debajo del 80 %: marzo (25,0 %), abril (68,4 %), mayo (70,8 %), junio (74,3 %), julio (67,6 %) y diciembre (61,5 %). Las cifras de I2 de 2022 se leen con esa advertencia.
+  - **2023:** ningún mes baja del 80 %, aunque cuatro quedan entre 80,1 y 81,5 %.
+  - **Enero de 2022:** 723 contratos en SECOP II frente a 727 en MEData. La comparación no es estricta, porque cada fuente usa su propia fecha de firma.
 
 ### Criterio de decisión (3 nov 2026)
 
@@ -85,7 +89,7 @@ El hallazgo se mantiene como titular si se cumple al menos una de estas condicio
 1. **Serie ejecutada:** en ambos años de restricción, la concentración supera el valor más alto de los años de control, tanto por número como por valor.
 2. **Serie de planeación:** en los tres años de elección presidencial, la proporción planeada de febrero a junio queda por debajo del mínimo de los años de control.
 
-Con los datos preliminares, la serie de planeación ya cumple su criterio (8–16 % frente a 35–46 %). Si ninguna se cumple, el titular pasa al indicador con el resultado más claro entre I3, I4 e I5, y la Ley de Garantías queda como contexto.
+Con la copia actual, la serie de planeación cumple su criterio en las dos medidas. Por número de contratos, los años de tratamiento van de 8,3 a 16,0 % y el mínimo de control es 34,8 %; por valor, de 6,3 a 23,5 % frente a 37,4 %. Si ninguna se cumple, el titular pasa al indicador con el resultado más claro entre I3, I4 e I5, y la Ley de Garantías queda como contexto.
 
 ### Cómo se comunica
 
@@ -97,7 +101,9 @@ Plantilla de la frase del hallazgo, a completar con las cifras finales:
 
 - **Adelantar contratos es legal.** La ley restringe contratar durante el periodo, no antes. El hallazgo describe cómo se planea la contratación, no una irregularidad.
 - **Correlación, no causalidad.** Otros factores, como los cambios de gobierno o de presupuesto, pueden influir.
-- **Cobertura.** El 11 % de los contratos de MEData no aparece en SECOP II, y MEData solo cubre hasta junio de 2023.
+- **Cobertura.** El 10 % de los contratos de MEData (307 de 2.939) no aparece en SECOP II, y MEData solo cubre hasta junio de 2023.
+- **Conciliación de 2022.** Seis meses de 2022 (marzo a julio y diciembre) tienen menos del 80 % de los contratos en ambas fuentes (R15).
+- **I8 por valor es menos robusto que por número.** Si se quitan las cinco líneas directas más grandes de cada año, la brecha por valor baja de 13,9 a 3,2 puntos. La medida principal es el número de contratos; el valor se presenta como complemento. El plan tampoco permite excluir el crédito público (R7), y el de 2023 no sirve como referencia mensual.
 - **Dos años de tratamiento.** Con tan pocos casos, el resultado se presenta como un patrón descriptivo, sin pruebas de significancia estadística.
 
 ---
