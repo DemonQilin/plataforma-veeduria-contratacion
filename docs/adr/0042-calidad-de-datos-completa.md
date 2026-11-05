@@ -20,7 +20,8 @@
 ## Consecuencias
 
 - `quality.json` agrega `unassigned_share`, `truncated_rows`, `unsigned_records` y `unrecognized_values` junto a `reconciliation`.
-- Los textos no reconocidos se detectan en la normalización y se anotan en `quality_issues` con la regla `R6`; `build_quality` solo lee tablas, como hasta ahora.
+- Los textos no reconocidos se detectan al terminar la normalización (`normalize/unrecognized_values.py`) y quedan en la tabla `unrecognized_values`, no en `quality_issues`: ahí `detail` es texto libre y tendría que parsearse. Los textos de secretaría sin mapear también salen de esta tabla; `quality_issues` conserva las filas de R8 para los contratos sin secretaría. `build_quality` solo lee tablas, como hasta ahora.
+- Las filas se cuentan en la copia: cada archivo y columna que alimenta un catálogo, con la codificación de MEData reparada antes de comparar. Los textos vacíos no cuentan.
 - Si un catálogo empieza a traer un texto con datos de personas, esta decisión se revisa; no se oculta el valor en silencio.
 
 ## Alternativas

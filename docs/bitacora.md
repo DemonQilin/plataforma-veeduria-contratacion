@@ -445,3 +445,10 @@ Fuente: [Portafolio · En víspera de Ley de Garantías se quintuplicó la contr
 - En 2.503 de los 2.632 contratos compartidos, MEData fecha la firma después que SECOP II (mediana de 5 días). Por eso el mes de la conciliación sale de la fecha de SECOP II.
 - Enero de 2022: 727 contratos por la fecha propia de MEData y 725 por la de SECOP II. Los 723 de la primera validación son solo contratación directa en SECOP II; los 727, todas las modalidades en MEData. La comparación no es estricta, pero la conciliación de R15 sí usa todas las modalidades en las dos fuentes.
 - Pendiente: confirmar `Adicion en el valor` contra `valor_total_adic_contrato` (ADR 0025).
+
+## 5 nov 2026 · Calidad de datos completa (R4, R6, R8; ADR 0042)
+
+- Sin secretaría (R8): 19 de 7.428 contratos (0,26 %). Por año de firma: 0 en 2022, 2 en 2023, 17 en 2024 (1,32 %), 0 en 2025 y 0 en 2026.
+- Filas truncadas de MEData: 2.072 de 25.783 líneas (8,04 %) y 54 de 2.939 contratos con todas sus líneas cortadas, es decir, sin valores.
+- Registros sin firma (R4): 0 de 7.468. La copia no trae ninguno, así que la exclusión existe pero hoy no quita nada.
+- Valores no reconocidos (R6): en Procesos, «Solicitud de información a los Proveedores» (786) y «Subasta de prueba» (343) como modalidad, «No» (492) y «No Especificado» (638) como tipo de contrato, y la unidad «SUMINISTRO DE VESTIDO Y CALZADO DE LABOR» (1). Coinciden con lo que ya decían `docs/reglas.md` y esta bitácora.

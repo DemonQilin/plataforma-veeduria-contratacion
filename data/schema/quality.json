@@ -1,5 +1,39 @@
 {
   "$defs": {
+    "QualityShare": {
+      "additionalProperties": false,
+      "description": "Cuántos de un total cumplen una condición de calidad, con su proporción (ADR 0042).",
+      "properties": {
+        "count": {
+          "minimum": 0,
+          "title": "Count",
+          "type": "integer"
+        },
+        "share": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Share"
+        },
+        "total": {
+          "minimum": 0,
+          "title": "Total",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "count",
+        "total",
+        "share"
+      ],
+      "title": "QualityShare",
+      "type": "object"
+    },
     "Reconciliation": {
       "additionalProperties": false,
       "description": "Conciliación mensual y el umbral con el que se advierte (R15).",
@@ -103,6 +137,104 @@
       ],
       "title": "ReconciliationMonth",
       "type": "object"
+    },
+    "TruncatedRows": {
+      "additionalProperties": false,
+      "description": "Filas de MEData cortadas en origen, que no traen valores (ADR 0010, ADR 0028, ADR 0042).\n\n`rows` son las líneas de MEData · Ejecución; `contracts`, los contratos cuyas líneas vienen\ntodas cortadas.",
+      "properties": {
+        "contracts": {
+          "$ref": "#/$defs/QualityShare"
+        },
+        "rows": {
+          "$ref": "#/$defs/QualityShare"
+        }
+      },
+      "required": [
+        "rows",
+        "contracts"
+      ],
+      "title": "TruncatedRows",
+      "type": "object"
+    },
+    "UnassignedShare": {
+      "additionalProperties": false,
+      "description": "Contratos «Sin asignar» en el Distrito y por año de firma (R8; ADR 0042).",
+      "properties": {
+        "district": {
+          "$ref": "#/$defs/QualityShare"
+        },
+        "years": {
+          "items": {
+            "$ref": "#/$defs/UnassignedYear"
+          },
+          "title": "Years",
+          "type": "array"
+        }
+      },
+      "required": [
+        "district",
+        "years"
+      ],
+      "title": "UnassignedShare",
+      "type": "object"
+    },
+    "UnassignedYear": {
+      "additionalProperties": false,
+      "description": "Contratos sin secretaría de un año de firma (R8).",
+      "properties": {
+        "period": {
+          "pattern": "^\\d{4}$",
+          "title": "UnassignedPeriod",
+          "type": "string"
+        },
+        "unassigned": {
+          "$ref": "#/$defs/QualityShare"
+        }
+      },
+      "required": [
+        "period",
+        "unassigned"
+      ],
+      "title": "UnassignedYear",
+      "type": "object"
+    },
+    "UnrecognizedValue": {
+      "additionalProperties": false,
+      "description": "Un texto que un catálogo no reconoce, con las filas de la copia que lo traen (R6).",
+      "properties": {
+        "catalog": {
+          "enum": [
+            "procurement_method",
+            "contract_type",
+            "supplier_type",
+            "addition_type",
+            "department"
+          ],
+          "title": "Catalog",
+          "type": "string"
+        },
+        "raw_text": {
+          "title": "Raw Text",
+          "type": "string"
+        },
+        "row_count": {
+          "minimum": 1,
+          "title": "Row Count",
+          "type": "integer"
+        },
+        "source": {
+          "title": "UnrecognizedSource",
+          "type": "string"
+        }
+      },
+      "required": [
+        "catalog",
+        "source",
+        "raw_text",
+        "row_count"
+      ],
+      "title": "UnrecognizedValue",
+      "type": "object"
     }
   },
   "additionalProperties": false,
@@ -110,10 +242,30 @@
   "properties": {
     "reconciliation": {
       "$ref": "#/$defs/Reconciliation"
+    },
+    "truncated_rows": {
+      "$ref": "#/$defs/TruncatedRows"
+    },
+    "unassigned_share": {
+      "$ref": "#/$defs/UnassignedShare"
+    },
+    "unrecognized_values": {
+      "items": {
+        "$ref": "#/$defs/UnrecognizedValue"
+      },
+      "title": "Unrecognized Values",
+      "type": "array"
+    },
+    "unsigned_records": {
+      "$ref": "#/$defs/QualityShare"
     }
   },
   "required": [
-    "reconciliation"
+    "reconciliation",
+    "unassigned_share",
+    "truncated_rows",
+    "unsigned_records",
+    "unrecognized_values"
   ],
   "title": "Quality",
   "type": "object"

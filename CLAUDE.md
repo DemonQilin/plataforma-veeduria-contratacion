@@ -156,6 +156,7 @@ Usa siempre estos nombres en el código. Si necesitas un término nuevo, agréga
 | valores no reconocidos (texto crudo que el catálogo no conoce) | `unrecognized_values` |
 | registros sin firma excluidos (R4) | `unsigned_records` |
 | texto crudo | `raw_text` |
+| fuente (archivo de la copia) | `source` |
 | conteo / total / proporción (calidad de datos) | `count` / `total` / `share` |
 | sin secretaría (proporción) | `unassigned_share` |
 | filas truncadas (MEData) | `truncated_rows` |
