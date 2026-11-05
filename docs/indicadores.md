@@ -69,6 +69,7 @@ Con el Plan Anual de Adquisiciones se calcula, para cada año, la proporción de
 - **Factor de confusión adicional:** el primer año de cada administración (2016, 2020) tiende a planear menos para enero, porque el plan lo arma un gobierno que apenas llega. Se señala en los resultados.
 - **Cálculo:** el denominador son las líneas directas del año con mes estimado de inicio; el numerador, las que empiezan en enero (`planned_january`) o de febrero a junio (`planned_february_june`). Se publica por número y por valor (`estimated_value`), a nivel Distrito. Las líneas sin valor quedan fuera de la medida por valor.
 - **Limitaciones propias:** un plan no es un contrato; el mes es una estimación, y puede referirse al inicio del proceso y no a la firma. El plan no distingue el crédito público, así que la medida por valor no puede excluirlo (R7).
+- **Comparación con lo firmado (2022–2023):** donde hay plan y ejecución a la vez, se calcula la misma proporción sobre los contratos directos firmados del año calendario completo, en `linked_contracts`: `signed_january` y `signed_february_june`, por número y por valor. Las dos series se leen lado a lado. Como el plan no tiene llave por contrato, la comparación es solo agregada (R17). La medida por valor firmada usa el valor inicial (D3) y excluye el crédito público (R7); la planeada no puede, así que las dos no son estrictamente comparables en valor.
 
 ### Limpieza previa
 
