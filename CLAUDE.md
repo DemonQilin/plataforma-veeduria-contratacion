@@ -135,6 +135,7 @@ Usa siempre estos nombres en el código. Si necesitas un término nuevo, agréga
 | celda suprimida | `is_suppressed` |
 | contrato que termina después de la restricción (variante de I2) | `spans_restriction` |
 | sin interadministrativos (variante de I2) | `excluding_interadministrative` |
+| no competitiva (variante de I1: directa más régimen especial) | `non_competitive` |
 | fin de la restricción de referencia | `reference_restriction_end` |
 | calidad de datos (salida del tablero) | `quality` |
 | contratos en SECOP II / en MEData (conciliación) | `secop_count` / `medata_count` |
