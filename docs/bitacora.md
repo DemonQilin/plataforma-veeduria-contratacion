@@ -18,6 +18,24 @@ Las decisiones que salen de estas observaciones no se registran aquí: pasan a [
 
 ---
 
+## 4 nov 2026 · Primera corrida de I2 sobre la copia
+
+Concentración pre-restricción del Distrito, con el denominador en el tramo común hasta el 30 de octubre y el valor inicial. Los años de tratamiento son 2022 y 2026; los de control, 2023 a 2025.
+
+| Año | Por número | Por valor |
+|---|---:|---:|
+| 2022 (tratamiento) | 723 de 1.240 (58,3 %) | 30,7 % |
+| 2023 (control) | 320 de 1.277 (25,1 %) | 29,8 % |
+| 2024 (control) | 173 de 929 (18,6 %) | 19,5 % |
+| 2025 (control) | 349 de 1.138 (30,7 %) | 22,3 % |
+| 2026 (tratamiento) | 708 de 1.084 (65,3 %) | 52,3 % |
+
+- Los 723 contratos de 2022 coinciden con la cifra de control de enero de 2022 en `linked_contracts`.
+- Por tipo, la prestación de servicios pesa casi todo el pico por número (2022: 70,1 %; 2026: 78,6 %), y el resto de contratos se queda entre 11,7 % y 27,1 %. Es el factor de confusión de enero que describe [`indicadores.md`](indicadores.md), y lo evalúa T3 y el punto de decisión 1.
+- Por valor, 2022 (30,7 %) supera al control más alto (29,8 %) por menos de un punto.
+
+---
+
 ## 4 nov 2026 · Fin del denominador de I2
 
 - La documentación decía que el denominador de I2 va «de enero a octubre», pero la fecha de corte de la copia es el 30 de octubre de 2026 (`metadata.json`): a 2026 le falta el 31 de octubre.

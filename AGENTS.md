@@ -74,6 +74,7 @@ Usa siempre estos nombres en el código. Si necesitas un término nuevo, agréga
 | otra (modalidad o tipo de contrato no reconocido) | `other` |
 | tipo de contrato | `contract_type` |
 | prestación de servicios | `service_contract` |
+| resto de tipos de contrato (sin prestación de servicios) | `non_service_contract` |
 | interadministrativo | `interadministrative` |
 | obra | `works` |
 | suministro y compraventa | `supply_and_purchase` |
