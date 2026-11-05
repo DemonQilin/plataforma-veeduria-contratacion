@@ -18,6 +18,43 @@ Las decisiones que salen de estas observaciones no se registran aquí: pasan a [
 
 ---
 
+## 5 nov 2026 · Verificaciones abiertas de C4 cerradas
+
+Cierre de los dos puntos que dejó la revisión de I1, I3 e I5 (entrada «Revisión de cifras de I1, I3 e I5 (C4)»). Corte 30 oct 2026.
+
+**Diferencia de I5: era un defecto del pipeline, no de formatos**
+
+- La hipótesis de C4 era falsa: el pipeline no reconoce más formatos, no normaliza ninguna referencia. Las cifras de C4 (1.510 y 1.072 contratos) no se reproducen con el mismo método; el error fue del recálculo de C4.
+- Un recálculo nuevo desde los CSV de la copia coincide en 2022 (1.524 contratos, 353 con adición) y da 1.080 en 2023 contra 1.079 publicados. La diferencia real era 1 contrato, no 21.
+- El contrato es el `4600098086` (firmado el 16 may 2023). SECOP II guarda su referencia con un espacio no separable al final, así que no igualaba al de MEData y quedaba fuera del cruce, de I5 y de R15.
+- Corregido con `trim()` en las dos normalizaciones ([ADR 0046](adr/0046-referencia-sin-espacios-en-los-extremos.md)). Sin colisiones: 7.428 y 2.939 referencias distintas antes y después.
+
+| Cifra | Antes | Después |
+|---|---|---|
+| Contratos que cruzan con MEData | 2.632 | 2.633 |
+| Sin cruce (de 2.939) | 307 | 306 |
+| Contratos en ambas fuentes dentro de los 18 meses de R15 | 2.628 | 2.629 |
+| I5 2023, Distrito: contratos con monto informado | 1.079 | 1.080 |
+| I5 2023, Distrito: contratos con valor | 1.077 | 1.078 |
+| Secretarías que toman la de MEData / la de SECOP II | 2.632 / 4.777 | 2.633 / 4.776 |
+
+Los 66 contratos con adición de 2023 y los 353 de 2022 no cambian. Cambian además una celda de secretaría de I5 y un mes de R15, sin cruzar el umbral del 80 % ni el de supresión.
+
+**Cifras que no se habían recalculado: coinciden**
+
+Recálculo independiente desde los CSV crudos y las fórmulas de [`indicadores.md`](indicadores.md); solo reutiliza los catálogos de `pipeline/reference/` y la unidad del proceso de `canonical_processes`.
+
+- **690 celdas visibles comparadas con `indicators.json`, 0 diferencias** (numerador, denominador y `n`; los valores al centavo): I1 por número y por valor en el Distrito y en las secretarías (552), I3 por número (17) e I5 por número, por valor y cerca del tope (121).
+- **51 celdas suprimidas** vienen sin numerador, denominador ni razón.
+- Pruebas nuevas: `test_golden_i1_district_value_by_year` (I1 por valor, que ningún golden fijaba) y las de la referencia en ambas normalizaciones y en la copia.
+
+**Abierto**
+
+- **Referencias «NNNNNNNNNN de 2022»:** 230 contratos canónicos de SECOP II traen la referencia con ese formato y MEData trae solo el número. No cruzan por ningún método y pueden explicar parte de los 306 sin cruce. No se verificó ni se cambió la llave (ADR 0046).
+- **Unidad del proceso:** el recálculo de las secretarías de I3 e I5 reutilizó `canonical_processes`; la consolidación R5 se verificó en otra revisión, no en esta.
+
+---
+
 ## 5 nov 2026 · I4 publicado solo agregado
 
 Sin respuesta de los organizadores, I4 se publica sin nombres de proveedores ([ADR 0045](adr/0045-i4-concentracion-agregada-de-proveedores.md)). Corte 30 oct 2026, valor inicial, personas jurídicas, sin crédito público.

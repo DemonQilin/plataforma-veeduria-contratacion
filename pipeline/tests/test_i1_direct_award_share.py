@@ -141,3 +141,32 @@ def test_golden_i1_2022_district_counts(real_linked) -> None:
     # régimen especial (docs/bitacora.md).
     assert (direct.numerator, direct.denominator) == (1387, 1716)
     assert (non_competitive.numerator, non_competitive.denominator) == (1463, 1716)
+
+
+def test_golden_i1_district_value_by_year(real_linked) -> None:
+    """Valor inicial sin crédito público (R7, D3), verificado aparte contra los CSV (C4)."""
+    cells = {
+        (c.period, c.variant, c.measure, c.level, c.department): c
+        for c in build_direct_award_share(real_linked)
+    }
+    expected = {
+        ("2022", None): (1916233975757.0, 2791146036155.44, 1714),
+        ("2023", None): (1866565769282.0, 3760558108849.0, 1666),
+        ("2024", None): (2501013379477.41, 3684382611042.83, 1285),
+        ("2025", None): (5077549775211.0, 6595801305008.82, 1446),
+        ("2026", None): (1916087544312.0, 2886199314029.01, 1306),
+        ("2022", "non_competitive"): (2010614108055.0, 2791146036155.44, 1714),
+        ("2023", "non_competitive"): (3310482034405.0, 3760558108849.0, 1666),
+        ("2024", "non_competitive"): (2867068127851.41, 3684382611042.83, 1285),
+        ("2025", "non_competitive"): (5457159517105.0, 6595801305008.82, 1446),
+        ("2026", "non_competitive"): (1958365438458.0, 2886199314029.01, 1306),
+    }
+    observed = {
+        (period, variant): (
+            cells[(period, variant, "value", "district", None)].numerator,
+            cells[(period, variant, "value", "district", None)].denominator,
+            cells[(period, variant, "value", "district", None)].sample_size,
+        )
+        for period, variant in expected
+    }
+    assert observed == expected
