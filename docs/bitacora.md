@@ -18,6 +18,29 @@ Las decisiones que salen de estas observaciones no se registran aquí: pasan a [
 
 ---
 
+## 5 nov 2026 · Punto de decisión 1 (T8)
+
+Evaluación de los dos criterios de [`indicadores.md`](indicadores.md) §3 con la copia de corte 30 oct 2026. Las cifras salen de `data/outputs/indicators.json`.
+
+**Criterio 1 · serie ejecutada (I2).** Menor año de tratamiento frente al máximo de control, en nivel Distrito.
+
+| Lectura | Medida | 2022 | 2026 | Control (2023 / 2024 / 2025) | Brecha | Resultado |
+|---|---|---:|---:|---|---:|---|
+| Base | Número | 58,3 % (723 de 1.240) | 65,3 % (708 de 1.084) | 25,1 / 18,6 / 30,7 % | 27,6 | Se cumple |
+| Base | Valor | 30,7 % | 52,3 % | 29,8 / 19,5 / 22,3 % | 0,9 | Se cumple, por menos de un punto |
+| Sin interadministrativos | Número | 70,1 % (723 de 1.031) | 77,9 % (675 de 867) | 27,9 / 25,3 / 39,6 % | 30,5 | Se cumple |
+| Sin interadministrativos | Valor | 74,5 % | 78,2 % | 48,2 / 27,7 / 44,1 % | 26,3 | Se cumple |
+
+**Criterio 2 · serie de planeación (I8).** Se cumple en las dos medidas: por número, 8,3–16,0 % frente a un mínimo de control de 34,8 %; por valor, 6,3–23,5 % frente a 37,4 %. Por valor el margen baja a 3,2 puntos al quitar las cinco líneas más grandes de cada año (entrada del 4 nov).
+
+**Resultado:** el titular se mantiene. Se cumplen los dos criterios, y bastaba con uno.
+
+- **Cifra titular de I2:** la definición base, por número de contratos. La definición se fijó el 3 nov y no se cambia después de ver los resultados. El valor se presenta como complemento, con la nota de que el margen es de 0,9 puntos, y la variante sin interadministrativos se publica como sensibilidad (ADR 0037).
+- **Apoyos que no deciden:** en 2022 lo firmado en enero coincide con lo planeado (52,1 % frente a 52,5 %). La duración de los contratos de enero no es concluyente, por lo que no entra en la decisión.
+- **Frase del hallazgo:** completada en [`indicadores.md`](indicadores.md) §3. El denominador llega hasta el 30 de octubre, no hasta el fin del año.
+
+---
+
 ## 5 nov 2026 · Revisión de cifras del hallazgo (C1)
 
 Revisión de las cifras publicadas (corte 30 oct 2026) contra la metodología de [`indicadores.md`](indicadores.md) §3. Las consultas se corrieron en memoria sobre la copia, sin escribir nada.
