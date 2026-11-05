@@ -18,6 +18,24 @@ Las decisiones que salen de estas observaciones no se registran aquí: pasan a [
 
 ---
 
+## 5 nov 2026 · I8: planeado frente a firmado, 2022–2023 (R17)
+
+Misma proporción sobre lo planeado (`procurement_plan`) y sobre lo firmado (`linked_contracts`, contratación directa del año calendario completo). Corte 30 oct 2026. Solo comparación agregada: el plan no tiene llave por contrato.
+
+| Año | Medida | Enero planeado | Enero firmado | Feb–jun planeado | Feb–jun firmado |
+|---|---|---:|---:|---:|---:|
+| 2022 (tratamiento) | Número | 726 de 1.383 (52,5 %) | 723 de 1.387 (52,1 %) | 115 de 1.383 (8,3 %) | 24 de 1.387 (1,7 %) |
+| 2022 (tratamiento) | Valor | 19,8 % | 18,3 % | 17,1 % | 7,1 % |
+| 2023 (local) | Número | 576 de 1.296 (44,4 %) | 375 de 1.366 (27,5 %) | 572 de 1.296 (44,1 %) | 693 de 1.366 (50,7 %) |
+| 2023 (local) | Valor | 46,6 % | 35,1 % | 51,4 % | 59,3 % |
+
+- **2022:** lo firmado en enero coincide con lo planeado (52,1 % frente a 52,5 %): la concentración de enero ya estaba en el plan. En febrero–junio se firmó menos de lo planeado (1,7 % frente a 8,3 % por número), coherente con la restricción.
+- **2023:** sin restricción presidencial, lo firmado en enero (27,5 %) queda 17 puntos por debajo de lo planeado (44,4 %), y lo firmado de febrero a junio supera lo planeado. El plan de 2023 no es confiable como referencia mensual: su última modificación es de septiembre de 2023.
+- **Límite de la medida por valor:** la firmada excluye el crédito público (R7) y la planeada no puede excluirlo, así que no son estrictamente comparables.
+- Para T8/C1: la coincidencia de 2022 apoya que la concentración de enero es planeada, no improvisada; 2023 es el contraste.
+
+---
+
 ## 5 nov 2026 · Duración de los contratos de enero (factor de confusión 3 de I2)
 
 Proporción de contratos directos firmados en la ventana de enero cuyo plazo pactado (`end_date` menos `added_days`) termina después del fin de la restricción de referencia (ADR 0035): el real en 2022 y 2026, y el 20 de junio en los años de control. Solo por número de contratos.
