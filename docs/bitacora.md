@@ -13,7 +13,7 @@ Las decisiones que salen de estas observaciones no se registran aquí: pasan a [
 | ¿Por qué la suma de valores de SECOP II es un 22 % mayor que la de valores iniciales de MEData en 2022, si las adiciones explican unos 7 puntos? | 5 nov | Comparar contrato a contrato los 2.632 que cruzan (versiones, moneda, valor total contra valor del periodo) |
 | ¿Qué es el 10 % de contratos de MEData (307 de 2.939, medido el 5 nov) que no cruza con SECOP II? | 29 oct | Revisar formatos de referencia y buscar en la Tienda Virtual del Estado |
 | ¿El repunte de junio de 2023 y la caída de julio tienen relación con la restricción de convenios por las locales? | 29 oct | Separar interadministrativos del resto y comparar contra el calendario |
-| ¿Las fechas de la restricción de las locales de 2023 son las estimadas? | 29 oct | Fuente oficial |
+| ¿Las fechas de la restricción de las locales de 2023 son las estimadas? | 29 oct | Resuelta el 4 nov: 29 jun–29 oct 2023 (Circular 016 de 2023 y concepto C-239 de CCE; ver plan.md) |
 | ¿Qué valores de `tipo` de Adiciones cuentan como adición en I5? | 1 nov | Resuelta el 5 nov: ninguno basta. I5 usa solo MEData (ADR 0044) |
 
 ---
@@ -69,6 +69,20 @@ Se cruzaron las adiciones de SECOP II con `valor_total_adic_contrato` de MEData 
 La decisión está en el [ADR 0044](adr/0044-i5-adiciones-desde-medata.md).
 
 ---
+
+## 5 nov 2026 · Oferente único (I3, R9; ADR 0043)
+
+- Procesos competitivos adjudicados publicados del 1 de enero de 2022 al corte (30 de octubre de 2026): 894. Ninguno publicado antes de 2022 se cruza con un contrato de la copia.
+- R9 excluye 21 por reportar cero oferentes (2,35 %): 20 en 2022 y 1 en 2023. Ninguno trae el campo vacío. Los 873 restantes entran al denominador.
+- Procesos con oferente único sobre válidos: 2022, 44 de 198 (22,2 %); 2023, 49 de 164 (29,9 %); 2024, 31 de 194 (16,0 %); 2025, 25 de 173 (14,5 %); 2026 (parcial), 21 de 144 (14,6 %).
+- Por unidad, 743 de los 876 procesos que se cruzan con un contrato los conduce Suministros y Servicios, la unidad de compras centralizada. Por eso el tablero aclara que la secretaría de I3 es la que adelanta el proceso y no siempre la que pidió el bien.
+
+## 5 nov 2026 · Calidad de datos completa (R4, R6, R8; ADR 0042)
+
+- Sin secretaría (R8): 19 de 7.428 contratos (0,26 %). Por año de firma: 0 en 2022, 2 en 2023, 17 en 2024 (1,32 %), 0 en 2025 y 0 en 2026.
+- Filas truncadas de MEData: 2.072 de 25.783 líneas (8,04 %) y 54 de 2.939 contratos con todas sus líneas cortadas, es decir, sin valores.
+- Registros sin firma (R4): 0 de 7.468. La copia no trae ninguno, así que la exclusión existe pero hoy no quita nada.
+- Valores no reconocidos (R6): en Procesos, «Solicitud de información a los Proveedores» (786) y «Subasta de prueba» (343) como modalidad, «No» (492) y «No Especificado» (638) como tipo de contrato, y la unidad «SUMINISTRO DE VESTIDO Y CALZADO DE LABOR» (1). Coinciden con lo que ya decían `docs/reglas.md` y esta bitácora.
 
 ## 5 nov 2026 · Locales de 2027 verificadas
 
@@ -204,6 +218,13 @@ Proporción de contratos directos firmados en la ventana de enero cuyo plazo pac
 - No se pudo verificar si SECOP II actualiza `end_date` cuando se agregan días (solo hay 31 directos con más de una versión), así que restar `added_days` es un supuesto.
 
 ---
+
+## 4 nov 2026 · Conciliación mensual SECOP–MEData (R15)
+
+- Con la copia, seis de los 18 meses de MEData (2022-01 a 2023-06) quedan bajo el 80 % de contratos en ambas fuentes: marzo a julio y diciembre de 2022. Detalle por mes en el [ADR 0031](adr/0031-conciliacion-secop-medata.md).
+- En 2.503 de los 2.632 contratos compartidos, MEData fecha la firma después que SECOP II (mediana de 5 días). Por eso el mes de la conciliación sale de la fecha de SECOP II.
+- Enero de 2022: 727 contratos por la fecha propia de MEData y 725 por la de SECOP II. Los 723 de la primera validación son solo contratación directa en SECOP II; los 727, todas las modalidades en MEData. La comparación no es estricta, pero la conciliación de R15 sí usa todas las modalidades en las dos fuentes.
+- Pendiente: confirmar `Adicion en el valor` contra `valor_total_adic_contrato` (ADR 0025).
 
 ## 4 nov 2026 · Primera corrida de I8 (serie de planeación) sobre la copia
 
@@ -490,24 +511,3 @@ Fuera del alcance del MVP. Se registra como contexto para una siguiente etapa.
 - Enero es también el mes de renovación anual de los contratos de prestación de servicios, así que un pico en enero no prueba nada por sí solo. Esto definió la metodología de comparación contra años de control.
 
 Fuente: [Portafolio · En víspera de Ley de Garantías se quintuplicó la contratación](https://www.portafolio.co/economia/en-vispera-a-ley-de-garantias-se-quintuplico-la-contratacion-561050).
-
-## 4 nov 2026 · Conciliación mensual SECOP–MEData (R15)
-
-- Con la copia, seis de los 18 meses de MEData (2022-01 a 2023-06) quedan bajo el 80 % de contratos en ambas fuentes: marzo a julio y diciembre de 2022. Detalle por mes en el [ADR 0031](adr/0031-conciliacion-secop-medata.md).
-- En 2.503 de los 2.632 contratos compartidos, MEData fecha la firma después que SECOP II (mediana de 5 días). Por eso el mes de la conciliación sale de la fecha de SECOP II.
-- Enero de 2022: 727 contratos por la fecha propia de MEData y 725 por la de SECOP II. Los 723 de la primera validación son solo contratación directa en SECOP II; los 727, todas las modalidades en MEData. La comparación no es estricta, pero la conciliación de R15 sí usa todas las modalidades en las dos fuentes.
-- Pendiente: confirmar `Adicion en el valor` contra `valor_total_adic_contrato` (ADR 0025).
-
-## 5 nov 2026 · Calidad de datos completa (R4, R6, R8; ADR 0042)
-
-- Sin secretaría (R8): 19 de 7.428 contratos (0,26 %). Por año de firma: 0 en 2022, 2 en 2023, 17 en 2024 (1,32 %), 0 en 2025 y 0 en 2026.
-- Filas truncadas de MEData: 2.072 de 25.783 líneas (8,04 %) y 54 de 2.939 contratos con todas sus líneas cortadas, es decir, sin valores.
-- Registros sin firma (R4): 0 de 7.468. La copia no trae ninguno, así que la exclusión existe pero hoy no quita nada.
-- Valores no reconocidos (R6): en Procesos, «Solicitud de información a los Proveedores» (786) y «Subasta de prueba» (343) como modalidad, «No» (492) y «No Especificado» (638) como tipo de contrato, y la unidad «SUMINISTRO DE VESTIDO Y CALZADO DE LABOR» (1). Coinciden con lo que ya decían `docs/reglas.md` y esta bitácora.
-
-## 5 nov 2026 · Oferente único (I3, R9; ADR 0043)
-
-- Procesos competitivos adjudicados publicados del 1 de enero de 2022 al corte (30 de octubre de 2026): 894. Ninguno publicado antes de 2022 se cruza con un contrato de la copia.
-- R9 excluye 21 por reportar cero oferentes (2,35 %): 20 en 2022 y 1 en 2023. Ninguno trae el campo vacío. Los 873 restantes entran al denominador.
-- Procesos con oferente único sobre válidos: 2022, 44 de 198 (22,2 %); 2023, 49 de 164 (29,9 %); 2024, 31 de 194 (16,0 %); 2025, 25 de 173 (14,5 %); 2026 (parcial), 21 de 144 (14,6 %).
-- Por unidad, 743 de los 876 procesos que se cruzan con un contrato los conduce Suministros y Servicios, la unidad de compras centralizada. Por eso el tablero aclara que la secretaría de I3 es la que adelanta el proceso y no siempre la que pidió el bien.
