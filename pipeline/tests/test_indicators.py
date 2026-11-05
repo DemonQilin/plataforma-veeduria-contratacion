@@ -87,7 +87,7 @@ def test_r13_published_cells_are_yearly_and_never_leak_small_figures(cells) -> N
 
 
 def test_build_indicators_covers_i1_i2_and_i8(cells) -> None:
-    assert {c.indicator for c in cells} == {"I1", "I2", "I8"}
+    assert {c.indicator for c in cells} == {"I1", "I2", "I3", "I8"}
 
 
 def test_build_indicators_uses_the_given_cutoff_date(real_connection) -> None:

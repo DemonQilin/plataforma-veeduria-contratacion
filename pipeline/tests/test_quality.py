@@ -147,6 +147,11 @@ def test_r04_quality_reports_the_unsigned_records_excluded(quality: Quality) -> 
     assert (unsigned.count, unsigned.total, unsigned.share) == (0, 7468, 0.0)
 
 
+def test_r09_quality_reports_the_processes_with_zero_bidders_excluded(quality: Quality) -> None:
+    excluded = quality.single_bidder_exclusions
+    assert (excluded.count, excluded.total, excluded.share) == (21, 894, 0.0235)
+
+
 def test_r06_quality_reports_the_texts_the_catalogs_do_not_know(quality: Quality) -> None:
     reported = {
         (value.catalog, value.raw_text): value.row_count for value in quality.unrecognized_values

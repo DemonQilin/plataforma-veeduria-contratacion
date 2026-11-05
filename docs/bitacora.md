@@ -452,3 +452,10 @@ Fuente: [Portafolio · En víspera de Ley de Garantías se quintuplicó la contr
 - Filas truncadas de MEData: 2.072 de 25.783 líneas (8,04 %) y 54 de 2.939 contratos con todas sus líneas cortadas, es decir, sin valores.
 - Registros sin firma (R4): 0 de 7.468. La copia no trae ninguno, así que la exclusión existe pero hoy no quita nada.
 - Valores no reconocidos (R6): en Procesos, «Solicitud de información a los Proveedores» (786) y «Subasta de prueba» (343) como modalidad, «No» (492) y «No Especificado» (638) como tipo de contrato, y la unidad «SUMINISTRO DE VESTIDO Y CALZADO DE LABOR» (1). Coinciden con lo que ya decían `docs/reglas.md` y esta bitácora.
+
+## 5 nov 2026 · Oferente único (I3, R9; ADR 0043)
+
+- Procesos competitivos adjudicados publicados del 1 de enero de 2022 al corte (30 de octubre de 2026): 894. Ninguno publicado antes de 2022 se cruza con un contrato de la copia.
+- R9 excluye 21 por reportar cero oferentes (2,35 %): 20 en 2022 y 1 en 2023. Ninguno trae el campo vacío. Los 873 restantes entran al denominador.
+- Procesos con oferente único sobre válidos: 2022, 44 de 198 (22,2 %); 2023, 49 de 164 (29,9 %); 2024, 31 de 194 (16,0 %); 2025, 25 de 173 (14,5 %); 2026 (parcial), 21 de 144 (14,6 %).
+- Por unidad, 743 de los 876 procesos que se cruzan con un contrato los conduce Suministros y Servicios, la unidad de compras centralizada. Por eso el tablero aclara que la secretaría de I3 es la que adelanta el proceso y no siempre la que pidió el bien.

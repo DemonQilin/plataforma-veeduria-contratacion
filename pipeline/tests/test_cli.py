@@ -48,7 +48,7 @@ def test_r13_run_from_snapshot_writes_indicators_that_match_the_contract(tmp_pat
     assert result.exit_code == 0, result.output
     payload = json.loads((tmp_path / "out" / "indicators.json").read_text(encoding="utf-8"))
     Indicators.model_validate(payload)
-    assert {cell["indicator"] for cell in payload["cells"]} == {"I1", "I2", "I8"}
+    assert {cell["indicator"] for cell in payload["cells"]} == {"I1", "I2", "I3", "I8"}
 
 
 def test_run_from_snapshot_is_deterministic(tmp_path) -> None:

@@ -155,6 +155,9 @@ Usa siempre estos nombres en el código. Si necesitas un término nuevo, agréga
 | catálogo | `catalog` |
 | valores no reconocidos (texto crudo que el catálogo no conoce) | `unrecognized_values` |
 | registros sin firma excluidos (R4) | `unsigned_records` |
+| procesos válidos para oferente único (R9) | `single_bidder_processes` |
+| proceso excluido del oferente único (R9) | `is_excluded` |
+| procesos excluidos por R9 (calidad de datos) | `single_bidder_exclusions` |
 | texto crudo | `raw_text` |
 | fuente (archivo de la copia) | `source` |
 | conteo / total / proporción (calidad de datos) | `count` / `total` / `share` |

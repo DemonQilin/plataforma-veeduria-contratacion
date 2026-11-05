@@ -183,6 +183,7 @@ class Quality(BaseModel):
     unassigned_share: UnassignedShare
     truncated_rows: TruncatedRows
     unsigned_records: QualityShare
+    single_bidder_exclusions: QualityShare
     unrecognized_values: list[UnrecognizedValue]
 
 
