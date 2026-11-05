@@ -136,6 +136,7 @@ Usa siempre estos nombres en el código. Si necesitas un término nuevo, agréga
 | contrato que termina después de la restricción (variante de I2) | `spans_restriction` |
 | sin interadministrativos (variante de I2) | `excluding_interadministrative` |
 | no competitiva (variante de I1: directa más régimen especial) | `non_competitive` |
+| cerca del tope de adiciones (variante de I5: adición desde el 45 % del valor inicial) | `near_addition_cap` |
 | fin de la restricción de referencia | `reference_restriction_end` |
 | calendario electoral (salida del tablero) | `electoral_calendar` |
 | restricción (periodo de la Ley de Garantías) | `restriction` |

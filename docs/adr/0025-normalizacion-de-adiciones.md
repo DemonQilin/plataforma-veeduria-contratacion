@@ -11,7 +11,7 @@ La copia de Adiciones de SECOP II tiene 15.884 filas de 5.990 contratos, y la ma
 ## Decisión
 
 - **Catálogo de tipos** en `pipeline/reference/addition_types.toml` (R6): cada texto crudo pasa a un código (`value_addition`, `general_modification`, `closure`, `reactivation`, `suspension`, `assignment`, `undefined`). Lo que no esté en el catálogo cae en `other` y va al reporte de calidad.
-- **Solo `value_addition` cuenta para I5.** La marca `is_value_addition` es verdadera únicamente para ese código (642 filas). Es un criterio provisorio: `Modificacion General` mezcla cambios de plazo, alcance o forma que no tienen monto, y contarla inflaría I5. La conciliación con `valor_total_adic_contrato` de MEData (R15, tarea 9) lo confirma o lo corrige.
+- **Solo `value_addition` cuenta para I5.** *(Reemplazado por el [ADR 0044](0044-i5-adiciones-desde-medata.md): I5 usa MEData, porque este criterio subcuenta.)* La marca `is_value_addition` es verdadera únicamente para ese código (642 filas). Es un criterio provisorio: `Modificacion General` mezcla cambios de plazo, alcance o forma que no tienen monto, y contarla inflaría I5. La conciliación con `valor_total_adic_contrato` de MEData (R15, tarea 9) lo confirma o lo corrige.
 - **R1 no se aplica aquí.** Adiciones no trae la entidad; la extracción pide solo los `id_contrato` de Contratos (ADR 0016) y no hay ids huérfanos. El cruce con `contracts` (tareas 7 y 8) lo garantiza.
 - **Una fila por fila de la copia, sin deduplicar** y sin filtro de fecha, igual que en Contratos y Procesos (ADR 0023, ADR 0024). Ninguna combinación `id_contrato`, `tipo`, `fecharegistro` se repite.
 - **Tipos:** `fecharegistro` pasa a `TIMESTAMP`; lo que no se pueda leer queda en `NULL`.

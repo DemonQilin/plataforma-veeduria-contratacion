@@ -10,11 +10,25 @@ Las decisiones que salen de estas observaciones no se registran aquí: pasan a [
 
 | Pregunta | Desde | Cómo se resuelve |
 |---|---|---|
-| ¿`valor_del_contrato` de SECOP II ya incluye las adiciones? | 29 oct | Comparar contra `valor_fin_contrato` de MEData en contratos con adición |
+| ¿Por qué la suma de valores de SECOP II es un 22 % mayor que la de valores iniciales de MEData en 2022, si las adiciones explican unos 7 puntos? | 5 nov | Comparar contrato a contrato los 2.632 que cruzan (versiones, moneda, valor total contra valor del periodo) |
 | ¿Qué es el 10 % de contratos de MEData (307 de 2.939, medido el 5 nov) que no cruza con SECOP II? | 29 oct | Revisar formatos de referencia y buscar en la Tienda Virtual del Estado |
 | ¿El repunte de junio de 2023 y la caída de julio tienen relación con la restricción de convenios por las locales? | 29 oct | Separar interadministrativos del resto y comparar contra el calendario |
 | ¿Las fechas de la restricción de las locales de 2023 son las estimadas? | 29 oct | Fuente oficial |
-| ¿Qué valores de `tipo` de Adiciones cuentan como adición en I5? | 1 nov | Decidido el 3 nov: solo `Adicion en el valor` (ADR 0025). Falta confirmarlo cruzando con `valor_total_adic_contrato` de MEData (R15) |
+| ¿Qué valores de `tipo` de Adiciones cuentan como adición en I5? | 1 nov | Resuelta el 5 nov: ninguno basta. I5 usa solo MEData (ADR 0044) |
+
+---
+
+## 5 nov 2026 · Adiciones: SECOP II incluye las adiciones y subcuenta las de valor
+
+Se cruzaron las adiciones de SECOP II con `valor_total_adic_contrato` de MEData antes de implementar I5.
+
+- **El valor de SECOP II ya incluye las adiciones.** De los 419 contratos con adición en valor en MEData, el valor de la primera versión de SECOP II es igual al valor final de MEData en 378 y al inicial en 5. Solo 40 de 7.428 referencias tienen más de una versión: SECOP II sobrescribe el valor en la misma fila. Responde la pregunta abierta del 29 de octubre.
+- **«Adicion en el valor» subcuenta.** Solo 79 de esos 419 contratos traen ese tipo en Adiciones; 100 contratos con ese tipo no tienen adiciones en MEData. La mayoría de las adiciones reales figuran como `Modificacion General`.
+- **Peso en las cifras publicadas.** En los contratos que están en las dos fuentes, el valor adicionado es el 7,0 % del inicial de MEData en 2022 y el 2,0 % en 2023. La proporción de I1 por valor es 79,8 % con el valor de SECOP II y 80,5 % con el inicial de MEData en 2022 (88,6 % y 88,3 % en 2023); la de I2 por valor en 2022, 72,6 % y 73,3 %. La lectura no cambia, pero la frase de D3 («valor inicial: primera versión firmada») no se cumple en los contratos con adiciones.
+- **Tope del 50 %.** Adicionado ÷ valor inicial de MEData: menos de 10 %, 82 contratos; 10 a 25 %, 103; 25 a 40 %, 80; 40 a 45 %, 16; 45 a 50 %, 185; más de 50 %, 9.
+- **Pregunta nueva:** la suma de valores de SECOP II es un 22 % mayor que la de valores iniciales de MEData en 2022; las adiciones explican unos 7 puntos.
+
+La decisión está en el [ADR 0044](adr/0044-i5-adiciones-desde-medata.md).
 
 ---
 
