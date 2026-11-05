@@ -18,6 +18,29 @@ Las decisiones que salen de estas observaciones no se registran aquí: pasan a [
 
 ---
 
+## 4 nov 2026 · Primera corrida de I8 (serie de planeación) sobre la copia
+
+Proporción de las líneas directas del Plan Anual con inicio estimado en enero y de febrero a junio, 2014–2023. Todas las líneas directas traen mes; solo 2 de 2017 no traen valor y quedan fuera de la medida por valor.
+
+| Año | Papel | Enero (número) | Feb–jun (número) | Enero (valor) | Feb–jun (valor) |
+|---|---|---:|---:|---:|---:|
+| 2014 | tratamiento | 45,7 % | 15,0 % | 10,2 % | 6,3 % |
+| 2015 | local | 50,4 % | 41,7 % | 36,9 % | 57,0 % |
+| 2016 | control (1.er año) | 26,8 % | 45,8 % | 38,5 % | 38,9 % |
+| 2017 | control | 33,5 % | 37,6 % | 30,0 % | 38,4 % |
+| 2018 | tratamiento | 57,0 % | 16,0 % | 23,9 % | 23,5 % |
+| 2019 | local | 66,3 % | 30,3 % | 52,3 % | 46,3 % |
+| 2020 | control (1.er año) | 34,5 % | 34,8 % | 36,0 % | 37,4 % |
+| 2021 | control | 24,5 % | 41,0 % | 18,1 % | 55,9 % |
+| 2022 | tratamiento | 52,5 % | 8,3 % | 19,8 % | 17,1 % |
+| 2023 | local | 44,4 % | 44,1 % | 46,6 % | 51,4 % |
+
+- Criterio 2 del punto de decisión 1: en los tres años de elección presidencial, febrero a junio queda por debajo del mínimo de los años de control (34,8 % por número y 37,4 % por valor): 15,0 / 16,0 / 8,3 % y 6,3 / 23,5 / 17,1 %. Se cumple en las dos medidas; la decisión formal es de T8.
+- Los primeros años de administración (2016, 2020) se señalan, como pide [`indicadores.md`](indicadores.md). Su enero por número (26,8 % y 34,5 %) no es sistemáticamente menor que el de los otros controles (33,5 % y 24,5 %), y el mínimo de febrero a junio de los controles por número es 2020 (34,8 %).
+- El plan no distingue el crédito público, así que la medida por valor no puede excluirlo (R7).
+
+---
+
 ## 4 nov 2026 · Primera corrida de I2 sobre la copia
 
 Concentración pre-restricción del Distrito, con el denominador en el tramo común hasta el 30 de octubre y el valor inicial. Los años de tratamiento son 2022 y 2026; los de control, 2023 a 2025.
