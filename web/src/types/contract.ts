@@ -58,3 +58,46 @@ export interface Source {
   name: Name;
   url: Url;
 }
+
+export type BelowThreshold = boolean;
+export type MedataCount = number;
+export type MedataCoverage = number | null;
+export type ReconciliationPeriod = string;
+export type SecopCount = number;
+export type SecopCoverage = number | null;
+export type SharedCount = number;
+export type SharedShare = number | null;
+export type UnionCount = number;
+export type Months = ReconciliationMonth[];
+export type Threshold = number;
+
+/**
+ * Calidad de datos que el tablero advierte (docs/reglas.md, sección 7).
+ */
+export interface Quality {
+  reconciliation: Reconciliation;
+}
+/**
+ * Conciliación mensual y el umbral con el que se advierte (R15).
+ */
+export interface Reconciliation {
+  months: Months;
+  threshold: Threshold;
+}
+/**
+ * Un mes de la conciliación SECOP–MEData (R15; ADR 0031).
+ *
+ * Publica los conteos junto a las razones: con pocos contratos, uno de diferencia mueve mucho
+ * el porcentaje y el tablero debe mostrar la base (ADR 0038).
+ */
+export interface ReconciliationMonth {
+  below_threshold: BelowThreshold;
+  medata_count: MedataCount;
+  medata_coverage: MedataCoverage;
+  period: ReconciliationPeriod;
+  secop_count: SecopCount;
+  secop_coverage: SecopCoverage;
+  shared_count: SharedCount;
+  shared_share: SharedShare;
+  union_count: UnionCount;
+}

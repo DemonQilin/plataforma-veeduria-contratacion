@@ -1,0 +1,120 @@
+{
+  "$defs": {
+    "Reconciliation": {
+      "additionalProperties": false,
+      "description": "Conciliación mensual y el umbral con el que se advierte (R15).",
+      "properties": {
+        "months": {
+          "items": {
+            "$ref": "#/$defs/ReconciliationMonth"
+          },
+          "title": "Months",
+          "type": "array"
+        },
+        "threshold": {
+          "title": "Threshold",
+          "type": "number"
+        }
+      },
+      "required": [
+        "threshold",
+        "months"
+      ],
+      "title": "Reconciliation",
+      "type": "object"
+    },
+    "ReconciliationMonth": {
+      "additionalProperties": false,
+      "description": "Un mes de la conciliación SECOP–MEData (R15; ADR 0031).\n\nPublica los conteos junto a las razones: con pocos contratos, uno de diferencia mueve mucho\nel porcentaje y el tablero debe mostrar la base (ADR 0038).",
+      "properties": {
+        "below_threshold": {
+          "title": "Below Threshold",
+          "type": "boolean"
+        },
+        "medata_count": {
+          "minimum": 0,
+          "title": "Medata Count",
+          "type": "integer"
+        },
+        "medata_coverage": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Medata Coverage"
+        },
+        "period": {
+          "pattern": "^\\d{4}-\\d{2}$",
+          "title": "ReconciliationPeriod",
+          "type": "string"
+        },
+        "secop_count": {
+          "minimum": 0,
+          "title": "Secop Count",
+          "type": "integer"
+        },
+        "secop_coverage": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Secop Coverage"
+        },
+        "shared_count": {
+          "minimum": 0,
+          "title": "Shared Count",
+          "type": "integer"
+        },
+        "shared_share": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Shared Share"
+        },
+        "union_count": {
+          "minimum": 0,
+          "title": "Union Count",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "period",
+        "secop_count",
+        "medata_count",
+        "shared_count",
+        "union_count",
+        "shared_share",
+        "secop_coverage",
+        "medata_coverage",
+        "below_threshold"
+      ],
+      "title": "ReconciliationMonth",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Calidad de datos que el tablero advierte (docs/reglas.md, sección 7).",
+  "properties": {
+    "reconciliation": {
+      "$ref": "#/$defs/Reconciliation"
+    }
+  },
+  "required": [
+    "reconciliation"
+  ],
+  "title": "Quality",
+  "type": "object"
+}

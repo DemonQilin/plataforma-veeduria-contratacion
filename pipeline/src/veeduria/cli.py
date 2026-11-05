@@ -25,6 +25,7 @@ from veeduria.publish.indicators import publish_indicators
 from veeduria.publish.metadata import build_metadata, serialize
 from veeduria.publish.models import export_schemas
 from veeduria.publish.outputs import write_outputs
+from veeduria.publish.quality import build_quality
 
 app = typer.Typer(no_args_is_help=True, add_completion=False, help="Veeduría de contratación.")
 
@@ -113,6 +114,7 @@ def _publish(snapshot_dir: Path, output_dir: Path) -> None:
         connection = build(snapshot_dir)
         metadata = build_metadata(connection)
         indicators = publish_indicators(build_indicators(connection, metadata.cutoff_date))
+        quality = build_quality(connection)
     except (duckdb.IOException, CatalogError, ValueError) as error:
         # El mensaje de DuckDB puede citar rutas, nunca filas; no se imprime tal cual.
         typer.echo(
@@ -121,7 +123,11 @@ def _publish(snapshot_dir: Path, output_dir: Path) -> None:
             err=True,
         )
         raise typer.Exit(1) from None
-    files = {"indicators.json": serialize(indicators), "metadata.json": serialize(metadata)}
+    files = {
+        "indicators.json": serialize(indicators),
+        "metadata.json": serialize(metadata),
+        "quality.json": serialize(quality),
+    }
     for path in write_outputs(files, output_dir):
         typer.echo(f"Escrito {path}")
 
