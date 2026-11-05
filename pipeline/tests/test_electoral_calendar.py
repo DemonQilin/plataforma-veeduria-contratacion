@@ -112,6 +112,24 @@ def test_i2_r11_restriction_end_of_presidential_years() -> None:
     assert all(windows[year].restriction_end is None for year in (2023, 2024, 2025))
 
 
+def test_i2_reference_restriction_end_is_the_restriction_end_in_treatment_years() -> None:
+    windows = _windows()
+    assert windows[2022].reference_restriction_end == date(2022, 6, 19)
+    assert windows[2026].reference_restriction_end == date(2026, 6, 21)
+
+
+def test_i2_reference_restriction_end_is_june_20_in_every_control_year() -> None:
+    windows = _windows()
+    for year in (2023, 2024, 2025):
+        assert windows[year].reference_restriction_end == date(year, 6, 20)
+
+
+def test_i2_reference_restriction_end_does_not_change_restriction_end() -> None:
+    windows = _windows()
+    assert windows[2022].restriction_end == date(2022, 6, 19)
+    assert windows[2024].restriction_end is None
+
+
 def test_i2_r11_interadministrative_restriction_does_not_create_a_window() -> None:
     # La restricción del Congreso de 2026 no cubre la contratación directa.
     assert len(comparison_windows(load_electoral_calendar(), CUTOFF)) == 5

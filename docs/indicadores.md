@@ -54,7 +54,10 @@ Enero es también el mes en que se renuevan los contratos de prestación de serv
 
 1. **Comparación con años de control:** la renovación ocurre todos los años, así que solo cuenta el exceso de los años de restricción sobre los de control.
 2. **Separación por tipo:** se calcula aparte para prestación de servicios y para el resto de contratos.
-3. **Duración de los contratos:** si en los años de restricción los contratos de enero duran más (para cubrir los meses en que no se podrá contratar), es una señal de anticipación independiente del volumen.
+3. **Duración de los contratos:** si en los años de restricción los contratos de enero duran más (para cubrir los meses en que no se podrá contratar), es una señal de anticipación independiente del volumen. Se mide como la proporción de contratos directos firmados en la ventana de enero cuyo plazo pactado termina después del fin de la restricción de referencia (variante `spans_restriction`, solo por número, ADR 0035).
+   - **Plazo pactado:** la fecha de fin de SECOP II menos los días adicionados. Se usa SECOP II y no `duracion_en_dias` de MEData porque este llega hasta junio de 2023.
+   - **Fin de restricción de referencia:** el real en 2022 (19 de junio) y 2026 (21 de junio); en los años de control, el punto medio de ambos, el 20 de junio.
+   - **Limitación:** no se pudo verificar que SECOP II actualice la fecha de fin cuando se agregan días, así que restar los días adicionados es un supuesto.
 
 ### Serie de planeación (I8, 2014–2023)
 
