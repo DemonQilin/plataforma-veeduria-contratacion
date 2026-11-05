@@ -11,10 +11,46 @@ Las decisiones que salen de estas observaciones no se registran aquí: pasan a [
 | Pregunta | Desde | Cómo se resuelve |
 |---|---|---|
 | ¿`valor_del_contrato` de SECOP II ya incluye las adiciones? | 29 oct | Comparar contra `valor_fin_contrato` de MEData en contratos con adición |
-| ¿Qué es el 11 % de contratos de MEData que no cruza con SECOP II? | 29 oct | Revisar formatos de referencia y buscar en la Tienda Virtual del Estado |
+| ¿Qué es el 10 % de contratos de MEData (307 de 2.939, medido el 5 nov) que no cruza con SECOP II? | 29 oct | Revisar formatos de referencia y buscar en la Tienda Virtual del Estado |
 | ¿El repunte de junio de 2023 y la caída de julio tienen relación con la restricción de convenios por las locales? | 29 oct | Separar interadministrativos del resto y comparar contra el calendario |
 | ¿Las fechas de la restricción de las locales de 2023 son las estimadas? | 29 oct | Fuente oficial |
 | ¿Qué valores de `tipo` de Adiciones cuentan como adición en I5? | 1 nov | Decidido el 3 nov: solo `Adicion en el valor` (ADR 0025). Falta confirmarlo cruzando con `valor_total_adic_contrato` de MEData (R15) |
+
+---
+
+## 5 nov 2026 · Revisión de cifras del hallazgo (C1)
+
+Revisión de las cifras publicadas (corte 30 oct 2026) contra la metodología de [`indicadores.md`](indicadores.md) §3. Las consultas se corrieron en memoria sobre la copia, sin escribir nada.
+
+**Verificado**
+
+- **Salidas al día:** `run --from-snapshot` en una carpeta aparte produce `indicators.json` y `metadata.json` idénticos (mismo SHA-256) a los de `data/outputs/`.
+- **Cifras de referencia:** I2 2022 = 723 de 1.240; I8 planeado 2022 = 726 y 115 de 1.383; I8 firmado 2022 = 723 de 1.387. Las fija `test_indicators.py`.
+- **Conciliación R15, 2022:** marzo a julio y diciembre quedan por debajo del 80 % (25,0; 68,4; 70,8; 74,3; 67,6 y 61,5 %). En 2023 ningún mes baja del 80 %. Las fija `test_reconciliation_snapshot.py`.
+- **Serie de planeación:** el criterio 2 se cumple por número (tratamiento 8,3–16,0 % frente a control 34,8–45,8 %) y por valor (6,3–23,5 % frente a 37,4–55,9 %).
+- **Lenguaje:** ninguno de los términos que evita la guía ([`producto.md`](producto.md) 4.4) aparece en `web/src/`, `pipeline/src/` ni `data/outputs/`. En `docs/` solo salen en la propia guía y en usos técnicos (el índice de Fazekas, comillas «irregulares», «no una irregularidad»).
+
+**Corregido en los documentos**
+
+- El catálogo de I2 decía «de enero a octubre»; ahora dice el tramo común hasta la fecha de corte (R12).
+- El rango «8–16 % frente a 35–46 %» de `indicadores.md` valía solo por número; ahora se dan las dos medidas.
+- La cobertura de MEData en SECOP II es **2.632 de 2.939 (90 %)**, no 2.628 (89 %). Quedan 307 sin cruce (10 %). Las entradas anteriores se conservan; la diferencia de 4 contratos no tiene causa verificada. En la copia actual no hay contratos de MEData sin proceso, así que la explicación del 3 nov («menos 4 sin proceso») ya no aplica.
+- ADR 0036: «1.436 de 1.708» es correcto contando todas las fechas de 2022 a 2026; en el tramo común son 1.336 de 1.595. Las brechas de 37 y 43 puntos son diferencias de medias, no la métrica del criterio 1.
+- El ejemplo de base de [`producto.md`](producto.md) usaba «52 % de 1.390» (cifra preliminar); ahora usa 58,3 % de 1.240.
+- Se declaran en las limitaciones los seis meses de 2022 bajo el 80 %, el resultado no concluyente de la duración de los contratos y la robustez de I8 por valor.
+
+**Abierto**
+
+- **R15 no se publica:** se calcula en `build`, pero no hay salida en `data/outputs/` y el tablero no puede advertir los meses bajos. Queda en [`plan.md`](plan.md) §10.
+- **Ninguna prueba fija el 727** de MEData para enero de 2022; la prueba de conciliación fija las cifras por fecha de SECOP II.
+- **Para T8, cifra titular de I2.** Brecha entre el menor año de tratamiento y el máximo de control:
+
+| Medida | I2 base | `excluding_interadministrative` |
+|---|---|---|
+| Por número | 58,3 − 30,7 = 27,6 puntos | 70,1 − 39,6 = 30,5 puntos |
+| Por valor | 30,7 − 29,8 = 0,9 puntos | 74,5 − 48,2 = 26,3 puntos |
+
+  Con la definición base, el criterio 1 por valor se cumple por menos de un punto; con la variante, la separación es amplia. Elegir la cifra después de ver esto es una decisión de T8 (ADR 0036).
 
 ---
 

@@ -187,7 +187,7 @@ Aplica a todo texto del proyecto: tablero, ficha, pitch, documentación y mensaj
 | «Vale la pena revisar» | «Hay evidencia de» |
 | «La Alcaldía firmó» | «El alcalde favoreció» |
 | «Antes de la restricción» | «Para burlar la ley» |
-| Cifras con su base («52 % de 1.390 contratos») | Porcentajes sueltos |
+| Cifras con su base («58,3 % de 1.240 contratos») | Porcentajes sueltos |
 
 La motivación del proyecto (la veeduría frente al clientelismo) se explica en el pitch y en la ficha, pero el tablero no usa esa palabra. Los indicadores dan los elementos y el lector saca sus conclusiones.
 

@@ -8,9 +8,9 @@
 
 La concentración pre-restricción de I2 es sensible a los contratos interadministrativos. La restricción local de 2023 les quita los de julio a octubre del denominador de ese año, y en enero de 2022 no hay ninguno (causa no verificada). Medido el 4 de noviembre de 2026:
 
-- Por número de contratos, la brecha entre tratamiento y control es de 37 puntos con ellos y de 43 sin ellos.
+- Por número de contratos, la brecha entre tratamiento y control es de 37 puntos con ellos y de 43 sin ellos. Son diferencias de medias (promedio de 2022 y 2026 menos promedio de 2023 a 2025), no la métrica del criterio 1 de decisión, que compara el menor año de tratamiento con el valor más alto de control: 27,6 puntos con ellos y 30,5 sin ellos.
 - Por valor, 2022 (30,7 %) casi no se distingue del control 2023 (29,8 %) si se incluyen.
-- La variante `non_service_contract` ya está dominada por ellos: 1.436 de 1.708 directos que no son prestación de servicios (84 %).
+- La variante `non_service_contract` ya está dominada por ellos: 1.436 de 1.708 directos que no son prestación de servicios de 2022 a 2026 (84 %), contando todas las fechas. En el tramo común (hasta el 30 de octubre de cada año) son 1.336 de 1.595 (84 %).
 
 ## Decisión
 
