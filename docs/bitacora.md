@@ -18,6 +18,22 @@ Las decisiones que salen de estas observaciones no se registran aquí: pasan a [
 
 ---
 
+## 5 nov 2026 · I1 publicado
+
+I1 entra a `data/outputs/indicators.json` por año y secretaría (decisión en el [ADR 0039](adr/0039-i1-anual-por-secretaria.md)). Cifras del Distrito, copia de corte 30 oct 2026; 2026 llega hasta el corte.
+
+| Año | Directa · número | No competitiva · número | Directa · valor | No competitiva · valor |
+|---|---:|---:|---:|---:|
+| 2022 | 80,8 % (1.387 de 1.716) | 85,3 % (1.463) | 68,7 % | 72,0 % |
+| 2023 | 82,0 % (1.366 de 1.666) | 87,0 % (1.449) | 49,6 % | 88,0 % |
+| 2024 | 76,0 % (978 de 1.287) | 82,4 % (1.061) | 67,9 % | 77,8 % |
+| 2025 | 81,8 % (1.186 de 1.449) | 85,9 % (1.244) | 77,0 % | 82,7 % |
+| 2026 | 82,7 % (1.084 de 1.310) | 85,5 % (1.120) | 66,4 % | 67,9 % |
+
+- Los 1.387 de 2022 coinciden con el denominador de I8 firmado.
+- En 2023 la proporción por valor pasa de 49,6 % (directa) a 88,0 % (no competitiva): ese año el régimen especial concentra mucho valor, aunque pocos contratos (83 de 1.666). Es una lectura para revisar, no una conclusión.
+- De 548 celdas por secretaría, 16 quedan suprimidas (8 por número y 8 por valor). «Sin asignar» tiene 2 contratos en 2023, y por eso se suprime ese año.
+
 ## 5 nov 2026 · Cierre de los pendientes de C1
 
 - **R15 publicada.** `data/outputs/quality.json` trae la conciliación por mes (18 meses), con los conteos de cada fuente, las razones y el umbral de 0,8. Marca los seis meses de 2022 bajo el 80 %: marzo, abril, mayo, junio, julio y diciembre. No se aplica la supresión R13 a esta salida; la decisión y su guarda están en el [ADR 0038](adr/0038-r15-publicada-sin-supresion.md). El mínimo de contratos es 5, en los contratos de ambas fuentes de febrero y marzo de 2022 y en SECOP II de febrero de 2022.

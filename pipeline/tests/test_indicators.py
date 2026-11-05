@@ -63,15 +63,31 @@ def test_r16_every_cell_has_a_unique_key(cells) -> None:
     assert len(keys) == len(set(keys))
 
 
-def test_r13_published_cells_are_district_yearly_and_not_suppressed(cells) -> None:
+def test_i1_golden_2022_by_count(cells) -> None:
+    cell = next(
+        c
+        for c in cells
+        if (c.indicator, c.variant, c.measure, c.level, c.period)
+        == ("I1", None, "count", "district", "2022")
+    )
+    assert (cell.numerator, cell.denominator) == (1387, 1716)
+
+
+def test_r13_published_cells_are_yearly_and_never_leak_small_figures(cells) -> None:
     published = publish_indicators(cells).cells
     assert len(published) == len(cells)
-    assert {(c.level, c.is_suppressed) for c in published} == {("district", False)}
     assert all(len(c.period) == len("AAAA") for c in published)
+    # La cifra anual del Distrito siempre se publica.
+    assert {c.is_suppressed for c in published if c.level == "district"} == {False}
+    for cell in published:
+        if cell.is_suppressed:
+            assert (cell.numerator, cell.denominator, cell.ratio) == (None, None, None)
+        elif cell.level == "department":
+            assert cell.sample_size >= 5
 
 
-def test_build_indicators_covers_i2_and_i8(cells) -> None:
-    assert {c.indicator for c in cells} == {"I2", "I8"}
+def test_build_indicators_covers_i1_i2_and_i8(cells) -> None:
+    assert {c.indicator for c in cells} == {"I1", "I2", "I8"}
 
 
 def test_build_indicators_uses_the_given_cutoff_date(real_connection) -> None:
