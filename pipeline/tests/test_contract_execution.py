@@ -71,6 +71,17 @@ def _row(
     ]
 
 
+def test_r03_reference_drops_surrounding_spaces_and_nbsp(tmp_path: Path) -> None:
+    """ADR 0046: la llave de cruce con SECOP II no lleva espacios en los extremos."""
+    connection = _normalize(
+        tmp_path,
+        [_row(reference="4600000001 "), _row(reference=" 4600000002 ")],
+    )
+    assert connection.execute(
+        "SELECT contract_reference FROM contract_execution ORDER BY contract_reference"
+    ).fetchall() == [("4600000001",), ("4600000002",)]
+
+
 def test_adr0010_mojibake_is_repaired_before_the_catalog(tmp_path: Path) -> None:
     connection = _normalize(
         tmp_path,

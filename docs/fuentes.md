@@ -74,7 +74,7 @@ El indicador de oferente único es viable: el campo está poblado y aparecen pro
 - Cada fila es una línea presupuestal de un contrato, no un contrato. CSV de 26,7 MB y 25.783 filas.
 - Cubre contratos firmados del 4 ene 2022 al 30 jun 2023: 2.939 contratos únicos (1.730 de 2022 y 1.209 de 2023), de 28 secretarías.
 - **Aporta lo que SECOP no tiene:** secretaría, proyecto, ruta presupuestal y el valor de cada adición como pedido aparte.
-- **Cruce con SECOP II:** 2.632 de los 2.939 contratos (90 %) aparecen en SECOP II por `referencia_del_contrato`. El 10 % restante (307) está por revisar: pueden ser contratos fuera de SECOP II (por ejemplo, en la Tienda Virtual del Estado) o referencias con formato distinto.
+- **Cruce con SECOP II:** 2.633 de los 2.939 contratos (90 %) aparecen en SECOP II por `referencia_del_contrato`, comparada sin espacios en los extremos (ADR 0046). El 10 % restante (306) está por revisar: pueden ser contratos fuera de SECOP II (por ejemplo, en la Tienda Virtual del Estado) o referencias con formato distinto.
 - **Solo se descarga completo.** La fuente no permite elegir columnas, así que el archivo se guarda en `data/raw/` (fuera de git) y la lista blanca se aplica al leerlo.
 - **Descarga:** `https://medata.app.medellin.gov.co/sites/default/files/distribution/1-028-12-000088/Ejecucion_contractual.csv`. Responde 200 directo, sin redirección. La URL de la ficha del conjunto no es el archivo.
 - **Extracción del 1 nov:** 25.783 filas de 59 columnas (23.711 completas y 2.072 cortadas), 2.939 contratos y 28 secretarías. La copia en `data/snapshot/` tiene 13 columnas. Formato del archivo y del parser en [ADR 0010](adr/0010-parser-medata-y-ftfy.md).
@@ -100,7 +100,7 @@ SECOP II Contratos.id_contrato               ──  SECOP II Adiciones.id_contr
 SECOP II Contratos.referencia_del_contrato   ──  MEData Ejecución.contrato
 ```
 
-El cruce con MEData se probó a escala: 2.632 de 2.939 contratos (90 %). En enero de 2022, la conciliación da 723 contratos en SECOP II frente a 727 en MEData.
+El cruce con MEData se probó a escala: 2.633 de 2.939 contratos (90 %). En enero de 2022, la conciliación da 723 contratos en SECOP II frente a 727 en MEData.
 
 ---
 

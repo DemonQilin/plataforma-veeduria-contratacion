@@ -90,6 +90,21 @@ def test_r02_signed_before_2022_is_left_out(tmp_path: Path) -> None:
     assert connection.execute("SELECT contract_id FROM contracts").fetchall() == [("first",)]
 
 
+def test_r03_reference_drops_surrounding_spaces_and_nbsp(tmp_path: Path) -> None:
+    """ADR 0046: la llave de cruce con MEData no lleva espacios en los extremos."""
+    connection = _normalize(
+        tmp_path,
+        [
+            _row(id_contrato="A", referencia_del_contrato="4600000001 "),
+            _row(id_contrato="B", referencia_del_contrato=" 4600000002 "),
+            _row(id_contrato="C", referencia_del_contrato="4600000003 de 2022"),
+        ],
+    )
+    assert connection.execute(
+        "SELECT contract_reference FROM contracts ORDER BY contract_id"
+    ).fetchall() == [("4600000001",), ("4600000002",), ("4600000003 de 2022",)]
+
+
 def test_r02_unsigned_contract_is_kept_for_r04(tmp_path: Path) -> None:
     connection = _normalize(tmp_path, [_row(fecha_de_firma="")])
     assert connection.execute("SELECT signed_date FROM contracts").fetchall() == [(None,)]

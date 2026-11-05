@@ -11,7 +11,7 @@ Las decisiones que salen de estas observaciones no se registran aquí: pasan a [
 | Pregunta | Desde | Cómo se resuelve |
 |---|---|---|
 | ¿Por qué la suma de valores de SECOP II es un 22 % mayor que la de valores iniciales de MEData en 2022, si las adiciones explican unos 7 puntos? | 5 nov | Comparar contrato a contrato los 2.632 que cruzan (versiones, moneda, valor total contra valor del periodo) |
-| ¿Qué es el 10 % de contratos de MEData (307 de 2.939, medido el 5 nov) que no cruza con SECOP II? | 29 oct | Revisar formatos de referencia y buscar en la Tienda Virtual del Estado |
+| ¿Qué es el 10 % de contratos de MEData (306 de 2.939, medido el 5 nov tras el ADR 0046) que no cruza con SECOP II? | 29 oct | Revisar si las 230 referencias de SECOP II con formato «NNNNNNNNNN de 2022» cruzan con el número de MEData, y buscar en la Tienda Virtual del Estado |
 | ¿El repunte de junio de 2023 y la caída de julio tienen relación con la restricción de convenios por las locales? | 29 oct | Separar interadministrativos del resto y comparar contra el calendario |
 | ¿Las fechas de la restricción de las locales de 2023 son las estimadas? | 29 oct | Resuelta el 4 nov: 29 jun–29 oct 2023 (Circular 016 de 2023 y concepto C-239 de CCE; ver plan.md) |
 | ¿Qué valores de `tipo` de Adiciones cuentan como adición en I5? | 1 nov | Resuelta el 5 nov: ninguno basta. I5 usa solo MEData (ADR 0044) |

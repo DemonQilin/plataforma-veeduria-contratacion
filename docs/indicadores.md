@@ -109,7 +109,7 @@ Frase del hallazgo, con las cifras finales de la definición base por número de
 
 - **Adelantar contratos es legal.** La ley restringe contratar durante el periodo, no antes. El hallazgo describe cómo se planea la contratación, no una irregularidad.
 - **Correlación, no causalidad.** Otros factores, como los cambios de gobierno o de presupuesto, pueden influir.
-- **Cobertura.** El 10 % de los contratos de MEData (307 de 2.939) no aparece en SECOP II, y MEData solo cubre hasta junio de 2023.
+- **Cobertura.** El 10 % de los contratos de MEData (306 de 2.939) no aparece en SECOP II, y MEData solo cubre hasta junio de 2023.
 - **Conciliación de 2022.** Seis meses de 2022 (marzo a julio y diciembre) tienen menos del 80 % de los contratos en ambas fuentes (R15).
 - **I8 por valor es menos robusto que por número.** Si se quitan las cinco líneas directas más grandes de cada año, la brecha por valor baja de 13,9 a 3,2 puntos. La medida principal es el número de contratos; el valor se presenta como complemento. El plan tampoco permite excluir el crédito público (R7), y el de 2023 no sirve como referencia mensual.
 - **I2 por valor es menos concluyente que por número.** Con la definición base, 2022 supera al mejor año de control por 0,9 puntos (30,7 % frente a 29,8 %). Sin interadministrativos la brecha es de 26,3 puntos. Por eso la cifra titular es la del número de contratos y el valor es un complemento (ADR 0037).

@@ -10115,7 +10115,7 @@
       "variant": null
     },
     {
-      "denominator": 1079.0,
+      "denominator": 1080.0,
       "department": null,
       "indicator": "I5",
       "is_suppressed": false,
@@ -10123,8 +10123,8 @@
       "measure": "count",
       "numerator": 66.0,
       "period": "2023",
-      "ratio": 0.061168,
-      "sample_size": 1079,
+      "ratio": 0.061111,
+      "sample_size": 1080,
       "variant": null
     },
     {
@@ -10687,7 +10687,7 @@
       "variant": null
     },
     {
-      "denominator": 155.0,
+      "denominator": 156.0,
       "department": "social_inclusion",
       "indicator": "I5",
       "is_suppressed": false,
@@ -10695,8 +10695,8 @@
       "measure": "count",
       "numerator": 4.0,
       "period": "2023",
-      "ratio": 0.025806,
-      "sample_size": 155,
+      "ratio": 0.025641,
+      "sample_size": 156,
       "variant": null
     },
     {
@@ -10843,7 +10843,7 @@
       "variant": null
     },
     {
-      "denominator": 1586026504230.0,
+      "denominator": 1586078162980.0,
       "department": null,
       "indicator": "I5",
       "is_suppressed": false,
@@ -10851,8 +10851,8 @@
       "measure": "value",
       "numerator": 31623952112.0,
       "period": "2023",
-      "ratio": 0.019939,
-      "sample_size": 1077,
+      "ratio": 0.019938,
+      "sample_size": 1078,
       "variant": null
     },
     {
@@ -11415,7 +11415,7 @@
       "variant": null
     },
     {
-      "denominator": 182302158758.0,
+      "denominator": 182353817508.0,
       "department": "social_inclusion",
       "indicator": "I5",
       "is_suppressed": false,
@@ -11423,8 +11423,8 @@
       "measure": "value",
       "numerator": 4062708515.0,
       "period": "2023",
-      "ratio": 0.022286,
-      "sample_size": 155,
+      "ratio": 0.022279,
+      "sample_size": 156,
       "variant": null
     },
     {

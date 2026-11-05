@@ -19,7 +19,8 @@ classified AS (
 )
 SELECT
     raw.id_contrato AS contract_id,
-    raw.referencia_del_contrato AS contract_reference,
+    -- R3 y ADR 0046: la referencia es la llave de cruce con MEData; trim() quita también el NBSP.
+    trim(raw.referencia_del_contrato) AS contract_reference,
     raw.proceso_de_compra AS procurement_process,
     classified.procurement_method,
     classified.direct_award,
