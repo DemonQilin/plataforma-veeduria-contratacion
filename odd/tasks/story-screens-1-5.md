@@ -19,7 +19,7 @@ Objetivo: el bloque del 5 al 6 nov de `docs/plan.md:38`, con una fase de diseño
 
 | ID | Specs | Tarea | Ruta | Estado | Evidencia |
 |---|---|---|---|---|---|
-| D1 | S1, S2 | Sistema de diseño en Claude Design | en línea | pendiente | |
+| D1 | S1, S2 | Sistema de diseño en Claude Design | en línea | publicado, a revisión de Juan | https://claude.ai/artifact/6snvHytHXX7jgJrvGnW5Cj; contraste 0 fallos de 34 pares (claro y oscuro) |
 | D2 | S1, S3, S7 | Maquetas de las pantallas 1 a 5 | en línea | pendiente | |
 | D3 | S4 | ADR de decisiones visuales | en línea | pendiente | |
 | T1 | S2, S4 | Colores en CSS, diseño general y recorrido en `Base.astro` | en línea | pendiente | |
@@ -40,3 +40,4 @@ Ruta: todo en línea; no hay unidades paralelas con superficies separadas que ju
 
 - **L1 (6 nov 2026).** «Define la lista de tareas para este objetivo, incluye una fase de diseño (con claude design) y muestra pera revisar». Juan aprobó la lista tal cual: «Apruebo».
 - **L2 (6 nov 2026).** Las salidas cubren las 5 pantallas. El plan B de Astro (`docs/plan.md:120`) ya aplica porque al 6 nov no había avance en el sitio. Siguiente: D1.
+- **L3 (6 nov 2026).** D1 publicado: 14 tokens de color en claro y oscuro, texto en Atkinson Hyperlegible Next, 4 espacios, 3 radios, README y portada. Medido con WCAG: 17 pares por tema, 0 fallos (texto ≥ 4,5:1; marcas, bordes y foco ≥ 3:1). `validate_palette.js` sobre tratamiento y control: separación normal ΔE 17,8 (claro) y 16,3 (oscuro), CVD ΔE 14,4 y 9,0, contraste ≥ 3:1. El validador marca el piso de croma del gris del control: es neutro a propósito y queda anotado en el README. Falta que Juan lo revise en el navegador antes de D2.
