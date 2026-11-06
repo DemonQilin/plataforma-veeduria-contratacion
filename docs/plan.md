@@ -169,6 +169,8 @@ Requisito habilitante. Propuestas basadas en lo que encontramos al trabajar con 
 
 La ficha incluirá las que sigan siendo válidas después del análisis final, con su cifra de respaldo.
 
+Las plantillas de la ficha y del pitch están en un documento privado de Claude Docs, que no se publica en el repositorio: <https://claude.ai/artifact/J3JNonjA2ANsfJYQ257Dsn>.
+
 ---
 
 ## 9. Entregables
