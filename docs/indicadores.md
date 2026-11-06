@@ -82,8 +82,8 @@ Con el Plan Anual de Adquisiciones se calcula, para cada año, la proporción de
 - **Consolidación:** una fila por `referencia_del_contrato`, con la primera fecha de firma no vacía; se descartan los registros sin fecha de firma (R3, R4).
 - **Normalización de modalidad:** todo lo que empiece por «Contratación directa», sin distinguir mayúsculas, cuenta como directa (R6, D1).
 - **Validación cruzada:** para 2022 y el primer semestre de 2023, se calcula por mes qué proporción de contratos aparece en ambas fuentes (R15, ADR 0031).
-  - **2022:** seis meses quedan por debajo del 80 %: marzo (25,0 %), abril (68,4 %), mayo (70,8 %), junio (74,3 %), julio (67,6 %) y diciembre (61,5 %). Las cifras de I2 de 2022 se leen con esa advertencia.
-  - **2023:** ningún mes baja del 80 %, aunque cuatro quedan entre 80,1 y 81,5 %.
+  - **2022:** cuatro meses quedan por debajo del 80 %: marzo (66,7 %), abril (77,8 %), mayo (74,5 %) y diciembre (70,3 %). Antes de reconocer las referencias «de AAAA» (ADR 0047) eran seis, con junio (74,3 %) y julio (67,6 %), que ahora llegan a 88,7 % y 86,1 %. Las cifras de I2 de 2022 se leen con esa advertencia.
+  - **2023:** ningún mes baja del 80 %; el más bajo es marzo (88,1 %).
   - **Enero de 2022:** 723 contratos en SECOP II frente a 727 en MEData. La comparación no es estricta, porque cada fuente usa su propia fecha de firma.
 
 ### Criterio de decisión (3 nov 2026)
@@ -109,8 +109,8 @@ Frase del hallazgo, con las cifras finales de la definición base por número de
 
 - **Adelantar contratos es legal.** La ley restringe contratar durante el periodo, no antes. El hallazgo describe cómo se planea la contratación, no una irregularidad.
 - **Correlación, no causalidad.** Otros factores, como los cambios de gobierno o de presupuesto, pueden influir.
-- **Cobertura.** El 10 % de los contratos de MEData (306 de 2.939) no aparece en SECOP II, y MEData solo cubre hasta junio de 2023.
-- **Conciliación de 2022.** Seis meses de 2022 (marzo a julio y diciembre) tienen menos del 80 % de los contratos en ambas fuentes (R15).
+- **Cobertura.** El 4 % de los contratos de MEData (106 de 2.939) no aparece en SECOP II, y MEData solo cubre hasta junio de 2023.
+- **Conciliación de 2022.** Cuatro meses de 2022 (marzo, abril, mayo y diciembre) tienen menos del 80 % de los contratos en ambas fuentes (R15).
 - **I8 por valor es menos robusto que por número.** Si se quitan las cinco líneas directas más grandes de cada año, la brecha por valor baja de 13,9 a 3,2 puntos. La medida principal es el número de contratos; el valor se presenta como complemento. El plan tampoco permite excluir el crédito público (R7), y el de 2023 no sirve como referencia mensual.
 - **I2 por valor es menos concluyente que por número.** Con la definición base, 2022 supera al mejor año de control por 0,9 puntos (30,7 % frente a 29,8 %). Sin interadministrativos la brecha es de 26,3 puntos. Por eso la cifra titular es la del número de contratos y el valor es un complemento (ADR 0037).
 - **Dos años de tratamiento.** Con tan pocos casos, el resultado se presenta como un patrón descriptivo, sin pruebas de significancia estadística.

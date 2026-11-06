@@ -11,10 +11,47 @@ Las decisiones que salen de estas observaciones no se registran aquí: pasan a [
 | Pregunta | Desde | Cómo se resuelve |
 |---|---|---|
 | ¿Por qué la suma de valores de SECOP II es un 22 % mayor que la de valores iniciales de MEData en 2022, si las adiciones explican unos 7 puntos? | 5 nov | Comparar contrato a contrato los 2.632 que cruzan (versiones, moneda, valor total contra valor del periodo) |
-| ¿Qué es el 10 % de contratos de MEData (306 de 2.939, medido el 5 nov tras el ADR 0046) que no cruza con SECOP II? | 29 oct | Revisar si las 230 referencias de SECOP II con formato «NNNNNNNNNN de 2022» cruzan con el número de MEData, y buscar en la Tienda Virtual del Estado |
+| ¿Qué es el 4 % de contratos de MEData (106 de 2.939, medido el 5 nov tras el ADR 0047) que no cruza con SECOP II? | 29 oct | Las referencias «NNNNNNNNNN de AAAA» ya cruzan (200 contratos, 5 nov). Buscar el resto en la Tienda Virtual del Estado y en otras entidades |
 | ¿El repunte de junio de 2023 y la caída de julio tienen relación con la restricción de convenios por las locales? | 29 oct | Separar interadministrativos del resto y comparar contra el calendario |
 | ¿Las fechas de la restricción de las locales de 2023 son las estimadas? | 29 oct | Resuelta el 4 nov: 29 jun–29 oct 2023 (Circular 016 de 2023 y concepto C-239 de CCE; ver plan.md) |
 | ¿Qué valores de `tipo` de Adiciones cuentan como adición en I5? | 1 nov | Resuelta el 5 nov: ninguno basta. I5 usa solo MEData (ADR 0044) |
+
+---
+
+## 5 nov 2026 · Referencias «NNNNNNNNNN de AAAA» cruzadas con MEData
+
+Cierre de la pregunta abierta del ADR 0046. Corte 30 oct 2026.
+
+**Qué se midió**
+
+- 430 referencias canónicas de SECOP II no son solo dígitos; las de MEData sí lo son (2.939). No eran 230: la tarea contó solo las que traen «de» en minúscula. Con «DE» en mayúscula hay 65 contratos de MEData más que cruzan.
+- **200 de los 306 contratos de MEData sin cruce** coinciden con una referencia de SECOP II por el número inicial: 132 con «de», 65 con «DE», 1 con «-AAAA», 1 con punto final y 1 con asterisco final.
+- Los 200 pares tienen la misma secretaría y el mismo año de firma. Ningún número corresponde a dos procesos distintos.
+- Los valores difieren más de un 1 % en 16 de 193 pares con valor (8 %), frente a 427 de 2.604 (16 %) en los pares que ya cruzaban.
+- Ocho números están dos veces en SECOP II, una limpia y otra con sufijo o signo, siempre en el mismo proceso. R3 los contaba como contratos distintos.
+
+**Qué se cambió** ([ADR 0047](adr/0047-referencia-con-sufijo-de-ano.md)): la normalización de SECOP II reduce esas referencias al número. Un recálculo independiente desde los CSV de la copia coincide con el pipeline en los 18 meses de R15, en los conteos del cruce y en I5.
+
+| Cifra | Antes | Después |
+|---|---|---|
+| Contratos canónicos de SECOP II | 7.428 | 7.420 |
+| Contratos que cruzan con MEData | 2.633 | 2.833 |
+| Sin cruce (de 2.939) | 306 | 106 |
+| Contratos en ambas fuentes dentro de los 18 meses de R15 | 2.629 | 2.829 |
+| Secretarías de MEData / SECOP II / sin asignar | 2.633 / 4.776 / 19 | 2.833 / 4.568 / 19 |
+| Meses de 2022 bajo el 80 % (R15) | 6 | 4 |
+| I5 2022, Distrito: contratos con monto informado (con adición) | 1.524 (353) | 1.632 (387) |
+| I5 2023, Distrito: contratos con monto informado (con adición) | 1.080 (66) | 1.165 (69) |
+| I1 2022, Distrito: contratos (directos) | 1.716 (1.387) | 1.715 (1.387) |
+
+- **R15:** junio y julio de 2022 pasan de 74,3 % y 67,6 % a 88,7 % y 86,1 %, así que dejan de advertirse. Se decidió seguir con el cambio al cruzar el umbral; la regla y el umbral no se tocan. Quedan marzo (66,7 %), abril, mayo y diciembre.
+- **R3:** las 8 fusiones bajan 1 contrato en 2022, 3 en 2023, 3 en 2025 y 1 en 2026 en I1, I2, I4 e I8. I3 no cambia.
+- Ninguna cifra publicada queda con menos de 5 contratos.
+
+**Abierto**
+
+- **106 contratos de MEData sin cruce.** No se buscaron en la Tienda Virtual del Estado.
+- **Diez referencias** de SECOP II quedan con texto distinto del número: `CO1.PCCNTR.N` (7), `CM N`, `CONVENIO N° N DE N` y `N DE N (DISTRITO) Y CT-N-N (EPM)`. No se verificó si alguna corresponde a un contrato de MEData.
 
 ---
 

@@ -28,5 +28,5 @@ SECOP II y MEData se cruzan por igualdad exacta de la referencia del contrato (`
 
 ## Alternativas
 
-- **Normalizar también el formato «NNNNNNNNNN de 2022»:** descartada por ahora. Hay 230 referencias de SECOP II con ese formato, y MEData trae solo el número. Puede explicar parte de los contratos de MEData sin cruce, pero no está verificado y cambia la llave del cruce. Queda como pregunta abierta en la bitácora.
+- **Normalizar también el formato «NNNNNNNNNN de 2022»:** descartada por ahora. Hay 230 referencias de SECOP II con ese formato, y MEData trae solo el número. Puede explicar parte de los contratos de MEData sin cruce, pero no está verificado y cambia la llave del cruce. Queda como pregunta abierta en la bitácora. Se retomó y se aceptó en el [ADR 0047](0047-referencia-con-sufijo-de-ano.md).
 - **Recortar solo en el cruce:** descartada. Dejaría la referencia sucia en `canonical_contracts` y en cada tabla que la use.

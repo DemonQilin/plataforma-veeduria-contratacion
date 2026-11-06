@@ -93,7 +93,7 @@ El catálogo es `pipeline/reference/supplier_types.toml` (ADR 0022). Un valor no
 
 ### Consolidación
 
-- **R3 · Contrato canónico.** Las filas con la misma referencia se consolidan en un solo contrato. La referencia, llave de cruce con MEData, se guarda sin espacios en los extremos, incluido el espacio no separable (ADR 0046).
+- **R3 · Contrato canónico.** Las filas con la misma referencia se consolidan en un solo contrato. La referencia, llave de cruce con MEData, se guarda sin espacios en los extremos, incluido el espacio no separable (ADR 0046). Si SECOP II la escribe «NNNNNNNNNN de AAAA» (sin distinguir mayúsculas, con «del» o un guion) o con un punto, guion o asterisco final, se reduce al número, que es lo que guarda MEData; las filas que quedan con la misma referencia se consolidan (ADR 0047).
   - La fecha de firma canónica es la primera fecha no vacía.
   - El valor inicial es el de la primera versión firmada, que en SECOP II ya incluye las adiciones (D3); el valor final, el que indica D3.
   - «Primera» se decide por la marca de tiempo completa de la firma; si coinciden, por el identificador del contrato.
