@@ -1,7 +1,7 @@
 {
   "cells": [
     {
-      "denominator": 1716.0,
+      "denominator": 1715.0,
       "department": null,
       "indicator": "I1",
       "is_suppressed": false,
@@ -9,21 +9,21 @@
       "measure": "count",
       "numerator": 1387.0,
       "period": "2022",
-      "ratio": 0.808275,
-      "sample_size": 1716,
+      "ratio": 0.808746,
+      "sample_size": 1715,
       "variant": null
     },
     {
-      "denominator": 1666.0,
+      "denominator": 1663.0,
       "department": null,
       "indicator": "I1",
       "is_suppressed": false,
       "level": "district",
       "measure": "count",
-      "numerator": 1366.0,
+      "numerator": 1364.0,
       "period": "2023",
-      "ratio": 0.819928,
-      "sample_size": 1666,
+      "ratio": 0.820204,
+      "sample_size": 1663,
       "variant": null
     },
     {
@@ -40,7 +40,7 @@
       "variant": null
     },
     {
-      "denominator": 1449.0,
+      "denominator": 1446.0,
       "department": null,
       "indicator": "I1",
       "is_suppressed": false,
@@ -48,21 +48,21 @@
       "measure": "count",
       "numerator": 1186.0,
       "period": "2025",
-      "ratio": 0.818496,
-      "sample_size": 1449,
+      "ratio": 0.820194,
+      "sample_size": 1446,
       "variant": null
     },
     {
-      "denominator": 1310.0,
+      "denominator": 1309.0,
       "department": null,
       "indicator": "I1",
       "is_suppressed": false,
       "level": "district",
       "measure": "count",
-      "numerator": 1084.0,
+      "numerator": 1083.0,
       "period": "2026",
-      "ratio": 0.827481,
-      "sample_size": 1310,
+      "ratio": 0.827349,
+      "sample_size": 1309,
       "variant": null
     },
     {
@@ -79,7 +79,7 @@
       "variant": null
     },
     {
-      "denominator": 138.0,
+      "denominator": 137.0,
       "department": "buen_comienzo",
       "indicator": "I1",
       "is_suppressed": false,
@@ -87,8 +87,8 @@
       "measure": "count",
       "numerator": 134.0,
       "period": "2023",
-      "ratio": 0.971014,
-      "sample_size": 138,
+      "ratio": 0.978102,
+      "sample_size": 137,
       "variant": null
     },
     {
@@ -534,16 +534,16 @@
       "variant": null
     },
     {
-      "denominator": 96.0,
+      "denominator": 95.0,
       "department": "education",
       "indicator": "I1",
       "is_suppressed": false,
       "level": "department",
       "measure": "count",
-      "numerator": 96.0,
+      "numerator": 95.0,
       "period": "2023",
       "ratio": 1.0,
-      "sample_size": 96,
+      "sample_size": 95,
       "variant": null
     },
     {
@@ -1353,16 +1353,16 @@
       "variant": null
     },
     {
-      "denominator": 75.0,
+      "denominator": 74.0,
       "department": "security",
       "indicator": "I1",
       "is_suppressed": false,
       "level": "department",
       "measure": "count",
-      "numerator": 39.0,
+      "numerator": 38.0,
       "period": "2023",
-      "ratio": 0.52,
-      "sample_size": 75,
+      "ratio": 0.513514,
+      "sample_size": 74,
       "variant": null
     },
     {
@@ -1470,7 +1470,7 @@
       "variant": null
     },
     {
-      "denominator": 359.0,
+      "denominator": 358.0,
       "department": "supplies_and_services",
       "indicator": "I1",
       "is_suppressed": false,
@@ -1478,8 +1478,8 @@
       "measure": "count",
       "numerator": 80.0,
       "period": "2022",
-      "ratio": 0.222841,
-      "sample_size": 359,
+      "ratio": 0.223464,
+      "sample_size": 358,
       "variant": null
     },
     {
@@ -1509,7 +1509,7 @@
       "variant": null
     },
     {
-      "denominator": 269.0,
+      "denominator": 266.0,
       "department": "supplies_and_services",
       "indicator": "I1",
       "is_suppressed": false,
@@ -1517,8 +1517,8 @@
       "measure": "count",
       "numerator": 63.0,
       "period": "2025",
-      "ratio": 0.234201,
-      "sample_size": 269,
+      "ratio": 0.236842,
+      "sample_size": 266,
       "variant": null
     },
     {
@@ -1834,20 +1834,20 @@
       "variant": null
     },
     {
-      "denominator": 17.0,
+      "denominator": 16.0,
       "department": "youth",
       "indicator": "I1",
       "is_suppressed": false,
       "level": "department",
       "measure": "count",
-      "numerator": 17.0,
+      "numerator": 16.0,
       "period": "2026",
       "ratio": 1.0,
-      "sample_size": 17,
+      "sample_size": 16,
       "variant": null
     },
     {
-      "denominator": 2791146036155.44,
+      "denominator": 2790946036901.44,
       "department": null,
       "indicator": "I1",
       "is_suppressed": false,
@@ -1855,21 +1855,21 @@
       "measure": "value",
       "numerator": 1916233975757.0,
       "period": "2022",
-      "ratio": 0.68654,
-      "sample_size": 1714,
+      "ratio": 0.686589,
+      "sample_size": 1713,
       "variant": null
     },
     {
-      "denominator": 3760558108849.0,
+      "denominator": 3736572804823.0,
       "department": null,
       "indicator": "I1",
       "is_suppressed": false,
       "level": "district",
       "measure": "value",
-      "numerator": 1866565769282.0,
+      "numerator": 1843061993462.0,
       "period": "2023",
-      "ratio": 0.496353,
-      "sample_size": 1666,
+      "ratio": 0.493249,
+      "sample_size": 1663,
       "variant": null
     },
     {
@@ -1886,7 +1886,7 @@
       "variant": null
     },
     {
-      "denominator": 6595801305008.82,
+      "denominator": 6531388255337.82,
       "department": null,
       "indicator": "I1",
       "is_suppressed": false,
@@ -1894,21 +1894,21 @@
       "measure": "value",
       "numerator": 5077549775211.0,
       "period": "2025",
-      "ratio": 0.769815,
-      "sample_size": 1446,
+      "ratio": 0.777407,
+      "sample_size": 1443,
       "variant": null
     },
     {
-      "denominator": 2886199314029.01,
+      "denominator": 2881370264297.01,
       "department": null,
       "indicator": "I1",
       "is_suppressed": false,
       "level": "district",
       "measure": "value",
-      "numerator": 1916087544312.0,
+      "numerator": 1911258494580.0,
       "period": "2026",
-      "ratio": 0.663879,
-      "sample_size": 1306,
+      "ratio": 0.663316,
+      "sample_size": 1305,
       "variant": null
     },
     {
@@ -1925,7 +1925,7 @@
       "variant": null
     },
     {
-      "denominator": 268306502453.0,
+      "denominator": 267824974247.0,
       "department": "buen_comienzo",
       "indicator": "I1",
       "is_suppressed": false,
@@ -1933,8 +1933,8 @@
       "measure": "value",
       "numerator": 260878301664.0,
       "period": "2023",
-      "ratio": 0.972314,
-      "sample_size": 138,
+      "ratio": 0.974063,
+      "sample_size": 137,
       "variant": null
     },
     {
@@ -2380,16 +2380,16 @@
       "variant": null
     },
     {
-      "denominator": 221163168670.0,
+      "denominator": 220742405221.0,
       "department": "education",
       "indicator": "I1",
       "is_suppressed": false,
       "level": "department",
       "measure": "value",
-      "numerator": 221163168670.0,
+      "numerator": 220742405221.0,
       "period": "2023",
       "ratio": 1.0,
-      "sample_size": 96,
+      "sample_size": 95,
       "variant": null
     },
     {
@@ -3199,16 +3199,16 @@
       "variant": null
     },
     {
-      "denominator": 1416307021112.0,
+      "denominator": 1393224008741.0,
       "department": "security",
       "indicator": "I1",
       "is_suppressed": false,
       "level": "department",
       "measure": "value",
-      "numerator": 210731503309.0,
+      "numerator": 187648490938.0,
       "period": "2023",
-      "ratio": 0.148789,
-      "sample_size": 75,
+      "ratio": 0.134687,
+      "sample_size": 74,
       "variant": null
     },
     {
@@ -3316,7 +3316,7 @@
       "variant": null
     },
     {
-      "denominator": 715636446715.44,
+      "denominator": 715436447461.44,
       "department": "supplies_and_services",
       "indicator": "I1",
       "is_suppressed": false,
@@ -3324,8 +3324,8 @@
       "measure": "value",
       "numerator": 84900993132.0,
       "period": "2022",
-      "ratio": 0.118637,
-      "sample_size": 357,
+      "ratio": 0.11867,
+      "sample_size": 356,
       "variant": null
     },
     {
@@ -3355,7 +3355,7 @@
       "variant": null
     },
     {
-      "denominator": 1257652733666.01,
+      "denominator": 1193239683995.01,
       "department": "supplies_and_services",
       "indicator": "I1",
       "is_suppressed": false,
@@ -3363,8 +3363,8 @@
       "measure": "value",
       "numerator": 154184829339.0,
       "period": "2025",
-      "ratio": 0.122597,
-      "sample_size": 269,
+      "ratio": 0.129215,
+      "sample_size": 266,
       "variant": null
     },
     {
@@ -3680,20 +3680,20 @@
       "variant": null
     },
     {
-      "denominator": 28685206956.0,
+      "denominator": 23856157224.0,
       "department": "youth",
       "indicator": "I1",
       "is_suppressed": false,
       "level": "department",
       "measure": "value",
-      "numerator": 28685206956.0,
+      "numerator": 23856157224.0,
       "period": "2026",
       "ratio": 1.0,
-      "sample_size": 17,
+      "sample_size": 16,
       "variant": null
     },
     {
-      "denominator": 1716.0,
+      "denominator": 1715.0,
       "department": null,
       "indicator": "I1",
       "is_suppressed": false,
@@ -3701,21 +3701,21 @@
       "measure": "count",
       "numerator": 1463.0,
       "period": "2022",
-      "ratio": 0.852564,
-      "sample_size": 1716,
+      "ratio": 0.853061,
+      "sample_size": 1715,
       "variant": "non_competitive"
     },
     {
-      "denominator": 1666.0,
+      "denominator": 1663.0,
       "department": null,
       "indicator": "I1",
       "is_suppressed": false,
       "level": "district",
       "measure": "count",
-      "numerator": 1449.0,
+      "numerator": 1446.0,
       "period": "2023",
-      "ratio": 0.869748,
-      "sample_size": 1666,
+      "ratio": 0.869513,
+      "sample_size": 1663,
       "variant": "non_competitive"
     },
     {
@@ -3732,7 +3732,7 @@
       "variant": "non_competitive"
     },
     {
-      "denominator": 1449.0,
+      "denominator": 1446.0,
       "department": null,
       "indicator": "I1",
       "is_suppressed": false,
@@ -3740,21 +3740,21 @@
       "measure": "count",
       "numerator": 1244.0,
       "period": "2025",
-      "ratio": 0.858523,
-      "sample_size": 1449,
+      "ratio": 0.860304,
+      "sample_size": 1446,
       "variant": "non_competitive"
     },
     {
-      "denominator": 1310.0,
+      "denominator": 1309.0,
       "department": null,
       "indicator": "I1",
       "is_suppressed": false,
       "level": "district",
       "measure": "count",
-      "numerator": 1120.0,
+      "numerator": 1119.0,
       "period": "2026",
-      "ratio": 0.854962,
-      "sample_size": 1310,
+      "ratio": 0.854851,
+      "sample_size": 1309,
       "variant": "non_competitive"
     },
     {
@@ -3771,16 +3771,16 @@
       "variant": "non_competitive"
     },
     {
-      "denominator": 138.0,
+      "denominator": 137.0,
       "department": "buen_comienzo",
       "indicator": "I1",
       "is_suppressed": false,
       "level": "department",
       "measure": "count",
-      "numerator": 138.0,
+      "numerator": 137.0,
       "period": "2023",
       "ratio": 1.0,
-      "sample_size": 138,
+      "sample_size": 137,
       "variant": "non_competitive"
     },
     {
@@ -4226,16 +4226,16 @@
       "variant": "non_competitive"
     },
     {
-      "denominator": 96.0,
+      "denominator": 95.0,
       "department": "education",
       "indicator": "I1",
       "is_suppressed": false,
       "level": "department",
       "measure": "count",
-      "numerator": 96.0,
+      "numerator": 95.0,
       "period": "2023",
       "ratio": 1.0,
-      "sample_size": 96,
+      "sample_size": 95,
       "variant": "non_competitive"
     },
     {
@@ -5045,16 +5045,16 @@
       "variant": "non_competitive"
     },
     {
-      "denominator": 75.0,
+      "denominator": 74.0,
       "department": "security",
       "indicator": "I1",
       "is_suppressed": false,
       "level": "department",
       "measure": "count",
-      "numerator": 40.0,
+      "numerator": 39.0,
       "period": "2023",
-      "ratio": 0.533333,
-      "sample_size": 75,
+      "ratio": 0.527027,
+      "sample_size": 74,
       "variant": "non_competitive"
     },
     {
@@ -5162,7 +5162,7 @@
       "variant": "non_competitive"
     },
     {
-      "denominator": 359.0,
+      "denominator": 358.0,
       "department": "supplies_and_services",
       "indicator": "I1",
       "is_suppressed": false,
@@ -5170,8 +5170,8 @@
       "measure": "count",
       "numerator": 136.0,
       "period": "2022",
-      "ratio": 0.37883,
-      "sample_size": 359,
+      "ratio": 0.379888,
+      "sample_size": 358,
       "variant": "non_competitive"
     },
     {
@@ -5201,7 +5201,7 @@
       "variant": "non_competitive"
     },
     {
-      "denominator": 269.0,
+      "denominator": 266.0,
       "department": "supplies_and_services",
       "indicator": "I1",
       "is_suppressed": false,
@@ -5209,8 +5209,8 @@
       "measure": "count",
       "numerator": 93.0,
       "period": "2025",
-      "ratio": 0.345725,
-      "sample_size": 269,
+      "ratio": 0.349624,
+      "sample_size": 266,
       "variant": "non_competitive"
     },
     {
@@ -5526,20 +5526,20 @@
       "variant": "non_competitive"
     },
     {
-      "denominator": 17.0,
+      "denominator": 16.0,
       "department": "youth",
       "indicator": "I1",
       "is_suppressed": false,
       "level": "department",
       "measure": "count",
-      "numerator": 17.0,
+      "numerator": 16.0,
       "period": "2026",
       "ratio": 1.0,
-      "sample_size": 17,
+      "sample_size": 16,
       "variant": "non_competitive"
     },
     {
-      "denominator": 2791146036155.44,
+      "denominator": 2790946036901.44,
       "department": null,
       "indicator": "I1",
       "is_suppressed": false,
@@ -5547,21 +5547,21 @@
       "measure": "value",
       "numerator": 2010614108055.0,
       "period": "2022",
-      "ratio": 0.720354,
-      "sample_size": 1714,
+      "ratio": 0.720406,
+      "sample_size": 1713,
       "variant": "non_competitive"
     },
     {
-      "denominator": 3760558108849.0,
+      "denominator": 3736572804823.0,
       "department": null,
       "indicator": "I1",
       "is_suppressed": false,
       "level": "district",
       "measure": "value",
-      "numerator": 3310482034405.0,
+      "numerator": 3286496730379.0,
       "period": "2023",
-      "ratio": 0.880317,
-      "sample_size": 1666,
+      "ratio": 0.879548,
+      "sample_size": 1663,
       "variant": "non_competitive"
     },
     {
@@ -5578,7 +5578,7 @@
       "variant": "non_competitive"
     },
     {
-      "denominator": 6595801305008.82,
+      "denominator": 6531388255337.82,
       "department": null,
       "indicator": "I1",
       "is_suppressed": false,
@@ -5586,21 +5586,21 @@
       "measure": "value",
       "numerator": 5457159517105.0,
       "period": "2025",
-      "ratio": 0.827369,
-      "sample_size": 1446,
+      "ratio": 0.835528,
+      "sample_size": 1443,
       "variant": "non_competitive"
     },
     {
-      "denominator": 2886199314029.01,
+      "denominator": 2881370264297.01,
       "department": null,
       "indicator": "I1",
       "is_suppressed": false,
       "level": "district",
       "measure": "value",
-      "numerator": 1958365438458.0,
+      "numerator": 1953536388726.0,
       "period": "2026",
-      "ratio": 0.678527,
-      "sample_size": 1306,
+      "ratio": 0.677989,
+      "sample_size": 1305,
       "variant": "non_competitive"
     },
     {
@@ -5617,16 +5617,16 @@
       "variant": "non_competitive"
     },
     {
-      "denominator": 268306502453.0,
+      "denominator": 267824974247.0,
       "department": "buen_comienzo",
       "indicator": "I1",
       "is_suppressed": false,
       "level": "department",
       "measure": "value",
-      "numerator": 268306502453.0,
+      "numerator": 267824974247.0,
       "period": "2023",
       "ratio": 1.0,
-      "sample_size": 138,
+      "sample_size": 137,
       "variant": "non_competitive"
     },
     {
@@ -6072,16 +6072,16 @@
       "variant": "non_competitive"
     },
     {
-      "denominator": 221163168670.0,
+      "denominator": 220742405221.0,
       "department": "education",
       "indicator": "I1",
       "is_suppressed": false,
       "level": "department",
       "measure": "value",
-      "numerator": 221163168670.0,
+      "numerator": 220742405221.0,
       "period": "2023",
       "ratio": 1.0,
-      "sample_size": 96,
+      "sample_size": 95,
       "variant": "non_competitive"
     },
     {
@@ -6891,16 +6891,16 @@
       "variant": "non_competitive"
     },
     {
-      "denominator": 1416307021112.0,
+      "denominator": 1393224008741.0,
       "department": "security",
       "indicator": "I1",
       "is_suppressed": false,
       "level": "department",
       "measure": "value",
-      "numerator": 1351769768341.0,
+      "numerator": 1328686755970.0,
       "period": "2023",
-      "ratio": 0.954433,
-      "sample_size": 75,
+      "ratio": 0.953678,
+      "sample_size": 74,
       "variant": "non_competitive"
     },
     {
@@ -7008,7 +7008,7 @@
       "variant": "non_competitive"
     },
     {
-      "denominator": 715636446715.44,
+      "denominator": 715436447461.44,
       "department": "supplies_and_services",
       "indicator": "I1",
       "is_suppressed": false,
@@ -7016,8 +7016,8 @@
       "measure": "value",
       "numerator": 108211870803.0,
       "period": "2022",
-      "ratio": 0.151211,
-      "sample_size": 357,
+      "ratio": 0.151253,
+      "sample_size": 356,
       "variant": "non_competitive"
     },
     {
@@ -7047,7 +7047,7 @@
       "variant": "non_competitive"
     },
     {
-      "denominator": 1257652733666.01,
+      "denominator": 1193239683995.01,
       "department": "supplies_and_services",
       "indicator": "I1",
       "is_suppressed": false,
@@ -7055,8 +7055,8 @@
       "measure": "value",
       "numerator": 163543621988.0,
       "period": "2025",
-      "ratio": 0.130039,
-      "sample_size": 269,
+      "ratio": 0.137058,
+      "sample_size": 266,
       "variant": "non_competitive"
     },
     {
@@ -7372,16 +7372,16 @@
       "variant": "non_competitive"
     },
     {
-      "denominator": 28685206956.0,
+      "denominator": 23856157224.0,
       "department": "youth",
       "indicator": "I1",
       "is_suppressed": false,
       "level": "department",
       "measure": "value",
-      "numerator": 28685206956.0,
+      "numerator": 23856157224.0,
       "period": "2026",
       "ratio": 1.0,
-      "sample_size": 17,
+      "sample_size": 16,
       "variant": "non_competitive"
     },
     {
@@ -7398,16 +7398,16 @@
       "variant": null
     },
     {
-      "denominator": 1277.0,
+      "denominator": 1275.0,
       "department": null,
       "indicator": "I2",
       "is_suppressed": false,
       "level": "district",
       "measure": "count",
-      "numerator": 320.0,
+      "numerator": 319.0,
       "period": "2023",
-      "ratio": 0.250587,
-      "sample_size": 1277,
+      "ratio": 0.250196,
+      "sample_size": 1275,
       "variant": null
     },
     {
@@ -7437,16 +7437,16 @@
       "variant": null
     },
     {
-      "denominator": 1084.0,
+      "denominator": 1083.0,
       "department": null,
       "indicator": "I2",
       "is_suppressed": false,
       "level": "district",
       "measure": "count",
-      "numerator": 708.0,
+      "numerator": 707.0,
       "period": "2026",
-      "ratio": 0.653137,
-      "sample_size": 1084,
+      "ratio": 0.652816,
+      "sample_size": 1083,
       "variant": null
     },
     {
@@ -7463,16 +7463,16 @@
       "variant": null
     },
     {
-      "denominator": 1829749879438.0,
+      "denominator": 1806246103618.0,
       "department": null,
       "indicator": "I2",
       "is_suppressed": false,
       "level": "district",
       "measure": "value",
-      "numerator": 544510056148.0,
+      "numerator": 521427043777.0,
       "period": "2023",
-      "ratio": 0.297587,
-      "sample_size": 1277,
+      "ratio": 0.28868,
+      "sample_size": 1275,
       "variant": null
     },
     {
@@ -7502,16 +7502,16 @@
       "variant": null
     },
     {
-      "denominator": 1916087544312.0,
+      "denominator": 1911258494580.0,
       "department": null,
       "indicator": "I2",
       "is_suppressed": false,
       "level": "district",
       "measure": "value",
-      "numerator": 1002425629375.0,
+      "numerator": 997596579643.0,
       "period": "2026",
-      "ratio": 0.523163,
-      "sample_size": 1080,
+      "ratio": 0.521958,
+      "sample_size": 1079,
       "variant": null
     },
     {
@@ -7567,16 +7567,16 @@
       "variant": "excluding_interadministrative"
     },
     {
-      "denominator": 867.0,
+      "denominator": 866.0,
       "department": null,
       "indicator": "I2",
       "is_suppressed": false,
       "level": "district",
       "measure": "count",
-      "numerator": 675.0,
+      "numerator": 674.0,
       "period": "2026",
-      "ratio": 0.778547,
-      "sample_size": 867,
+      "ratio": 0.778291,
+      "sample_size": 866,
       "variant": "excluding_interadministrative"
     },
     {
@@ -7632,16 +7632,16 @@
       "variant": "excluding_interadministrative"
     },
     {
-      "denominator": 1014078189050.0,
+      "denominator": 1009249139318.0,
       "department": null,
       "indicator": "I2",
       "is_suppressed": false,
       "level": "district",
       "measure": "value",
-      "numerator": 793121799410.0,
+      "numerator": 788292749678.0,
       "period": "2026",
-      "ratio": 0.782111,
-      "sample_size": 863,
+      "ratio": 0.781069,
+      "sample_size": 862,
       "variant": "excluding_interadministrative"
     },
     {
@@ -7658,16 +7658,16 @@
       "variant": "non_service_contract"
     },
     {
-      "denominator": 284.0,
+      "denominator": 282.0,
       "department": null,
       "indicator": "I2",
       "is_suppressed": false,
       "level": "district",
       "measure": "count",
-      "numerator": 40.0,
+      "numerator": 39.0,
       "period": "2023",
-      "ratio": 0.140845,
-      "sample_size": 284,
+      "ratio": 0.138298,
+      "sample_size": 282,
       "variant": "non_service_contract"
     },
     {
@@ -7723,16 +7723,16 @@
       "variant": "non_service_contract"
     },
     {
-      "denominator": 1252685471568.0,
+      "denominator": 1229181695748.0,
       "department": null,
       "indicator": "I2",
       "is_suppressed": false,
       "level": "district",
       "measure": "value",
-      "numerator": 253331731614.0,
+      "numerator": 230248719243.0,
       "period": "2023",
-      "ratio": 0.202231,
-      "sample_size": 284,
+      "ratio": 0.187319,
+      "sample_size": 282,
       "variant": "non_service_contract"
     },
     {
@@ -7827,16 +7827,16 @@
       "variant": "service_contract"
     },
     {
-      "denominator": 804.0,
+      "denominator": 803.0,
       "department": null,
       "indicator": "I2",
       "is_suppressed": false,
       "level": "district",
       "measure": "count",
-      "numerator": 632.0,
+      "numerator": 631.0,
       "period": "2026",
-      "ratio": 0.78607,
-      "sample_size": 804,
+      "ratio": 0.785803,
+      "sample_size": 803,
       "variant": "service_contract"
     },
     {
@@ -7892,16 +7892,16 @@
       "variant": "service_contract"
     },
     {
-      "denominator": 923221909235.0,
+      "denominator": 918392859503.0,
       "department": null,
       "indicator": "I2",
       "is_suppressed": false,
       "level": "district",
       "measure": "value",
-      "numerator": 717545230486.0,
+      "numerator": 712716180754.0,
       "period": "2026",
-      "ratio": 0.777219,
-      "sample_size": 804,
+      "ratio": 0.776047,
+      "sample_size": 803,
       "variant": "service_contract"
     },
     {
@@ -7918,7 +7918,7 @@
       "variant": "spans_restriction"
     },
     {
-      "denominator": 320.0,
+      "denominator": 319.0,
       "department": null,
       "indicator": "I2",
       "is_suppressed": false,
@@ -7926,8 +7926,8 @@
       "measure": "count",
       "numerator": 176.0,
       "period": "2023",
-      "ratio": 0.55,
-      "sample_size": 320,
+      "ratio": 0.551724,
+      "sample_size": 319,
       "variant": "spans_restriction"
     },
     {
@@ -7957,7 +7957,7 @@
       "variant": "spans_restriction"
     },
     {
-      "denominator": 708.0,
+      "denominator": 707.0,
       "department": null,
       "indicator": "I2",
       "is_suppressed": false,
@@ -7965,8 +7965,8 @@
       "measure": "count",
       "numerator": 701.0,
       "period": "2026",
-      "ratio": 0.990113,
-      "sample_size": 708,
+      "ratio": 0.991513,
+      "sample_size": 707,
       "variant": "spans_restriction"
     },
     {
@@ -8321,7 +8321,7 @@
       "variant": null
     },
     {
-      "denominator": 2571477283488.0,
+      "denominator": 2571277284234.0,
       "department": null,
       "indicator": "I4",
       "is_suppressed": false,
@@ -8329,21 +8329,21 @@
       "measure": "value",
       "numerator": 1109311641923.0,
       "period": "2022",
-      "ratio": 0.431391,
-      "sample_size": 915,
+      "ratio": 0.431424,
+      "sample_size": 914,
       "variant": null
     },
     {
-      "denominator": 3683099437426.0,
+      "denominator": 3659114133400.0,
       "department": null,
       "indicator": "I4",
       "is_suppressed": false,
       "level": "district",
       "measure": "value",
-      "numerator": 1875783832951.0,
+      "numerator": 1852700820580.0,
       "period": "2023",
-      "ratio": 0.509295,
-      "sample_size": 891,
+      "ratio": 0.506325,
+      "sample_size": 888,
       "variant": null
     },
     {
@@ -8360,7 +8360,7 @@
       "variant": null
     },
     {
-      "denominator": 6441338203366.81,
+      "denominator": 6379031990175.81,
       "department": null,
       "indicator": "I4",
       "is_suppressed": false,
@@ -8368,12 +8368,12 @@
       "measure": "value",
       "numerator": 3207978124735.0,
       "period": "2025",
-      "ratio": 0.49803,
-      "sample_size": 927,
+      "ratio": 0.502894,
+      "sample_size": 925,
       "variant": null
     },
     {
-      "denominator": 2576422154149.0,
+      "denominator": 2571593104417.0,
       "department": null,
       "indicator": "I4",
       "is_suppressed": false,
@@ -8381,8 +8381,8 @@
       "measure": "value",
       "numerator": 796098975501.0,
       "period": "2026",
-      "ratio": 0.308994,
-      "sample_size": 696,
+      "ratio": 0.309574,
+      "sample_size": 695,
       "variant": null
     },
     {
@@ -8399,7 +8399,7 @@
       "variant": null
     },
     {
-      "denominator": 268267584025.0,
+      "denominator": 267786055819.0,
       "department": "buen_comienzo",
       "indicator": "I4",
       "is_suppressed": false,
@@ -8407,8 +8407,8 @@
       "measure": "value",
       "numerator": 105504072288.0,
       "period": "2023",
-      "ratio": 0.393279,
-      "sample_size": 137,
+      "ratio": 0.393986,
+      "sample_size": 136,
       "variant": null
     },
     {
@@ -8854,7 +8854,7 @@
       "variant": null
     },
     {
-      "denominator": 221163168670.0,
+      "denominator": 220742405221.0,
       "department": "education",
       "indicator": "I4",
       "is_suppressed": false,
@@ -8862,8 +8862,8 @@
       "measure": "value",
       "numerator": 163520097272.0,
       "period": "2023",
-      "ratio": 0.739364,
-      "sample_size": 96,
+      "ratio": 0.740773,
+      "sample_size": 95,
       "variant": null
     },
     {
@@ -9608,16 +9608,16 @@
       "variant": null
     },
     {
-      "denominator": 1407080102515.0,
+      "denominator": 1383997090144.0,
       "department": "security",
       "indicator": "I4",
       "is_suppressed": false,
       "level": "department",
       "measure": "value",
-      "numerator": 1318032160698.0,
+      "numerator": 1294949148327.0,
       "period": "2023",
-      "ratio": 0.936714,
-      "sample_size": 70,
+      "ratio": 0.935659,
+      "sample_size": 69,
       "variant": null
     },
     {
@@ -9725,7 +9725,7 @@
       "variant": null
     },
     {
-      "denominator": 593747562081.0,
+      "denominator": 593547562827.0,
       "department": "supplies_and_services",
       "indicator": "I4",
       "is_suppressed": false,
@@ -9733,8 +9733,8 @@
       "measure": "value",
       "numerator": 153526977401.0,
       "period": "2022",
-      "ratio": 0.258573,
-      "sample_size": 313,
+      "ratio": 0.25866,
+      "sample_size": 312,
       "variant": null
     },
     {
@@ -9764,16 +9764,16 @@
       "variant": null
     },
     {
-      "denominator": 1139320583471.0,
+      "denominator": 1077014370280.0,
       "department": "supplies_and_services",
       "indicator": "I4",
       "is_suppressed": false,
       "level": "department",
       "measure": "value",
-      "numerator": 585591732749.0,
+      "numerator": 538227788260.0,
       "period": "2025",
-      "ratio": 0.513983,
-      "sample_size": 240,
+      "ratio": 0.499741,
+      "sample_size": 238,
       "variant": null
     },
     {
@@ -10089,42 +10089,42 @@
       "variant": null
     },
     {
-      "denominator": 28583566956.0,
+      "denominator": 23754517224.0,
       "department": "youth",
       "indicator": "I4",
       "is_suppressed": false,
       "level": "department",
       "measure": "value",
-      "numerator": 26706375356.0,
+      "numerator": 21877325624.0,
       "period": "2026",
-      "ratio": 0.934326,
-      "sample_size": 13,
+      "ratio": 0.920975,
+      "sample_size": 12,
       "variant": null
     },
     {
-      "denominator": 1524.0,
+      "denominator": 1632.0,
       "department": null,
       "indicator": "I5",
       "is_suppressed": false,
       "level": "district",
       "measure": "count",
-      "numerator": 353.0,
+      "numerator": 387.0,
       "period": "2022",
-      "ratio": 0.231627,
-      "sample_size": 1524,
+      "ratio": 0.237132,
+      "sample_size": 1632,
       "variant": null
     },
     {
-      "denominator": 1080.0,
+      "denominator": 1165.0,
       "department": null,
       "indicator": "I5",
       "is_suppressed": false,
       "level": "district",
       "measure": "count",
-      "numerator": 66.0,
+      "numerator": 69.0,
       "period": "2023",
-      "ratio": 0.061111,
-      "sample_size": 1080,
+      "ratio": 0.059227,
+      "sample_size": 1165,
       "variant": null
     },
     {
@@ -10154,20 +10154,20 @@
       "variant": null
     },
     {
-      "denominator": 16.0,
+      "denominator": 38.0,
       "department": "citizen_culture",
       "indicator": "I5",
       "is_suppressed": false,
       "level": "department",
       "measure": "count",
-      "numerator": 4.0,
+      "numerator": 10.0,
       "period": "2022",
-      "ratio": 0.25,
-      "sample_size": 16,
+      "ratio": 0.263158,
+      "sample_size": 38,
       "variant": null
     },
     {
-      "denominator": 17.0,
+      "denominator": 24.0,
       "department": "citizen_culture",
       "indicator": "I5",
       "is_suppressed": false,
@@ -10175,8 +10175,8 @@
       "measure": "count",
       "numerator": 1.0,
       "period": "2023",
-      "ratio": 0.058824,
-      "sample_size": 17,
+      "ratio": 0.041667,
+      "sample_size": 24,
       "variant": null
     },
     {
@@ -10193,15 +10193,15 @@
       "variant": null
     },
     {
-      "denominator": 5.0,
+      "denominator": null,
       "department": "communications",
       "indicator": "I5",
-      "is_suppressed": false,
+      "is_suppressed": true,
       "level": "department",
       "measure": "count",
-      "numerator": 0.0,
+      "numerator": null,
       "period": "2023",
-      "ratio": 0.0,
+      "ratio": null,
       "sample_size": 5,
       "variant": null
     },
@@ -10310,7 +10310,7 @@
       "variant": null
     },
     {
-      "denominator": 115.0,
+      "denominator": 117.0,
       "department": "education",
       "indicator": "I5",
       "is_suppressed": false,
@@ -10318,8 +10318,8 @@
       "measure": "count",
       "numerator": 64.0,
       "period": "2022",
-      "ratio": 0.556522,
-      "sample_size": 115,
+      "ratio": 0.547009,
+      "sample_size": 117,
       "variant": null
     },
     {
@@ -10388,29 +10388,29 @@
       "variant": null
     },
     {
-      "denominator": 19.0,
+      "denominator": 56.0,
       "department": "general",
       "indicator": "I5",
       "is_suppressed": false,
       "level": "department",
       "measure": "count",
-      "numerator": 0.0,
+      "numerator": 21.0,
       "period": "2022",
-      "ratio": 0.0,
-      "sample_size": 19,
+      "ratio": 0.375,
+      "sample_size": 56,
       "variant": null
     },
     {
-      "denominator": 15.0,
+      "denominator": 71.0,
       "department": "general",
       "indicator": "I5",
       "is_suppressed": false,
       "level": "department",
       "measure": "count",
-      "numerator": 0.0,
+      "numerator": 2.0,
       "period": "2023",
-      "ratio": 0.0,
-      "sample_size": 15,
+      "ratio": 0.028169,
+      "sample_size": 71,
       "variant": null
     },
     {
@@ -10427,29 +10427,29 @@
       "variant": null
     },
     {
-      "denominator": null,
+      "denominator": 13.0,
       "department": "government",
       "indicator": "I5",
-      "is_suppressed": true,
+      "is_suppressed": false,
       "level": "department",
       "measure": "count",
-      "numerator": null,
+      "numerator": 0.0,
       "period": "2023",
-      "ratio": null,
-      "sample_size": 1,
+      "ratio": 0.0,
+      "sample_size": 13,
       "variant": null
     },
     {
-      "denominator": 26.0,
+      "denominator": 45.0,
       "department": "health",
       "indicator": "I5",
       "is_suppressed": false,
       "level": "department",
       "measure": "count",
-      "numerator": 6.0,
+      "numerator": 9.0,
       "period": "2022",
-      "ratio": 0.230769,
-      "sample_size": 26,
+      "ratio": 0.2,
+      "sample_size": 45,
       "variant": null
     },
     {
@@ -10518,7 +10518,7 @@
       "variant": null
     },
     {
-      "denominator": 117.0,
+      "denominator": 122.0,
       "department": "mobility",
       "indicator": "I5",
       "is_suppressed": false,
@@ -10526,8 +10526,8 @@
       "measure": "count",
       "numerator": 1.0,
       "period": "2022",
-      "ratio": 0.008547,
-      "sample_size": 117,
+      "ratio": 0.008197,
+      "sample_size": 122,
       "variant": null
     },
     {
@@ -10596,7 +10596,7 @@
       "variant": null
     },
     {
-      "denominator": 106.0,
+      "denominator": 107.0,
       "department": "planning",
       "indicator": "I5",
       "is_suppressed": false,
@@ -10604,8 +10604,8 @@
       "measure": "count",
       "numerator": 39.0,
       "period": "2022",
-      "ratio": 0.367925,
-      "sample_size": 106,
+      "ratio": 0.364486,
+      "sample_size": 107,
       "variant": null
     },
     {
@@ -10674,16 +10674,16 @@
       "variant": null
     },
     {
-      "denominator": 100.0,
+      "denominator": 101.0,
       "department": "social_inclusion",
       "indicator": "I5",
       "is_suppressed": false,
       "level": "department",
       "measure": "count",
-      "numerator": 69.0,
+      "numerator": 70.0,
       "period": "2022",
-      "ratio": 0.69,
-      "sample_size": 100,
+      "ratio": 0.693069,
+      "sample_size": 101,
       "variant": null
     },
     {
@@ -10700,20 +10700,20 @@
       "variant": null
     },
     {
-      "denominator": 310.0,
+      "denominator": 323.0,
       "department": "supplies_and_services",
       "indicator": "I5",
       "is_suppressed": false,
       "level": "department",
       "measure": "count",
-      "numerator": 49.0,
+      "numerator": 50.0,
       "period": "2022",
-      "ratio": 0.158065,
-      "sample_size": 310,
+      "ratio": 0.154799,
+      "sample_size": 323,
       "variant": null
     },
     {
-      "denominator": 158.0,
+      "denominator": 167.0,
       "department": "supplies_and_services",
       "indicator": "I5",
       "is_suppressed": false,
@@ -10721,8 +10721,8 @@
       "measure": "count",
       "numerator": 8.0,
       "period": "2023",
-      "ratio": 0.050633,
-      "sample_size": 158,
+      "ratio": 0.047904,
+      "sample_size": 167,
       "variant": null
     },
     {
@@ -10739,16 +10739,16 @@
       "variant": null
     },
     {
-      "denominator": 42.0,
+      "denominator": 43.0,
       "department": "territorial_management",
       "indicator": "I5",
       "is_suppressed": false,
       "level": "department",
       "measure": "count",
-      "numerator": 2.0,
+      "numerator": 3.0,
       "period": "2023",
-      "ratio": 0.047619,
-      "sample_size": 42,
+      "ratio": 0.069767,
+      "sample_size": 43,
       "variant": null
     },
     {
@@ -10778,16 +10778,16 @@
       "variant": null
     },
     {
-      "denominator": 10.0,
+      "denominator": 18.0,
       "department": "women",
       "indicator": "I5",
       "is_suppressed": false,
       "level": "department",
       "measure": "count",
-      "numerator": 6.0,
+      "numerator": 8.0,
       "period": "2022",
-      "ratio": 0.6,
-      "sample_size": 10,
+      "ratio": 0.444444,
+      "sample_size": 18,
       "variant": null
     },
     {
@@ -10830,29 +10830,29 @@
       "variant": null
     },
     {
-      "denominator": 1737969764666.0,
+      "denominator": 1838029562783.0,
       "department": null,
       "indicator": "I5",
       "is_suppressed": false,
       "level": "district",
       "measure": "value",
-      "numerator": 121706942560.0,
+      "numerator": 130639475795.0,
       "period": "2022",
-      "ratio": 0.070028,
-      "sample_size": 1524,
+      "ratio": 0.071076,
+      "sample_size": 1632,
       "variant": null
     },
     {
-      "denominator": 1586078162980.0,
+      "denominator": 1607084459701.0,
       "department": null,
       "indicator": "I5",
       "is_suppressed": false,
       "level": "district",
       "measure": "value",
-      "numerator": 31623952112.0,
+      "numerator": 32444774397.0,
       "period": "2023",
-      "ratio": 0.019938,
-      "sample_size": 1078,
+      "ratio": 0.020189,
+      "sample_size": 1163,
       "variant": null
     },
     {
@@ -10882,20 +10882,20 @@
       "variant": null
     },
     {
-      "denominator": 17907385053.0,
+      "denominator": 61085139631.0,
       "department": "citizen_culture",
       "indicator": "I5",
       "is_suppressed": false,
       "level": "department",
       "measure": "value",
-      "numerator": 664445204.0,
+      "numerator": 6167476979.0,
       "period": "2022",
-      "ratio": 0.037105,
-      "sample_size": 16,
+      "ratio": 0.100965,
+      "sample_size": 38,
       "variant": null
     },
     {
-      "denominator": 62337390126.0,
+      "denominator": 73601313251.0,
       "department": "citizen_culture",
       "indicator": "I5",
       "is_suppressed": false,
@@ -10903,8 +10903,8 @@
       "measure": "value",
       "numerator": 2742728803.0,
       "period": "2023",
-      "ratio": 0.043998,
-      "sample_size": 15,
+      "ratio": 0.037265,
+      "sample_size": 22,
       "variant": null
     },
     {
@@ -10921,15 +10921,15 @@
       "variant": null
     },
     {
-      "denominator": 29542987326.0,
+      "denominator": null,
       "department": "communications",
       "indicator": "I5",
-      "is_suppressed": false,
+      "is_suppressed": true,
       "level": "department",
       "measure": "value",
-      "numerator": 0.0,
+      "numerator": null,
       "period": "2023",
-      "ratio": 0.0,
+      "ratio": null,
       "sample_size": 5,
       "variant": null
     },
@@ -11038,7 +11038,7 @@
       "variant": null
     },
     {
-      "denominator": 472157731347.0,
+      "denominator": 482074273778.0,
       "department": "education",
       "indicator": "I5",
       "is_suppressed": false,
@@ -11046,8 +11046,8 @@
       "measure": "value",
       "numerator": 21961451368.0,
       "period": "2022",
-      "ratio": 0.046513,
-      "sample_size": 115,
+      "ratio": 0.045556,
+      "sample_size": 117,
       "variant": null
     },
     {
@@ -11116,29 +11116,29 @@
       "variant": null
     },
     {
-      "denominator": 548607725.0,
+      "denominator": 2710167759.0,
       "department": "general",
       "indicator": "I5",
       "is_suppressed": false,
       "level": "department",
       "measure": "value",
-      "numerator": 0.0,
+      "numerator": 450420972.0,
       "period": "2022",
-      "ratio": 0.0,
-      "sample_size": 19,
+      "ratio": 0.166197,
+      "sample_size": 56,
       "variant": null
     },
     {
-      "denominator": 544252718.0,
+      "denominator": 2755394291.0,
       "department": "general",
       "indicator": "I5",
       "is_suppressed": false,
       "level": "department",
       "measure": "value",
-      "numerator": 0.0,
+      "numerator": 25754656.0,
       "period": "2023",
-      "ratio": 0.0,
-      "sample_size": 15,
+      "ratio": 0.009347,
+      "sample_size": 71,
       "variant": null
     },
     {
@@ -11155,29 +11155,29 @@
       "variant": null
     },
     {
-      "denominator": null,
+      "denominator": 3157634079.0,
       "department": "government",
       "indicator": "I5",
-      "is_suppressed": true,
+      "is_suppressed": false,
       "level": "department",
       "measure": "value",
-      "numerator": null,
+      "numerator": 0.0,
       "period": "2023",
-      "ratio": null,
-      "sample_size": 1,
+      "ratio": 0.0,
+      "sample_size": 13,
       "variant": null
     },
     {
-      "denominator": 120725538139.0,
+      "denominator": 145061843796.0,
       "department": "health",
       "indicator": "I5",
       "is_suppressed": false,
       "level": "department",
       "measure": "value",
-      "numerator": 3315832309.0,
+      "numerator": 5362382572.0,
       "period": "2022",
-      "ratio": 0.027466,
-      "sample_size": 26,
+      "ratio": 0.036966,
+      "sample_size": 45,
       "variant": null
     },
     {
@@ -11246,7 +11246,7 @@
       "variant": null
     },
     {
-      "denominator": 25438815130.0,
+      "denominator": 25650001623.0,
       "department": "mobility",
       "indicator": "I5",
       "is_suppressed": false,
@@ -11254,8 +11254,8 @@
       "measure": "value",
       "numerator": 131068685.0,
       "period": "2022",
-      "ratio": 0.005152,
-      "sample_size": 117,
+      "ratio": 0.00511,
+      "sample_size": 122,
       "variant": null
     },
     {
@@ -11324,7 +11324,7 @@
       "variant": null
     },
     {
-      "denominator": 13316903582.0,
+      "denominator": 13365708002.0,
       "department": "planning",
       "indicator": "I5",
       "is_suppressed": false,
@@ -11332,8 +11332,8 @@
       "measure": "value",
       "numerator": 1216496484.0,
       "period": "2022",
-      "ratio": 0.09135,
-      "sample_size": 106,
+      "ratio": 0.091016,
+      "sample_size": 107,
       "variant": null
     },
     {
@@ -11402,16 +11402,16 @@
       "variant": null
     },
     {
-      "denominator": 108999881962.0,
+      "denominator": 111441588345.0,
       "department": "social_inclusion",
       "indicator": "I5",
       "is_suppressed": false,
       "level": "department",
       "measure": "value",
-      "numerator": 19868716859.0,
+      "numerator": 20025042197.0,
       "period": "2022",
-      "ratio": 0.182282,
-      "sample_size": 100,
+      "ratio": 0.179691,
+      "sample_size": 101,
       "variant": null
     },
     {
@@ -11428,20 +11428,20 @@
       "variant": null
     },
     {
-      "denominator": 358986649099.0,
+      "denominator": 374995655407.0,
       "department": "supplies_and_services",
       "indicator": "I5",
       "is_suppressed": false,
       "level": "department",
       "measure": "value",
-      "numerator": 30140809561.0,
+      "numerator": 30737740448.0,
       "period": "2022",
-      "ratio": 0.083961,
-      "sample_size": 310,
+      "ratio": 0.081968,
+      "sample_size": 323,
       "variant": null
     },
     {
-      "denominator": 236215748724.0,
+      "denominator": 240556745224.0,
       "department": "supplies_and_services",
       "indicator": "I5",
       "is_suppressed": false,
@@ -11449,8 +11449,8 @@
       "measure": "value",
       "numerator": 597413557.0,
       "period": "2023",
-      "ratio": 0.002529,
-      "sample_size": 158,
+      "ratio": 0.002483,
+      "sample_size": 167,
       "variant": null
     },
     {
@@ -11467,16 +11467,16 @@
       "variant": null
     },
     {
-      "denominator": 83456793177.0,
+      "denominator": 84649394621.0,
       "department": "territorial_management",
       "indicator": "I5",
       "is_suppressed": false,
       "level": "department",
       "measure": "value",
-      "numerator": 15756461422.0,
+      "numerator": 16551529051.0,
       "period": "2023",
-      "ratio": 0.188798,
-      "sample_size": 42,
+      "ratio": 0.19553,
+      "sample_size": 43,
       "variant": null
     },
     {
@@ -11506,16 +11506,16 @@
       "variant": null
     },
     {
-      "denominator": 8817493675.0,
+      "denominator": 10574425488.0,
       "department": "women",
       "indicator": "I5",
       "is_suppressed": false,
       "level": "department",
       "measure": "value",
-      "numerator": 539535391.0,
+      "numerator": 718809391.0,
       "period": "2022",
-      "ratio": 0.061189,
-      "sample_size": 10,
+      "ratio": 0.067976,
+      "sample_size": 18,
       "variant": null
     },
     {
@@ -11558,29 +11558,29 @@
       "variant": null
     },
     {
-      "denominator": 353.0,
+      "denominator": 387.0,
       "department": null,
       "indicator": "I5",
       "is_suppressed": false,
       "level": "district",
       "measure": "count",
-      "numerator": 140.0,
+      "numerator": 164.0,
       "period": "2022",
-      "ratio": 0.396601,
-      "sample_size": 353,
+      "ratio": 0.423773,
+      "sample_size": 387,
       "variant": "near_addition_cap"
     },
     {
-      "denominator": 66.0,
+      "denominator": 69.0,
       "department": null,
       "indicator": "I5",
       "is_suppressed": false,
       "level": "district",
       "measure": "count",
-      "numerator": 22.0,
+      "numerator": 25.0,
       "period": "2023",
-      "ratio": 0.333333,
-      "sample_size": 66,
+      "ratio": 0.362319,
+      "sample_size": 69,
       "variant": "near_addition_cap"
     },
     {
@@ -11610,16 +11610,16 @@
       "variant": "near_addition_cap"
     },
     {
-      "denominator": null,
+      "denominator": 10.0,
       "department": "citizen_culture",
       "indicator": "I5",
-      "is_suppressed": true,
+      "is_suppressed": false,
       "level": "department",
       "measure": "count",
-      "numerator": null,
+      "numerator": 3.0,
       "period": "2022",
-      "ratio": null,
-      "sample_size": 4,
+      "ratio": 0.3,
+      "sample_size": 10,
       "variant": "near_addition_cap"
     },
     {
@@ -11766,7 +11766,33 @@
       "variant": "near_addition_cap"
     },
     {
-      "denominator": 6.0,
+      "denominator": 21.0,
+      "department": "general",
+      "indicator": "I5",
+      "is_suppressed": false,
+      "level": "department",
+      "measure": "count",
+      "numerator": 21.0,
+      "period": "2022",
+      "ratio": 1.0,
+      "sample_size": 21,
+      "variant": "near_addition_cap"
+    },
+    {
+      "denominator": null,
+      "department": "general",
+      "indicator": "I5",
+      "is_suppressed": true,
+      "level": "department",
+      "measure": "count",
+      "numerator": null,
+      "period": "2023",
+      "ratio": null,
+      "sample_size": 2,
+      "variant": "near_addition_cap"
+    },
+    {
+      "denominator": 9.0,
       "department": "health",
       "indicator": "I5",
       "is_suppressed": false,
@@ -11774,8 +11800,8 @@
       "measure": "count",
       "numerator": 1.0,
       "period": "2022",
-      "ratio": 0.166667,
-      "sample_size": 6,
+      "ratio": 0.111111,
+      "sample_size": 9,
       "variant": "near_addition_cap"
     },
     {
@@ -11896,7 +11922,7 @@
       "variant": "near_addition_cap"
     },
     {
-      "denominator": 69.0,
+      "denominator": 70.0,
       "department": "social_inclusion",
       "indicator": "I5",
       "is_suppressed": false,
@@ -11904,8 +11930,8 @@
       "measure": "count",
       "numerator": 40.0,
       "period": "2022",
-      "ratio": 0.57971,
-      "sample_size": 69,
+      "ratio": 0.571429,
+      "sample_size": 70,
       "variant": "near_addition_cap"
     },
     {
@@ -11922,7 +11948,7 @@
       "variant": "near_addition_cap"
     },
     {
-      "denominator": 49.0,
+      "denominator": 50.0,
       "department": "supplies_and_services",
       "indicator": "I5",
       "is_suppressed": false,
@@ -11930,8 +11956,8 @@
       "measure": "count",
       "numerator": 16.0,
       "period": "2022",
-      "ratio": 0.326531,
-      "sample_size": 49,
+      "ratio": 0.32,
+      "sample_size": 50,
       "variant": "near_addition_cap"
     },
     {
@@ -11970,11 +11996,11 @@
       "numerator": null,
       "period": "2023",
       "ratio": null,
-      "sample_size": 2,
+      "sample_size": 3,
       "variant": "near_addition_cap"
     },
     {
-      "denominator": 6.0,
+      "denominator": 8.0,
       "department": "women",
       "indicator": "I5",
       "is_suppressed": false,
@@ -11983,7 +12009,7 @@
       "numerator": 0.0,
       "period": "2022",
       "ratio": 0.0,
-      "sample_size": 6,
+      "sample_size": 8,
       "variant": "near_addition_cap"
     },
     {
@@ -12533,16 +12559,16 @@
       "variant": "signed_february_june"
     },
     {
-      "denominator": 1366.0,
+      "denominator": 1364.0,
       "department": null,
       "indicator": "I8",
       "is_suppressed": false,
       "level": "district",
       "measure": "count",
-      "numerator": 693.0,
+      "numerator": 692.0,
       "period": "2023",
-      "ratio": 0.507321,
-      "sample_size": 1366,
+      "ratio": 0.507331,
+      "sample_size": 1364,
       "variant": "signed_february_june"
     },
     {
@@ -12559,16 +12585,16 @@
       "variant": "signed_february_june"
     },
     {
-      "denominator": 1866565769282.0,
+      "denominator": 1843061993462.0,
       "department": null,
       "indicator": "I8",
       "is_suppressed": false,
       "level": "district",
       "measure": "value",
-      "numerator": 1106351739499.0,
+      "numerator": 1105930976050.0,
       "period": "2023",
-      "ratio": 0.59272,
-      "sample_size": 1366,
+      "ratio": 0.600051,
+      "sample_size": 1364,
       "variant": "signed_february_june"
     },
     {
@@ -12585,16 +12611,16 @@
       "variant": "signed_january"
     },
     {
-      "denominator": 1366.0,
+      "denominator": 1364.0,
       "department": null,
       "indicator": "I8",
       "is_suppressed": false,
       "level": "district",
       "measure": "count",
-      "numerator": 375.0,
+      "numerator": 374.0,
       "period": "2023",
-      "ratio": 0.274524,
-      "sample_size": 1366,
+      "ratio": 0.274194,
+      "sample_size": 1364,
       "variant": "signed_january"
     },
     {
@@ -12611,16 +12637,16 @@
       "variant": "signed_january"
     },
     {
-      "denominator": 1866565769282.0,
+      "denominator": 1843061993462.0,
       "department": null,
       "indicator": "I8",
       "is_suppressed": false,
       "level": "district",
       "measure": "value",
-      "numerator": 656020790073.0,
+      "numerator": 632937777702.0,
       "period": "2023",
-      "ratio": 0.351459,
-      "sample_size": 1366,
+      "ratio": 0.343416,
+      "sample_size": 1364,
       "variant": "signed_january"
     }
   ]

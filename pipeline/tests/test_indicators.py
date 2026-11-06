@@ -70,7 +70,7 @@ def test_i1_golden_2022_by_count(cells) -> None:
         if (c.indicator, c.variant, c.measure, c.level, c.period)
         == ("I1", None, "count", "district", "2022")
     )
-    assert (cell.numerator, cell.denominator) == (1387, 1716)
+    assert (cell.numerator, cell.denominator) == (1387, 1715)
 
 
 def test_r13_published_cells_are_yearly_and_never_leak_small_figures(cells) -> None:

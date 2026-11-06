@@ -1621,13 +1621,13 @@
       "value_sample_size": 0
     },
     {
-      "contract_count": 60,
+      "contract_count": 59,
       "contract_type": null,
       "is_suppressed": false,
       "period": "2022-06",
       "procurement_method": null,
-      "value": 246463498318.0,
-      "value_sample_size": 60
+      "value": 246263499064.0,
+      "value_sample_size": 59
     },
     {
       "contract_count": 17,
@@ -1657,13 +1657,13 @@
       "value_sample_size": 0
     },
     {
-      "contract_count": 17,
+      "contract_count": 16,
       "contract_type": "service_contract",
       "is_suppressed": false,
       "period": "2022-06",
       "procurement_method": null,
-      "value": 106673135309.0,
-      "value_sample_size": 17
+      "value": 106473136055.0,
+      "value_sample_size": 16
     },
     {
       "contract_count": 12,
@@ -1684,13 +1684,13 @@
       "value_sample_size": 4
     },
     {
-      "contract_count": 16,
+      "contract_count": 15,
       "contract_type": null,
       "is_suppressed": false,
       "period": "2022-06",
       "procurement_method": "abbreviated_selection",
-      "value": 37643490832.0,
-      "value_sample_size": 16
+      "value": 37443491578.0,
+      "value_sample_size": 15
     },
     {
       "contract_count": 0,
@@ -1702,13 +1702,13 @@
       "value_sample_size": 0
     },
     {
-      "contract_count": 6,
+      "contract_count": 5,
       "contract_type": "service_contract",
       "is_suppressed": true,
       "period": "2022-06",
       "procurement_method": "abbreviated_selection",
       "value": null,
-      "value_sample_size": 6
+      "value_sample_size": 5
     },
     {
       "contract_count": 10,
@@ -3889,22 +3889,22 @@
       "value_sample_size": 0
     },
     {
-      "contract_count": 378,
+      "contract_count": 377,
       "contract_type": null,
       "is_suppressed": false,
       "period": "2023-01",
       "procurement_method": null,
-      "value": 661625524920.0,
-      "value_sample_size": 378
+      "value": 638542512549.0,
+      "value_sample_size": 377
     },
     {
-      "contract_count": 40,
+      "contract_count": 39,
       "contract_type": "interadministrative",
       "is_suppressed": true,
       "period": "2023-01",
       "procurement_method": null,
       "value": null,
-      "value_sample_size": 40
+      "value_sample_size": 39
     },
     {
       "contract_count": 13,
@@ -3997,22 +3997,22 @@
       "value_sample_size": 0
     },
     {
-      "contract_count": 375,
+      "contract_count": 374,
       "contract_type": null,
       "is_suppressed": false,
       "period": "2023-01",
       "procurement_method": "direct_award",
-      "value": 656020790073.0,
-      "value_sample_size": 375
+      "value": 632937777702.0,
+      "value_sample_size": 374
     },
     {
-      "contract_count": 40,
+      "contract_count": 39,
       "contract_type": "interadministrative",
       "is_suppressed": true,
       "period": "2023-01",
       "procurement_method": "direct_award",
       "value": null,
-      "value_sample_size": 40
+      "value_sample_size": 39
     },
     {
       "contract_count": 11,
@@ -4213,22 +4213,22 @@
       "value_sample_size": 0
     },
     {
-      "contract_count": 199,
+      "contract_count": 198,
       "contract_type": null,
       "is_suppressed": false,
       "period": "2023-02",
       "procurement_method": null,
-      "value": 625180923537.0,
-      "value_sample_size": 199
+      "value": 624760160088.0,
+      "value_sample_size": 198
     },
     {
-      "contract_count": 45,
+      "contract_count": 44,
       "contract_type": "interadministrative",
       "is_suppressed": false,
       "period": "2023-02",
       "procurement_method": null,
-      "value": 305587724270.0,
-      "value_sample_size": 45
+      "value": 305166960821.0,
+      "value_sample_size": 44
     },
     {
       "contract_count": 24,
@@ -4321,22 +4321,22 @@
       "value_sample_size": 1
     },
     {
-      "contract_count": 192,
+      "contract_count": 191,
       "contract_type": null,
       "is_suppressed": false,
       "period": "2023-02",
       "procurement_method": "direct_award",
-      "value": 413119553663.0,
-      "value_sample_size": 192
+      "value": 412698790214.0,
+      "value_sample_size": 191
     },
     {
-      "contract_count": 45,
+      "contract_count": 44,
       "contract_type": "interadministrative",
       "is_suppressed": false,
       "period": "2023-02",
       "procurement_method": "direct_award",
-      "value": 305587724270.0,
-      "value_sample_size": 45
+      "value": 305166960821.0,
+      "value_sample_size": 44
     },
     {
       "contract_count": 21,
@@ -6481,13 +6481,13 @@
       "value_sample_size": 0
     },
     {
-      "contract_count": 102,
+      "contract_count": 101,
       "contract_type": null,
       "is_suppressed": false,
       "period": "2023-09",
       "procurement_method": null,
-      "value": 68123077884.0,
-      "value_sample_size": 102
+      "value": 67641549678.0,
+      "value_sample_size": 101
     },
     {
       "contract_count": 0,
@@ -6499,13 +6499,13 @@
       "value_sample_size": 0
     },
     {
-      "contract_count": 10,
+      "contract_count": 9,
       "contract_type": "other",
       "is_suppressed": false,
       "period": "2023-09",
       "procurement_method": null,
-      "value": 4057639232.0,
-      "value_sample_size": 10
+      "value": 3576111026.0,
+      "value_sample_size": 9
     },
     {
       "contract_count": 0,
@@ -6717,10 +6717,10 @@
     {
       "contract_count": 5,
       "contract_type": null,
-      "is_suppressed": true,
+      "is_suppressed": false,
       "period": "2023-09",
       "procurement_method": "public_tender",
-      "value": null,
+      "value": 13248993190.0,
       "value_sample_size": 5
     },
     {
@@ -6760,22 +6760,22 @@
       "value_sample_size": 4
     },
     {
-      "contract_count": 5,
+      "contract_count": 4,
       "contract_type": null,
-      "is_suppressed": false,
+      "is_suppressed": true,
       "period": "2023-09",
       "procurement_method": "special_regime",
-      "value": 1340889968.0,
-      "value_sample_size": 5
+      "value": null,
+      "value_sample_size": 4
     },
     {
-      "contract_count": 5,
+      "contract_count": 4,
       "contract_type": "other",
-      "is_suppressed": false,
+      "is_suppressed": true,
       "period": "2023-09",
       "procurement_method": "special_regime",
-      "value": 1340889968.0,
-      "value_sample_size": 5
+      "value": null,
+      "value_sample_size": 4
     },
     {
       "contract_count": 0,
@@ -13285,13 +13285,13 @@
       "value_sample_size": 0
     },
     {
-      "contract_count": 86,
+      "contract_count": 85,
       "contract_type": null,
       "is_suppressed": false,
       "period": "2025-06",
       "procurement_method": null,
-      "value": 536531936629.0,
-      "value_sample_size": 86
+      "value": 475161049374.0,
+      "value_sample_size": 85
     },
     {
       "contract_count": 31,
@@ -13339,13 +13339,13 @@
       "value_sample_size": 6
     },
     {
-      "contract_count": 4,
+      "contract_count": 3,
       "contract_type": "works",
       "is_suppressed": true,
       "period": "2025-06",
       "procurement_method": null,
       "value": null,
-      "value_sample_size": 4
+      "value_sample_size": 3
     },
     {
       "contract_count": 7,
@@ -13519,13 +13519,13 @@
       "value_sample_size": 0
     },
     {
-      "contract_count": 4,
+      "contract_count": 3,
       "contract_type": null,
       "is_suppressed": true,
       "period": "2025-06",
       "procurement_method": "public_tender",
       "value": null,
-      "value_sample_size": 4
+      "value_sample_size": 3
     },
     {
       "contract_count": 0,
@@ -13555,13 +13555,13 @@
       "value_sample_size": 0
     },
     {
-      "contract_count": 3,
+      "contract_count": 2,
       "contract_type": "works",
       "is_suppressed": true,
       "period": "2025-06",
       "procurement_method": "public_tender",
       "value": null,
-      "value_sample_size": 3
+      "value_sample_size": 2
     },
     {
       "contract_count": 7,
@@ -14581,13 +14581,13 @@
       "value_sample_size": 0
     },
     {
-      "contract_count": 106,
+      "contract_count": 104,
       "contract_type": null,
       "is_suppressed": false,
       "period": "2025-10",
       "procurement_method": null,
-      "value": 696888176866.0,
-      "value_sample_size": 104
+      "value": 693846014450.0,
+      "value_sample_size": 102
     },
     {
       "contract_count": 30,
@@ -14599,13 +14599,13 @@
       "value_sample_size": 30
     },
     {
-      "contract_count": 16,
+      "contract_count": 15,
       "contract_type": "other",
       "is_suppressed": true,
       "period": "2025-10",
       "procurement_method": null,
       "value": null,
-      "value_sample_size": 16
+      "value_sample_size": 15
     },
     {
       "contract_count": 2,
@@ -14626,13 +14626,13 @@
       "value_sample_size": 39
     },
     {
-      "contract_count": 16,
+      "contract_count": 15,
       "contract_type": "supply_and_purchase",
       "is_suppressed": false,
       "period": "2025-10",
       "procurement_method": null,
-      "value": 11987554868.0,
-      "value_sample_size": 16
+      "value": 9880718388.0,
+      "value_sample_size": 15
     },
     {
       "contract_count": 3,
@@ -14644,13 +14644,13 @@
       "value_sample_size": 3
     },
     {
-      "contract_count": 18,
+      "contract_count": 17,
       "contract_type": null,
       "is_suppressed": false,
       "period": "2025-10",
       "procurement_method": "abbreviated_selection",
-      "value": 14603166874.0,
-      "value_sample_size": 18
+      "value": 12496330394.0,
+      "value_sample_size": 17
     },
     {
       "contract_count": 0,
@@ -14671,13 +14671,13 @@
       "value_sample_size": 2
     },
     {
-      "contract_count": 15,
+      "contract_count": 14,
       "contract_type": "supply_and_purchase",
       "is_suppressed": true,
       "period": "2025-10",
       "procurement_method": "abbreviated_selection",
       "value": null,
-      "value_sample_size": 15
+      "value_sample_size": 14
     },
     {
       "contract_count": 1,
@@ -14752,22 +14752,22 @@
       "value_sample_size": 0
     },
     {
-      "contract_count": 5,
+      "contract_count": 4,
       "contract_type": null,
       "is_suppressed": true,
       "period": "2025-10",
       "procurement_method": "merit_based_selection",
       "value": null,
-      "value_sample_size": 5
+      "value_sample_size": 4
     },
     {
-      "contract_count": 5,
+      "contract_count": 4,
       "contract_type": "other",
       "is_suppressed": true,
       "period": "2025-10",
       "procurement_method": "merit_based_selection",
       "value": null,
-      "value_sample_size": 5
+      "value_sample_size": 4
     },
     {
       "contract_count": 2,
@@ -15553,13 +15553,13 @@
       "value_sample_size": 0
     },
     {
-      "contract_count": 712,
+      "contract_count": 711,
       "contract_type": null,
       "is_suppressed": false,
       "period": "2026-01",
       "procurement_method": null,
-      "value": 1022296345191.0,
-      "value_sample_size": 712
+      "value": 1017467295459.0,
+      "value_sample_size": 711
     },
     {
       "contract_count": 33,
@@ -15589,13 +15589,13 @@
       "value_sample_size": 0
     },
     {
-      "contract_count": 634,
+      "contract_count": 633,
       "contract_type": "service_contract",
       "is_suppressed": false,
       "period": "2026-01",
       "procurement_method": null,
-      "value": 718005230486.0,
-      "value_sample_size": 634
+      "value": 713176180754.0,
+      "value_sample_size": 633
     },
     {
       "contract_count": 8,
@@ -15661,13 +15661,13 @@
       "value_sample_size": 0
     },
     {
-      "contract_count": 708,
+      "contract_count": 707,
       "contract_type": null,
       "is_suppressed": false,
       "period": "2026-01",
       "procurement_method": "direct_award",
-      "value": 1002425629375.0,
-      "value_sample_size": 708
+      "value": 997596579643.0,
+      "value_sample_size": 707
     },
     {
       "contract_count": 33,
@@ -15697,13 +15697,13 @@
       "value_sample_size": 0
     },
     {
-      "contract_count": 632,
+      "contract_count": 631,
       "contract_type": "service_contract",
       "is_suppressed": true,
       "period": "2026-01",
       "procurement_method": "direct_award",
       "value": null,
-      "value_sample_size": 632
+      "value_sample_size": 631
     },
     {
       "contract_count": 8,

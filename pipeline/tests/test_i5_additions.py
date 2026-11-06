@@ -238,12 +238,14 @@ def real() -> duckdb.DuckDBPyConnection:
 def test_i5_golden_district_by_year(real: duckdb.DuckDBPyConnection) -> None:
     cells = _cells(real)
     expected = {
-        ("2022", None, "count"): (353.0, 1524.0, 1524),
-        ("2023", None, "count"): (66.0, 1080.0, 1080),
-        ("2022", None, "value"): (121706942560.0, 1737969764666.0, 1524),
-        ("2023", None, "value"): (31623952112.0, 1586078162980.0, 1078),
-        ("2022", "near_addition_cap", "count"): (140.0, 353.0, 353),
-        ("2023", "near_addition_cap", "count"): (22.0, 66.0, 66),
+        # ADR 0047: los 200 cruces por «NNNNNNNNNN de AAAA» suman 108 contratos en 2022 y 85 en
+        # 2023; las cifras se verificaron aparte contra los CSV de la copia.
+        ("2022", None, "count"): (387.0, 1632.0, 1632),
+        ("2023", None, "count"): (69.0, 1165.0, 1165),
+        ("2022", None, "value"): (130639475795.0, 1838029562783.0, 1632),
+        ("2023", None, "value"): (32444774397.0, 1607084459701.0, 1163),
+        ("2022", "near_addition_cap", "count"): (164.0, 387.0, 387),
+        ("2023", "near_addition_cap", "count"): (25.0, 69.0, 69),
     }
     assert {
         (period, variant, measure): cells[("district", None, period, variant, measure)]

@@ -137,10 +137,10 @@ def test_golden_i1_2022_district_counts(real_linked) -> None:
     }
     direct = cells[("2022", None, "count", "district", None)]
     non_competitive = cells[("2022", "non_competitive", "count", "district", None)]
-    # 2022: 1.716 contratos, 1.387 directos (coincide con el denominador de I8) y 76 de
-    # régimen especial (docs/bitacora.md).
-    assert (direct.numerator, direct.denominator) == (1387, 1716)
-    assert (non_competitive.numerator, non_competitive.denominator) == (1463, 1716)
+    # 2022: 1.715 contratos (ADR 0047 fusiona uno que SECOP II guardaba dos veces), 1.387 directos
+    # (coincide con el denominador de I8) y 76 de régimen especial (docs/bitacora.md).
+    assert (direct.numerator, direct.denominator) == (1387, 1715)
+    assert (non_competitive.numerator, non_competitive.denominator) == (1463, 1715)
 
 
 def test_golden_i1_district_value_by_year(real_linked) -> None:
@@ -150,16 +150,16 @@ def test_golden_i1_district_value_by_year(real_linked) -> None:
         for c in build_direct_award_share(real_linked)
     }
     expected = {
-        ("2022", None): (1916233975757.0, 2791146036155.44, 1714),
-        ("2023", None): (1866565769282.0, 3760558108849.0, 1666),
+        ("2022", None): (1916233975757.0, 2790946036901.44, 1713),
+        ("2023", None): (1843061993462.0, 3736572804823.0, 1663),
         ("2024", None): (2501013379477.41, 3684382611042.83, 1285),
-        ("2025", None): (5077549775211.0, 6595801305008.82, 1446),
-        ("2026", None): (1916087544312.0, 2886199314029.01, 1306),
-        ("2022", "non_competitive"): (2010614108055.0, 2791146036155.44, 1714),
-        ("2023", "non_competitive"): (3310482034405.0, 3760558108849.0, 1666),
+        ("2025", None): (5077549775211.0, 6531388255337.82, 1443),
+        ("2026", None): (1911258494580.0, 2881370264297.01, 1305),
+        ("2022", "non_competitive"): (2010614108055.0, 2790946036901.44, 1713),
+        ("2023", "non_competitive"): (3286496730379.0, 3736572804823.0, 1663),
         ("2024", "non_competitive"): (2867068127851.41, 3684382611042.83, 1285),
-        ("2025", "non_competitive"): (5457159517105.0, 6595801305008.82, 1446),
-        ("2026", "non_competitive"): (1958365438458.0, 2886199314029.01, 1306),
+        ("2025", "non_competitive"): (5457159517105.0, 6531388255337.82, 1443),
+        ("2026", "non_competitive"): (1953536388726.0, 2881370264297.01, 1305),
     }
     observed = {
         (period, variant): (

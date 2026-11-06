@@ -12,12 +12,11 @@ from veeduria.cli import app
 from veeduria.publish.models import CONTRACT_MODELS, Quality, QualityShare, ReconciliationMonth
 
 runner = CliRunner()
+# ADR 0047: junio y julio de 2022 dejaron de estar por debajo del 80 % al cruzar «de AAAA».
 BELOW_THRESHOLD = [
     "2022-03",
     "2022-04",
     "2022-05",
-    "2022-06",
-    "2022-07",
     "2022-12",
 ]
 
@@ -58,25 +57,28 @@ def test_r15_quality_publishes_the_18_months_and_the_threshold(quality: Quality)
     assert [item.period for item in months] == sorted(item.period for item in months)
 
 
-def test_r15_quality_flags_the_6_months_below_80_percent(quality: Quality) -> None:
+def test_r15_quality_flags_the_4_months_below_80_percent(quality: Quality) -> None:
     flagged = [item.period for item in quality.reconciliation.months if item.below_threshold]
     assert flagged == BELOW_THRESHOLD
 
 
-def test_r15_quality_january_2022_keeps_the_counts_of_adr_0031(quality: Quality) -> None:
+def test_r15_quality_january_2022_counts_the_contracts_linked_by_adr_0047(
+    quality: Quality,
+) -> None:
+    """ADR 0031 daba 661 de 790 (83,67 %); el cruce por «de AAAA» deja 722 de 729."""
     january = quality.reconciliation.months[0]
     assert (
         january.secop_count,
         january.medata_count,
         january.shared_count,
         january.union_count,
-    ) == (726, 725, 661, 790)
-    assert january.shared_share == 0.8367
+    ) == (726, 725, 722, 729)
+    assert january.shared_share == 0.9904
 
 
 def test_r15_quality_march_2022_is_the_lowest_month(quality: Quality) -> None:
     march = next(item for item in quality.reconciliation.months if item.period == "2022-03")
-    assert (march.shared_count, march.union_count, march.shared_share) == (5, 20, 0.25)
+    assert (march.shared_count, march.union_count, march.shared_share) == (10, 15, 0.6667)
 
 
 def test_adr_0038_no_month_has_fewer_than_5_contracts(quality: Quality) -> None:
@@ -124,7 +126,7 @@ def test_r15_quality_json_in_outputs_matches_a_fresh_run(quality: Quality) -> No
 
 def test_r08_quality_reports_the_unassigned_share_of_the_district(quality: Quality) -> None:
     district = quality.unassigned_share.district
-    assert (district.count, district.total, district.share) == (19, 7428, 0.0026)
+    assert (district.count, district.total, district.share) == (19, 7420, 0.0026)
 
 
 def test_r08_quality_unassigned_years_add_up_to_the_district(quality: Quality) -> None:
