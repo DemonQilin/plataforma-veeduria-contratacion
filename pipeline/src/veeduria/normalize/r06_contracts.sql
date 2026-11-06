@@ -19,8 +19,20 @@ classified AS (
 )
 SELECT
     raw.id_contrato AS contract_id,
-    -- R3 y ADR 0046: la referencia es la llave de cruce con MEData; trim() quita también el NBSP.
-    trim(raw.referencia_del_contrato) AS contract_reference,
+    -- R3, ADR 0046 y ADR 0047: la referencia es la llave de cruce con MEData. trim() quita también
+    -- el NBSP; «NNNNNNNNNN de AAAA» (y un signo final) se reduce al número, que es lo que guarda MEData.
+    coalesce(
+        nullif(
+            regexp_extract(
+                trim(raw.referencia_del_contrato),
+                '^([0-9]+)(?:\s*(?:del?|-)\s*[0-9]{4})?\s*[.*-]?$',
+                1,
+                'i'
+            ),
+            ''
+        ),
+        trim(raw.referencia_del_contrato)
+    ) AS contract_reference,
     raw.proceso_de_compra AS procurement_process,
     classified.procurement_method,
     classified.direct_award,

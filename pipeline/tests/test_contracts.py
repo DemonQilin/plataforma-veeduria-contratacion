@@ -97,12 +97,61 @@ def test_r03_reference_drops_surrounding_spaces_and_nbsp(tmp_path: Path) -> None
         [
             _row(id_contrato="A", referencia_del_contrato="4600000001 "),
             _row(id_contrato="B", referencia_del_contrato=" 4600000002 "),
-            _row(id_contrato="C", referencia_del_contrato="4600000003 de 2022"),
+            _row(id_contrato="C", referencia_del_contrato="CO1.PCCNTR.3 "),
         ],
     )
     assert connection.execute(
         "SELECT contract_reference FROM contracts ORDER BY contract_id"
-    ).fetchall() == [("4600000001",), ("4600000002",), ("4600000003 de 2022",)]
+    ).fetchall() == [("4600000001",), ("4600000002",), ("CO1.PCCNTR.3",)]
+
+
+@pytest.mark.parametrize(
+    ("raw_reference", "expected"),
+    [
+        ("4600000003 de 2022", "4600000003"),
+        ("4600000003 DE 2022", "4600000003"),
+        ("4600000003  de  2022", "4600000003"),
+        ("4600000003 del 2023", "4600000003"),
+        ("4600000003de2022", "4600000003"),
+        ("4600000003 de  2022", "4600000003"),
+        ("4600000003-2024", "4600000003"),
+        ("4600000003.", "4600000003"),
+        ("4600000003*", "4600000003"),
+        ("4600000003-", "4600000003"),
+        ("4600000003 DE 2025.", "4600000003"),
+        ("4600000003 de 2021", "4600000003"),
+    ],
+)
+def test_r03_reference_variants_keep_only_the_contract_number(
+    tmp_path: Path, raw_reference: str, expected: str
+) -> None:
+    """ADR 0047: SECOP II agrega «de AAAA» o un signo final; MEData trae solo el número."""
+    connection = _normalize(tmp_path, [_row(referencia_del_contrato=raw_reference)])
+    assert connection.execute("SELECT contract_reference FROM contracts").fetchall() == [
+        (expected,)
+    ]
+
+
+@pytest.mark.parametrize(
+    "raw_reference",
+    [
+        "4600000003",
+        "CO1.PCCNTR.3",
+        "CM 4600000003",
+        "CONVENIO N° 4600000003 DE 2023",
+        "4600000003 DE 2022 (DISTRITO) Y CT-2022-000807 (EPM)",
+        "4600000003 de 22",
+        "4600000003 de 20223",
+        "0001-A",
+    ],
+)
+def test_r03_references_outside_the_variant_pattern_are_left_as_they_are(
+    tmp_path: Path, raw_reference: str
+) -> None:
+    connection = _normalize(tmp_path, [_row(referencia_del_contrato=raw_reference)])
+    assert connection.execute("SELECT contract_reference FROM contracts").fetchall() == [
+        (raw_reference,)
+    ]
 
 
 def test_r02_unsigned_contract_is_kept_for_r04(tmp_path: Path) -> None:

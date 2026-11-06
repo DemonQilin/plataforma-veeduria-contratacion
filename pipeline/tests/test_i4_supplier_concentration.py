@@ -243,7 +243,7 @@ def test_golden_i4_district_2022(snapshot_connection: duckdb.DuckDBPyConnection)
     cell = cells[("2022", "district", None)]
     assert (cell.numerator, cell.denominator, cell.sample_size) == (
         1_109_311_641_923,
-        2_571_477_283_488,
-        915,
+        2_571_277_284_234,
+        914,
     )
     assert cell.ratio == pytest.approx(0.4314, abs=1e-4)

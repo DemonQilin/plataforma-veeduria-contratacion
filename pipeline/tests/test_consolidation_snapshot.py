@@ -31,7 +31,21 @@ def test_r03_snapshot_has_one_contract_per_reference(
 ) -> None:
     assert consolidated.execute(
         "SELECT count(*), count(DISTINCT contract_reference) FROM canonical_contracts"
-    ).fetchone() == (7428, 7428)
+    ).fetchone() == (7420, 7420)
+
+
+def test_r03_adr0047_snapshot_merges_the_variant_with_its_plain_reference(
+    consolidated: duckdb.DuckDBPyConnection,
+) -> None:
+    """Hay 8 referencias que SECOP II guarda dos veces, una de ellas con «DE AAAA» o un signo."""
+    assert consolidated.execute(
+        "SELECT contract_reference, version_count FROM canonical_contracts"
+        " WHERE contract_reference IN ('4600094321', '4600105052', '4600099328')"
+        " ORDER BY contract_reference"
+    ).fetchall() == [("4600094321", 2), ("4600099328", 2), ("4600105052", 2)]
+    assert consolidated.execute(
+        "SELECT count(*) FROM canonical_contracts WHERE contract_reference LIKE '%DE 2025.'"
+    ).fetchone() == (0,)
 
 
 def test_r03_snapshot_reports_six_references_with_different_processes(
