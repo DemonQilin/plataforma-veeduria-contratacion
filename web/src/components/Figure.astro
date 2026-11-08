@@ -5,15 +5,26 @@ import { renderPlot } from '../lib/plot';
 
 interface Props {
   id: string;
+  /** Número del bloque en el recorrido (p. ej. «2.1»): muestra número y título sobre el gráfico. */
+  number?: string;
 }
 
 const figure = getFigure(Astro.props.id);
+const { number } = Astro.props;
 const base = import.meta.env.BASE_URL;
 const sizes = figure.responsive ? (['small', 'large'] as const) : (['large'] as const);
 const svgs = sizes.map((size) => ({ size, html: renderPlot(figure.plot(size)) }));
 ---
 
 <figure id={figure.id} class:list={["figure", { responsive: figure.responsive }]}>
+  {
+    number && (
+      <>
+        <p class="caption number">{number}</p>
+        <h2>{figure.title}</h2>
+      </>
+    )
+  }
   {
     svgs.map(({ size, html }) => (
       <div class={`plot plot-${size}`} set:html={html} />
@@ -41,7 +52,7 @@ const svgs = sizes.map((size) => ({ size, html: renderPlot(figure.plot(size)) })
                   if (column.suppressible && row.suppressed) {
                     return (
                       <td class="num suppressed">
-                        datos insuficientes (n = {formatNumber(Number(row.values[figure.sampleKey] ?? 0))})
+                        datos insuficientes (n = {formatNumber(Number((figure.sampleKey ? row.values[figure.sampleKey] : 0) ?? 0))})
                       </td>
                     );
                   }
@@ -99,6 +110,15 @@ const svgs = sizes.map((size) => ({ size, html: renderPlot(figure.plot(size)) })
     .plot-small {
       display: none;
     }
+  }
+
+  .number {
+    margin: 0;
+    color: var(--accent);
+  }
+
+  h2 {
+    margin: var(--space-1) 0 var(--space-2);
   }
 
   figcaption {
