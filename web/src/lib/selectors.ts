@@ -67,3 +67,21 @@ export function directAwardMonthly(
 ): MonthlySeriesRow[] {
   return rows.filter((row) => row.procurement_method === 'direct_award' && row.contract_type === null);
 }
+
+/** Contratación directa de enero de cada año (periodos `AAAA-01`), en orden. */
+export function directAwardJanuary(
+  rows: readonly MonthlySeriesRow[] = directAwardMonthly(),
+): MonthlySeriesRow[] {
+  return rows.filter((row) => row.period.endsWith('-01')).toSorted((a, b) => a.period.localeCompare(b.period));
+}
+
+/** Celdas con la razón menor y mayor entre los años de un papel (no calcula: elige). */
+export function i2Extremes(
+  years: readonly I2YearCell[],
+  role: ComparisonYear['role'],
+): { min: I2YearCell | undefined; max: I2YearCell | undefined } {
+  const sorted = years
+    .filter((year) => year.role === role && year.cell.ratio !== null)
+    .toSorted((a, b) => (a.cell.ratio ?? 0) - (b.cell.ratio ?? 0));
+  return { min: sorted[0], max: sorted.at(-1) };
+}

@@ -1,0 +1,140 @@
+---
+// Mini gráfica de una tarjeta de la portada: una tabla con barras dibujadas con CSS.
+// La tabla es la gráfica y sus datos a la vez (S5); la barra es solo visual.
+export interface BarRow {
+  label: string;
+  sub?: string;
+  /** Texto de la cifra, ya formateado desde la celda. */
+  display: string;
+  note?: string | undefined;
+  /** Ancho de la barra, 0 a 100 (escala visual, no una cifra publicada). */
+  width: number;
+  /** Desplazamiento de la barra, 0 a 100 (línea de tiempo). */
+  offset?: number;
+  tone: 'treatment' | 'control' | 'restriction' | 'dashed';
+}
+
+interface Props {
+  caption: string;
+  rows: readonly BarRow[];
+  /** Encabezado de la columna de cifras. */
+  valueLabel: string;
+  /** Muestra la cifra al lado de la barra (por defecto) o solo la barra. */
+  showValue?: boolean;
+}
+
+const { caption, rows, valueLabel, showValue = true } = Astro.props;
+---
+
+<table class="bars">
+  <caption class="visually-hidden">{caption}</caption>
+  <thead class="visually-hidden">
+    <tr>
+      <th scope="col">Periodo</th>
+      <th scope="col">{valueLabel}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {
+      rows.map((row) => (
+        <tr>
+          <th scope="row">
+            {row.label}
+            {row.sub && <span class="caption">{row.sub}</span>}
+          </th>
+          <td>
+            <span class="track">
+              <span
+                class={`bar ${row.tone}`}
+                aria-hidden="true"
+                style={`width:${row.width}%;margin-left:${row.offset ?? 0}%`}
+              />
+              {showValue && <b class="val">{row.display}</b>}
+            </span>
+            {row.note && <span class="caption">{row.note}</span>}
+            {!showValue && <span class="visually-hidden">{row.display}</span>}
+          </td>
+        </tr>
+      ))
+    }
+  </tbody>
+</table>
+
+<style>
+  .bars {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  tr {
+    border-bottom: 1px dotted var(--hairline);
+  }
+
+  tbody tr:last-child {
+    border-bottom: 0;
+  }
+
+  th[scope='row'],
+  td {
+    padding: 6px 0;
+    vertical-align: middle;
+    font-size: var(--font-size-caption);
+    line-height: var(--line-height-caption);
+    text-align: start;
+    font-weight: 400;
+  }
+
+  th[scope='row'] {
+    width: 7.5rem;
+    padding-inline-end: var(--space-2);
+  }
+
+  th[scope='row'] :global(.caption),
+  td :global(.caption) {
+    display: block;
+  }
+
+  .track {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-width: 0;
+    height: 24px;
+    background-image: repeating-linear-gradient(
+      90deg,
+      var(--chart-grid) 0 1px,
+      transparent 1px 16.6667%
+    );
+  }
+
+  .bar {
+    display: block;
+    height: 20px;
+    flex: 0 0 auto;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+
+  .bar.treatment {
+    background: var(--chart-treatment);
+  }
+
+  .bar.control {
+    background: var(--chart-control);
+  }
+
+  .bar.restriction {
+    background: var(--chart-restriction);
+    border: 2px solid var(--chart-treatment);
+    border-radius: var(--radius-sm);
+  }
+
+  .bar.dashed {
+    border: 1px dashed var(--hairline);
+    border-radius: var(--radius-sm);
+  }
+
+  .val {
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+</style>
