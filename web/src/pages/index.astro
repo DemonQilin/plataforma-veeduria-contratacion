@@ -1,23 +1,45 @@
 ---
 import Base from '../layouts/Base.astro';
+import Screen from '../components/Screen.astro';
 import { getMetadata } from '../lib/data';
 import { formatDate } from '../lib/format';
+import { SCREENS } from '../lib/screens';
 
 const metadata = getMetadata();
+const pending = SCREENS.slice(5);
 ---
 
 <Base
   title="Veeduría de contratación · Alcaldía de Medellín"
   description="Señales para revisar la contratación directa de la Alcaldía de Medellín alrededor de la Ley de Garantías."
 >
-  <main>
-    <h1>Veeduría de contratación · Alcaldía de Medellín</h1>
-    <p>
+  <Screen id="portada">
+    <p class="caption">
       {
         metadata
           ? `Datos con fecha de corte ${formatDate(metadata.cutoff_date)}.`
           : 'Los datos todavía no están disponibles.'
       }
     </p>
-  </main>
+    <p class="lead">[Texto pendiente: titular del hallazgo (T4).]</p>
+  </Screen>
+  <Screen id="la-regla">
+    <p>[Texto pendiente: la regla (T5).]</p>
+  </Screen>
+  <Screen id="el-patron">
+    <p>[Texto pendiente: el patrón (T6).]</p>
+  </Screen>
+  <Screen id="la-comparacion">
+    <p>[Texto pendiente: la comparación (T7).]</p>
+  </Screen>
+  <Screen id="la-objecion">
+    <p>[Texto pendiente: la objeción (T8).]</p>
+  </Screen>
+  {
+    pending.map((screen) => (
+      <Screen id={screen.id}>
+        <p>[Texto pendiente: pantalla fuera del alcance de este bloque.]</p>
+      </Screen>
+    ))
+  }
 </Base>

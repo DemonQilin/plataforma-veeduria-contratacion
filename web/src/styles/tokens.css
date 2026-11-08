@@ -1,0 +1,62 @@
+/* Tokens de D1 con la paleta «Pizarra y naranja» (docs/adr/0048). */
+:root {
+  color-scheme: light dark;
+
+  --surface: #f4f6f9;
+  --surface-raised: #ffffff;
+  --ink: #0f172a;
+  --ink-muted: #475569;
+  --hairline: #7c8799;
+  --accent: #2563eb;
+  --on-accent: #ffffff;
+  --focus-ring: #2563eb;
+  --chart-treatment: #ea580c;
+  --chart-control: #475569;
+  --chart-restriction: #ffedd5;
+  --chart-suppressed: #334155;
+  --chart-grid: #e2e8f0;
+  --chart-axis: #475569;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 32px;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+
+  --font-size-display: 40px;
+  --line-height-display: 44px;
+  --font-size-h1: 32px;
+  --line-height-h1: 38px;
+  --font-size-h2: 24px;
+  --line-height-h2: 30px;
+  --font-size-lead: 20px;
+  --line-height-lead: 30px;
+  --font-size-body: 17px;
+  --line-height-body: 26px;
+  --font-size-caption: 14px;
+  --line-height-caption: 20px;
+  --font-size-figure-number: 56px;
+  --line-height-figure-number: 56px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --surface: #0b1120;
+    --surface-raised: #131c2e;
+    --ink: #f1f5f9;
+    --ink-muted: #a3b0c2;
+    --hairline: #6b7a90;
+    --accent: #7cacf8;
+    --on-accent: #0b1120;
+    --focus-ring: #7cacf8;
+    --chart-treatment: #fb923c;
+    --chart-control: #7b8799;
+    --chart-restriction: #3a2414;
+    --chart-suppressed: #a3b0c2;
+    --chart-grid: #1e293b;
+    --chart-axis: #a3b0c2;
+  }
+}
