@@ -94,7 +94,7 @@ Las elecciones locales de octubre de 2027 traen nuevas restricciones desde media
 - **Primero la historia, después la exploración.** El tablero abre con el hallazgo titular y luego permite explorar los indicadores.
 - **Pensado primero para el celular,** que es donde la mayoría de la gente lo va a abrir.
 - **Sin tono acusatorio.** Los patrones se presentan como «para revisar», con las limitaciones visibles.
-- **Accesible.** Cada gráfico tiene una descripción en texto y su tabla de datos, siguiendo los patrones WAI-ARIA.
+- **Accesible.** Cada gráfico tiene una descripción en texto, su tabla de datos y su CSV, siguiendo los patrones WAI-ARIA (ver [ADR 0048](adr/0048-decisiones-visuales-de-la-historia.md)).
 - **Solo presenta.** El tablero no calcula ni filtra: toda cifra sale tal cual de `data/outputs/`.
 
 ### 3.2 Recorrido de la historia guiada
