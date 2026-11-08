@@ -111,7 +111,6 @@ Usa siempre estos nombres en el código. Si necesitas un término nuevo, agréga
 | entidad contratante | `entity` |
 | identificador del proceso | `process_id` |
 | NIT del proveedor sin dígito de verificación | `supplier_id` |
-| nombre del proveedor | `supplier_name` |
 | dígito de verificación | `check_digit` |
 | contrato canónico / proceso canónico | `canonical_contracts` / `canonical_processes` |
 | versiones de un contrato / filas de un proceso | `version_count` / `row_count` |
@@ -191,4 +190,4 @@ Lee solo lo que la tarea necesita:
 - Si tomas una decisión de diseño nueva, crea un ADR en `docs/adr/` con el siguiente número.
 - Si cambias una regla, un indicador o una decisión, actualiza su documento en el mismo commit.
 - Si algo en los datos contradice la documentación, detente y repórtalo; no ajustes la regla en silencio.
-- El 8 de noviembre de 2026 a las 6:00 p. m. el proyecto se congela: desde ese momento solo se corrigen errores, no se agregan funciones.
+- El 9 de noviembre de 2026 a las 6:00 p. m. el proyecto se congela: desde ese momento solo se corrigen errores, no se agregan funciones.

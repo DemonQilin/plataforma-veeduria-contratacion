@@ -115,7 +115,7 @@ El pipeline solo pide o conserva estas columnas. Los datos personales nunca lleg
 Se hacen dos consultas, para que el nombre y el documento de personas naturales nunca se pidan:
 
 - **Todos los contratos:** `id_contrato`, `referencia_del_contrato`, `proceso_de_compra`, `nombre_entidad`, `modalidad_de_contratacion`, `justificacion_modalidad_de`, `tipo_de_contrato`, `fecha_de_firma`, `fecha_de_inicio_del_contrato`, `fecha_de_fin_del_contrato`, `valor_del_contrato`, `dias_adicionados`, `estado_contrato`, `tipodocproveedor`, `codigo_de_categoria_principal`, `urlproceso`.
-- **Solo con `tipodocproveedor = 'NIT'` y documento que empieza por 8 o 9 y tiene 9 o 10 dígitos:** `id_contrato`, `documento_proveedor` y `proveedor_adjudicado`. Una persona natural también puede tener NIT, y el prefijo es un indicio, no una prueba (ADR 0017, ADR 0026).
+- **Solo con `tipodocproveedor = 'NIT'` y documento que empieza por 8 o 9 y tiene 9 o 10 dígitos:** `id_contrato` y `documento_proveedor`. El nombre del proveedor (`proveedor_adjudicado`) no se pide (ADR 0049). Una persona natural también puede tener NIT, y el prefijo es un indicio, no una prueba (ADR 0017, ADR 0026).
 
 ### SECOP II · Procesos
 

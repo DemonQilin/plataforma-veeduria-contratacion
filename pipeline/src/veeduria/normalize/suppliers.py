@@ -1,6 +1,5 @@
 """Normalización de los proveedores de SECOP II (R14)."""
 
-from collections import Counter
 from pathlib import Path
 
 import duckdb
@@ -36,34 +35,23 @@ def strip_check_digit(document: str) -> str:
 def normalize_suppliers(connection: duckdb.DuckDBPyConnection, snapshot_path: Path) -> None:
     """Crea la tabla `suppliers` desde la copia, una fila por fila de la copia.
 
-    `supplier_id` es el NIT sin dígito de verificación y `supplier_name` el nombre más frecuente
-    de ese NIT, para que la sigla y la razón social cuenten como un solo proveedor (ADR 0027).
-    No consolida ni deduplica.
+    `supplier_id` es el NIT sin dígito de verificación, para que el NIT con y sin ese dígito
+    cuente como un solo proveedor (ADR 0027). El nombre del proveedor no está en la copia
+    (ADR 0049). No consolida ni deduplica.
     """
-    pairs = connection.execute(
-        "SELECT coalesce(documento_proveedor, ''), trim(coalesce(proveedor_adjudicado, '')),"
-        " count(*) FROM read_csv($snapshot_path, all_varchar = true, header = true)"
-        " GROUP BY ALL ORDER BY ALL",
-        {"snapshot_path": str(snapshot_path)},
-    ).fetchall()
-    documents = sorted({document for document, _, _ in pairs})
-    supplier_ids = {document: strip_check_digit(document) for document in documents}
-    names: dict[str, Counter[str]] = {}
-    for document, name, count in pairs:
-        if name:
-            names.setdefault(supplier_ids[document], Counter())[name] += count
-    canonical_ids = sorted(set(supplier_ids.values()))
-    canonical_names = [
-        min(names[sid], key=lambda name: (-names[sid][name], name)) if sid in names else None
-        for sid in canonical_ids
+    documents = [
+        document
+        for (document,) in connection.execute(
+            "SELECT DISTINCT coalesce(documento_proveedor, '')"
+            " FROM read_csv($snapshot_path, all_varchar = true, header = true) ORDER BY ALL",
+            {"snapshot_path": str(snapshot_path)},
+        ).fetchall()
     ]
     connection.execute(
         SQL_PATH.read_text(encoding="utf-8"),
         {
             "snapshot_path": str(snapshot_path),
             "documents": documents,
-            "document_ids": [supplier_ids[document] for document in documents],
-            "supplier_ids": canonical_ids,
-            "supplier_names": canonical_names,
+            "document_ids": [strip_check_digit(document) for document in documents],
         },
     )

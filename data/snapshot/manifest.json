@@ -112,13 +112,12 @@
         "order_by": "id_contrato",
         "select": [
           "id_contrato",
-          "documento_proveedor",
-          "proveedor_adjudicado"
+          "documento_proveedor"
         ],
         "where": "nombre_entidad = 'DISTRITO ESPECIAL DE CIENCIA TECNOLOGIA E INNOVACION DE MEDELLIN' AND fecha_de_firma >= '2022-01-01T00:00:00' AND tipodocproveedor = 'NIT' AND (documento_proveedor LIKE '8%' OR documento_proveedor LIKE '9%') AND length(documento_proveedor) >= 9 AND length(documento_proveedor) <= 10"
       },
       "row_count": 4459,
-      "sha256": "45a7e29cb03173ae39f059865bc4d8c2d3478cee0c80b9d0df2398eb8e308616",
+      "sha256": "3c786abb422208ad8c648f511bffef743730a9d4989a6fa4194ef3926e1e9876",
       "url": "https://www.datos.gov.co/resource/jbjy-vk9h.csv"
     },
     "secop_procurement_processes": {

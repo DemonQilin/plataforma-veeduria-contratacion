@@ -14,7 +14,7 @@ La rúbrica da 10 puntos por automatización, así que el pipeline debe seguir m
 
 ## Decisión
 
-- **Hasta el 12 nov 2026, la copia de datos y las salidas publicadas son las del congelamiento** del 8 nov a las 6:00 p. m. La fecha de corte es la que resulta de esa copia.
+- **Hasta el 12 nov 2026, la copia de datos y las salidas publicadas son las del congelamiento** del 9 nov a las 6:00 p. m. (el 8 nov se movió del domingo 8 al lunes 9). La fecha de corte es la que resulta de esa copia.
 - **`publish.yml` se ejecuta solo a demanda** (`workflow_dispatch`) durante el concurso. El disparador `schedule` semanal se agrega en un commit después de la final.
 - **La integración continua corre `--from-snapshot` en cada push**, con las pruebas y el build. Eso demuestra la automatización y la reproducibilidad sin mover las cifras.
 - **La ficha, el tablero e `instrucciones.txt` citan la misma fecha de corte.**

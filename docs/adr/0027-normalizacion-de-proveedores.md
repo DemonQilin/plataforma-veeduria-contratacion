@@ -1,6 +1,6 @@
 # 0027. Normalización de proveedores: NIT sin dígito de verificación y un nombre por NIT
 
-- **Estado:** Aceptada
+- **Estado:** Aceptada. El [ADR 0049](0049-sin-nombres-de-proveedores.md) reemplaza la parte del nombre: `suppliers` ya no tiene `supplier_name`.
 - **Fecha:** 2026-11-03
 - **Fuente:** [docs/reglas.md](../reglas.md#4-reglas) (R14), [docs/indicadores.md](../indicadores.md) (I4)
 

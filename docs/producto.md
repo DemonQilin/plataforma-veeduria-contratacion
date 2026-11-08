@@ -168,14 +168,14 @@ La indexación se bloquea durante el concurso para que un hallazgo aún sin vali
 | Datos reales | Solo SECOP II y MEData, sin datos sintéticos |
 | Originalidad | Trabajo propio del equipo; las metodologías externas (OCP, Fazekas) se citan |
 | Inteligencia artificial | Se declara en `instrucciones.txt` (sección 4.6) |
-| Sin datos personales | Lista blanca de columnas, supresión de celdas pequeñas y proveedores nombrados solo si son personas jurídicas |
+| Sin datos personales | Lista blanca de columnas, supresión de celdas pequeñas y ningún nombre de proveedor, sea persona natural o jurídica |
 | Divulgación | El equipo autoriza al ITM a divulgar el proyecto con crédito |
 
 ### 4.3 Marco legal
 
 - **Ley 1712 de 2014 (transparencia).** La información de contratación pública es pública y su uso para control ciudadano es legítimo.
 - **Ley 1581 de 2012 (datos personales).** Aunque SECOP II publique nombres y documentos de personas naturales, el proyecto no los reutiliza. Que un dato sea público no obliga a redistribuirlo, y las bases del concurso piden un estándar más estricto.
-- **Personas jurídicas.** No son titulares de datos personales bajo la Ley 1581, por eso pueden nombrarse en el indicador de concentración. Queda sujeto a la respuesta de los organizadores (ver [`plan.md`](plan.md), pendientes).
+- **Personas jurídicas.** No son titulares de datos personales bajo la Ley 1581, pero los organizadores pidieron no mostrar sus nombres. El proyecto no los publica: el indicador de concentración (I4) es solo agregado ([ADR 0049](adr/0049-sin-nombres-de-proveedores.md)).
 
 ### 4.4 Guía de lenguaje
 

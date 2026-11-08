@@ -1,6 +1,6 @@
 # 0045. I4 mide la concentración de proveedores solo de forma agregada
 
-- **Estado:** Aceptada
+- **Estado:** Aceptada. El [ADR 0049](0049-sin-nombres-de-proveedores.md) la vuelve definitiva: los organizadores pidieron no mostrar nombres de proveedores.
 - **Fecha:** 2026-11-05
 - **Fuente:** [docs/indicadores.md](../indicadores.md#1-catálogo) (I4), [docs/reglas.md](../reglas.md#4-reglas) (R7, R8, R13, R14, D3, D6), [docs/plan.md](../plan.md) (planes B), [ADR 0027](0027-normalizacion-de-proveedores.md), [ADR 0039](0039-i1-anual-por-secretaria.md)
 
