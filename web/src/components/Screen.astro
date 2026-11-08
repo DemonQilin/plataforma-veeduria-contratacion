@@ -1,0 +1,47 @@
+---
+import { neighbors, SCREENS } from '../lib/screens';
+
+interface Props {
+  id: string;
+  heading?: boolean;
+}
+
+const { id, heading = true } = Astro.props;
+const { number, previous, next } = neighbors(id);
+const title = SCREENS[number - 1]?.title ?? id;
+const base = import.meta.env.BASE_URL;
+---
+
+<section id={id} aria-labelledby={`${id}-title`} class="screen">
+  {
+    heading ? (
+      <h1 id={`${id}-title`}>
+        <span class="caption">Pantalla {number}</span>
+        <br />
+        {title}
+      </h1>
+    ) : (
+      <h1 id={`${id}-title`} class="visually-hidden">{title}</h1>
+    )
+  }
+  <slot />
+  <nav class="pager" aria-label={`Navegación de la pantalla ${number}`}>
+    {previous ? <a href={`${base}#${previous.id}`}>← {previous.title}</a> : <span />}
+    {next ? <a href={`${base}#${next.id}`}>{next.title} →</a> : <span />}
+  </nav>
+</section>
+
+<style>
+  .screen {
+    padding: var(--space-4) 0;
+    scroll-margin-top: var(--space-3);
+    border-bottom: 2px solid var(--chart-grid);
+  }
+
+  .pager {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+  }
+</style>
