@@ -1,7 +1,13 @@
 // S6: los selectores solo eligen celdas; no calculan (regla 2 de CLAUDE.md). Indicador I2.
 import { describe, expect, it } from 'vitest';
 import type { ElectoralRestriction, IndicatorCell, MonthlySeriesRow } from '../types/contract';
-import { directAwardMonthly, i2ByYear, restrictions } from './selectors';
+import {
+  directAwardJanuary,
+  directAwardMonthly,
+  i2ByYear,
+  i2Extremes,
+  restrictions,
+} from './selectors';
 
 const cell = (over: Partial<IndicatorCell>): IndicatorCell => ({
   denominator: 100,
@@ -88,6 +94,49 @@ describe('directAwardMonthly', () => {
       row({ procurement_method: 'public_tender' }),
     ];
     expect(directAwardMonthly(rows)).toEqual([rows[0]]);
+  });
+});
+
+describe('directAwardJanuary', () => {
+  const row = (period: string): MonthlySeriesRow => ({
+    contract_count: 1,
+    contract_type: null,
+    is_suppressed: false,
+    period,
+    procurement_method: 'direct_award',
+    value: 1,
+    value_sample_size: 1,
+  });
+
+  it('elige solo los meses de enero, en orden', () => {
+    const rows = [row('2023-01'), row('2022-02'), row('2022-01')];
+    expect(directAwardJanuary(rows).map((r) => r.period)).toEqual(['2022-01', '2023-01']);
+  });
+});
+
+describe('i2Extremes', () => {
+  const years = i2ByYear(
+    { variant: null, measure: 'count' },
+    [
+      cell({ period: '2022', ratio: 0.58 }),
+      cell({ period: '2023', ratio: 0.25 }),
+      cell({ period: '2024', ratio: 0.18 }),
+    ],
+    [
+      { year: 2022, role: 'treatment' },
+      { year: 2023, role: 'control' },
+      { year: 2024, role: 'control' },
+    ],
+  );
+
+  it('devuelve las celdas menor y mayor de un papel, sin recalcular', () => {
+    const { min, max } = i2Extremes(years, 'control');
+    expect([min?.cell.ratio, max?.cell.ratio]).toEqual([0.18, 0.25]);
+    expect(max?.cell).toBe(years[1]?.cell);
+  });
+
+  it('sin filas devuelve undefined', () => {
+    expect(i2Extremes([], 'control')).toEqual({ min: undefined, max: undefined });
   });
 });
 

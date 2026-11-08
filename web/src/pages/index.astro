@@ -1,13 +1,81 @@
 ---
+import BarTable from '../components/BarTable.astro';
+import type { BarRow } from '../components/BarTable.astro';
 import Base from '../layouts/Base.astro';
+import FindingCard from '../components/FindingCard.astro';
 import Figure from '../components/Figure.astro';
 import Screen from '../components/Screen.astro';
 import { getMetadata } from '../lib/data';
-import { formatDate } from '../lib/format';
+import { formatDate, formatNumber, formatPercent } from '../lib/format';
 import { SCREENS } from '../lib/screens';
+import type { I2YearCell } from '../lib/selectors';
+import { directAwardJanuary, i2Extremes, i2ByYear, restrictions } from '../lib/selectors';
 
 const metadata = getMetadata();
 const pending = SCREENS.slice(5);
+
+// Portada (pantalla 1): solo elige celdas de data/outputs/ (S6). Los anchos de barra
+// son una escala visual, no una cifra publicada.
+const roleLabel = (role: I2YearCell['role']) => (role === 'treatment' ? 'Elecciones' : 'Comparación');
+const tone = (role: I2YearCell['role']): 'treatment' | 'control' => (role === 'treatment' ? 'treatment' : 'control');
+const percent = (year: I2YearCell | undefined) =>
+  year?.cell.ratio == null ? 'datos insuficientes' : formatPercent(year.cell.ratio);
+const SCALE = 72;
+const ratioRows = (years: I2YearCell[], withN = false): BarRow[] =>
+  years.map((year) => ({
+    label: String(year.year),
+    sub: roleLabel(year.role),
+    display: percent(year),
+    note: withN
+      ? `${formatNumber(year.cell.numerator ?? 0)} de ${formatNumber(year.cell.denominator ?? 0)} contratos`
+      : undefined,
+    width: (year.cell.ratio ?? 0) * SCALE,
+    tone: tone(year.role),
+  }));
+const descriptionOf = (rows: readonly BarRow[]) =>
+  rows.map((row) => `${row.label}, ${row.display}${row.note ? ` (${row.note})` : ''}`).join('; ');
+
+const base = i2ByYear({ variant: null, measure: 'count' });
+const baseRows = ratioRows(base, true);
+const baseControl = i2Extremes(base, 'control');
+
+const service = i2ByYear({ variant: 'service_contract', measure: 'count' });
+const serviceRows = ratioRows(service);
+const nonService = i2ByYear({ variant: 'non_service_contract', measure: 'count' });
+const nonServiceControl = i2Extremes(nonService, 'control');
+
+const spans = i2ByYear({ variant: 'spans_restriction', measure: 'count' });
+const spansRows = ratioRows(spans);
+const spans2025 = spans.find((year) => year.year === 2025);
+
+const january = directAwardJanuary();
+const januaryMax = Math.max(...january.map((row) => row.contract_count));
+const roleOfYear = new Map(base.map((year) => [String(year.year), year.role]));
+const januaryRows: BarRow[] = january.map((row) => {
+  const role = roleOfYear.get(row.period.slice(0, 4));
+  return {
+    label: `Enero ${row.period.slice(0, 4)}`,
+    sub: roleLabel(role),
+    display: formatNumber(row.contract_count),
+    width: (row.contract_count / januaryMax) * SCALE,
+    tone: tone(role),
+  };
+});
+
+const list = restrictions();
+const timelineStart = Date.UTC(Number(list[0]?.start.slice(0, 4)), 0, 1);
+const timelineEnd = Date.UTC(Number(list.at(-1)?.end.slice(0, 4)) + 1, 0, 1);
+const place = (iso: string) => ((Date.parse(`${iso}T00:00:00Z`) - timelineStart) / (timelineEnd - timelineStart)) * 100;
+const scopeLabel = { direct_award: 'Contratación directa', interadministrative: 'Convenios' } as const;
+const timelineRows: BarRow[] = list.map((item) => ({
+  label: item.start.slice(0, 4) === item.end.slice(0, 4) ? item.start.slice(0, 4) : `${item.start.slice(0, 4)}–${item.end.slice(0, 4)}`,
+  sub: `${scopeLabel[item.scope]}${item.status === 'upcoming' ? ' · próxima' : ''}`,
+  display: `del ${formatDate(item.start)} al ${formatDate(item.end)}`,
+  width: place(item.end) - place(item.start),
+  offset: place(item.start),
+  tone: item.scope === 'direct_award' ? 'restriction' : 'dashed',
+}));
+const directRestrictions = restrictions('direct_award');
 ---
 
 <Base
@@ -15,14 +83,59 @@ const pending = SCREENS.slice(5);
   description="Señales para revisar la contratación directa de la Alcaldía de Medellín alrededor de la Ley de Garantías."
 >
   <Screen id="portada">
+    <span slot="title" class="display">
+      En 2022 y 2026, más de la mitad de la contratación directa se firmó en enero.
+    </span>
     <p class="caption">
       {
         metadata
-          ? `Datos con fecha de corte ${formatDate(metadata.cutoff_date)}.`
+          ? `Hallazgo principal · Medellín · fecha de corte ${formatDate(metadata.cutoff_date)}.`
           : 'Los datos todavía no están disponibles.'
       }
     </p>
-    <p class="lead">[Texto pendiente: titular del hallazgo (T4).]</p>
+    <p class="caption">
+      Antes de que empezara la restricción de la Ley de Garantías. Del 1 de enero
+      {metadata ? ` al ${formatDate(metadata.cutoff_date)}` : ''}, por número de contratos.
+    </p>
+    <p><a class="start" href="#la-regla">Empezar el recorrido</a></p>
+
+    <div class="cover-grid">
+      <FindingCard screenId="la-comparacion" crumb="4 · La comparación" title="Contratación directa firmada en la ventana de enero" more="Ver la comparación">
+        <BarTable caption={`Contratación directa firmada en la ventana de enero, por número de contratos: ${descriptionOf(baseRows)}.`} rows={baseRows} valueLabel="Proporción" />
+        {baseControl.min && baseControl.max && (
+          <p>En los años sin restricción, la proporción estuvo entre {percent(baseControl.min)} y {percent(baseControl.max)}.</p>
+        )}
+      </FindingCard>
+    </div>
+
+    <h2 class="cover-h2">Lo que muestran los datos</h2>
+    <div class="cover-grid cover-grid--pair">
+      <FindingCard screenId="la-regla" crumb="2 · La regla" title="La contratación directa se restringió dos veces: en 2022 y en 2026" more="Ver la regla">
+        <BarTable caption={`Periodos de restricción: ${timelineRows.map((row) => `${row.sub} ${row.display}`).join('; ')}.`} rows={timelineRows} valueLabel="Periodo" showValue={false} />
+        <p>Del {directRestrictions.map((item) => `${formatDate(item.start)} al ${formatDate(item.end)}`).join(' y del ')}.</p>
+      </FindingCard>
+
+      <FindingCard screenId="el-patron" crumb="3 · El patrón" title="Enero es el mes con más contratación directa de cada año" more="Ver el patrón">
+        <BarTable caption={`Contratos directos firmados en enero: ${descriptionOf(januaryRows)}.`} rows={januaryRows} valueLabel="Contratos" />
+        <p class="placeholder">[Texto pendiente: frase del conteo mensual durante las restricciones (T4).]</p>
+      </FindingCard>
+
+      <FindingCard screenId="la-objecion" crumb="5 · La objeción" title="En prestación de servicios, la proporción de enero es mayor en los años con elecciones" more="Ver la objeción">
+        <BarTable caption={`Prestación de servicios, proporción firmada en la ventana de enero: ${descriptionOf(serviceRows)}.`} rows={serviceRows} valueLabel="Proporción" />
+        {nonServiceControl.min && nonServiceControl.max && (
+          <p>En el resto de tipos de contrato va de {percent(nonServiceControl.min)} a {percent(nonServiceControl.max)}.</p>
+        )}
+      </FindingCard>
+
+      <FindingCard screenId="la-objecion" crumb="5 · La objeción" title="La duración de los contratos de enero no separa los años" more="Ver la objeción">
+        <p class="tag">No concluyente</p>
+        <BarTable caption={`Contratos de enero que terminan después de la restricción de referencia: ${descriptionOf(spansRows)}.`} rows={spansRows} valueLabel="Proporción" />
+        {spans2025 && (
+          <p>Contratos de enero que terminan después de la restricción. En 2025, año de comparación, también llega a {percent(spans2025)}.</p>
+        )}
+      </FindingCard>
+    </div>
+    <p class="placeholder">[Texto pendiente del compañero: los titulares de las tarjetas son un borrador.]</p>
   </Screen>
   <Screen id="la-regla">
     <p>[Texto pendiente: la regla (T5).]</p>
@@ -45,3 +158,66 @@ const pending = SCREENS.slice(5);
     ))
   }
 </Base>
+
+<style>
+  .display {
+    font-size: var(--font-size-h1);
+    line-height: var(--line-height-h1);
+  }
+
+  .start {
+    display: inline-flex;
+    align-items: center;
+    min-height: 48px;
+    padding: 0 24px;
+    border-radius: var(--radius-md);
+    background: var(--accent);
+    color: var(--on-accent);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .cover-grid {
+    display: grid;
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+  }
+
+  .cover-h2 {
+    margin-top: var(--space-4);
+  }
+
+  .cover-grid--pair {
+    margin-top: 0;
+  }
+
+  .tag {
+    width: fit-content;
+    padding: 2px 10px;
+    border: 1px solid var(--ink);
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    font-size: var(--font-size-caption);
+  }
+
+  .placeholder {
+    margin-top: var(--space-3);
+    padding: var(--space-2) var(--space-3);
+    border: 1px dashed var(--hairline);
+    border-radius: var(--radius-md);
+    color: var(--ink-muted);
+    font-size: var(--font-size-caption);
+  }
+
+  @media (min-width: 900px) {
+    .display {
+      font-size: var(--font-size-display);
+      line-height: var(--line-height-display);
+    }
+
+    .cover-grid--pair {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: start;
+    }
+  }
+</style>
