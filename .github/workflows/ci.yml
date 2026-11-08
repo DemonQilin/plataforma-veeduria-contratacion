@@ -66,6 +66,9 @@ jobs:
       - name: Tipos del tablero
         working-directory: web
         run: pnpm astro check
+      - name: Pruebas del tablero
+        working-directory: web
+        run: pnpm test
 
   mise:
     name: opción B (mise)

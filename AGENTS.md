@@ -34,7 +34,7 @@ mise es opcional. Todo debe seguir funcionando con los comandos nativos de `inst
 3. Que el contrato regenerado no produzca cambios en `git diff` (`docs/adr/0004-contrato-pydantic-json-schema-ts.md`).
 4. Que `pipeline/requirements.txt` coincida con `uv.lock` (`docs/adr/0013-python-con-uv-para-el-pipeline.md`).
 5. Que la versión de pnpm sea la misma en `web/package.json`, `mise.toml` e `instrucciones.txt` (`docs/adr/0003-pnpm-sin-corepack.md`).
-6. `astro check` y `pnpm build` en `web/`.
+6. `astro check`, `pnpm test` (Vitest) y `pnpm build` en `web/`.
 7. Que cada `AGENTS.md` sea idéntico a su `CLAUDE.md` (`scripts/check-agents-sync.sh`, `docs/adr/0019-hooks-versionados-con-core-hookspath.md`).
 
 ## Convención de idioma
