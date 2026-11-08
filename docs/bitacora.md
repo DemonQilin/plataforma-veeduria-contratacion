@@ -18,6 +18,16 @@ Las decisiones que salen de estas observaciones no se registran aquí: pasan a [
 
 ---
 
+## 6 nov 2026 · Respuestas de los organizadores
+
+En una reunión con los organizadores se respondieron las preguntas del correo del 5 de noviembre:
+
+- **Fuentes.** Todos los datos de MEData y de SECOP son válidos y están permitidos. SECOP II y MEData siguen como fuentes.
+- **Nombres.** No se muestran nombres de personas naturales ni jurídicas. El tablero ya no los mostraba (ADR 0045), pero la copia de datos traía `proveedor_adjudicado` en las 4.459 filas de `secop_contracts_suppliers.csv`. El 8 nov la columna salió de la lista blanca y de la copia, sin volver a extraer, y `data/outputs/` no cambió ([ADR 0049](adr/0049-sin-nombres-de-proveedores.md)). Esto cierra el punto abierto del 5 nov sobre una salida de I4 con nombres.
+- **Informe.** Compartieron el formato de `guia_entrega.pdf`. Se diligencia al final.
+
+---
+
 ## 5 nov 2026 · Referencias «NNNNNNNNNN de AAAA» cruzadas con MEData
 
 Cierre de la pregunta abierta del ADR 0046. Corte 30 oct 2026.

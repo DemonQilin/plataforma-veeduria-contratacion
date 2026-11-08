@@ -1,6 +1,6 @@
 # 0017. Proveedores: solo NIT que empiezan por 8 o 9
 
-- **Estado:** Aceptada. El [ADR 0026](0026-proveedores-nit-de-9-o-10-digitos.md) agrega el filtro de longitud.
+- **Estado:** Aceptada. El [ADR 0026](0026-proveedores-nit-de-9-o-10-digitos.md) agrega el filtro de longitud. El [ADR 0049](0049-sin-nombres-de-proveedores.md) quita el nombre del proveedor de la consulta, tras la respuesta de los organizadores.
 - **Fecha:** 2026-11-01
 - **Fuente:** [docs/bitacora.md](../bitacora.md#1-nov-2026--orden-de-secop-ii-procesos-y-nit-de-proveedores)
 

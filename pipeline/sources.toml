@@ -48,10 +48,12 @@ excluded = [
     "n_mero_de_cuenta",
 ]
 
-# Segunda consulta: el nombre y el documento del proveedor solo se piden cuando
-# es persona jurídica: NIT que empieza por 8 o 9 (ADR 0017) y tiene 9 dígitos, o 10
-# con el dígito de verificación (ADR 0026), porque una persona natural también puede
-# tener NIT. Los de personas naturales nunca se piden.
+# Segunda consulta: el documento del proveedor solo se pide cuando es persona
+# jurídica: NIT que empieza por 8 o 9 (ADR 0017) y tiene 9 dígitos, o 10 con el
+# dígito de verificación (ADR 0026), porque una persona natural también puede tener
+# NIT. Los de personas naturales nunca se piden. El nombre del proveedor nunca se
+# pide: los organizadores pidieron no mostrar nombres de personas naturales ni
+# jurídicas (ADR 0049).
 [[queries]]
 id = "secop_contracts_suppliers"
 dataset = "jbjy-vk9h"
@@ -62,9 +64,9 @@ order_by = "id_contrato"
 allowed = [
     "id_contrato",
     "documento_proveedor",
-    "proveedor_adjudicado",
 ]
 excluded = [
+    "proveedor_adjudicado",
     "nombre_supervisor",
     "nombre_ordenador_del_gasto",
     "nombre_ordenador_de_pago",

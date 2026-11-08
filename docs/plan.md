@@ -105,6 +105,7 @@ Si el tiempo no alcanza, se recorta de abajo hacia arriba.
 | | **Resultado (5 nov):** se cumplen los dos criterios y el titular se mantiene, con la definición base de I2 por número de contratos. Ver la [bitácora](bitacora.md) y [ADR 0037](adr/0037-cifra-titular-de-i2.md) | | |
 | Antes del 4 nov | ¿Qué respondieron los organizadores? | Se sigue el plan | Si no permiten nombrar personas jurídicas, I4 se reporta solo agregado. Si SECOP II no cuenta como fuente admitida, MEData pasa a ser la fuente principal del hallazgo |
 | | **Aplicado (5 nov):** sin respuesta todavía (el correo se envió el 5 nov), I4 se publica solo agregado ([ADR 0045](adr/0045-i4-concentracion-agregada-de-proveedores.md)). Si responden antes del congelamiento, nombrar personas jurídicas es una tarea aparte | | |
+| | **Resuelto (6 nov):** los organizadores aceptan los datos de SECOP y MEData y piden no mostrar nombres de personas naturales ni jurídicas. Se mantienen las dos fuentes, I4 queda solo agregado y el nombre del proveedor sale de la copia de datos ([ADR 0049](adr/0049-sin-nombres-de-proveedores.md)) | | |
 | Vie 6 nov | ¿El tablero va al ritmo previsto? | Se completa todo lo importante | Se recorta lo deseable (sección 5) |
 
 ---
@@ -114,7 +115,7 @@ Si el tiempo no alcanza, se recorta de abajo hacia arriba.
 | Riesgo | Probabilidad | Impacto | Mitigación | Plan B |
 |---|---|---|---|---|
 | El hallazgo ejecutado no sobrevive a la limpieza (5 nov: el hallazgo sobrevive, ADR 0037) | Media | Alto | Criterio explícito el 3 nov; la serie de planeación ya cumple su criterio con datos preliminares | El titular se apoya en la serie de planeación; si tampoco se sostiene, pasa a I3, I4 o I5 |
-| Los organizadores no aceptan SECOP II como fuente o no permiten nombrar personas jurídicas | Baja | Alto | Correo a los organizadores (la invitación a la charla de términos nunca llegó) | MEData como fuente principal (plan y ejecución); I4 solo agregado |
+| Los organizadores no aceptan SECOP II como fuente o no permiten nombrar personas jurídicas (6 nov: aceptan las dos fuentes y no permiten nombres, ADR 0049) | Baja | Alto | Correo a los organizadores (la invitación a la charla de términos nunca llegó) | MEData como fuente principal (plan y ejecución); I4 solo agregado |
 | La API de datos.gov.co o de MEData falla durante el desarrollo o la evaluación (MEData ya dio errores 504) | Alta | Alto | El repositorio incluye la copia de datos sin información personal y las salidas; el tablero no consulta APIs | El jurado prueba todo con `--from-snapshot`; la actualización desde las APIs queda como paso opcional |
 | Las cifras del tablero cambian durante la evaluación y no coinciden con la ficha | Media | Alto | Fecha de corte fija hasta la final (sección 3) | Corregir la ficha antes de la entrega oficial |
 | La curva de Astro consume tiempo del pipeline | Media | Medio | El tablero empieza el 5 nov, con los datos listos; aprendizaje acotado a 4 horas | Si al mediodía del 5 nov no hay avance, se hace una sola página estática sin islas y el explorador se simplifica (aplicado a las pantallas 1 a 5, [ADR 0048](adr/0048-decisiones-visuales-de-la-historia.md)) |
@@ -277,9 +278,9 @@ Después del pitch el jurado ajusta el puntaje con la rúbrica y no suma puntos 
 
 | Pendiente | Cómo se resuelve | Fecha |
 |---|---|---|
-| Respuesta de los organizadores a las seis preguntas | Correo a los organizadores, enviado el 5 nov. La invitación a la charla de términos nunca llegó (sección 4) | Antes del 7 nov (plazo pedido en el correo) |
+| ~~Respuesta de los organizadores a las seis preguntas~~ | Resuelto el 6 nov, en una reunión con los organizadores: los datos de SECOP y MEData son válidos y no se muestran nombres de personas naturales ni jurídicas ([ADR 0049](adr/0049-sin-nombres-de-proveedores.md)) | — |
 | Descripción de los niveles de la rúbrica | Pregunta 6 del correo | Antes del 7 nov |
-| Plantilla oficial de `guia_entrega.pdf` | Pregunta 3 del correo | Antes del 7 nov |
+| ~~Plantilla oficial de `guia_entrega.pdf`~~ | Resuelto el 6 nov: los organizadores compartieron el formato. Se diligencia al final | — |
 | ~~Licencia de los conjuntos de SECOP II~~ | Resuelto el 30 oct: CC BY-SA 4.0 (ADR 0015) | — |
 | ~~Nombre exacto de la entidad en SECOP II Procesos~~ | Resuelto el 30 oct: 23.400 filas con ese nombre | — |
 | ~~Token de aplicación de datos.gov.co~~ | Resuelto el 31 oct: guardado como *secret* `SOCRATA_APP_TOKEN` | — |

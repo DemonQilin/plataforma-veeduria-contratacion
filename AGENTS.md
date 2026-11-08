@@ -111,7 +111,6 @@ Usa siempre estos nombres en el código. Si necesitas un término nuevo, agréga
 | entidad contratante | `entity` |
 | identificador del proceso | `process_id` |
 | NIT del proveedor sin dígito de verificación | `supplier_id` |
-| nombre del proveedor | `supplier_name` |
 | dígito de verificación | `check_digit` |
 | contrato canónico / proceso canónico | `canonical_contracts` / `canonical_processes` |
 | versiones de un contrato / filas de un proceso | `version_count` / `row_count` |
