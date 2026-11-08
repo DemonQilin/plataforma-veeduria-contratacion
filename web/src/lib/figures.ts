@@ -3,8 +3,8 @@
 import type { PlotOptions } from '@observablehq/plot';
 import * as Plot from '@observablehq/plot';
 import { getMetadata } from './data';
-import { formatDate } from './format';
-import { directAwardMonthly, restrictions } from './selectors';
+import { formatDate, formatMonth, formatNumber } from './format';
+import { comparisonRoles, directAwardJanuary, directAwardMonthly, restrictions } from './selectors';
 
 export type Cell = string | number | null;
 
@@ -18,7 +18,7 @@ export interface FigureColumn {
 
 export interface FigureRow {
   values: Record<string, Cell>;
-  suppressed: boolean;
+  is_suppressed: boolean;
 }
 
 export interface FigureSpec {
@@ -91,49 +91,84 @@ const stackedLabels = timeline
   });
 const cutoffLabel = cutoff ? `Fecha de corte · ${formatDate(cutoff)}` : '';
 
+// Pantalla 3: serie mensual de contratación directa con las restricciones detrás de las barras.
+// El papel del año viene de comparison_windows; no se calcula (S6).
+const roles = comparisonRoles();
+const monthlyWithDate = directMonthlyRows.map((row) => ({
+  ...row,
+  date: new Date(`${row.period}-01T00:00:00Z`),
+  role: roles.get(Number(row.period.slice(0, 4))),
+}));
+const monthlyTreatment = monthlyWithDate.filter((row) => row.role === 'treatment');
+const monthlyControl = monthlyWithDate.filter((row) => row.role === 'control');
+const lastMonth = monthlyWithDate.at(-1)?.date ?? new Date(Date.UTC(2026, 9, 1));
+const monthlyStart = new Date(Date.UTC(monthlyWithDate[0]?.date.getUTCFullYear() ?? 2022, 0, 1));
+const monthlyEnd = new Date(Date.UTC(lastMonth.getUTCFullYear(), lastMonth.getUTCMonth() + 1, 1));
+const monthlyYearStarts = Array.from(
+  { length: monthlyEnd.getUTCFullYear() - monthlyStart.getUTCFullYear() + 1 },
+  (_, index) => new Date(Date.UTC(monthlyStart.getUTCFullYear() + index, 0, 1)),
+).filter((date) => date < monthlyEnd);
+const monthlyYMax = Math.max(...directMonthlyRows.map((row) => row.contract_count)) * 1.1;
+const januaryPeaks = directAwardJanuary(directMonthlyRows).map((row) => ({
+  ...row,
+  date: new Date(`${row.period}-01T00:00:00Z`),
+}));
+const directMonthlyRestrictions = directRestrictions;
+const interadministrativeMonthly = interadministrativeRestrictions;
+const firstPeriod = directMonthlyRows[0]?.period ?? '';
+const lastPeriod = directMonthlyRows.at(-1)?.period ?? '';
+const monthlyTitle = `Contratos directos firmados por mes, de ${formatMonth(firstPeriod)} a ${formatMonth(lastPeriod)}`;
+const monthlyDescription =
+  `Gráfico de barras: contratos de contratación directa firmados por mes, de ${formatMonth(firstPeriod)} a ${formatMonth(lastPeriod)}. ` +
+  `Cada barra es un mes; las naranjas son años con elecciones y las grises, años de comparación. ` +
+  `Enero: ${januaryPeaks.map((row) => `${formatNumber(row.contract_count)} en ${row.period.slice(0, 4)}`).join(', ')}. ` +
+  `La restricción de contratación directa va sombreada: ${rangesOf(true)}.`;
+
 export const FIGURES: readonly FigureSpec[] = [
   {
     id: 'contratacion-directa-por-mes',
-    title: 'Contratos de contratación directa por mes',
-    description: '[Texto pendiente: descripción de la figura (T6).]',
+    title: monthlyTitle,
+    description: monthlyDescription,
     columns: [
       { key: 'period', label: 'Mes', kind: 'text' },
       { key: 'contract_count', label: 'Contratos', kind: 'number' },
       { key: 'value', label: 'Valor (COP)', kind: 'number', suppressible: true },
     ],
     sampleKey: 'value_sample_size',
+    responsive: true,
     rows: directMonthlyRows.map((row) => ({
-      suppressed: row.is_suppressed,
+      is_suppressed: row.is_suppressed,
       values: {
-        period: row.period,
+        period: formatMonth(row.period),
         contract_count: row.contract_count,
         value: row.value,
         value_sample_size: row.value_sample_size,
       },
     })),
-    plot: (size) => ({
-      width: size === 'small' ? 360 : 960,
-      height: size === 'small' ? 260 : 360,
-      x: {
-        type: 'band',
-        label: null,
-        ticks: directMonthlyRows.map((row) => row.period).filter((p) => p.endsWith('-01')),
-        tickFormat: (p: string) => p.slice(0, 4),
-      },
-      y: { label: 'Contratos', grid: true },
-      marks: [
-        Plot.barY(directMonthlyRows, {
-          x: 'period',
-          y: 'contract_count',
-          fill: 'var(--chart-treatment)',
-        }),
-        Plot.ruleY([0]),
-      ],
-    }),
+    plot: (size) => {
+      const small = size === 'small';
+      return {
+        width: small ? 360 : 960,
+        height: small ? 300 : 380,
+        marginLeft: small ? 40 : 56,
+        marginRight: small ? 8 : 16,
+        marginTop: 24,
+        x: { type: 'utc', domain: [monthlyStart, monthlyEnd], ticks: monthlyYearStarts, tickFormat: '%Y', label: null },
+        y: { label: small ? null : 'Contratos por mes', grid: true },
+        marks: [
+          Plot.rect(directMonthlyRestrictions, { x1: 'start', x2: 'end', y1: 0, y2: monthlyYMax, fill: 'var(--chart-restriction)', clip: true }),
+          Plot.rect(interadministrativeMonthly, { x1: 'start', x2: 'end', y1: 0, y2: monthlyYMax, ...restrictionStyle.interadministrative, clip: true }),
+          Plot.rectY(monthlyTreatment, { x: 'date', interval: 'month', y: 'contract_count', fill: 'var(--chart-treatment)' }),
+          Plot.rectY(monthlyControl, { x: 'date', interval: 'month', y: 'contract_count', fill: 'var(--chart-control)' }),
+          Plot.ruleY([0]),
+          Plot.text(januaryPeaks, { x: 'date', y: 'contract_count', text: (d) => formatNumber(d.contract_count), dy: -8, fontWeight: 700, fontSize: small ? 11 : 13, ...halo }),
+        ],
+      };
+    },
   },
   {
     id: 'periodos-de-restriccion',
-    title: 'Periodos de restricción de la Ley de Garantías, de 2022 a 2027',
+    title: `Periodos de restricción de la Ley de Garantías, de ${timelineStart.getUTCFullYear()} a ${timelineEnd.getUTCFullYear() - 1}`,
     description:
       `Línea de tiempo de ${timelineStart.getUTCFullYear()} a ${timelineEnd.getUTCFullYear() - 1} con ${timeline.length} periodos de restricción. ` +
       `Contratación directa: ${rangesOf(true)}. Convenios interadministrativos: ${rangesOf(false)}.` +
@@ -146,7 +181,7 @@ export const FIGURES: readonly FigureSpec[] = [
     ],
     responsive: true,
     rows: timeline.map((entry) => ({
-      suppressed: false,
+      is_suppressed: false,
       values: {
         scope: entry.scope,
         start: formatDate(entry.item.start),

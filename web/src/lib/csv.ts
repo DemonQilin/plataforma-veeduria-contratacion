@@ -11,9 +11,9 @@ export function toCsv(figure: FigureSpec): string {
     [
       ...figure.columns.map((column) => {
         const cell = row.values[column.key] ?? null;
-        return column.suppressible && row.suppressed ? '' : escape(cell === null ? '' : String(cell));
+        return column.suppressible && row.is_suppressed ? '' : escape(cell === null ? '' : String(cell));
       }),
-      row.suppressed ? 'sí' : 'no',
+      row.is_suppressed ? 'sí' : 'no',
     ].join(','),
   );
   return `﻿${[header.map(escape).join(','), ...lines].join('\r\n')}\r\n`;
