@@ -19,7 +19,7 @@ Objetivo: el bloque del 5 al 6 nov de `docs/plan.md:38`, con una fase de diseño
 
 | ID | Specs | Tarea | Ruta | Estado | Evidencia |
 |---|---|---|---|---|---|
-| D1 | S1, S2 | Sistema de diseño en Claude Design | en línea | hecho (aprobado por Juan); colores reemplazados por la paleta de D2 (L11, L12) | https://claude.ai/artifact/6snvHytHXX7jgJrvGnW5Cj; contraste 0 fallos de 34 pares (claro y oscuro); el artefacto aún tiene los colores viejos |
+| D1 | S1, S2 | Sistema de diseño en Claude Design | en línea | hecho (aprobado por Juan); colores reemplazados por la paleta de D2 (L11, L12) | https://claude.ai/artifact/6snvHytHXX7jgJrvGnW5Cj; contraste 0 fallos de 34 pares (claro y oscuro); el artefacto se actualizó el 8 nov con la paleta de L11 y L12 (versión 5; `focus-ring` y `chart-axis` igualados a `accent` e `ink-muted`) |
 | D2 | S1, S3, S7 | Maquetas de las pantallas 1 a 5 | en línea | hecho (propuesta B aprobada por Juan el 8 nov) | B: https://claude.ai/artifact/NcFngbmPGXWYEZscZX8Vir (10 mesas, celular 390 px y escritorio 1440 px, más la mesa de paletas); A, descartada: https://claude.ai/artifact/7N3pGHDvcUtof3SHWEUQUv; cifras comparadas con `data/outputs/`: 0 diferencias; contraste de la paleta: 0 fallos en claro y oscuro |
 | D3 | S4 | ADR de decisiones visuales | en línea | hecho | `docs/adr/0048-decisiones-visuales-de-la-historia.md`; commit `f2f6552` en la rama `feat/story-screens-1-5`; enlaces comprobados y 0 palabras prohibidas |
 | T1 | S2, S4 | Colores en CSS, diseño general y recorrido en `Base.astro` | en línea | pendiente | |

@@ -45,7 +45,7 @@ Al 6 nov no había avance en Astro, así que aplica el plan B de `plan.md`: una 
 - Las pantallas 1 a 5 no envían JavaScript y se ven aunque el script falle.
 - La página trae los tres SVG de la pantalla 4 y los SVG por tamaño de pantalla de la 2 y la 4, aunque solo se vea uno: unos pocos KB más.
 - La tarea T2 queda obligada a generar los CSV y a elegir el DOM para Plot en el servidor (pendiente en 0012).
-- El artefacto de D1 en Claude Design conserva los colores viejos; para el sitio manda este ADR.
+- El artefacto de D1 en Claude Design se actualizó con esta paleta el 8 nov; si difieren, manda este ADR para el sitio.
 - Sigue abierta la discrepancia entre `docs/indicadores.md` y `indicators.json` (L7); se corrige en un commit aparte cuando se decida qué cifra manda.
 
 ## Alternativas
