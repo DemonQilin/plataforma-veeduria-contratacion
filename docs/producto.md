@@ -28,7 +28,7 @@ Confirmado en el punto de decisión 1 (5 nov 2026, ADR 0037). Concentración pre
 |---|---:|---:|---:|---:|---:|
 | % de la contratación directa firmada antes de la restricción | 58 % | 25 % | 19 % | 31 % | 65 % |
 
-⚑ Año con restricción presidencial. Por valor, 2022 supera al mejor año de control por menos de un punto; por eso el valor es un complemento y no la cifra titular. Metodología y limitaciones en [`indicadores.md`](indicadores.md).
+⚑ Año con restricción presidencial. Por valor, 2022 supera al mejor año de control por menos de dos puntos; por eso el valor es un complemento y no la cifra titular. Metodología y limitaciones en [`indicadores.md`](indicadores.md).
 
 ### Segundo nivel del hallazgo: la anticipación se planea
 
