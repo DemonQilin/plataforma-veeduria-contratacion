@@ -5,7 +5,7 @@ Cronograma, prioridades, riesgos, mapa contra la rúbrica y entregables.
 | Hito | Fecha |
 |---|---|
 | Cierre de inscripción | 4 nov 2026, 11:59 p. m. |
-| Congelamiento interno | 8 nov 2026, 6:00 p. m. |
+| Congelamiento interno | 9 nov 2026, 6:00 p. m. |
 | Entrega interna | 9 nov 2026 |
 | Entrega oficial | 10 nov 2026 |
 | Publicación de finalistas | 11 nov 2026 |
@@ -22,7 +22,7 @@ Cronograma, prioridades, riesgos, mapa contra la rúbrica y entregables.
 
 - **Capacidad:** Juan, unas 6 horas al día (≈60 h hasta el 9 nov).
 - **Entrega interna el lunes 9 de noviembre.** El plazo oficial es el martes 10; el día extra queda como margen.
-- **Congelamiento el domingo 8 de noviembre a las 6:00 p. m.** Desde ese momento no se agregan funciones; solo se corrigen errores.
+- **Congelamiento el lunes 9 de noviembre a las 6:00 p. m.** Se movió el 8 de noviembre, desde el domingo 8 a la misma hora. Desde ese momento no se agregan funciones; solo se corrigen errores.
 
 ---
 
@@ -37,8 +37,8 @@ Cronograma, prioridades, riesgos, mapa contra la rúbrica y entregables.
 | Mié 4 nov | Indicadores I1, I3, I4 e I5. Salidas para el tablero y contrato de tipos | Empezar el borrador de la ficha de hallazgos | Cierre de inscripciones a las 11:59 p. m. (ya debe estar hecha). Charla de términos, si es este día |
 | Jue 5 – Vie 6 nov | Astro: estructura del sitio y pantallas 1 a 5 de la historia, con gráficos estáticos | Textos de la historia en lenguaje ciudadano (guía de lenguaje) | **Punto de decisión 2 (vie 6):** recortes del tablero |
 | Sáb 7 nov | Explorador (pantalla 6), páginas por secretaría y pantallas 7 a 9 | Ficha de hallazgos con las cifras finales | Tablero completo |
-| Dom 8 nov | GitHub Actions (pipeline, build y despliegue), `noindex`, etiquetas para compartir, `instrucciones.txt` | Revisión de la ficha y primera prueba de `instrucciones.txt` | **Congelamiento, 6:00 p. m.** |
-| Lun 9 nov | Correcciones de la prueba | Prueba completa en su computador y en ventana privada | **Entrega interna** |
+| Dom 8 nov | GitHub Actions (pipeline, build y despliegue), `noindex`, etiquetas para compartir, `instrucciones.txt` | Revisión de la ficha y primera prueba de `instrucciones.txt` | Congelamiento movido al lun 9 nov |
+| Lun 9 nov | Correcciones de la prueba | Prueba completa en su computador y en ventana privada | **Congelamiento, 6:00 p. m.** **Entrega interna** |
 | Mar 10 nov | Margen. Ensayos del pitch | Guion del pitch y ensayos | Plazo oficial de entrega |
 | Mié 11 nov | Resumen del pitch de una página, si son finalistas | Ensayo final | Publicación de finalistas |
 | Jue 12 nov | Pitch | Pitch | Final y premiación |
@@ -65,7 +65,7 @@ El plan no tiene holgura en horas: el margen está en el día de entrega y en lo
 
 ## 3. Fecha de corte durante el concurso
 
-Desde la entrega hasta la final, la publicación queda con una **fecha de corte fija**, la del congelamiento del 8 de noviembre. Si el flujo semanal actualizara los datos durante la evaluación, el tablero podría mostrar una cifra distinta a la de `guia_entrega.pdf`.
+Desde la entrega hasta la final, la publicación queda con una **fecha de corte fija**, la del congelamiento del 9 de noviembre. Si el flujo semanal actualizara los datos durante la evaluación, el tablero podría mostrar una cifra distinta a la de `guia_entrega.pdf`.
 
 - El pipeline se puede ejecutar a demanda y la integración continua lo corre en cada push, lo que demuestra la automatización ante la rúbrica.
 - La ejecución semanal programada se activa después del 12 de noviembre.
@@ -119,7 +119,7 @@ Si el tiempo no alcanza, se recorta de abajo hacia arriba.
 | La API de datos.gov.co o de MEData falla durante el desarrollo o la evaluación (MEData ya dio errores 504) | Alta | Alto | El repositorio incluye la copia de datos sin información personal y las salidas; el tablero no consulta APIs | El jurado prueba todo con `--from-snapshot`; la actualización desde las APIs queda como paso opcional |
 | Las cifras del tablero cambian durante la evaluación y no coinciden con la ficha | Media | Alto | Fecha de corte fija hasta la final (sección 3) | Corregir la ficha antes de la entrega oficial |
 | La curva de Astro consume tiempo del pipeline | Media | Medio | El tablero empieza el 5 nov, con los datos listos; aprendizaje acotado a 4 horas | Si al mediodía del 5 nov no hay avance, se hace una sola página estática sin islas y el explorador se simplifica (aplicado a las pantallas 1 a 5, [ADR 0048](adr/0048-decisiones-visuales-de-la-historia.md)) |
-| Falta de tiempo de Juan por otros compromisos | Media | Alto | Recortes por prioridad (sección 5) y congelamiento el 8 nov | Se entrega lo imprescindible |
+| Falta de tiempo de Juan por otros compromisos | Media | Alto | Recortes por prioridad (sección 5) y congelamiento el 9 nov | Se entrega lo imprescindible |
 | El compañero no está disponible en momentos clave | Baja | Alto | Plantillas de ficha y pitch listas desde el 4 nov; ambos ensayan el pitch | Juan asume la ficha; el pitch lo presentan los dos para no depender de uno |
 | `instrucciones.txt` no funciona en otro computador (por ejemplo, Windows) | Media | Alto (requisito habilitante) | La integración continua ejecuta los comandos de `instrucciones.txt` en Linux y Windows; prueba en el computador del compañero el 8 y 9 nov | Dos caminos documentados (uv y pnpm, o mise) |
 | Errores en las cifras por duplicados o valores atípicos | Media | Alto | Reglas de consolidación, conciliación entre tres fuentes y pruebas | Corregir antes del congelamiento y documentar el ajuste en `CORRECCIONES.md` |

@@ -190,4 +190,4 @@ Lee solo lo que la tarea necesita:
 - Si tomas una decisión de diseño nueva, crea un ADR en `docs/adr/` con el siguiente número.
 - Si cambias una regla, un indicador o una decisión, actualiza su documento en el mismo commit.
 - Si algo en los datos contradice la documentación, detente y repórtalo; no ajustes la regla en silencio.
-- El 8 de noviembre de 2026 a las 6:00 p. m. el proyecto se congela: desde ese momento solo se corrigen errores, no se agregan funciones.
+- El 9 de noviembre de 2026 a las 6:00 p. m. el proyecto se congela: desde ese momento solo se corrigen errores, no se agregan funciones.
