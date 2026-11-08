@@ -21,7 +21,7 @@ describe('periodos-de-restriccion', () => {
   });
 
   it('ninguna fila está suprimida', () => {
-    expect(figure.rows.every((row) => !row.suppressed)).toBe(true);
+    expect(figure.rows.every((row) => !row.is_suppressed)).toBe(true);
   });
 
   it('la descripción en texto menciona la fecha de corte y no es un marcador', () => {
@@ -30,10 +30,34 @@ describe('periodos-de-restriccion', () => {
   });
 });
 
+describe('contratacion-directa-por-mes (T6, pantalla 3)', () => {
+  const figure = getFigure('contratacion-directa-por-mes');
+
+  it('es responsiva: un SVG para celular y otro para escritorio', () => {
+    expect(figure.responsive).toBe(true);
+  });
+
+  it('el título nombra el primer y el último mes', () => {
+    expect(figure.title).toContain('enero de 2022');
+    expect(figure.title).toContain('octubre de 2026');
+  });
+
+  it('la columna Mes va en español', () => {
+    expect(figure.rows[0]?.values.period).toBe('enero de 2022');
+  });
+
+  it('la descripción no es marcador y nombra los picos de enero y la restricción de 2026', () => {
+    expect(figure.description).not.toContain('[Texto pendiente');
+    expect(figure.description).toContain('723');
+    expect(figure.description).toContain('707');
+    expect(figure.description).toContain('31 de enero de 2026');
+  });
+});
+
 describe('contratacion-directa-por-mes (conducta de T2)', () => {
   it('conserva 58 filas y 8 suprimidas', () => {
     const figure = getFigure('contratacion-directa-por-mes');
     expect(figure.rows).toHaveLength(58);
-    expect(figure.rows.filter((row) => row.suppressed)).toHaveLength(8);
+    expect(figure.rows.filter((row) => row.is_suppressed)).toHaveLength(8);
   });
 });

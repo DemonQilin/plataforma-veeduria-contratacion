@@ -75,6 +75,8 @@ const timelineRows: BarRow[] = list.map((item) => ({
   offset: place(item.start),
   tone: item.scope === 'direct_award' ? 'restriction' : 'dashed',
 }));
+const latestJanuary = january.at(-1);
+const peakJanuary = january.toSorted((a, b) => b.contract_count - a.contract_count)[0];
 const directRestrictions = restrictions('direct_award');
 const ruleSource = directRestrictions[0]?.sources[0];
 ---
@@ -157,8 +159,40 @@ const ruleSource = directRestrictions[0]?.sources[0];
     </p>
   </Screen>
   <Screen id="el-patron">
-    <p>[Texto pendiente: el patrón (T6).]</p>
-    <Figure id="contratacion-directa-por-mes" />
+    <span slot="title">¿Qué pasa con la contratación alrededor de esas fechas?</span>
+    <p class="caption">3 · El patrón</p>
+    <div class="pattern-grid">
+      <article class="pattern-card">
+        <p class="caption number">3.1</p>
+        <h2>Enero es el mes con más contratación directa de cada año</h2>
+        {
+          latestJanuary && (
+            <p class="big-number">
+              <span class="big">{formatNumber(latestJanuary.contract_count)}</span>
+              <span class="caption">
+                contratos directos firmados en enero de {latestJanuary.period.slice(0, 4)}, antes de la restricción.
+                {peakJanuary && peakJanuary.period !== latestJanuary.period && <> Solo enero de {peakJanuary.period.slice(0, 4)} tuvo más: {formatNumber(peakJanuary.contract_count)}.</>}
+              </span>
+            </p>
+          )
+        }
+        <p class="placeholder">[Texto pendiente del compañero: cómo leer el gráfico y qué se observa en enero.]</p>
+        <div class="definition">
+          <strong>Qué cuenta.</strong> Contratos de contratación directa del Distrito por mes de firma. El conteo
+          siempre se publica; el valor del mes se oculta cuando no alcanza 5 contratos con valor o se podría
+          despejar por resta (R13).
+        </div>
+      </article>
+      <div>
+        <Figure id="contratacion-directa-por-mes" number="3.1" />
+        <p class="legend">
+          <span><span class="swatch swatch--treatment"></span> Año con elecciones</span>
+          <span><span class="swatch swatch--control"></span> Año de comparación</span>
+          <span><span class="swatch swatch--band"></span> Restricción de contratación directa</span>
+          <span><span class="swatch swatch--agreement"></span> Restricción de convenios interadministrativos</span>
+        </p>
+      </div>
+    </div>
   </Screen>
   <Screen id="la-comparacion">
     <p>[Texto pendiente: la comparación (T7).]</p>
@@ -252,8 +286,57 @@ const ruleSource = directRestrictions[0]?.sources[0];
     border: 2px solid var(--chart-treatment);
   }
 
+  .swatch--treatment {
+    background: var(--chart-treatment);
+  }
+
+  .swatch--control {
+    background: var(--chart-control);
+  }
+
+  .swatch--band {
+    background: var(--chart-restriction);
+    border: 1px solid var(--hairline);
+  }
+
   .swatch--agreement {
     border: 1.5px dashed var(--chart-axis);
+  }
+
+  .pattern-grid {
+    display: grid;
+    gap: var(--space-3);
+    margin-top: var(--space-3);
+  }
+
+  .pattern-card {
+    display: grid;
+    gap: var(--space-2);
+    padding: var(--space-3);
+    background: var(--surface-raised);
+    border: 2px solid var(--ink);
+    border-radius: var(--radius-md);
+  }
+
+  .pattern-card h2,
+  .pattern-card p {
+    margin: 0;
+  }
+
+  .pattern-card .number {
+    color: var(--accent);
+  }
+
+  .big-number {
+    display: grid;
+    gap: var(--space-1);
+  }
+
+  .big {
+    font-size: 56px;
+    line-height: 56px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
   }
 
   .placeholder {
@@ -278,6 +361,11 @@ const ruleSource = directRestrictions[0]?.sources[0];
 
     .cover-grid--pair {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: start;
+    }
+
+    .pattern-grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
       align-items: start;
     }
   }

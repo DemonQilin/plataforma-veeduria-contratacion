@@ -49,7 +49,7 @@ const svgs = sizes.map((size) => ({ size, html: renderPlot(figure.plot(size)) })
               <tr>
                 {figure.columns.map((column) => {
                   const cell = row.values[column.key] ?? null;
-                  if (column.suppressible && row.suppressed) {
+                  if (column.suppressible && row.is_suppressed) {
                     return (
                       <td class="num suppressed">
                         datos insuficientes (n = {formatNumber(Number((figure.sampleKey ? row.values[figure.sampleKey] : 0) ?? 0))})

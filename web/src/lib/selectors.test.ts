@@ -2,6 +2,7 @@
 import { describe, expect, it } from 'vitest';
 import type { ElectoralRestriction, IndicatorCell, MonthlySeriesRow } from '../types/contract';
 import {
+  comparisonRoles,
   directAwardJanuary,
   directAwardMonthly,
   i2ByYear,
@@ -150,5 +151,17 @@ describe('con las salidas reales', () => {
       [2025, 'control'],
       [2026, 'treatment'],
     ]);
+  });
+});
+
+describe('comparisonRoles', () => {
+  it('une el papel de cada año con su año, sin calcular', () => {
+    const roles = comparisonRoles([
+      { year: 2022, role: 'treatment' },
+      { year: 2023, role: 'control' },
+    ]);
+    expect(roles.get(2022)).toBe('treatment');
+    expect(roles.get(2023)).toBe('control');
+    expect(roles.get(2024)).toBeUndefined();
   });
 });

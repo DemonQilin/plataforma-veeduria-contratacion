@@ -85,3 +85,11 @@ export function i2Extremes(
     .toSorted((a, b) => (a.cell.ratio ?? 0) - (b.cell.ratio ?? 0));
   return { min: sorted[0], max: sorted.at(-1) };
 }
+
+/** Papel de cada año en la comparación (`electoral_calendar.json`); no calcula: une por año. */
+export function comparisonRoles(
+  windows: readonly Pick<ComparisonYear, 'year' | 'role'>[] = getElectoralCalendar()
+    ?.comparison_windows ?? [],
+): Map<number, ComparisonYear['role']> {
+  return new Map(windows.map((window) => [window.year, window.role]));
+}
