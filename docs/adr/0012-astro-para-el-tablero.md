@@ -24,7 +24,7 @@ El equipo domina React, pero no ha usado Astro.
 
 - Las páginas de la historia no envían JavaScript: cargan rápido en celulares y los gráficos se ven aunque el script falle.
 - Los gráficos generados en el build son SVG accesibles, con descripción y tabla de datos.
-- Observable Plot necesita un DOM para renderizar en el servidor; se le pasa con la opción `document`. La librería que lo provee se decide en un ADR aparte.
+- Observable Plot necesita un DOM para renderizar en el servidor; se le pasa con la opción `document`. Lo provee jsdom ([0050](0050-jsdom-para-plot-en-el-build.md)).
 - El sitio vive bajo una ruta base en GitHub Pages: `site` y `base` deben configurarse, y todo enlace interno debe usar `import.meta.env.BASE_URL`.
 - Aprender Astro cuesta un estimado de 4 horas. Plan B (ver [`plan.md`](../plan.md#7-riesgos-y-planes-b)): si al mediodía del 5 nov no hay avance, se hace una sola página estática sin islas y el explorador se simplifica.
 

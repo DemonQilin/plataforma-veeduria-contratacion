@@ -1,0 +1,160 @@
+---
+import { formatNumber } from '../lib/format';
+import { getFigure } from '../lib/figures';
+import { renderPlot } from '../lib/plot';
+
+interface Props {
+  id: string;
+}
+
+const figure = getFigure(Astro.props.id);
+const base = import.meta.env.BASE_URL;
+const sizes = figure.responsive ? (['small', 'large'] as const) : (['large'] as const);
+const svgs = sizes.map((size) => ({ size, html: renderPlot(figure.plot(size)) }));
+---
+
+<figure id={figure.id} class:list={["figure", { responsive: figure.responsive }]}>
+  {
+    svgs.map(({ size, html }) => (
+      <div class={`plot plot-${size}`} set:html={html} />
+    ))
+  }
+  <figcaption>{figure.description}</figcaption>
+  <details>
+    <summary>Ver tabla de datos</summary>
+    <div class="table-wrap" tabindex="0" role="region" aria-label={`Tabla de datos: ${figure.title}`}>
+      <table>
+        <caption class="visually-hidden">{figure.title}</caption>
+        <thead>
+          <tr>
+            {figure.columns.map((column) => (
+              <th scope="col" class={column.kind === 'number' ? 'num' : undefined}>{column.label}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {
+            figure.rows.map((row) => (
+              <tr>
+                {figure.columns.map((column) => {
+                  const cell = row.values[column.key] ?? null;
+                  if (column.suppressible && row.suppressed) {
+                    return (
+                      <td class="num suppressed">
+                        datos insuficientes (n = {formatNumber(Number(row.values[figure.sampleKey] ?? 0))})
+                      </td>
+                    );
+                  }
+                  return (
+                    <td class={column.kind === 'number' ? 'num' : undefined}>
+                      {typeof cell === 'number' ? formatNumber(cell) : cell}
+                    </td>
+                  );
+                })}
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </details>
+  <p class="actions caption">
+    <a href={`${base}datos/${figure.id}.csv`} download>Descargar datos</a>
+    <a href={`#${figure.id}`}>Copiar enlace</a>
+  </p>
+</figure>
+
+<style>
+  .figure {
+    margin: var(--space-3) 0;
+    padding: var(--space-3);
+    background: var(--surface-raised);
+    border: 2px solid var(--chart-grid);
+    border-radius: var(--radius-md);
+  }
+
+  .plot :global(svg) {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    color: var(--chart-axis);
+    background: transparent;
+  }
+
+  .plot-small {
+    display: block;
+  }
+
+  .plot-large {
+    display: block;
+  }
+
+  @media (max-width: 719px) {
+    .responsive .plot-large {
+      display: none;
+    }
+  }
+
+  @media (min-width: 720px) {
+    .plot-small {
+      display: none;
+    }
+  }
+
+  figcaption {
+    margin-top: var(--space-2);
+    color: var(--ink-muted);
+    font-size: var(--font-size-caption);
+    line-height: var(--line-height-caption);
+  }
+
+  details {
+    margin-top: var(--space-2);
+  }
+
+  summary {
+    cursor: pointer;
+    color: var(--accent);
+  }
+
+  .table-wrap {
+    max-height: 320px;
+    overflow: auto;
+    margin-top: var(--space-2);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: inherit;
+    font-size: var(--font-size-caption);
+    line-height: var(--line-height-caption);
+    font-variant-numeric: tabular-nums;
+  }
+
+  th,
+  td {
+    padding: var(--space-1) var(--space-2);
+    border-bottom: 1px solid var(--chart-grid);
+    text-align: left;
+  }
+
+  td:first-child {
+    white-space: nowrap;
+  }
+
+  .num {
+    text-align: right;
+  }
+
+  .suppressed {
+    color: var(--chart-suppressed);
+    font-style: italic;
+  }
+
+  .actions {
+    display: flex;
+    gap: var(--space-3);
+    margin: var(--space-2) 0 0;
+  }
+</style>

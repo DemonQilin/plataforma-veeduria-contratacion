@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import Figure from '../components/Figure.astro';
 import Screen from '../components/Screen.astro';
 import { getMetadata } from '../lib/data';
 import { formatDate } from '../lib/format';
@@ -28,6 +29,7 @@ const pending = SCREENS.slice(5);
   </Screen>
   <Screen id="el-patron">
     <p>[Texto pendiente: el patrón (T6).]</p>
+    <Figure id="contratacion-directa-por-mes" />
   </Screen>
   <Screen id="la-comparacion">
     <p>[Texto pendiente: la comparación (T7).]</p>

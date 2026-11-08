@@ -27,7 +27,7 @@ Lo único que hace con los datos es darles formato y dibujarlos.
 
 ## Gráficos
 
-- Los gráficos de la historia se renderizan como SVG en el build, sin JavaScript en el navegador. Observable Plot necesita un DOM en el servidor: se le pasa con la opción `document` (la librería exacta queda en un ADR).
+- Los gráficos de la historia se renderizan como SVG en el build, sin JavaScript en el navegador. Observable Plot necesita un DOM en el servidor: se le pasa con la opción `document` y lo provee jsdom (`docs/adr/0050-jsdom-para-plot-en-el-build.md`).
 - Solo el explorador renderiza en el navegador, como isla de React con `client:visible`.
 - Cada gráfico lleva una frase que dice qué muestra, una descripción en texto y su tabla de datos accesible.
 
