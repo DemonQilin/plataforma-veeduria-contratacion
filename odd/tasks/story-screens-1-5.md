@@ -1,6 +1,6 @@
 # Pantallas 1 a 5 de la historia guiada
 
-Objetivo: el bloque del 5 al 6 nov de `docs/plan.md:38`, con una fase de diseño en Claude Design antes de escribir el sitio. Rama: `feat/story-screens-1-5`. Entrega: `ask-on-risk`. Verificación: `mise run check` (`astro check`, `pnpm build`) y revisión en el navegador.
+Objetivo: el bloque del 5 al 6 nov de `docs/plan.md:38`, con una fase de diseño en Claude Design antes de escribir el sitio. Rama: una por tarea desde T2, con sufijo `feat/story-screens-<tarea>-<tema>` (L19); T1 fue `feat/story-screens-1-5`, fusionada en el PR #48. Entrega: `ask-on-risk`. Verificación: `mise run check` (`astro check`, `pnpm build`) y revisión en el navegador.
 
 ## Specs
 
@@ -56,3 +56,4 @@ Ruta: todo en línea; no hay unidades paralelas con superficies separadas que ju
 - **L16 (8 nov 2026).** Juan: «Sí, corrige los ADRs». ADR 0036 (29,8 → 28,9 %) y ADR 0037 (0,9 → 1,8 puntos; «menos de un punto» → «menos de dos puntos (1,8)»). La misma frase estaba en `docs/producto.md:31` y se corrigió igual. `docs/bitacora.md` queda como observación fechada. El espejo de Engram se actualiza al final, a pedido de Juan.
 - **L17 (8 nov 2026).** «Vamos con T1». Juan aprobó el plan y dio la señal con «Procede». Rama `feat/story-screens-1-5` recreada desde `main` (la anterior se fusionó en el PR #46). T1 en línea; tokens de D1 a CSS, fuente con la API de fuentes de Astro, índice lateral y anterior/siguiente sin JavaScript.
 - **L18 (8 nov 2026).** T1 hecho. La API de fuentes de Astro 7 funcionó sin plan B. Las pantallas 6 a 9 llevan un marcador para que el índice no tenga enlaces rotos. Hay una `h1` por pantalla (9 en la página): lo revisa T10 con Lighthouse. Sin prueba automática: `web/` no tiene corredor y el CSS no tiene RED significativo.
+- **L19 (8 nov 2026).** T1 fusionada en `main` por el PR #48 (461d899). Juan: «Crea ramas independientes, o ponles un sufijo no sé». Desde T2, una rama por tarea con sufijo, creada desde `main` actualizada cuando empieza la tarea, con su PR fusionado antes de pasar a la siguiente (sin ramas apiladas ni estrategia de cadena): `feat/story-screens-t2-figure`, `feat/story-screens-t3-selectors`, `feat/story-screens-t4-cover` (igual T5 a T8) y `docs/story-screens-t11-decision-point`. T3 va antes de T4 a T8 porque las pantallas leen los selectores. Juan pidió guardarlo en Engram y en la documentación, directo en `main`.
