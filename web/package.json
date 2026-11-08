@@ -12,7 +12,8 @@
     "preview": "astro preview",
     "gen:types": "node scripts/gen-types.mjs",
     "check": "astro check",
-    "check:drift": "node scripts/check-drift.mjs"
+    "check:drift": "node scripts/check-drift.mjs",
+    "test": "vitest run"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.12",
@@ -29,6 +30,7 @@
     "@types/react-dom": "^19.3.0",
     "chrome-devtools-mcp": "^1.12.0",
     "json-schema-to-typescript": "^16.0.0",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "vitest": "^5.1.0"
   }
 }

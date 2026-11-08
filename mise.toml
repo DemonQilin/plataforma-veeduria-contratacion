@@ -80,6 +80,10 @@ run = "scripts/check-agents-sync.sh"
 dir = "web"
 run = "pnpm astro check"
 
+[tasks."check:web-test"]
+dir = "web"
+run = "pnpm test"
+
 [tasks.check]
 description = "Todas las verificaciones, en el orden de CLAUDE.md"
 run = [
@@ -88,5 +92,6 @@ run = [
   { task = "install" },
   { task = "check:drift" },
   { task = "check:web" },
+  { task = "check:web-test" },
   { task = "build" },
 ]
