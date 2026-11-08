@@ -20,12 +20,12 @@ El criterio 1 se cumple en las cuatro combinaciones. La separación es mayor sin
 ## Decisión
 
 - La cifra titular es la **definición base, por número de contratos**. La definición se fijó el 3 de noviembre y no se cambia después de ver los resultados.
-- **El valor es un complemento.** Se presenta con la nota de que, con la definición base, 2022 supera al mejor año de control por 0,9 puntos.
+- **El valor es un complemento.** Se presenta con la nota de que, con la definición base, 2022 supera al mejor año de control (2023) por 1,8 puntos.
 - **`excluding_interadministrative` se publica como sensibilidad**, a la vista, sin sustituir a la definición base.
 
 ## Consecuencias
 
 - No cambia el código, el contrato ni `data/outputs/`: las dos lecturas ya se publican.
 - La frase del hallazgo usa las cifras de la definición base por número: 58 % y 65 % en 2022 y 2026, frente a 19–31 % en los años de control.
-- Se declara como limitación que, por valor, el criterio 1 se cumple por menos de un punto con la definición base.
+- Se declara como limitación que, por valor, el criterio 1 se cumple por menos de dos puntos (1,8) con la definición base.
 - El titular se apoya además en la serie de planeación (criterio 2), que se cumple en las dos medidas.
