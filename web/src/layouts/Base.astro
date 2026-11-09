@@ -54,3 +54,28 @@ const base = import.meta.env.BASE_URL;
     </div>
   </body>
 </html>
+
+<script>
+  // Mejora progresiva (ADR 0054): marca en el índice la pantalla que se está leyendo.
+  const links = new Map<string, HTMLAnchorElement>();
+  document.querySelectorAll<HTMLAnchorElement>('.index a').forEach((link) => {
+    const id = link.hash.slice(1);
+    if (id) links.set(id, link);
+  });
+  const mark = (id: string) => {
+    links.forEach((link, key) => {
+      if (key === id) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+  };
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.find((entry) => entry.isIntersecting);
+        if (visible) mark(visible.target.id);
+      },
+      { rootMargin: '-40% 0px -55% 0px' },
+    );
+    document.querySelectorAll('section.screen').forEach((section) => observer.observe(section));
+  }
+</script>

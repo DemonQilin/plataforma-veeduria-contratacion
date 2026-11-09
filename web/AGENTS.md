@@ -48,7 +48,7 @@ Lo único que hace con los datos es darles formato y dibujarlos.
 ## Diseño
 
 - Primero el celular: diseña para pantallas angostas y amplía después.
-- Las páginas de la historia no cargan JavaScript, salvo el explorador.
+- Las páginas de la historia no cargan JavaScript, salvo el explorador y el script que marca la pantalla activa en el índice (`docs/adr/0054-script-para-la-pantalla-activa.md`).
 
 ## Comandos
 
