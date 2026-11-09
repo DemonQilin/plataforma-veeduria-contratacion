@@ -7,10 +7,9 @@ name: publish
 on:
   workflow_dispatch:
 
+# Mínimo por defecto; cada job declara lo que necesita además de esto.
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 # Un solo despliegue a la vez, sin cancelar el que está en curso.
 concurrency:
@@ -50,6 +49,10 @@ jobs:
     name: desplegar
     needs: build
     runs-on: ubuntu-latest
+    # Solo este job publica: un job con `permissions` propios reemplaza los del workflow.
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
