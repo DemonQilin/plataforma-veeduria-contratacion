@@ -11,6 +11,7 @@ import {
   comparisonWindows,
   directAwardJanuary,
   directAwardMonthly,
+  explorerCells,
   i2ByYear,
   i2Extremes,
   reconciliationMonths,
@@ -206,5 +207,25 @@ describe('reconciliationMonths', () => {
     ]);
     expect(result.map((m) => m.period)).toEqual(['2022-01', '2022-03']);
     expect(result[1]).toMatchObject({ below_threshold: true, shared_share: 0.67 });
+  });
+});
+
+describe('explorerCells', () => {
+  const cells = [
+    cell({ indicator: 'I1', period: '2023' }),
+    cell({ indicator: 'I1', period: '2022' }),
+    cell({ indicator: 'I1', period: '2022', variant: 'non_competitive' as never }),
+    cell({ indicator: 'I1', period: '2022', measure: 'value' }),
+    cell({ indicator: 'I4', period: '2022', measure: 'value' }),
+    cell({ indicator: 'I4', period: '2022', measure: 'count' }),
+    cell({ indicator: 'I2', period: '2022' }),
+  ];
+
+  it('elige la variante base y la medida de cada indicador, por año', () => {
+    expect(explorerCells('I1', cells).map((c) => [c.indicator, c.period, c.measure])).toEqual([
+      ['I1', '2022', 'count'],
+      ['I1', '2023', 'count'],
+    ]);
+    expect(explorerCells('I4', cells).map((c) => c.measure)).toEqual(['value']);
   });
 });

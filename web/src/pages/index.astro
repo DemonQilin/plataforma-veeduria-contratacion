@@ -3,9 +3,11 @@ import BarTable from '../components/BarTable.astro';
 import type { BarRow } from '../components/BarTable.astro';
 import Base from '../layouts/Base.astro';
 import FindingCard from '../components/FindingCard.astro';
+import Explorer from '../components/Explorer';
 import Figure from '../components/Figure.astro';
 import Screen from '../components/Screen.astro';
 import { getMetadata, getQuality } from '../lib/data';
+import { buildExplorer } from '../lib/explorer';
 import { formatDate, formatMonth, formatNumber, formatPercent } from '../lib/format';
 import { SCREENS } from '../lib/screens';
 import type { I2YearCell } from '../lib/selectors';
@@ -19,7 +21,10 @@ import {
 } from '../lib/selectors';
 
 const metadata = getMetadata();
-const pending = SCREENS.filter((screen) => ['mas-alla-de-las-elecciones', 'hacia-2027'].includes(screen.id));
+const pending = SCREENS.filter((screen) => screen.id === 'hacia-2027');
+// Pantalla 6: el explorador recibe las cifras ya elegidas, ordenadas y con formato (S6).
+const explorer = buildExplorer();
+const explorerLastYear = explorer.indicators[0]?.years.at(-1)?.year;
 const REPO_URL = 'https://github.com/DemonQilin/plataforma-veeduria-contratacion';
 const CONTACT = 'juanvelez1113670@correo.itm.edu.co';
 
@@ -352,15 +357,17 @@ const switchOptions = [
       </div>
     </div>
   </Screen>
-  {
-    pending
-      .filter((screen) => screen.id === 'mas-alla-de-las-elecciones')
-      .map((screen) => (
-        <Screen id={screen.id}>
-          <p>Esta pantalla está en preparación.</p>
-        </Screen>
-      ))
-  }
+  <Screen id="mas-alla-de-las-elecciones">
+    <span slot="title">¿Qué otros patrones hay?</span>
+    <p class="caption">6 · Más allá de las elecciones</p>
+    <p>
+      Además del hallazgo principal, el tablero publica otras señales sobre cómo contrata la Alcaldía. Elige un indicador, un año y, si quieres, una secretaría. Una cifra alta es una señal para revisar, no una prueba de que algo esté mal.
+    </p>
+    <Explorer client:visible data={explorer} />
+    <div class="definition">
+      <strong>Para leer con cuidado.</strong>{/* R13 */} Cuando una cifra se basa en menos de 5 contratos o procesos, se muestra «datos insuficientes» y su número. El año {explorerLastYear} es parcial{metadata && <>: llega hasta el {formatDate(metadata.cutoff_date)}</>}. «Un solo oferente» se cuenta por procesos y los asigna a la secretaría que los adelanta, que no siempre es la que pidió el bien. Las adiciones solo existen para 2022 y 2023, porque vienen de una fuente que se detiene en junio de 2023. La concentración de proveedores se mide por valor.
+    </div>
+  </Screen>
   <Screen id="como-leer-esto">
     <span slot="title">Cómo leer estas cifras</span>
     <p class="caption">7 · Qué significa y qué no</p>

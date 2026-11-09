@@ -108,3 +108,27 @@ export function reconciliationMonths(
 ): ReconciliationMonth[] {
   return months.toSorted((a, b) => a.period.localeCompare(b.period));
 }
+
+/** Indicadores del explorador (pantalla 6) y la medida con que se publica cada uno. */
+export type ExplorerIndicator = 'I1' | 'I3' | 'I4' | 'I5';
+export const EXPLORER_MEASURE: Readonly<Record<ExplorerIndicator, IndicatorCell['measure']>> = {
+  I1: 'count',
+  I3: 'count',
+  I4: 'value',
+  I5: 'count',
+};
+
+/** Celdas base (sin variante) de un indicador del explorador, Distrito y secretarías, por año. */
+export function explorerCells(
+  indicator: ExplorerIndicator,
+  cells: readonly IndicatorCell[] = getIndicators()?.cells ?? [],
+): IndicatorCell[] {
+  return cells
+    .filter(
+      (cell) =>
+        cell.indicator === indicator &&
+        cell.variant === null &&
+        cell.measure === EXPLORER_MEASURE[indicator],
+    )
+    .toSorted((a, b) => a.period.localeCompare(b.period));
+}
