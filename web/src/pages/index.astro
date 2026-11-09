@@ -9,7 +9,7 @@ import { getMetadata } from '../lib/data';
 import { formatDate, formatNumber, formatPercent } from '../lib/format';
 import { SCREENS } from '../lib/screens';
 import type { I2YearCell } from '../lib/selectors';
-import { directAwardJanuary, i2Extremes, i2ByYear, restrictions } from '../lib/selectors';
+import { comparisonWindows, directAwardJanuary, i2Extremes, i2ByYear, restrictions } from '../lib/selectors';
 
 const metadata = getMetadata();
 const pending = SCREENS.slice(5);
@@ -79,6 +79,16 @@ const latestJanuary = january.at(-1);
 const peakJanuary = january.toSorted((a, b) => b.contract_count - a.contract_count)[0];
 const directRestrictions = restrictions('direct_award');
 const ruleSource = directRestrictions[0]?.sources[0];
+
+// Pantalla 4: solo elige celdas de I2 y fechas de comparison_windows (S6).
+const latestTreatment = base.findLast((year) => year.role === 'treatment');
+const windows = comparisonWindows();
+const firstControlWindow = windows.find((window) => window.role === 'control');
+const switchOptions = [
+  { id: 'numero', label: 'Por número de contratos', figure: 'concentracion-enero-por-numero', note: 'Cifra titular: definición base, por número de contratos.' },
+  { id: 'valor', label: 'Por valor', figure: 'concentracion-enero-por-valor', note: 'Por valor se usa el valor inicial, sin operaciones de crédito público. La señal es menos clara que por número; por eso la cifra titular es la del número de contratos.' },
+  { id: 'sin-interadministrativos', label: 'Sin interadministrativos', figure: 'concentracion-enero-sin-interadministrativos', note: 'Sin convenios interadministrativos en el numerador ni en el denominador, porque su peso cambia entre años: en 2023 no hubo de julio a octubre por la restricción local.' },
+] as const;
 ---
 
 <Base
@@ -195,7 +205,55 @@ const ruleSource = directRestrictions[0]?.sources[0];
     </div>
   </Screen>
   <Screen id="la-comparacion">
-    <p>[Texto pendiente: la comparación (T7).]</p>
+    <span slot="title">¿Es distinto en los años con restricción?</span>
+    <p class="caption">4 · La comparación</p>
+    <div class="pattern-grid">
+      <article class="pattern-card">
+        <p class="caption number">4.1</p>
+        <h2>En los años con elecciones, la ventana de enero concentra más de la mitad de la contratación directa</h2>
+        {
+          latestTreatment && (
+            <p class="big-number">
+              <span class="big">{percent(latestTreatment)}</span>
+              <span class="caption">
+                en {latestTreatment.year} ({formatNumber(latestTreatment.cell.numerator ?? 0)} de {formatNumber(latestTreatment.cell.denominator ?? 0)} contratos).
+                {baseControl.min && baseControl.max && <> En los años de comparación: de {percent(baseControl.min)} a {percent(baseControl.max)}.</>}
+              </span>
+            </p>
+          )
+        }
+        <p class="placeholder">[Texto pendiente del compañero: cómo leer la comparación.]</p>
+        <div class="definition">
+          <strong>Qué mide (I2).</strong> De los contratos directos firmados entre el 1 de enero y el
+          {windows[0] ? ` ${formatDate(windows[0].denominator_end)}` : ' fin del periodo'}, la parte firmada en la
+          ventana de enero, antes de que empezara la restricción.
+          {firstControlWindow && <> En {firstControlWindow.year}, año de comparación, la ventana va del {formatDate(firstControlWindow.window_start)} al {formatDate(firstControlWindow.window_end)}.</>}
+        </div>
+      </article>
+      <fieldset class="switch">
+        <legend class="caption">Medida</legend>
+        {
+          switchOptions.map((option, index) => (
+            <input class="switch-input" type="radio" name="medida" id={`medida-${option.id}`} checked={index === 0} />
+          ))
+        }
+        <div class="switch-buttons">
+          {switchOptions.map((option) => <label for={`medida-${option.id}`}>{option.label}</label>)}
+        </div>
+        <p class="legend">
+          <span><span class="swatch swatch--treatment"></span> Año con elecciones</span>
+          <span><span class="swatch swatch--control"></span> Año de comparación</span>
+        </p>
+        {
+          switchOptions.map((option) => (
+            <div class={`switch-panel panel-${option.id}`}>
+              <Figure id={option.figure} number="4.1" />
+              <p class="definition">{option.note}</p>
+            </div>
+          ))
+        }
+      </fieldset>
+    </div>
   </Screen>
   <Screen id="la-objecion">
     <p>[Texto pendiente: la objeción (T8).]</p>
@@ -346,6 +404,69 @@ const ruleSource = directRestrictions[0]?.sources[0];
     border-radius: var(--radius-md);
     color: var(--ink-muted);
     font-size: var(--font-size-caption);
+  }
+
+  .switch {
+    display: grid;
+    gap: var(--space-2);
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .switch-input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .switch-buttons {
+    display: none;
+    flex-wrap: wrap;
+    gap: var(--space-1);
+  }
+
+  .switch-buttons label {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 14px;
+    border: 1px solid var(--ink);
+    border-radius: var(--radius-md);
+    background: var(--surface-raised);
+    cursor: pointer;
+  }
+
+  @supports selector(:has(*)) {
+    .switch-buttons {
+      display: flex;
+    }
+
+    .switch:has(.switch-input:focus-visible) .switch-buttons {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .switch:not(:has(#medida-numero:checked)) .panel-numero,
+    .switch:not(:has(#medida-valor:checked)) .panel-valor,
+    .switch:not(:has(#medida-sin-interadministrativos:checked)) .panel-sin-interadministrativos {
+      display: none;
+    }
+
+    .switch:has(#medida-numero:checked) label[for='medida-numero'],
+    .switch:has(#medida-valor:checked) label[for='medida-valor'],
+    .switch:has(#medida-sin-interadministrativos:checked) label[for='medida-sin-interadministrativos'] {
+      background: var(--ink);
+      color: var(--surface-raised);
+      font-weight: 700;
+    }
+  }
+
+  @supports not selector(:has(*)) {
+    .switch-input {
+      display: none;
+    }
   }
 
   @media (min-width: 900px) {

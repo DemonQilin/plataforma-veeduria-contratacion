@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import type { ElectoralRestriction, IndicatorCell, MonthlySeriesRow } from '../types/contract';
 import {
   comparisonRoles,
+  comparisonWindows,
   directAwardJanuary,
   directAwardMonthly,
   i2ByYear,
@@ -163,5 +164,16 @@ describe('comparisonRoles', () => {
     expect(roles.get(2022)).toBe('treatment');
     expect(roles.get(2023)).toBe('control');
     expect(roles.get(2024)).toBeUndefined();
+  });
+});
+
+describe('comparisonWindows', () => {
+  it('ordena por año y devuelve las ventanas tal cual', () => {
+    const windows = comparisonWindows([
+      { year: 2024, role: 'control', window_start: '2024-01-01', window_end: '2024-01-29', denominator_end: '2024-10-30', reference_restriction_end: '2024-06-20' },
+      { year: 2022, role: 'treatment', window_start: '2022-01-01', window_end: '2022-01-28', denominator_end: '2022-10-30', reference_restriction_end: '2022-06-19' },
+    ]);
+    expect(windows.map((window) => window.year)).toEqual([2022, 2024]);
+    expect(windows[0]?.window_end).toBe('2022-01-28');
   });
 });

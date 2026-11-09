@@ -93,3 +93,10 @@ export function comparisonRoles(
 ): Map<number, ComparisonYear['role']> {
   return new Map(windows.map((window) => [window.year, window.role]));
 }
+
+/** Ventanas de comparación por año (`electoral_calendar.json`), tal cual; solo ordena. */
+export function comparisonWindows(
+  windows: readonly ComparisonYear[] = getElectoralCalendar()?.comparison_windows ?? [],
+): ComparisonYear[] {
+  return windows.toSorted((a, b) => a.year - b.year);
+}

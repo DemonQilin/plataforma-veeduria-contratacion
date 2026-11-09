@@ -1,5 +1,5 @@
 ---
-import { formatNumber } from '../lib/format';
+import { formatNumber, formatPercent } from '../lib/format';
 import { getFigure } from '../lib/figures';
 import { renderPlot } from '../lib/plot';
 
@@ -39,7 +39,7 @@ const svgs = sizes.map((size) => ({ size, html: renderPlot(figure.plot(size)) })
         <thead>
           <tr>
             {figure.columns.map((column) => (
-              <th scope="col" class={column.kind === 'number' ? 'num' : undefined}>{column.label}</th>
+              <th scope="col" class={column.kind !== 'text' ? 'num' : undefined}>{column.label}</th>
             ))}
           </tr>
         </thead>
@@ -57,8 +57,8 @@ const svgs = sizes.map((size) => ({ size, html: renderPlot(figure.plot(size)) })
                     );
                   }
                   return (
-                    <td class={column.kind === 'number' ? 'num' : undefined}>
-                      {typeof cell === 'number' ? formatNumber(cell) : cell}
+                    <td class={column.kind !== 'text' ? 'num' : undefined}>
+                      {typeof cell === 'number' ? (column.kind === 'percent' ? formatPercent(cell) : formatNumber(cell)) : cell}
                     </td>
                   );
                 })}
