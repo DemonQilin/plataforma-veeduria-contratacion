@@ -414,7 +414,7 @@ const switchOptions = [
       </article>
     </div>
     <h3 class="section-heading">Qué tan completos están los datos</h3>
-    <p>Los datos vienen de dos fuentes oficiales que se comparan entre sí. Estas son las advertencias que conviene conocer:</p>
+    <p>Los datos vienen de dos fuentes oficiales que se comparan entre sí: SECOP II, el sistema nacional de compras públicas, y MEData, el portal de datos abiertos de la Alcaldía de Medellín. Estas son las advertencias que conviene conocer:</p>
     <ul class="quality-list">
       {
         months.length > 0 && threshold != null && (
@@ -442,7 +442,7 @@ const switchOptions = [
         truncated && (
           <li>
             {/* MEData truncado */}
-            <strong>Registros incompletos.</strong> {formatNumber(truncated.count)} de {formatNumber(truncated.total)} filas de la fuente del Distrito
+            <strong>Registros incompletos.</strong> {formatNumber(truncated.count)} de {formatNumber(truncated.total)} filas del conjunto de ejecución contractual de MEData
             {truncated.share != null && <> ({formatPercent(truncated.share)})</>} llegan cortadas desde el origen. Se usan solo para los datos que sí conservan.
           </li>
         )
@@ -513,7 +513,7 @@ const switchOptions = [
             </p>
           )
         }
-        <p>El plan anual de compras dice en qué mes se espera empezar cada contratación. Los años de elección presidencial (2014, 2018 y 2022) planean menos para febrero a junio, los meses de la restricción. Los de elecciones locales (2015, 2019 y 2023) sirven de referencia para 2027.</p>
+        <p>El plan anual de adquisiciones, que la Alcaldía publica en MEData, dice en qué mes se espera empezar cada contratación. Los años de elección presidencial (2014, 2018 y 2022) planean menos para febrero a junio, los meses de la restricción. Los de elecciones locales (2015, 2019 y 2023) sirven de referencia para 2027.</p>
         <div class="definition">
           <strong>Para leer con cuidado.</strong> Un plan no es un contrato: el mes es una estimación y solo hay datos hasta 2023.
         </div>
@@ -556,6 +556,22 @@ const switchOptions = [
         </p>
       )
     }
+    <h3 class="section-heading">Qué pedimos mejorar en los datos abiertos</h3>
+    <ul class="quality-list">
+      <li>
+        <strong>A la Alcaldía de Medellín:</strong> volver a publicar en MEData la ejecución contractual y el plan anual de adquisiciones, que no se actualizan desde 2023. Sin ellos no se puede comparar lo planeado con lo contratado de 2024 en adelante.
+      </li>
+      {
+        truncated && (
+          <li>
+            <strong>A la Alcaldía de Medellín:</strong> corregir las filas cortadas de la ejecución contractual: {formatNumber(truncated.count)} de {formatNumber(truncated.total)} llegan incompletas.
+          </li>
+        )
+      }
+      <li>
+        <strong>A Colombia Compra Eficiente:</strong> incluir el valor de cada adición en el conjunto de adiciones de SECOP II, que hoy solo registra el tipo y la fecha.
+      </li>
+    </ul>
     <h3 class="section-heading">Código abierto y licencias</h3>
     <p>
       Todo el código, la copia de los datos y los textos están en un <a href={REPO_URL}>repositorio público</a>, para que cada cifra se pueda reconstruir. El código usa licencia MIT; los datos y los textos, CC BY-SA 4.0, porque las fuentes de SECOP II usan esa licencia.
