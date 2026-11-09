@@ -162,6 +162,12 @@ a {
     background: var(--surface-raised);
   }
 
+  .index a[aria-current='location'] {
+    background: var(--surface-raised);
+    border-left: 4px solid var(--accent);
+    font-weight: 700;
+  }
+
   .content {
     padding: 0;
   }
