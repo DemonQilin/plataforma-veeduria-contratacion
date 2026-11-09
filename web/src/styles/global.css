@@ -18,7 +18,8 @@ body {
 }
 
 h1,
-h2 {
+h2,
+h3 {
   margin: 0 0 var(--space-3);
   font-weight: 700;
 }
@@ -28,9 +29,15 @@ h1 {
   line-height: var(--line-height-h1);
 }
 
-h2 {
+h2,
+h3 {
   font-size: var(--font-size-h2);
   line-height: var(--line-height-h2);
+}
+
+.screen-title {
+  font-size: var(--font-size-h1);
+  line-height: var(--line-height-h1);
 }
 
 p {

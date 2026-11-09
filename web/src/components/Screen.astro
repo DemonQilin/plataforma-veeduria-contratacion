@@ -11,22 +11,25 @@ const { number, previous, next } = neighbors(id);
 const title = SCREENS[number - 1]?.title ?? id;
 const base = import.meta.env.BASE_URL;
 const hasTitle = Astro.slots.has('title');
+// Un solo h1 en la página (el titular de la portada); las demás pantallas abren con h2.
+const Heading = id === 'portada' ? 'h1' : 'h2';
+const headingClass = Heading === 'h1' ? undefined : 'screen-title';
 ---
 
 <section id={id} aria-labelledby={`${id}-title`} class="screen">
   {
     hasTitle ? (
-      <h1 id={`${id}-title`}>
+      <Heading id={`${id}-title`} class={headingClass}>
         <slot name="title" />
-      </h1>
+      </Heading>
     ) : heading ? (
-      <h1 id={`${id}-title`}>
+      <Heading id={`${id}-title`} class={headingClass}>
         <span class="caption">Pantalla {number}</span>
         <br />
         {title}
-      </h1>
+      </Heading>
     ) : (
-      <h1 id={`${id}-title`} class="visually-hidden">{title}</h1>
+      <Heading id={`${id}-title`} class="visually-hidden">{title}</Heading>
     )
   }
   <slot />
