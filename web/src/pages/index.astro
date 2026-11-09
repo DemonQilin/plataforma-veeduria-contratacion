@@ -5,14 +5,23 @@ import Base from '../layouts/Base.astro';
 import FindingCard from '../components/FindingCard.astro';
 import Figure from '../components/Figure.astro';
 import Screen from '../components/Screen.astro';
-import { getMetadata } from '../lib/data';
-import { formatDate, formatNumber, formatPercent } from '../lib/format';
+import { getMetadata, getQuality } from '../lib/data';
+import { formatDate, formatMonth, formatNumber, formatPercent } from '../lib/format';
 import { SCREENS } from '../lib/screens';
 import type { I2YearCell } from '../lib/selectors';
-import { comparisonWindows, directAwardJanuary, i2Extremes, i2ByYear, restrictions } from '../lib/selectors';
+import {
+  comparisonWindows,
+  directAwardJanuary,
+  i2Extremes,
+  i2ByYear,
+  reconciliationMonths,
+  restrictions,
+} from '../lib/selectors';
 
 const metadata = getMetadata();
-const pending = SCREENS.slice(5);
+const pending = SCREENS.filter((screen) => ['mas-alla-de-las-elecciones', 'hacia-2027'].includes(screen.id));
+const REPO_URL = 'https://github.com/DemonQilin/plataforma-veeduria-contratacion';
+const CONTACT = 'juanvelez1113670@correo.itm.edu.co';
 
 // Portada (pantalla 1): solo elige celdas de data/outputs/ (S6). Los anchos de barra
 // son una escala visual, no una cifra publicada.
@@ -90,6 +99,21 @@ const nonServiceSameYear = nonService.find((year) => year.year === serviceTreatm
 const spansControl = i2Extremes(spans, 'control').max;
 const spansTreatment = spans.filter((year) => year.role === 'treatment');
 const referenceEnds = windows.filter((window) => window.role === 'treatment');
+// Pantalla 7: calidad de los datos, tal cual de quality.json (S6).
+const quality = getQuality();
+const months = reconciliationMonths();
+const threshold = quality?.reconciliation.threshold;
+const belowMonths = months.filter((month) => month.below_threshold);
+const monthRows: BarRow[] = belowMonths.map((month) => ({
+  label: formatMonth(month.period),
+  display: month.shared_share == null ? 'datos insuficientes' : formatPercent(month.shared_share),
+  note: `${formatNumber(month.shared_count)} de ${formatNumber(month.union_count)} contratos`,
+  width: (month.shared_share ?? 0) * SCALE,
+  tone: 'restriction',
+}));
+const truncated = quality?.truncated_rows.rows;
+const unassigned = quality?.unassigned_share.district;
+const exclusions = quality?.single_bidder_exclusions;
 const switchOptions = [
   { id: 'numero', label: 'Por número de contratos', figure: 'concentracion-enero-por-numero', note: 'Cifra titular: definición base, por número de contratos.' },
   { id: 'valor', label: 'Por valor', figure: 'concentracion-enero-por-valor', note: 'Por valor se usa el valor inicial, sin operaciones de crédito público. La señal es menos clara que por número; por eso la cifra titular es la del número de contratos.' },
@@ -329,15 +353,147 @@ const switchOptions = [
     </div>
   </Screen>
   {
-    pending.map((screen) => (
-      <Screen id={screen.id}>
-        <p>Esta pantalla está en preparación.</p>
-      </Screen>
-    ))
+    pending
+      .filter((screen) => screen.id === 'mas-alla-de-las-elecciones')
+      .map((screen) => (
+        <Screen id={screen.id}>
+          <p>Esta pantalla está en preparación.</p>
+        </Screen>
+      ))
   }
+  <Screen id="como-leer-esto">
+    <span slot="title">Cómo leer estas cifras</span>
+    <p class="caption">7 · Qué significa y qué no</p>
+    <div class="pattern-grid">
+      <article class="pattern-card">
+        <h3>Qué mide</h3>
+        {/* I2, R10 a R12 */}
+        <p>
+          Para cada año se cuenta qué parte de la contratación directa de la Alcaldía se firmó en enero, antes de que empezara la
+          restricción de la Ley de Garantías. Todos los años se miden sobre el mismo tramo, del 1 de enero a la fecha de corte de los datos{metadata && <> ({formatDate(metadata.cutoff_date)})</>}, para que la comparación sea justa.
+        </p>
+        <p>Es una proporción: si en un año se firman más contratos en total, la proporción no sube por eso. Cada cifra se muestra con el número de contratos en que se basa.</p>
+      </article>
+      <article class="pattern-card">
+        <h3>Qué no significa</h3>
+        <ul>
+          <li>Adelantar contratos es legal: la ley restringe contratar durante el periodo, no antes. Estas cifras describen cómo se planea la contratación; no señalan una falta.</li>
+          <li>Es una coincidencia con el calendario, no una prueba de causa. Los cambios de gobierno o de presupuesto también pueden influir.</li>
+          <li>Hay solo dos años con elecciones presidenciales en los datos. Por eso el resultado es un patrón descriptivo, sin pruebas estadísticas.</li>
+          <li>Medida por valor, la diferencia es menos clara que por número de contratos. Por eso la cifra principal es la del número de contratos.</li>
+          <li>Cuando una cifra se basa en muy pocos contratos, el tablero muestra «datos insuficientes» para proteger la privacidad y evitar conclusiones débiles.</li>
+        </ul>
+      </article>
+    </div>
+    <h3>Qué tan completos están los datos</h3>
+    <p>Los datos vienen de dos fuentes oficiales que se comparan entre sí. Estas son las advertencias que conviene conocer:</p>
+    <ul class="quality-list">
+      {
+        months.length > 0 && threshold != null && (
+          <li>
+            {/* R15 */}
+            <strong>Comparación entre fuentes.</strong> Entre {formatMonth(months[0]?.period ?? '')} y {formatMonth(months.at(-1)?.period ?? '')}, se revisó qué parte de los contratos aparece en las dos fuentes.
+            {belowMonths.length > 0
+              ? <> En {belowMonths.length} {belowMonths.length === 1 ? 'mes' : 'meses'} esa parte queda por debajo del {formatPercent(threshold)}, así que las cifras de ese periodo se leen con cuidado:</>
+              : <> Ningún mes queda por debajo del {formatPercent(threshold)}.</>}
+          </li>
+        )
+      }
+    </ul>
+    {
+      monthRows.length > 0 && (
+        <BarTable
+          caption="Meses en que menos contratos aparecen en las dos fuentes"
+          rows={monthRows}
+          valueLabel="Contratos en ambas fuentes"
+        />
+      )
+    }
+    <ul class="quality-list">
+      {
+        truncated && (
+          <li>
+            {/* MEData truncado */}
+            <strong>Registros incompletos.</strong> {formatNumber(truncated.count)} de {formatNumber(truncated.total)} filas de la fuente del Distrito
+            {truncated.share != null && <> ({formatPercent(truncated.share)})</>} llegan cortadas desde el origen. Se usan solo para los datos que sí conservan.
+          </li>
+        )
+      }
+      {
+        unassigned && (
+          <li>
+            {/* R8 */}
+            <strong>Contratos sin secretaría.</strong> {formatNumber(unassigned.count)} de {formatNumber(unassigned.total)} contratos
+            {unassigned.share != null && <> ({formatPercent(unassigned.share)})</>} no se pudieron asignar a una secretaría.
+          </li>
+        )
+      }
+      {
+        exclusions && (
+          <li>
+            {/* R9 */}
+            <strong>Procesos descartados.</strong> {formatNumber(exclusions.count)} de {formatNumber(exclusions.total)} procesos
+            {exclusions.share != null && <> ({formatPercent(exclusions.share)})</>} no se usan al contar los que tuvieron un solo oferente, por no ser procesos de selección reales.
+          </li>
+        )
+      }
+    </ul>
+  </Screen>
+  {
+    pending
+      .filter((screen) => screen.id === 'hacia-2027')
+      .map((screen) => (
+        <Screen id={screen.id}>
+          <p>Esta pantalla está en preparación.</p>
+        </Screen>
+      ))
+  }
+  <Screen id="fuentes">
+    <span slot="title">De dónde salen los datos</span>
+    <p class="caption">9 · Fuentes</p>
+    <h3>Conjuntos de datos</h3>
+    {
+      metadata && (
+        <ul class="quality-list">
+          {metadata.sources.map((source) => (
+            <li>
+              <a href={source.url}>{source.name}</a> · licencia {source.license}
+            </li>
+          ))}
+        </ul>
+      )
+    }
+    {
+      metadata && (
+        <p>
+          Fecha de corte: <strong>{formatDate(metadata.cutoff_date)}</strong>. Los datos que ves son una copia de esa fecha y no cambian mientras dura el concurso.
+        </p>
+      )
+    }
+    <h3>Código abierto y licencias</h3>
+    <p>
+      Todo el código, la copia de los datos y los textos están en un <a href={REPO_URL}>repositorio público</a>, para que cada cifra se pueda reconstruir. El código usa licencia MIT; los datos y los textos, CC BY-SA 4.0, porque las fuentes de SECOP II usan esa licencia.
+    </p>
+    <h3>Uso de inteligencia artificial</h3>
+    <p>
+      Se usó Claude (Anthropic) para investigar fuentes y metodología, validar la estructura de los conjuntos de datos, redactar la documentación de diseño y asistir en la escritura de código con Claude Code. Las decisiones de diseño, el análisis y los resultados fueron revisados por el equipo, que puede explicar cada parte de la solución.
+    </p>
+    <h3>Corrección y réplica</h3>
+    <p>
+      Si encuentras un error, escríbenos a <a href={`mailto:${CONTACT}`}><code class="contact">{CONTACT}</code></a>. Las correcciones se registran, con fecha y motivo, en <a href={`${REPO_URL}/blob/main/CORRECCIONES.md`}>CORRECCIONES.md</a>. Si la Alcaldía o una secretaría explica un patrón, esa explicación se publica junto a la cifra.
+    </p>
+  </Screen>
 </Base>
 
 <style>
+  .quality-list {
+    padding-left: var(--space-3);
+  }
+
+  .contact {
+    user-select: all;
+  }
+
   .display {
     font-size: var(--font-size-h1);
     line-height: var(--line-height-h1);

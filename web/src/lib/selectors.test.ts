@@ -1,6 +1,11 @@
 // S6: los selectores solo eligen celdas; no calculan (regla 2 de CLAUDE.md). Indicador I2.
 import { describe, expect, it } from 'vitest';
-import type { ElectoralRestriction, IndicatorCell, MonthlySeriesRow } from '../types/contract';
+import type {
+  ElectoralRestriction,
+  IndicatorCell,
+  MonthlySeriesRow,
+  ReconciliationMonth,
+} from '../types/contract';
 import {
   comparisonRoles,
   comparisonWindows,
@@ -8,6 +13,7 @@ import {
   directAwardMonthly,
   i2ByYear,
   i2Extremes,
+  reconciliationMonths,
   restrictions,
 } from './selectors';
 
@@ -175,5 +181,30 @@ describe('comparisonWindows', () => {
     ]);
     expect(windows.map((window) => window.year)).toEqual([2022, 2024]);
     expect(windows[0]?.window_end).toBe('2022-01-28');
+  });
+});
+
+// R15: la conciliación SECOP–MEData llega calculada; el selector solo ordena.
+describe('reconciliationMonths', () => {
+  const month = (over: Partial<ReconciliationMonth>): ReconciliationMonth => ({
+    below_threshold: false,
+    medata_count: 10,
+    medata_coverage: 1,
+    period: '2022-01',
+    secop_count: 10,
+    secop_coverage: 1,
+    shared_count: 10,
+    shared_share: 1,
+    union_count: 10,
+    ...over,
+  });
+
+  it('ordena por periodo y devuelve cada mes tal cual, con su marca de umbral', () => {
+    const result = reconciliationMonths([
+      month({ period: '2022-03', below_threshold: true, shared_share: 0.67 }),
+      month({ period: '2022-01' }),
+    ]);
+    expect(result.map((m) => m.period)).toEqual(['2022-01', '2022-03']);
+    expect(result[1]).toMatchObject({ below_threshold: true, shared_share: 0.67 });
   });
 });

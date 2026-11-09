@@ -6,8 +6,9 @@ import type {
   ElectoralRestriction,
   IndicatorCell,
   MonthlySeriesRow,
+  ReconciliationMonth,
 } from '../types/contract';
-import { getElectoralCalendar, getIndicators, getMonthlySeries } from './data';
+import { getElectoralCalendar, getIndicators, getMonthlySeries, getQuality } from './data';
 
 /** Variantes de I2 que usan las pantallas 4 y 5 (`null` es la base). */
 export type I2Variant =
@@ -99,4 +100,11 @@ export function comparisonWindows(
   windows: readonly ComparisonYear[] = getElectoralCalendar()?.comparison_windows ?? [],
 ): ComparisonYear[] {
   return windows.toSorted((a, b) => a.year - b.year);
+}
+
+/** Conciliación SECOP–MEData por mes (R15), tal cual; solo ordena por periodo. */
+export function reconciliationMonths(
+  months: readonly ReconciliationMonth[] = getQuality()?.reconciliation.months ?? [],
+): ReconciliationMonth[] {
+  return months.toSorted((a, b) => a.period.localeCompare(b.period));
 }
