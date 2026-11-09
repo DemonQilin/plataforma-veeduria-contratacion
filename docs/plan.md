@@ -107,6 +107,7 @@ Si el tiempo no alcanza, se recorta de abajo hacia arriba.
 | | **Aplicado (5 nov):** sin respuesta todavía (el correo se envió el 5 nov), I4 se publica solo agregado ([ADR 0045](adr/0045-i4-concentracion-agregada-de-proveedores.md)). Si responden antes del congelamiento, nombrar personas jurídicas es una tarea aparte | | |
 | | **Resuelto (6 nov):** los organizadores aceptan los datos de SECOP y MEData y piden no mostrar nombres de personas naturales ni jurídicas. Se mantienen las dos fuentes, I4 queda solo agregado y el nombre del proveedor sale de la copia de datos ([ADR 0049](adr/0049-sin-nombres-de-proveedores.md)) | | |
 | Vie 6 nov | ¿El tablero va al ritmo previsto? | Se completa todo lo importante | Se recorta lo deseable (sección 5) |
+| | **Resultado (8 nov):** se evaluó el 8 nov, no el 6. Las pantallas 1 a 5 se cerraron el 8 nov (PR #48 a #57), con unos dos días de atraso. Quedan las pantallas 6 a 9, las páginas por secretaría, el despliegue con GitHub Actions, las etiquetas para compartir, `instrucciones.txt` y la ficha. No se recorta nada de la sección 5, por decisión del equipo. Ver la [bitácora](bitacora.md) | | |
 
 ---
 
