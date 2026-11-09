@@ -3,15 +3,16 @@
 import type { PlotOptions } from '@observablehq/plot';
 import * as Plot from '@observablehq/plot';
 import { getMetadata } from './data';
-import { formatDate, formatMonth, formatNumber } from './format';
-import { comparisonRoles, directAwardJanuary, directAwardMonthly, restrictions } from './selectors';
+import { formatDate, formatMonth, formatNumber, formatPercent } from './format';
+import type { I2Selection } from './selectors';
+import { comparisonRoles, directAwardJanuary, directAwardMonthly, i2ByYear, restrictions } from './selectors';
 
 export type Cell = string | number | null;
 
 export interface FigureColumn {
   key: string;
   label: string;
-  kind: 'text' | 'number';
+  kind: 'text' | 'number' | 'percent';
   /** El valor sale vacío y se escribe «datos insuficientes» cuando la fila está suprimida. */
   suppressible?: boolean;
 }
@@ -124,7 +125,103 @@ const monthlyDescription =
   `Enero: ${januaryPeaks.map((row) => `${formatNumber(row.contract_count)} en ${row.period.slice(0, 4)}`).join(', ')}. ` +
   `La restricción de contratación directa va sombreada: ${rangesOf(true)}.`;
 
+// Pantalla 4: I2 del Distrito por año, elecciones frente a comparación. Elige las celdas de
+// indicators.json (S6); el eje de 0 a 100 % es escala visual y no cambia entre medidas.
+const roleName = (role: string | undefined) =>
+  role === 'treatment' ? 'Elecciones' : role === 'control' ? 'Comparación' : '';
+const i2Figure = (
+  id: string,
+  selection: I2Selection,
+  title: string,
+  intro: string,
+  withValueSample = false,
+): FigureSpec => {
+  const years = i2ByYear(selection).map((year) => ({
+    ...year,
+    name: String(year.year),
+    ratio: year.cell.ratio,
+    shown: year.cell.ratio === null ? 0 : year.cell.ratio,
+    label: year.cell.ratio === null ? '' : formatPercent(year.cell.ratio),
+  }));
+  const domain = years.map((year) => year.name);
+  const treatment = years.filter((year) => year.role === 'treatment');
+  const control = years.filter((year) => year.role === 'control');
+  const unit = selection.measure === 'value' ? 'pesos' : 'contratos';
+  const parts = years.map(
+    (year) =>
+      `${year.name}, ${year.ratio === null ? 'datos insuficientes' : formatPercent(year.ratio)} (${formatNumber(year.cell.numerator ?? 0)} de ${formatNumber(year.cell.denominator ?? 0)} ${unit}; ${roleName(year.role).toLowerCase()})`,
+  );
+  return {
+    id,
+    title,
+    description: `${intro} ${parts.join('; ')}. Las barras naranjas son años con elecciones; las grises, años de comparación.`,
+    columns: [
+      { key: 'year', label: 'Año', kind: 'text' },
+      { key: 'role', label: 'Papel', kind: 'text' },
+      { key: 'ratio', label: 'Proporción', kind: 'percent', suppressible: true },
+      { key: 'numerator', label: selection.measure === 'value' ? 'Valor en la ventana (COP)' : 'Contratos en la ventana', kind: 'number', suppressible: true },
+      { key: 'denominator', label: selection.measure === 'value' ? 'Valor total (COP)' : 'Contratos en total', kind: 'number', suppressible: true },
+      ...(withValueSample ? ([{ key: 'sample_size', label: 'Contratos con valor', kind: 'number' }] as const) : []),
+    ],
+    sampleKey: 'sample_size',
+    responsive: true,
+    rows: years.map((year) => ({
+      is_suppressed: year.cell.is_suppressed,
+      values: {
+        year: year.name,
+        role: roleName(year.role),
+        ratio: year.ratio,
+        numerator: year.cell.numerator,
+        denominator: year.cell.denominator,
+        sample_size: year.cell.sample_size,
+      },
+    })),
+    plot: (size) => {
+      const small = size === 'small';
+      const base = {
+        width: small ? 360 : 640,
+        height: small ? 320 : 380,
+        marginTop: 28,
+        marginLeft: small ? 44 : 56,
+        marginRight: small ? 56 : 16,
+      };
+      const text = { text: 'label', fontWeight: 700, fontSize: small ? 12 : 13, ...halo } as const;
+      return small
+        ? {
+            ...base,
+            x: { domain: [0, 1], label: null, grid: true, tickFormat: '.0%' },
+            y: { domain, label: null },
+            marks: [
+              Plot.barX(treatment, { y: 'name', x: 'shown', fill: 'var(--chart-treatment)' }),
+              Plot.barX(control, { y: 'name', x: 'shown', fill: 'var(--chart-control)' }),
+              Plot.ruleX([0]),
+              Plot.text(years, { y: 'name', x: 'shown', textAnchor: 'start', dx: 6, ...text }),
+            ],
+          }
+        : {
+            ...base,
+            x: { domain, label: null },
+            y: { domain: [0, 1], label: 'Proporción en la ventana de enero', grid: true, tickFormat: '.0%' },
+            marks: [
+              Plot.barY(treatment, { x: 'name', y: 'shown', fill: 'var(--chart-treatment)' }),
+              Plot.barY(control, { x: 'name', y: 'shown', fill: 'var(--chart-control)' }),
+              Plot.ruleY([0]),
+              Plot.text(years, { x: 'name', y: 'shown', dy: -10, ...text }),
+            ],
+          };
+    },
+  };
+};
+const i2Titles = {
+  count: 'Contratación directa firmada en la ventana de enero, por número de contratos',
+  value: 'Contratación directa firmada en la ventana de enero, por valor',
+  excluding: 'Contratación directa firmada en la ventana de enero, sin convenios interadministrativos',
+} as const;
+
 export const FIGURES: readonly FigureSpec[] = [
+  i2Figure('concentracion-enero-por-numero', { variant: null, measure: 'count' }, i2Titles.count, 'Gráfico de barras: parte de la contratación directa firmada en la ventana de enero, por número de contratos.'),
+  i2Figure('concentracion-enero-por-valor', { variant: null, measure: 'value' }, i2Titles.value, 'Gráfico de barras: parte del valor de la contratación directa firmada en la ventana de enero, sin operaciones de crédito público.', true),
+  i2Figure('concentracion-enero-sin-interadministrativos', { variant: 'excluding_interadministrative', measure: 'count' }, i2Titles.excluding, 'Gráfico de barras: parte de la contratación directa firmada en la ventana de enero, por número de contratos y sin convenios interadministrativos.'),
   {
     id: 'contratacion-directa-por-mes',
     title: monthlyTitle,
