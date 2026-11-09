@@ -18,6 +18,26 @@ Las decisiones que salen de estas observaciones no se registran aquí: pasan a [
 
 ---
 
+## 8 nov 2026 · Punto de decisión 2 (T11)
+
+Evaluación de «¿El tablero va al ritmo previsto?» ([`plan.md`](plan.md) §6). Tocaba el viernes 6 de noviembre y se hizo el domingo 8, al cerrar las pantallas 1 a 5.
+
+**Ritmo.** El bloque del 5 y 6 nov (estructura del sitio y pantallas 1 a 5) terminó el 8 nov, en los PR #48 a #57. Lo previsto para el 7 y el 8 nov sigue pendiente. El atraso es de unos dos días, y el congelamiento es el lun 9 nov a las 6:00 p. m.
+
+**Estado por prioridad** (sección 5 del plan):
+
+| Prioridad | Hecho | Pendiente |
+|---|---|---|
+| Imprescindible | Pipeline con I1, I2 e I8. Pantallas 1 a 5, con textos en borrador que el compañero revisa | Pantallas 7 y 9. `instrucciones.txt` (sin cambios desde el 31 oct). Ficha de hallazgos |
+| Importante | I3 e I5 en el pipeline. Integración continua (`ci.yml`) | Explorador (pantalla 6). Despliegue con GitHub Actions |
+| Deseable | I4 agregado en el pipeline | Páginas por secretaría. Pantalla 8. Etiquetas para compartir |
+
+Según la estimación del plan, lo pendiente suma el resto de la historia guiada, 6 h para el explorador y las páginas por secretaría, 4 h de automatización y 5 h de `instrucciones.txt`, pruebas y correcciones.
+
+**Resultado:** no se recorta nada. La regla del plan era recortar lo deseable si el ritmo no alcanzaba. El equipo decidió mantener todo el alcance de la sección 5.
+
+---
+
 ## 6 nov 2026 · Respuestas de los organizadores
 
 En una reunión con los organizadores se respondieron las preguntas del correo del 5 de noviembre:
