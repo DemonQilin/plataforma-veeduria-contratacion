@@ -112,3 +112,52 @@ describe('concentracion-enero (T7, pantalla 4)', () => {
     expect(csv.split('\r\n')[1]).toMatch(/^enero de 2022,723,/);
   });
 });
+
+describe('objeción (T8, pantalla 5)', () => {
+  const byType = getFigure('concentracion-enero-por-tipo');
+  const spans = getFigure('contratos-enero-despues-de-la-restriccion');
+  const cellOf = (variant: string, period: string) =>
+    (getIndicators()?.cells ?? []).find(
+      (cell) =>
+        cell.indicator === 'I2' && cell.level === 'district' && cell.variant === variant && cell.measure === 'count' && cell.period === period,
+    );
+
+  it('por tipo: es responsiva y tiene 10 filas (5 años × 2 tipos)', () => {
+    expect(byType.responsive).toBe(true);
+    expect(byType.rows).toHaveLength(10);
+    expect(new Set(byType.rows.map((row) => row.values.type))).toEqual(new Set(['Prestación de servicios', 'Resto de tipos']));
+  });
+
+  it('por tipo: el papel sale de comparison_windows y la razón es la de indicators.json', () => {
+    const service2026 = byType.rows.find((row) => row.values.year === '2026' && row.values.type === 'Prestación de servicios');
+    expect(service2026?.values.role).toBe('Elecciones');
+    expect(service2026?.values.ratio).toBe(cellOf('service_contract', '2026')?.ratio);
+    const rest2023 = byType.rows.find((row) => row.values.year === '2023' && row.values.type === 'Resto de tipos');
+    expect(rest2023?.values.role).toBe('Comparación');
+    expect(rest2023?.values.ratio).toBe(cellOf('non_service_contract', '2023')?.ratio);
+  });
+
+  it('por tipo: la descripción nombra 78,6 y 27,1 y no es marcador', () => {
+    expect(byType.description).toContain('78,6');
+    expect(byType.description).toContain('27,1');
+    expect(byType.description).not.toContain('[Texto pendiente');
+  });
+
+  it('duración: es responsiva, tiene 5 filas y la razón es la de spans_restriction', () => {
+    expect(spans.responsive).toBe(true);
+    expect(spans.rows.map((row) => row.values.year)).toEqual(['2022', '2023', '2024', '2025', '2026']);
+    for (const row of spans.rows) expect(row.values.ratio).toBe(cellOf('spans_restriction', String(row.values.year))?.ratio);
+  });
+
+  it('duración: usa rótulos propios y la descripción nombra 98,9 y la restricción de referencia', () => {
+    expect(spans.columns.find((column) => column.key === 'numerator')?.label).toBe('Terminan después de la restricción');
+    expect(spans.description).toContain('98,9');
+    expect(spans.description).toContain('restricción de referencia');
+  });
+
+  it('conducta previa: los rótulos de la figura por número no cambian', () => {
+    const labels = getFigure('concentracion-enero-por-numero').columns.map((column) => column.label);
+    expect(labels).toContain('Contratos en la ventana');
+    expect(labels).toContain('Contratos en total');
+  });
+});

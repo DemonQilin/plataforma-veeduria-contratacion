@@ -84,6 +84,12 @@ const ruleSource = directRestrictions[0]?.sources[0];
 const latestTreatment = base.findLast((year) => year.role === 'treatment');
 const windows = comparisonWindows();
 const firstControlWindow = windows.find((window) => window.role === 'control');
+// Pantalla 5: celdas de I2 por tipo de contrato y de la variante spans_restriction (S6).
+const serviceTreatment = service.findLast((year) => year.role === 'treatment');
+const nonServiceSameYear = nonService.find((year) => year.year === serviceTreatment?.year);
+const spansControl = i2Extremes(spans, 'control').max;
+const spansTreatment = spans.filter((year) => year.role === 'treatment');
+const referenceEnds = windows.filter((window) => window.role === 'treatment');
 const switchOptions = [
   { id: 'numero', label: 'Por número de contratos', figure: 'concentracion-enero-por-numero', note: 'Cifra titular: definición base, por número de contratos.' },
   { id: 'valor', label: 'Por valor', figure: 'concentracion-enero-por-valor', note: 'Por valor se usa el valor inicial, sin operaciones de crédito público. La señal es menos clara que por número; por eso la cifra titular es la del número de contratos.' },
@@ -256,7 +262,72 @@ const switchOptions = [
     </div>
   </Screen>
   <Screen id="la-objecion">
-    <p>[Texto pendiente: la objeción (T8).]</p>
+    <span slot="title">¿No es solo la renovación de enero?</span>
+    <p class="caption">5 · La objeción</p>
+    <p class="placeholder">[Texto pendiente del compañero: la objeción y cómo se revisa con estos dos hallazgos.]</p>
+    <div class="pattern-grid">
+      <article class="pattern-card">
+        <p class="caption number">5.1</p>
+        <h2>En prestación de servicios, la proporción de enero es mayor en los años con elecciones</h2>
+        {
+          serviceTreatment && (
+            <p class="big-number">
+              <span class="big">{percent(serviceTreatment)}</span>
+              <span class="caption">
+                de la prestación de servicios directa de {serviceTreatment.year} se firmó en la ventana de enero ({formatNumber(serviceTreatment.cell.numerator ?? 0)} de {formatNumber(serviceTreatment.cell.denominator ?? 0)} contratos).
+                {nonServiceSameYear && <> En el resto de tipos: {percent(nonServiceSameYear)} ({formatNumber(nonServiceSameYear.cell.numerator ?? 0)} de {formatNumber(nonServiceSameYear.cell.denominator ?? 0)}).</>}
+              </span>
+            </p>
+          )
+        }
+        <p class="placeholder">[Texto pendiente del compañero: qué se observa al separar por tipo de contrato.]</p>
+        <div class="definition">
+          <strong>Qué compara.</strong> La misma proporción de I2, separada por tipo de contrato: prestación de
+          servicios frente al resto de tipos.
+        </div>
+      </article>
+      <div>
+        <Figure id="concentracion-enero-por-tipo" number="5.1" />
+        <p class="legend">
+          <span><span class="swatch swatch--filled"></span> Prestación de servicios</span>
+          <span><span class="swatch swatch--outline"></span> Resto de tipos</span>
+          <span><span class="swatch swatch--treatment"></span> Año con elecciones</span>
+          <span><span class="swatch swatch--control"></span> Año de comparación</span>
+        </p>
+      </div>
+    </div>
+    <div class="pattern-grid">
+      <article class="pattern-card">
+        <p class="caption number">5.2</p>
+        <h2>La duración de los contratos de enero no separa los años</h2>
+        <p class="tag">No concluyente</p>
+        {
+          spansControl && (
+            <p class="big-number">
+              <span class="big">{percent(spansControl)}</span>
+              <span class="caption">
+                en {spansControl.year}, año de comparación ({formatNumber(spansControl.cell.numerator ?? 0)} de {formatNumber(spansControl.cell.denominator ?? 0)} contratos).
+                {spansTreatment.length > 0 && <> En los años con elecciones: {spansTreatment.map((year) => `${percent(year)} en ${year.year}`).join(' y ')}.</>}
+              </span>
+            </p>
+          )
+        }
+        <p class="placeholder">[Texto pendiente del compañero: por qué esta señal no se usa para decidir.]</p>
+        <div class="definition">
+          <strong>Qué mide.</strong> Parte de los contratos directos firmados en la ventana de enero cuyo plazo
+          pactado termina después del fin de la restricción de referencia
+          {referenceEnds.length > 0 && <> ({referenceEnds.map((window) => formatDate(window.reference_restriction_end)).join(' y ')} en los años con elecciones)</>}.
+          Solo por número de contratos.
+        </div>
+      </article>
+      <div>
+        <Figure id="contratos-enero-despues-de-la-restriccion" number="5.2" />
+        <p class="legend">
+          <span><span class="swatch swatch--treatment"></span> Año con elecciones</span>
+          <span><span class="swatch swatch--control"></span> Año de comparación</span>
+        </p>
+      </div>
+    </div>
   </Screen>
   {
     pending.map((screen) => (
@@ -355,6 +426,14 @@ const switchOptions = [
   .swatch--band {
     background: var(--chart-restriction);
     border: 1px solid var(--hairline);
+  }
+
+  .swatch--filled {
+    background: var(--ink);
+  }
+
+  .swatch--outline {
+    border: 2px solid var(--ink);
   }
 
   .swatch--agreement {
