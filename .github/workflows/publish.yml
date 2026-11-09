@@ -1,0 +1,58 @@
+# Despliegue del tablero a GitHub Pages (docs/adr/0012).
+# Durante el concurso corre solo a demanda y con la copia de datos congelada
+# (docs/adr/0008). El disparador `schedule` se agrega después de la final.
+# Los comandos del pipeline deben coincidir con la opción A de ci.yml y de instrucciones.txt.
+name: publish
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Un solo despliegue a la vez, sin cancelar el que está en curso.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: construir
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: astral-sh/setup-uv@v10.3.3
+        with:
+          version: "0.12.5"
+
+      - name: Pipeline desde la copia de datos
+        working-directory: pipeline
+        run: |
+          uv sync
+          uv run veeduria run --from-snapshot
+          # Lo que se publica debe ser exactamente lo versionado (determinismo).
+          git diff --exit-code -- ../data/outputs
+
+      - name: Versión de Node
+        id: node
+        run: echo "version=$(tr -d '[:space:]' < web/.node-version)" >> "$GITHUB_OUTPUT"
+
+      # Instala, construye y sube el artefacto de Pages. La versión de pnpm sale de
+      # `packageManager` en web/package.json.
+      - uses: withastro/action@v6.1.4
+        with:
+          path: web
+          node-version: ${{ steps.node.outputs.version }}
+
+  deploy:
+    name: desplegar
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5.0.1
