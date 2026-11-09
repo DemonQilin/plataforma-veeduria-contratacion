@@ -11,6 +11,11 @@ export function renderPlot(options: Plot.PlotOptions): string {
     ...options,
     document,
   });
+  // Plot rotula cada grupo de marcas con aria-label, pero un <g> sin rol no admite ese atributo
+  // (axe: aria-prohibited-attr). La descripción y la tabla de datos ya dicen lo que muestra el gráfico.
+  for (const group of svg.querySelectorAll('g[aria-label]:not([role])')) {
+    group.removeAttribute('aria-label');
+  }
   svg.setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns', 'http://www.w3.org/2000/svg');
   return svg.outerHTML;
 }
