@@ -58,11 +58,11 @@ Estas cifras salen de la copia de datos (fecha de corte: 30 de octubre de
 5. DATOS Y FUENTES
 Archivos en data/snapshot/ · conjunto · enlace · licencia
 - secop_contracts.csv y secop_contracts_suppliers.csv
-  SECOP II Contratos Electrónicos · jbjy-vk9h · https://www.datos.gov.co/resource/jbjy-vk9h.json · CC BY-SA 4.0
+  SECOP II Contratos Electrónicos · jbjy-vk9h · https://www.datos.gov.co/d/jbjy-vk9h · CC BY-SA 4.0
 - secop_procurement_processes.csv
-  SECOP II Procesos de Contratación · p6dx-8zbt · https://www.datos.gov.co/resource/p6dx-8zbt.json · CC BY-SA 4.0
+  SECOP II Procesos de Contratación · p6dx-8zbt · https://www.datos.gov.co/d/p6dx-8zbt · CC BY-SA 4.0
 - secop_additions.csv
-  SECOP II Adiciones · cb9c-h8sn · https://www.datos.gov.co/resource/cb9c-h8sn.json · CC BY-SA 4.0
+  SECOP II Adiciones · cb9c-h8sn · https://www.datos.gov.co/d/cb9c-h8sn · CC BY-SA 4.0
 - medata_contract_execution.csv
   MEData Ejecución contractual histórico · 1-028-12-000088 · https://medata.app.medellin.gov.co/dataset/1-028-12-000088 · CC BY 4.0
 - medata_procurement_plan.csv

@@ -138,7 +138,7 @@ Si uno falla, el proyecto no se califica.
 | Requisito | Cómo se cumple | Responsable |
 |---|---|---|
 | Usa e integra al menos un conjunto de MEData | «Ejecución contractual histórico», cruzado con SECOP II (89 % de coincidencia) y usado para validar, asignar secretaría y medir adiciones; «Plan anual de adquisiciones histórico» para la serie de planeación | Juan |
-| Solo fuentes admitidas y datos reales | MEData y datos.gov.co filtrado por Medellín. Pendiente confirmar SECOP II (pregunta 1 del correo) | Juan |
+| Solo fuentes admitidas y datos reales | MEData y datos.gov.co filtrado por Medellín. SECOP II confirmado por los organizadores el 6 nov (sección 10) | Juan |
 | Ficha de hallazgos con al menos una propuesta de mejora | Ver sección 8.4 | Compañero |
 | Repositorio público que abre sin iniciar sesión | GitHub público; se prueba en ventana privada antes de entregar | Juan |
 | Entrega en plazo y todos matriculados | Entrega el 9 nov (un día de margen); copia de ambos carnés | Ambos |
@@ -150,9 +150,9 @@ Cada criterio se califica por niveles (el peso equivale a 5 niveles por un multi
 
 | Criterio | Puntos | Qué lo cubre | Evidencia para el jurado | Brecha y acción |
 |---|---:|---|---|---|
-| Uso de datos de MEData | 30 | Dos conjuntos integrados. El Plan Anual de Adquisiciones (2014–2023) sostiene el segundo nivel del hallazgo con tres ciclos presidenciales; la ejecución contractual valida SECOP II y aporta secretaría y adiciones | Pantalla del tablero sobre la planeación; conciliación entre plan, SECOP II y ejecución de MEData para enero de 2022; sección de fuentes en la ficha | Brecha mitigada: MEData pasó de apoyo a centro del análisis. Queda el límite de que ambos conjuntos se detienen en 2023 |
+| Uso de datos de MEData | 30 | Dos conjuntos integrados. El Plan Anual de Adquisiciones (2014–2023) sostiene el segundo nivel del hallazgo con tres ciclos presidenciales; la ejecución contractual valida SECOP II y aporta secretaría y adiciones | Pantallas 7 (conciliación entre fuentes), 8 (planeación) y 9 (propuestas de mejora) del tablero; conciliación entre plan, SECOP II y ejecución de MEData para enero de 2022; sección de fuentes en la ficha | Brecha mitigada: MEData pasó de apoyo a centro del análisis. Queda el límite de que ambos conjuntos se detienen en 2023 |
 | Análisis de información | 20 | Años de control, tratamiento de la renovación de enero, criterio de decisión y limitaciones | Pantallas 4, 5 y 7; sección de método en la ficha | Que el hallazgo sobreviva al criterio del 3 de noviembre |
-| Diseño y creatividad | 15 | Historia guiada, enfoque en celular, gráficos estáticos, páginas por secretaría | Recorrido del tablero en el pitch | Ninguna, si el tablero se termina a tiempo |
+| Diseño y creatividad | 15 | Historia guiada, enfoque en celular, gráficos estáticos, explorador por secretaría | Recorrido del tablero en el pitch | Ninguna, si el tablero se termina a tiempo |
 | Impacto potencial | 15 | Línea base para 2027 y método replicable | Pantalla 8 y cierre del pitch | Mostrar que, como SECOP II es nacional, el mismo pipeline sirve para cualquier entidad del país cambiando un filtro |
 | Uso de otras fuentes | 10 | Tres conjuntos de SECOP II y el calendario de la Ley de Garantías con sus fuentes | Sección de fuentes | Ninguna |
 | Automatización, IA o tecnologías | 10 | Pipeline automático con pruebas, integración continua en Linux y Windows, despliegue con GitHub Actions y uso declarado de IA | Repositorio, ejecuciones de GitHub Actions e `instrucciones.txt` | Ninguna |
@@ -222,7 +222,7 @@ Después del pitch el jurado ajusta el puntaje con la rúbrica y no suma puntos 
 | ~~Token de aplicación de datos.gov.co~~ | Resuelto el 31 oct: guardado como *secret* `SOCRATA_APP_TOKEN` | — |
 | Activar la ejecución semanal programada | Agregar el disparador `schedule` a `publish.yml` (ADR 0008) | Después del 12 nov |
 | Topics del repositorio en GitHub | `open-data`, `public-procurement`, `data-visualization`, `medellin`, `colombia`, `secop`, `astro`, `python`, `duckdb`, `hackathon`. Se difieren para que el repositorio no sea descubrible mientras el hallazgo no está validado | Después del 12 nov |
-| Homepage del repositorio en GitHub | `https://demonqilin.github.io/plataforma-veeduria-contratacion/`, cuando exista el despliegue | Con `publish.yml` (8 nov) |
+| ~~Homepage del repositorio en GitHub~~ | Resuelto el 9 nov: `https://demonqilin.github.io/plataforma-veeduria-contratacion/` | — |
 | ~~Fechas de la restricción de las locales de 2023~~ | Resuelto el 4 nov: 29 jun–29 oct 2023 (Circular 016 de 2023 de la Secretaría Jurídica Distrital de Bogotá; concepto C-239 de CCE) | — |
 | ~~Publicar la conciliación R15 (por mes, contratos en ambas fuentes) para que el tablero advierta los meses por debajo del 80 %~~ | Resuelto el 5 nov: `quality.json` (ADR 0038) | — |
 | Nombre del equipo | Decisión del equipo | 30 oct |

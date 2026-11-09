@@ -109,7 +109,7 @@ Las elecciones locales de octubre de 2027 traen nuevas restricciones desde media
 | 6 | Más allá de las elecciones | ¿Qué otros patrones hay? | Explorador de I1, I3, I4 e I5 por año y secretaría |
 | 7 | Cómo leer esto | ¿Qué significa y qué no? | Metodología en lenguaje claro, limitaciones y calidad de los datos |
 | 8 | Hacia 2027 | ¿Para qué sirve ahora? | La línea base y qué vigilar en las elecciones locales |
-| 9 | Fuentes | ¿De dónde salen los datos? | Fuentes con enlace y licencia, fecha de corte, código abierto y declaración de uso de IA |
+| 9 | Fuentes | ¿De dónde salen los datos? | Fuentes con enlace y licencia, fecha de corte, propuestas de mejora de los datos abiertos, código abierto y declaración de uso de IA |
 
 ### 3.3 Explorador de indicadores (pantalla 6)
 
