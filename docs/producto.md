@@ -193,7 +193,7 @@ La motivación del proyecto (la veeduría frente al clientelismo) se explica en 
 
 ### 4.5 Corrección y réplica
 
-- El tablero muestra un correo de contacto para reportar errores, como texto que se pueda copiar.
+- El tablero muestra un correo de contacto para reportar errores, como texto que se pueda copiar: `juanvelez1113670@correo.itm.edu.co` (pantalla 9).
 - Las correcciones se registran en `CORRECCIONES.md`, en la raíz del repositorio, con fecha y motivo.
 - Si la Alcaldía o una secretaría ofrece una explicación de un patrón, se publica junto al indicador.
 
