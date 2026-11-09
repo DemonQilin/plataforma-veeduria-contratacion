@@ -24,7 +24,7 @@ const metadata = getMetadata();
 const pending = SCREENS.filter((screen) => screen.id === 'hacia-2027');
 // Pantalla 6: el explorador recibe las cifras ya elegidas, ordenadas y con formato (S6).
 const explorer = buildExplorer();
-const explorerLastYear = explorer.indicators[0]?.years.at(-1)?.year;
+const explorerLastYear = explorer.indicators[0]?.periods.at(-1)?.period;
 const REPO_URL = 'https://github.com/DemonQilin/plataforma-veeduria-contratacion';
 const CONTACT = 'juanvelez1113670@correo.itm.edu.co';
 

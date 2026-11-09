@@ -51,7 +51,7 @@ export default function Explorer({ data }: Props) {
   if (!current) return null;
 
   // Las secretarías se listan por el orden de la lista más reciente del indicador.
-  const options = (indicator.periods.at(-1)?.departments ?? []).map((row) => row).filter((row) => row.code);
+  const options = (indicator.periods.at(-1)?.departments ?? []).filter((row) => row.code);
   const yearly = department
     ? indicator.periods.flatMap((item) => {
         const row = item.departments.find((candidate) => candidate.code === department);
