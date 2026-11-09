@@ -15,17 +15,17 @@
     {
       "license": "CC BY-SA 4.0",
       "name": "SECOP II Adiciones",
-      "url": "https://www.datos.gov.co/resource/cb9c-h8sn.json"
+      "url": "https://www.datos.gov.co/d/cb9c-h8sn"
     },
     {
       "license": "CC BY-SA 4.0",
       "name": "SECOP II Contratos Electrónicos",
-      "url": "https://www.datos.gov.co/resource/jbjy-vk9h.json"
+      "url": "https://www.datos.gov.co/d/jbjy-vk9h"
     },
     {
       "license": "CC BY-SA 4.0",
       "name": "SECOP II Procesos de Contratación",
-      "url": "https://www.datos.gov.co/resource/p6dx-8zbt.json"
+      "url": "https://www.datos.gov.co/d/p6dx-8zbt"
     }
   ]
 }

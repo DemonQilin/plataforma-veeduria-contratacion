@@ -12,7 +12,7 @@ Esta carpeta reúne el diseño del proyecto: qué se construye, con qué datos, 
 | [`fuentes.md`](fuentes.md) | Conjuntos de datos, campos, llaves de cruce, lista blanca de columnas, problemas de calidad y calendario de la Ley de Garantías | Trabajes en la extracción o dudes de dónde sale un campo |
 | [`reglas.md`](reglas.md) | Flujo del pipeline, conceptos del dominio, catálogos, reglas R1–R17, decisiones de dominio D1–D5, salidas y pruebas | Trabajes en normalización, consolidación, cruce o publicación |
 | [`indicadores.md`](indicadores.md) | Indicadores I1–I8 y metodología del hallazgo titular, con su criterio de decisión y limitaciones | Calcules un indicador o interpretes una cifra |
-| [`plan.md`](plan.md) | Cronograma, prioridades, puntos de decisión, riesgos, mapa contra la rúbrica, entregables y borrador de `instrucciones.txt` | Planees el trabajo o prepares la entrega |
+| [`plan.md`](plan.md) | Cronograma, prioridades, puntos de decisión, riesgos, mapa contra la rúbrica, entregables y el apartado sobre `instrucciones.txt` (el archivo final está en la raíz) | Planees el trabajo o prepares la entrega |
 | [`bitacora.md`](bitacora.md) | Observaciones fechadas de la exploración de datos, con cifras, y preguntas abiertas | Necesites saber qué se observó, cuándo y con qué datos |
 | [`adr/`](adr/) | Un registro por decisión técnica (ADR) | Quieras cambiar una herramienta o un enfoque, o saber por qué algo es como es |
 
