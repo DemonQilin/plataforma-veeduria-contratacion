@@ -136,7 +136,7 @@ const switchOptions = [
 
       <FindingCard screenId="el-patron" crumb="3 · El patrón" title="Enero es el mes con más contratación directa de cada año" more="Ver el patrón">
         <BarTable caption={`Contratos directos firmados en enero: ${descriptionOf(januaryRows)}.`} rows={januaryRows} valueLabel="Contratos" />
-        <p class="placeholder">[Texto pendiente: frase del conteo mensual durante las restricciones (T4).]</p>
+        <p>Durante las restricciones, la contratación directa casi se detiene y vuelve a subir cuando terminan.</p>
       </FindingCard>
 
       <FindingCard screenId="la-objecion" crumb="5 · La objeción" title="En prestación de servicios, la proporción de enero es mayor en los años con elecciones" more="Ver la objeción">
@@ -154,13 +154,12 @@ const switchOptions = [
         )}
       </FindingCard>
     </div>
-    <p class="placeholder">[Texto pendiente del compañero: los titulares de las tarjetas son un borrador.]</p>
   </Screen>
   <Screen id="la-regla">
     <span slot="title">¿Qué es la Ley de Garantías?</span>
     <p class="caption">2 · La regla</p>
     <div class="rule-intro">
-      <p class="placeholder">[Texto pendiente del compañero: explicación en dos frases de la Ley de Garantías.]</p>
+      <p>La Ley de Garantías (Ley 996 de 2005) busca que la contratación pública no se use con fines electorales. Por eso, desde cuatro meses antes de la elección presidencial y hasta la segunda vuelta, las entidades del Estado no pueden firmar contratos por contratación directa, salvo excepciones como la defensa, la seguridad y las emergencias.</p>
       <div class="definition">
         <strong>Qué restringe.</strong> En el calendario que usa el pipeline, la restricción de contratación directa
         corresponde a las elecciones presidenciales (2022 y 2026); la de convenios interadministrativos, a las
@@ -192,7 +191,7 @@ const switchOptions = [
             </p>
           )
         }
-        <p class="placeholder">[Texto pendiente del compañero: cómo leer el gráfico y qué se observa en enero.]</p>
+        <p>Cada barra es un mes y la franja sombreada es la restricción de contratación directa. En 2022 y 2026, la contratación se concentra en enero, casi se detiene durante la restricción y se recupera después. En los años de comparación enero también es el mes más alto, pero la contratación continúa durante el resto del año.</p>
         <div class="definition">
           <strong>Qué cuenta.</strong> Contratos de contratación directa del Distrito por mes de firma. El conteo
           siempre se publica; el valor del mes se oculta cuando no alcanza 5 contratos con valor o se podría
@@ -228,7 +227,7 @@ const switchOptions = [
             </p>
           )
         }
-        <p class="placeholder">[Texto pendiente del compañero: cómo leer la comparación.]</p>
+        <p>Cada barra es un año: la parte de su contratación directa que se firmó en la ventana de enero. Como la renovación de enero ocurre todos los años, lo que vale la pena mirar es la diferencia entre los años con elecciones y los de comparación. Por valor la diferencia es menor; sin convenios interadministrativos se mantiene.</p>
         <div class="definition">
           <strong>Qué mide (I2).</strong> De los contratos directos firmados entre el 1 de enero y el
           {windows[0] ? ` ${formatDate(windows[0].denominator_end)}` : ' fin del periodo'}, la parte firmada en la
@@ -264,7 +263,7 @@ const switchOptions = [
   <Screen id="la-objecion">
     <span slot="title">¿No es solo la renovación de enero?</span>
     <p class="caption">5 · La objeción</p>
-    <p class="placeholder">[Texto pendiente del compañero: la objeción y cómo se revisa con estos dos hallazgos.]</p>
+    <p>En enero la Alcaldía renueva los contratos de prestación de servicios, así que un pico en enero podría ser solo esa renovación. Para revisarlo, se separa la proporción por tipo de contrato y se mira cuánto duran los contratos firmados en enero.</p>
     <div class="pattern-grid">
       <article class="pattern-card">
         <p class="caption number">5.1</p>
@@ -280,7 +279,7 @@ const switchOptions = [
             </p>
           )
         }
-        <p class="placeholder">[Texto pendiente del compañero: qué se observa al separar por tipo de contrato.]</p>
+        <p>Si el pico fuera solo la renovación, la prestación de servicios tendría una proporción parecida todos los años, y no es así: en los años con elecciones es mucho mayor. En el resto de tipos de contrato la proporción es más baja; 2022 no se distingue de los años de comparación y 2026 sí sube.</p>
         <div class="definition">
           <strong>Qué compara.</strong> La misma proporción de I2, separada por tipo de contrato: prestación de
           servicios frente al resto de tipos.
@@ -312,7 +311,7 @@ const switchOptions = [
             </p>
           )
         }
-        <p class="placeholder">[Texto pendiente del compañero: por qué esta señal no se usa para decidir.]</p>
+        <p>Casi todos los contratos firmados en enero terminan después de la restricción, haya elecciones o no. Como esta señal no distingue los años, no apoya ni contradice el hallazgo principal y no se usa para decidir.</p>
         <div class="definition">
           <strong>Qué mide.</strong> Parte de los contratos directos firmados en la ventana de enero cuyo plazo
           pactado termina después del fin de la restricción de referencia
@@ -474,15 +473,6 @@ const switchOptions = [
     line-height: 56px;
     font-weight: 700;
     font-variant-numeric: tabular-nums;
-  }
-
-  .placeholder {
-    margin-top: var(--space-3);
-    padding: var(--space-2) var(--space-3);
-    border: 1px dashed var(--hairline);
-    border-radius: var(--radius-md);
-    color: var(--ink-muted);
-    font-size: var(--font-size-caption);
   }
 
   .switch {
