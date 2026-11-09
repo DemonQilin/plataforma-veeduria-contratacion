@@ -135,6 +135,7 @@ const i2Figure = (
   title: string,
   intro: string,
   withValueSample = false,
+  labels: { numerator?: string; denominator?: string; axis?: string } = {},
 ): FigureSpec => {
   const years = i2ByYear(selection).map((year) => ({
     ...year,
@@ -159,8 +160,8 @@ const i2Figure = (
       { key: 'year', label: 'Año', kind: 'text' },
       { key: 'role', label: 'Papel', kind: 'text' },
       { key: 'ratio', label: 'Proporción', kind: 'percent', suppressible: true },
-      { key: 'numerator', label: selection.measure === 'value' ? 'Valor en la ventana (COP)' : 'Contratos en la ventana', kind: 'number', suppressible: true },
-      { key: 'denominator', label: selection.measure === 'value' ? 'Valor total (COP)' : 'Contratos en total', kind: 'number', suppressible: true },
+      { key: 'numerator', label: labels.numerator ?? (selection.measure === 'value' ? 'Valor en la ventana (COP)' : 'Contratos en la ventana'), kind: 'number', suppressible: true },
+      { key: 'denominator', label: labels.denominator ?? (selection.measure === 'value' ? 'Valor total (COP)' : 'Contratos en total'), kind: 'number', suppressible: true },
       ...(withValueSample ? ([{ key: 'sample_size', label: 'Contratos con valor', kind: 'number' }] as const) : []),
     ],
     sampleKey: 'sample_size',
@@ -181,7 +182,7 @@ const i2Figure = (
       const base = {
         width: small ? 360 : 640,
         height: small ? 320 : 380,
-        marginTop: 28,
+        marginTop: labels.axis && !small ? 44 : 28,
         marginLeft: small ? 44 : 56,
         marginRight: small ? 56 : 16,
       };
@@ -201,12 +202,108 @@ const i2Figure = (
         : {
             ...base,
             x: { domain, label: null },
-            y: { domain: [0, 1], label: 'Proporción en la ventana de enero', grid: true, tickFormat: '.0%' },
+            y: { domain: [0, 1], label: labels.axis ?? 'Proporción en la ventana de enero', grid: true, tickFormat: '.0%' },
             marks: [
               Plot.barY(treatment, { x: 'name', y: 'shown', fill: 'var(--chart-treatment)' }),
               Plot.barY(control, { x: 'name', y: 'shown', fill: 'var(--chart-control)' }),
               Plot.ruleY([0]),
               Plot.text(years, { x: 'name', y: 'shown', dy: -10, ...text }),
+            ],
+          };
+    },
+  };
+};
+// Pantalla 5.1: I2 por tipo de contrato. Una fila por año y tipo, cada una con su celda (y su
+// supresión). Prestación de servicios va con barra llena y el resto con borde (S6: solo elige).
+const typeNames = { service_contract: 'Prestación de servicios', non_service_contract: 'Resto de tipos' } as const;
+const byTypeFigure = (): FigureSpec => {
+  const series = (['service_contract', 'non_service_contract'] as const).flatMap((variant) =>
+    i2ByYear({ variant, measure: 'count' }).map((year) => ({
+      ...year,
+      variant,
+      type: typeNames[variant],
+      name: String(year.year),
+      ratio: year.cell.ratio,
+      shown: year.cell.ratio === null ? 0 : year.cell.ratio,
+      label: year.cell.ratio === null ? '' : formatPercent(year.cell.ratio),
+      color: year.role === 'treatment' ? 'var(--chart-treatment)' : 'var(--chart-control)',
+    })),
+  );
+  const domain = [...new Set(series.map((item) => item.name))];
+  const filled = series.filter((item) => item.variant === 'service_contract');
+  const outlined = series.filter((item) => item.variant === 'non_service_contract');
+  const yearsOf = (variant: keyof typeof typeNames) =>
+    series
+      .filter((item) => item.variant === variant)
+      .map((item) => `${item.ratio === null ? 'datos insuficientes' : formatPercent(item.ratio)} en ${item.name}`)
+      .join(', ');
+  return {
+    id: 'concentracion-enero-por-tipo',
+    title: 'Contratación directa firmada en la ventana de enero, por tipo de contrato',
+    description:
+      `Gráfico de barras: parte de la contratación directa firmada en la ventana de enero, por número de contratos y según el tipo de contrato. ` +
+      `Prestación de servicios: ${yearsOf('service_contract')}. Resto de tipos de contrato: ${yearsOf('non_service_contract')}. ` +
+      `La barra llena es la prestación de servicios y la barra con borde, el resto de tipos; las naranjas son años con elecciones y las grises, años de comparación.`,
+    columns: [
+      { key: 'year', label: 'Año', kind: 'text' },
+      { key: 'role', label: 'Papel', kind: 'text' },
+      { key: 'type', label: 'Tipo de contrato', kind: 'text' },
+      { key: 'ratio', label: 'Proporción', kind: 'percent', suppressible: true },
+      { key: 'numerator', label: 'Contratos en la ventana', kind: 'number', suppressible: true },
+      { key: 'denominator', label: 'Contratos en total', kind: 'number', suppressible: true },
+    ],
+    responsive: true,
+    rows: domain.flatMap((name) =>
+      series
+        .filter((item) => item.name === name)
+        .map((item) => ({
+          is_suppressed: item.cell.is_suppressed,
+          values: {
+            year: item.name,
+            role: roleName(item.role),
+            type: item.type,
+            ratio: item.ratio,
+            numerator: item.cell.numerator,
+            denominator: item.cell.denominator,
+          },
+        })),
+    ),
+    plot: (size) => {
+      const small = size === 'small';
+      const text = { text: 'label', fontWeight: 700, fontSize: small ? 11 : 12, ...halo } as const;
+      const fillOf = { fill: 'color' } as const;
+      const outlineOf = { fill: 'var(--surface-raised)', stroke: 'color', strokeWidth: 2 } as const;
+      return small
+        ? {
+            width: 360,
+            height: 440,
+            marginTop: 28,
+            marginLeft: 44,
+            marginRight: 56,
+            x: { domain: [0, 1], label: null, grid: true, tickFormat: '.0%' },
+            y: { axis: null, domain: ['service_contract', 'non_service_contract'] },
+            fy: { domain, label: null },
+            marks: [
+              Plot.barX(filled, { fy: 'name', y: 'variant', x: 'shown', ...fillOf }),
+              Plot.barX(outlined, { fy: 'name', y: 'variant', x: 'shown', ...outlineOf }),
+              Plot.ruleX([0]),
+              Plot.text(series, { fy: 'name', y: 'variant', x: 'shown', textAnchor: 'start', dx: 6, ...text }),
+            ],
+          }
+        : {
+            width: 640,
+            height: 380,
+            marginTop: 28,
+            marginLeft: 56,
+            marginRight: 16,
+            x: { axis: null, domain: ['service_contract', 'non_service_contract'] },
+            fx: { domain, label: null },
+            y: { domain: [0, 1], label: 'Proporción en la ventana de enero', grid: true, tickFormat: '.0%' },
+            marks: [
+              Plot.barY(filled, { fx: 'name', x: 'variant', y: 'shown', ...fillOf }),
+              Plot.barY(outlined, { fx: 'name', x: 'variant', y: 'shown', ...outlineOf }),
+              Plot.ruleY([0]),
+              Plot.text(series, { fx: 'name', x: 'variant', y: 'shown', dy: -10, ...text }),
             ],
           };
     },
@@ -222,6 +319,15 @@ export const FIGURES: readonly FigureSpec[] = [
   i2Figure('concentracion-enero-por-numero', { variant: null, measure: 'count' }, i2Titles.count, 'Gráfico de barras: parte de la contratación directa firmada en la ventana de enero, por número de contratos.'),
   i2Figure('concentracion-enero-por-valor', { variant: null, measure: 'value' }, i2Titles.value, 'Gráfico de barras: parte del valor de la contratación directa firmada en la ventana de enero, sin operaciones de crédito público.', true),
   i2Figure('concentracion-enero-sin-interadministrativos', { variant: 'excluding_interadministrative', measure: 'count' }, i2Titles.excluding, 'Gráfico de barras: parte de la contratación directa firmada en la ventana de enero, por número de contratos y sin convenios interadministrativos.'),
+  byTypeFigure(),
+  i2Figure(
+    'contratos-enero-despues-de-la-restriccion',
+    { variant: 'spans_restriction', measure: 'count' },
+    'Contratos de enero que terminan después de la restricción de referencia',
+    'Gráfico de barras: parte de los contratos directos firmados en la ventana de enero cuyo plazo termina después del fin de la restricción de referencia, por número de contratos. Resultado no concluyente.',
+    false,
+    { numerator: 'Terminan después de la restricción', denominator: 'Contratos firmados en la ventana', axis: 'Terminan después de la restricción' },
+  ),
   {
     id: 'contratacion-directa-por-mes',
     title: monthlyTitle,
