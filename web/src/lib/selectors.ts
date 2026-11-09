@@ -132,3 +132,41 @@ export function explorerCells(
     )
     .toSorted((a, b) => a.period.localeCompare(b.period));
 }
+
+/** Variantes de I8 (planeación frente a lo firmado, pantalla 8). */
+export type I8Variant =
+  | 'planned_january'
+  | 'planned_february_june'
+  | 'signed_january'
+  | 'signed_february_june';
+
+export interface I8YearCell {
+  year: number;
+  cell: IndicatorCell;
+}
+
+/** I8 del Distrito por año, con la celda tal cual (suprimida incluida). */
+export function i8ByYear(
+  { variant, measure }: { variant: I8Variant; measure: 'count' | 'value' },
+  cells: readonly IndicatorCell[] = getIndicators()?.cells ?? [],
+): I8YearCell[] {
+  return cells
+    .filter(
+      (cell) =>
+        cell.indicator === 'I8' &&
+        cell.level === 'district' &&
+        cell.variant === variant &&
+        cell.measure === measure,
+    )
+    .map((cell) => ({ year: Number(cell.period), cell }))
+    .sort((a, b) => a.year - b.year);
+}
+
+/** Convenios interadministrativos de contratación directa por mes (todos los años), en orden. */
+export function interadministrativeMonthly(
+  rows: readonly MonthlySeriesRow[] = getMonthlySeries()?.rows ?? [],
+): MonthlySeriesRow[] {
+  return rows
+    .filter((row) => row.procurement_method === 'direct_award' && row.contract_type === 'interadministrative')
+    .toSorted((a, b) => a.period.localeCompare(b.period));
+}

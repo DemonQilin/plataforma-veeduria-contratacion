@@ -9,19 +9,19 @@ import Screen from '../components/Screen.astro';
 import { getMetadata, getQuality } from '../lib/data';
 import { buildExplorer } from '../lib/explorer';
 import { formatDate, formatMonth, formatNumber, formatPercent } from '../lib/format';
-import { SCREENS } from '../lib/screens';
 import type { I2YearCell } from '../lib/selectors';
 import {
   comparisonWindows,
   directAwardJanuary,
   i2Extremes,
   i2ByYear,
+  i8ByYear,
+  interadministrativeMonthly,
   reconciliationMonths,
   restrictions,
 } from '../lib/selectors';
 
 const metadata = getMetadata();
-const pending = SCREENS.filter((screen) => screen.id === 'hacia-2027');
 // Pantalla 6: el explorador recibe las cifras ya elegidas, ordenadas y con formato (S6).
 const explorer = buildExplorer();
 const explorerLastYear = explorer.indicators[0]?.periods.at(-1)?.period;
@@ -32,7 +32,7 @@ const CONTACT = 'juanvelez1113670@correo.itm.edu.co';
 // son una escala visual, no una cifra publicada.
 const roleLabel = (role: I2YearCell['role']) => (role === 'treatment' ? 'Elecciones' : 'Comparación');
 const tone = (role: I2YearCell['role']): 'treatment' | 'control' => (role === 'treatment' ? 'treatment' : 'control');
-const percent = (year: I2YearCell | undefined) =>
+const percent = (year: Pick<I2YearCell, 'cell'> | undefined) =>
   year?.cell.ratio == null ? 'datos insuficientes' : formatPercent(year.cell.ratio);
 const SCALE = 72;
 const ratioRows = (years: I2YearCell[], withN = false): BarRow[] =>
@@ -119,6 +119,27 @@ const monthRows: BarRow[] = belowMonths.map((month) => ({
 const truncated = quality?.truncated_rows.rows;
 const unassigned = quality?.unassigned_share.district;
 const exclusions = quality?.single_bidder_exclusions;
+// Pantalla 8: restricción próxima, convenios de 2023 e I8; solo elige celdas y fechas (S6).
+const nextRestriction = restrictions('interadministrative').find((item) => item.status === 'upcoming');
+const localMonths = interadministrativeMonthly().filter((row) => row.period.startsWith('2023-'));
+const localMax = Math.max(1, ...localMonths.map((row) => row.contract_count));
+const localRows: BarRow[] = localMonths.map((row) => ({
+  label: formatMonth(row.period),
+  display: formatNumber(row.contract_count),
+  width: (row.contract_count / localMax) * SCALE,
+  tone: 'control',
+}));
+const localPeak = localMonths.toSorted((a, b) => b.contract_count - a.contract_count)[0];
+const planned = i8ByYear({ variant: 'planned_february_june', measure: 'count' });
+const plannedRows: BarRow[] = planned.map((year) => ({
+  label: String(year.year),
+  display: percent(year),
+  note: `${formatNumber(year.cell.numerator ?? 0)} de ${formatNumber(year.cell.denominator ?? 0)} contratos planeados`,
+  width: (year.cell.ratio ?? 0) * SCALE,
+  tone: 'control',
+}));
+const planned2022 = planned.find((year) => year.year === 2022);
+const planned2023 = planned.find((year) => year.year === 2023);
 const switchOptions = [
   { id: 'numero', label: 'Por número de contratos', figure: 'concentracion-enero-por-numero', note: 'Cifra titular: definición base, por número de contratos.' },
   { id: 'valor', label: 'Por valor', figure: 'concentracion-enero-por-valor', note: 'Por valor se usa el valor inicial, sin operaciones de crédito público. La señal es menos clara que por número; por eso la cifra titular es la del número de contratos.' },
@@ -446,15 +467,73 @@ const switchOptions = [
       }
     </ul>
   </Screen>
-  {
-    pending
-      .filter((screen) => screen.id === 'hacia-2027')
-      .map((screen) => (
-        <Screen id={screen.id}>
-          <p>Esta pantalla está en preparación.</p>
-        </Screen>
-      ))
-  }
+  <Screen id="hacia-2027">
+    <span slot="title">¿Para qué sirve esto ahora?</span>
+    <p class="caption">8 · Hacia 2027</p>
+    <p>
+      Las elecciones locales de 2027 traen una nueva restricción. Estas cifras son la línea base: cómo se veía la contratación en los ciclos anteriores, para tener con qué comparar cuando llegue el momento.
+    </p>
+    <div class="pattern-grid">
+      <article class="pattern-card">
+        <p class="caption number">8.1</p>
+        <h3>La próxima restricción</h3>
+        {
+          nextRestriction && (
+            <p>
+              Empieza el <strong>{formatDate(nextRestriction.start)}</strong> y termina el <strong>{formatDate(nextRestriction.end)}</strong>. Afecta a los convenios interadministrativos.
+            </p>
+          )
+        }
+        <p>Corresponde a las elecciones locales del 31 de octubre de 2027: la restricción empieza cuatro meses antes de la jornada.</p>
+        {nextRestriction && <div class="definition"><strong>Fuente.</strong> {nextRestriction.sources[0]}.</div>}
+      </article>
+      <div>
+        <h3>Convenios interadministrativos por mes, 2023</h3>
+        <p class="legend">Así se movió el ciclo local anterior.</p>
+        <BarTable
+          caption={`Convenios interadministrativos firmados por mes en 2023: ${descriptionOf(localRows)}.`}
+          rows={localRows}
+          valueLabel="Contratos"
+        />
+        {localPeak && <p class="caption">El mes con más convenios fue {formatMonth(localPeak.period)}, con {formatNumber(localPeak.contract_count)}.</p>}
+      </div>
+    </div>
+    <div class="pattern-grid">
+      <article class="pattern-card">
+        <p class="caption number">8.2</p>
+        <h3>Lo que la Alcaldía planea cada año</h3>
+        {/* I8 */}
+        {
+          planned2022 && planned2023 && (
+            <p class="big-number">
+              <span class="big">{percent(planned2022)}</span>
+              <span class="caption">
+                de la contratación directa planeada para 2022 empezaba entre febrero y junio. En 2023 fue {percent(planned2023)}.
+              </span>
+            </p>
+          )
+        }
+        <p>El plan anual de compras dice en qué mes se espera empezar cada contratación. Los años de elección presidencial (2014, 2018 y 2022) planean menos para febrero a junio, los meses de la restricción. Los de elecciones locales (2015, 2019 y 2023) sirven de referencia para 2027.</p>
+        <div class="definition">
+          <strong>Para leer con cuidado.</strong> Un plan no es un contrato: el mes es una estimación y solo hay datos hasta 2023.
+        </div>
+      </article>
+      <BarTable
+        caption={`Contratación directa planeada con inicio entre febrero y junio, por número de contratos: ${descriptionOf(plannedRows)}.`}
+        rows={plannedRows}
+        valueLabel="Proporción"
+      />
+    </div>
+    <h3>Qué mirar en 2027</h3>
+    <ul class="quality-list">
+      <li>Si los convenios interadministrativos se concentran antes del 30 de junio{localPeak && <>, como pasó en {formatMonth(localPeak.period)}, el mes con más convenios de 2023</>}.</li>
+      <li>Si el plan anual de 2027 programa menos contratación para los meses de la restricción.</li>
+      <li>Compara siempre con las cifras de esta pantalla y con los años sin elecciones: una sola cifra no dice nada por sí sola.</li>
+    </ul>
+    <p>
+      Los datos de SECOP II son nacionales, así que el mismo método sirve para cualquier entidad del país cambiando un filtro.
+    </p>
+  </Screen>
   <Screen id="fuentes">
     <span slot="title">De dónde salen los datos</span>
     <p class="caption">9 · Fuentes</p>
