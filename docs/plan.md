@@ -183,82 +183,17 @@ Las plantillas de la ficha y del pitch están en un documento privado de Claude 
 |---|---|---|---|
 | Repositorio público | Código del pipeline y del tablero, copia de datos y salidas sin información personal, `instrucciones.txt` en la carpeta principal, `guia_entrega.pdf`, licencias, `CORRECCIONES.md`, README y `docs/` | Juan | 9 nov |
 | Artefacto funcionando | Tablero publicado en GitHub Pages y pipeline reproducible desde el repositorio | Juan | 9 nov |
-| `instrucciones.txt` | Plantilla oficial diligenciada (9.2) | Juan; prueba del compañero | 8–9 nov |
+| `instrucciones.txt` | Plantilla oficial diligenciada (9.2); falta la prueba final en el computador del compañero | Juan; prueba del compañero | 9 nov |
 | `guia_entrega.pdf` | Guía de entrega de los organizadores diligenciada, con la ficha de hallazgos: pregunta, hallazgo principal con cifra, datos usados y al menos una propuesta de mejora | Compañero | Borrador 4 nov; final 8 nov |
 | Datos o script | Script que descarga desde las fuentes (`--refresh`), más la copia de datos sin información personal | Juan | 9 nov |
 | Carnés estudiantiles | Copia del carné vigente de ambos integrantes | Ambos | 30 oct |
 | Resumen del pitch (solo finalistas) | Una página con el problema, los datos, el hallazgo y el aporte | Compañero, revisa Juan | 11 nov |
 
-### 9.2 Borrador de `instrucciones.txt`
+### 9.2 `instrucciones.txt`
 
-Sigue la plantilla oficial de las bases. La integración continua ejecuta los comandos de la opción A, así que cualquier cambio aquí debe reflejarse en los flujos de GitHub Actions.
+La versión final está en [`instrucciones.txt`](../instrucciones.txt), en la raíz del repositorio. Sigue la plantilla de siete secciones del Anexo 1 («Guía de entrega del proyecto», versión final v2), que reemplazó el borrador de ocho secciones de las bases iniciales. Incluye la dirección local de la vista previa (`http://localhost:4321/plataforma-veeduria-contratacion/`), porque el sitio se sirve bajo la ruta base de Pages. La integración continua ejecuta los comandos de la opción A, así que cualquier cambio en ellos debe reflejarse en los flujos de GitHub Actions y en `scripts/`.
 
-```
-INSTRUCCIONES - Veeduría de contratación de la Alcaldía de Medellín
-Equipo: [nombre] · Hackathon de Datos 2026
-
-1. QUÉ ES
-Tablero ciudadano que muestra cómo la Alcaldía de Medellín concentra su
-contratación directa alrededor de la Ley de Garantías, con indicadores
-estándar de riesgo en compras públicas, a partir de SECOP II y MEData.
-
-2. PROBARLO EN LÍNEA
-[enlace de GitHub Pages]
-
-3. ENTORNO
-- Python [versión] (fijada en pipeline/.python-version), instalado por uv [versión]
-- Node.js [versión] (fijada en web/.node-version) y pnpm [versión],
-  solo para reconstruir el tablero
-- Dependencias con versión:
-  pipeline/pyproject.toml y pipeline/uv.lock
-  (alternativa para pip: pipeline/requirements.txt)
-  web/package.json y web/pnpm-lock.yaml
-
-4. EJECUTARLO
-Opción A (recomendada): requiere uv y Node.js
-  cd pipeline
-  uv sync
-  uv run veeduria run --from-snapshot
-  cd ../web
-  npx --yes pnpm@[versión] install --frozen-lockfile
-  npx --yes pnpm@[versión] build
-  npx --yes pnpm@[versión] preview
-
-Opción B (un solo instalador, versiones exactas): requiere mise
-  mise trust
-  mise install
-  mise run pipeline
-  mise run build
-  mise run preview
-
-Opcional, actualizar los datos desde las fuentes oficiales:
-  cd pipeline
-  uv run veeduria run --refresh
-
-5. QUÉ DEBE VER
-En la portada del tablero, la frase del hallazgo con su cifra:
-"[frase final del hallazgo]".
-En la pantalla 4, las barras de concentración por año, con 2022 y 2026
-por encima de los años sin restricción.
-
-6. DATOS Y FUENTES
-- SECOP II Contratos Electrónicos · jbjy-vk9h · [enlace] · CC BY-SA 4.0
-- SECOP II Procesos de Contratación · p6dx-8zbt · [enlace] · CC BY-SA 4.0
-- SECOP II Adiciones · cb9c-h8sn · [enlace] · CC BY-SA 4.0
-- MEData Ejecución contractual histórico · 1-028-12-000088 · [enlace] · CC BY 4.0
-- MEData Plan anual de adquisiciones histórico · 1-028-11-000089 · [enlace] · CC BY 4.0
-- Calendario de la Ley de Garantías: tabla propia con fuentes citadas
-- Copia de los datos usados: data/snapshot/ (sin datos personales)
-  Los archivos son CSV en UTF-8. Para abrirlos en Excel en Windows, use
-  Datos > Desde texto/CSV; si se abren con doble clic, las tildes pueden
-  verse mal.
-
-7. USO DE IA
-[texto de docs/producto.md, sección 4.6]
-
-8. CONTACTO
-[nombre y correo del líder]
-```
+El plazo oficial es el 10 de noviembre de 2026 a las 11:59 p. m., con entrega por el formulario de la organización: https://forms.cloud.microsoft/r/PGcgFcg8Kk. Según el correo de la organización, la entrega incluye el enlace del repositorio público, `guia_entrega.pdf`, el artefacto e `instrucciones.txt`.
 
 ### 9.3 Estructura del pitch (5 minutos)
 
