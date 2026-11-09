@@ -93,7 +93,7 @@ const referenceEnds = windows.filter((window) => window.role === 'treatment');
 const switchOptions = [
   { id: 'numero', label: 'Por número de contratos', figure: 'concentracion-enero-por-numero', note: 'Cifra titular: definición base, por número de contratos.' },
   { id: 'valor', label: 'Por valor', figure: 'concentracion-enero-por-valor', note: 'Por valor se usa el valor inicial, sin operaciones de crédito público. La señal es menos clara que por número; por eso la cifra titular es la del número de contratos.' },
-  { id: 'sin-interadministrativos', label: 'Sin interadministrativos', figure: 'concentracion-enero-sin-interadministrativos', note: 'Sin convenios interadministrativos en el numerador ni en el denominador, porque su peso cambia entre años: en 2023 no hubo de julio a octubre por la restricción local.' },
+  { id: 'sin-interadministrativos', label: 'Sin interadministrativos', figure: 'concentracion-enero-sin-interadministrativos', note: 'Sin convenios interadministrativos, ni en los contratos de la ventana ni en el total, porque su peso cambia entre años: en 2023 no hubo de julio a octubre por la restricción local.' },
 ] as const;
 ---
 
@@ -161,7 +161,7 @@ const switchOptions = [
     <div class="rule-intro">
       <p>La Ley de Garantías (Ley 996 de 2005) busca que la contratación pública no se use con fines electorales. Por eso, desde cuatro meses antes de la elección presidencial y hasta la segunda vuelta, las entidades del Estado no pueden firmar contratos por contratación directa, salvo excepciones como la defensa, la seguridad y las emergencias.</p>
       <div class="definition">
-        <strong>Qué restringe.</strong> En el calendario que usa el pipeline, la restricción de contratación directa
+        <strong>Qué restringe.</strong> En el calendario electoral que usa este tablero, la restricción de contratación directa
         corresponde a las elecciones presidenciales (2022 y 2026); la de convenios interadministrativos, a las
         elecciones locales (2023 y 2027) y a las de Congreso (2026).
         {ruleSource && <> Fuente: {ruleSource}.</>}
@@ -195,7 +195,7 @@ const switchOptions = [
         <div class="definition">
           <strong>Qué cuenta.</strong> Contratos de contratación directa del Distrito por mes de firma. El conteo
           siempre se publica; el valor del mes se oculta cuando no alcanza 5 contratos con valor o se podría
-          despejar por resta (R13).
+          despejar por resta.{/* R13: supresión de celdas pequeñas. */}
         </div>
       </article>
       <div>
@@ -229,7 +229,7 @@ const switchOptions = [
         }
         <p>Cada barra es un año: la parte de su contratación directa que se firmó en la ventana de enero. Como la renovación de enero ocurre todos los años, lo que vale la pena mirar es la diferencia entre los años con elecciones y los de comparación. Por valor la diferencia es menor; sin convenios interadministrativos se mantiene.</p>
         <div class="definition">
-          <strong>Qué mide (I2).</strong> De los contratos directos firmados entre el 1 de enero y el
+          <strong>Qué mide.</strong>{/* I2 */} De los contratos directos firmados entre el 1 de enero y el
           {windows[0] ? ` ${formatDate(windows[0].denominator_end)}` : ' fin del periodo'}, la parte firmada en la
           ventana de enero, antes de que empezara la restricción.
           {firstControlWindow && <> En {firstControlWindow.year}, año de comparación, la ventana va del {formatDate(firstControlWindow.window_start)} al {formatDate(firstControlWindow.window_end)}.</>}
@@ -281,7 +281,7 @@ const switchOptions = [
         }
         <p>Si el pico fuera solo la renovación, la prestación de servicios tendría una proporción parecida todos los años, y no es así: en los años con elecciones es mucho mayor. En el resto de tipos de contrato la proporción es más baja; 2022 no se distingue de los años de comparación y 2026 sí sube.</p>
         <div class="definition">
-          <strong>Qué compara.</strong> La misma proporción de I2, separada por tipo de contrato: prestación de
+          <strong>Qué compara.</strong> La misma proporción de la pantalla anterior, separada por tipo de contrato: prestación de
           servicios frente al resto de tipos.
         </div>
       </article>
