@@ -11,8 +11,11 @@ import {
   comparisonWindows,
   directAwardJanuary,
   directAwardMonthly,
+  explorerCells,
   i2ByYear,
   i2Extremes,
+  i8ByYear,
+  interadministrativeMonthly,
   reconciliationMonths,
   restrictions,
 } from './selectors';
@@ -206,5 +209,67 @@ describe('reconciliationMonths', () => {
     ]);
     expect(result.map((m) => m.period)).toEqual(['2022-01', '2022-03']);
     expect(result[1]).toMatchObject({ below_threshold: true, shared_share: 0.67 });
+  });
+});
+
+describe('explorerCells', () => {
+  const cells = [
+    cell({ indicator: 'I1', period: '2023' }),
+    cell({ indicator: 'I1', period: '2022' }),
+    cell({ indicator: 'I1', period: '2022', variant: 'non_competitive' as never }),
+    cell({ indicator: 'I1', period: '2022', measure: 'value' }),
+    cell({ indicator: 'I4', period: '2022', measure: 'value' }),
+    cell({ indicator: 'I4', period: '2022', measure: 'count' }),
+    cell({ indicator: 'I2', period: '2022' }),
+  ];
+
+  it('elige la variante base y la medida de cada indicador, por año', () => {
+    expect(explorerCells('I1', cells).map((c) => [c.indicator, c.period, c.measure])).toEqual([
+      ['I1', '2022', 'count'],
+      ['I1', '2023', 'count'],
+    ]);
+    expect(explorerCells('I4', cells).map((c) => c.measure)).toEqual(['value']);
+  });
+});
+
+describe('interadministrativeMonthly', () => {
+  const row = (over: Partial<MonthlySeriesRow>): MonthlySeriesRow => ({
+    contract_count: 1,
+    contract_type: 'interadministrative',
+    is_suppressed: false,
+    period: '2023-07',
+    procurement_method: 'direct_award',
+    value: 1,
+    value_sample_size: 1,
+    ...over,
+  });
+
+  it('elige los convenios interadministrativos de contratación directa, por mes', () => {
+    const rows = [
+      row({ period: '2023-08' }),
+      row({ period: '2023-07' }),
+      row({ contract_type: null }),
+      row({ procurement_method: 'public_tender' }),
+      row({ contract_type: 'service_contract' }),
+    ];
+    expect(interadministrativeMonthly(rows).map((r) => r.period)).toEqual(['2023-07', '2023-08']);
+  });
+});
+
+describe('i8ByYear', () => {
+  const cells = [
+    cell({ indicator: 'I8', period: '2023', variant: 'planned_february_june' as never, ratio: 0.44 }),
+    cell({ indicator: 'I8', period: '2022', variant: 'planned_february_june' as never, ratio: 0.08 }),
+    cell({ indicator: 'I8', period: '2022', variant: 'planned_january' as never, ratio: 0.52 }),
+    cell({ indicator: 'I8', period: '2022', variant: 'planned_february_june' as never, measure: 'value', ratio: 0.17 }),
+    cell({ indicator: 'I2', period: '2022', variant: 'planned_february_june' as never, ratio: 0.9 }),
+  ];
+
+  it('elige I8 del Distrito con esa variante y medida, por año', () => {
+    const result = i8ByYear({ variant: 'planned_february_june', measure: 'count' }, cells);
+    expect(result.map((r) => [r.year, r.cell.ratio])).toEqual([
+      [2022, 0.08],
+      [2023, 0.44],
+    ]);
   });
 });

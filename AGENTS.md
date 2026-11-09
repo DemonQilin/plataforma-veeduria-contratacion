@@ -164,6 +164,7 @@ Usa siempre estos nombres en el código. Si necesitas un término nuevo, agréga
 | conteo / total / proporción (calidad de datos) | `count` / `total` / `share` |
 | sin secretaría (proporción) | `unassigned_share` |
 | filas truncadas (MEData) | `truncated_rows` |
+| explorador de indicadores (pantalla 6) | `explorer` |
 
 ## Reglas no negociables
 
