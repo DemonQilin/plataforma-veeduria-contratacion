@@ -20,6 +20,12 @@ Requisitos:
   (alternativa para pip: pipeline/requirements.txt)
   web/package.json y web/pnpm-lock.yaml
 
+Primero, para las dos opciones, clonar el repositorio y entrar a su carpeta
+(requiere git):
+  git clone https://github.com/DemonQilin/plataforma-veeduria-contratacion.git
+  cd plataforma-veeduria-contratacion
+Los comandos de las opciones A y B se ejecutan desde esta carpeta.
+
 Opción A (recomendada): requiere uv y Node.js
   cd pipeline
   uv sync
